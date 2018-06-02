@@ -83,6 +83,14 @@ Comm"</string>
     <string name="play_type_dt_tie">Tie</string>
     <string name="play_type_banker">Banker</string>
 
+    <string name="player_dragon_bonus_colon">P Dragon Bonus:</string>
+    <string name="player_pair_colon">Player Pair:</string>
+    <string name="banker_pair_colon">Banker Pair:</string>
+    <string name="banker_dragon_bonus_colon">B Dragon Bonus:</string>
+    <string name="player_colon">Player:</string>
+    <string name="dt_tie_colon">Tie:</string>
+    <string name="banker_colon">Banker:</string>
+
     <string name="in_game_total">Total</string>
     <string name="in_game_banker">B</string>
     <string name="in_game_player">P</string>

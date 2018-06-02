@@ -72,8 +72,16 @@
     <string name="play_type_banker_pair">莊對</string>
     <string name="play_type_banker_dragon_bonus">莊龍寶</string>
     <string name="play_type_player">閒</string>
-    <string name="playtype_dt_tie">和</string>
+    <string name="play_type_dt_tie">和</string>
     <string name="play_type_banker">莊</string>
+
+    <string name="player_dragon_bonus_colon">閒龍寶:</string>
+    <string name="player_pair_colon">閒對:</string>
+    <string name="banker_pair_colon">莊對:</string>
+    <string name="banker_dragon_bonus_colon">莊龍寶:</string>
+    <string name="player_colon">閒:</string>
+    <string name="dt_tie_colon">和:</string>
+    <string name="banker_colon">莊:</string>
 
     <string name="in_game_total">總數</string>
     <string name="in_game_banker">莊</string>

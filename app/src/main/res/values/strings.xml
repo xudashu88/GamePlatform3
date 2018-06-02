@@ -76,6 +76,14 @@
     <string name="play_type_dt_tie">和</string>
     <string name="play_type_banker">庄</string>
 
+    <string name="player_dragon_bonus_colon">闲龙宝:</string>
+    <string name="player_pair_colon">闲对:</string>
+    <string name="banker_pair_colon">庄对:</string>
+    <string name="banker_dragon_bonus_colon">庄龙宝:</string>
+    <string name="player_colon">闲:</string>
+    <string name="dt_tie_colon">和:</string>
+    <string name="banker_colon">庄:</string>
+
     <string name="in_game_total">和</string>
     <string name="in_game_banker">庄</string>
     <string name="in_game_player">闲</string>

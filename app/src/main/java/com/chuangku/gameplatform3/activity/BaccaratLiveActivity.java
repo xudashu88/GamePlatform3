@@ -51,13 +51,13 @@ public class BaccaratLiveActivity extends BaseActivity {
     private Context mContext;
     private TXLivePlayer mLivePlayer0 = null;
     private int mPlayRtmp = TXLivePlayer.PLAY_TYPE_LIVE_RTMP;//RTMP推流类型
-    private LayoutInflater layoutInflater;
+
 
     @Override
     protected void initView() {
         mContext = BaccaratLiveActivity.this;
         Util.getInstance().init(this);
-        layoutInflater = getWindow().getLayoutInflater();
+
         if (mLivePlayer0 == null) {
             mLivePlayer0 = new TXLivePlayer(mContext);
         }
@@ -70,63 +70,20 @@ public class BaccaratLiveActivity extends BaseActivity {
 //        startPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks",tvv_1,mLivePlayer0,mPlayRtmp);
         initEvent();
         BaccaratLiveControler.getInstance().init(this);
-        BaccaratLiveControler.getInstance().copyWidget(rv_chip);
+        BaccaratLiveControler.getInstance().copyWidget(tv_table_limits,tv_switch_on,tv_switch_off, rl_dragon_bonus, rv_chip);
     }
 
     private void initEvent() {
-        rl_dragon_bonus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initDragonHelpDialog();
-            }
-        });
-        int toggle_on = SharedPreUtil.getInstance(this).getInt(Constant.COMMISSION_ON);
-        int toggle_off = SharedPreUtil.getInstance(this).getInt(Constant.COMMISSION_OFF);
-        if (0 == toggle_on || toggle_on == 1) {
-            tv_switch_on.setVisibility(View.VISIBLE);
-            tv_switch_off.setVisibility(View.GONE);
-        } else {
-            tv_switch_off.setVisibility(View.VISIBLE);
-            tv_switch_on.setVisibility(View.GONE);
-        }
-        if (toggle_off == 1) {
-            tv_switch_on.setVisibility(View.GONE);
-            tv_switch_off.setVisibility(View.VISIBLE);
-        } else {
-            tv_switch_off.setVisibility(View.GONE);
-            tv_switch_on.setVisibility(View.VISIBLE);
-        }
-        tv_switch_on.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tv_switch_on.setVisibility(View.GONE);
-                tv_switch_off.setVisibility(View.VISIBLE);
-                SharedPreUtil.getInstance(BaccaratLiveActivity.this).saveParam(Constant.COMMISSION_ON, 1);
-            }
-        });
-        tv_switch_off.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tv_switch_on.setVisibility(View.VISIBLE);
-                tv_switch_off.setVisibility(View.GONE);
-                SharedPreUtil.getInstance(BaccaratLiveActivity.this).saveParam(Constant.COMMISSION_OFF, 1);
-            }
-        });
-        pcac.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pcac.setTargetPercent(0);
-                pcac.reInitView();
-            }
-        });
+
+//        pcac.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                pcac.setTargetPercent(0);
+//                pcac.reInitView();
+//            }
+//        });
     }
 
-
-
-    private void initDragonHelpDialog() {
-        View layout12 = layoutInflater.inflate(R.layout.dialog_bonus, null);
-         Util.getInstance().setDialog(mContext, R.style.dialog, layout12, 0.65f, 0f, 0.6f, 0, 0, Gravity.CENTER, Gravity.CENTER_HORIZONTAL);
-    }
 
     private void startPlay(String playUrl, TXCloudVideoView mPlayerView, TXLivePlayer mLivePlayer, int playType) {
         mLivePlayer.setPlayerView(mPlayerView);
