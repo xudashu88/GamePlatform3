@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="#000">
+<!--     android:paddingLeft="@dimen/unit30"
+        android:paddingRight="@dimen/unit30"-->
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+   >
+
+        <include layout="@layout/include_baccarat_title" />
+    </LinearLayout>
+
+    <!--  android:paddingLeft="@dimen/unit30"
+        android:paddingRight="@dimen/unit30"-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_title"
+      >
+
+        <include layout="@layout/include_comm_recycle_view" />
+    </RelativeLayout>
+</RelativeLayout>

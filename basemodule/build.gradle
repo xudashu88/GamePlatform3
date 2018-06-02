@@ -1,0 +1,48 @@
+apply plugin: 'com.android.library'
+//apply plugin: 'bugly'
+//bugly {
+//    appId = ''
+//    appKey = ''
+//}
+android {
+    compileSdkVersion 25
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.github.bumptech.glide:glide:4.0.0'
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'//okhttp3网络日志
+    implementation files('libs/jcore-android-1.1.9.jar')
+    implementation files('libs/jpush-android-3.1.1.jar')
+
+    implementation rootProject.ext.supportV4
+    implementation rootProject.ext.appCompat
+    implementation rootProject.ext.cardView
+    implementation rootProject.ext.designCompat
+    implementation 'com.squareup.okhttp:okhttp:+'
+    implementation 'com.jcodecraeer:xrecyclerview:1.5.9'//刷新功能
+
+
+}

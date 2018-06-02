@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:background="@drawable/topbar"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/unit20"
+        android:paddingRight="@dimen/unit20"
+        android:weightSum="18">
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <ImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/unit3"
+                android:layout_marginTop="@dimen/unit3"
+                android:layout_weight="2"
+                android:background="@drawable/avatar_03" />
+
+            <ImageView
+                android:layout_width="@dimen/unit20"
+                android:layout_height="@dimen/unit20"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/profilepic_cam" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_user_info"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/unit5"
+            android:layout_weight="3.5"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/unit3"
+            android:paddingTop="@dimen/unit3">
+
+            <TextView
+                android:id="@+id/tv_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/profile_bar"
+                android:drawableLeft="@drawable/ac_icon"
+                android:drawablePadding="@dimen/unit5"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/unit5"
+                android:text="光风霁月"
+                android:textColor="#62503e" />
+
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/balance_bar"
+                android:drawableLeft="@drawable/balance_icon"
+                android:drawablePadding="@dimen/unit5"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/unit5"
+                android:text="20000000.00"
+                android:textColor="@color/mainGolden" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <ImageView
+                android:id="@+id/iv_msg"
+                android:layout_width="@dimen/unit25"
+                android:layout_height="@dimen/unit25"
+                android:layout_centerInParent="true"
+                android:background="@drawable/nomsg" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="9" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="@dimen/unit25"
+                android:layout_height="@dimen/unit25"
+                android:layout_centerInParent="true"
+                android:background="@drawable/icon_cancel" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8.5"
+        android:background="#1b1b1b">
+
+        <LinearLayout
+            android:layout_width="@dimen/unit350"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="@dimen/unit5"
+            android:layout_marginTop="@dimen/unit3"
+            android:background="@drawable/shape_border_golden_bg_trans"
+            android:orientation="horizontal"
+            android:padding="@dimen/unit3"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#3d3d3d"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/unit15"
+                android:weightSum="7">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/level"
+                    android:textColor="@color/mainGolden"
+                    android:textSize="@dimen/font18"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/total_stake"
+                    android:textColor="@color/mainGolden"
+                    android:textSize="@dimen/font18"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/currency"
+                    android:textColor="@color/mainGolden"
+                    android:textSize="@dimen/font18"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/today_stake"
+                    android:textColor="@color/mainGolden"
+                    android:textSize="@dimen/font18"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/credits"
+                    android:textColor="@color/mainGolden"
+                    android:textSize="@dimen/font18"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/online_duration"
+                    android:textColor="@color/mainGolden"
+                    android:textSize="@dimen/font18"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/stake_limit"
+                    android:textColor="@color/mainGolden"
+                    android:textSize="@dimen/font18"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#646464"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/unit15"
+                android:weightSum="7">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="39"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font18"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="39"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font18"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="39"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font18"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="39"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font18"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="39"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font18"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="39"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font18"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="39"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font18"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

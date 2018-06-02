@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#252525"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/unit45"
+        android:padding="@dimen/unit10">
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="1.00(v2)"
+            android:textColor="#DDD07E"
+            android:textSize="@dimen/font16" />
+
+        <ImageButton
+            android:id="@+id/imgBtn_language"
+            android:layout_width="@dimen/unit25"
+            android:layout_height="@dimen/unit35"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/simplified_chinese"
+            android:gravity="right" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_logo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/unit45"
+        android:layout_below="@id/rl_top"
+        android:gravity="center"
+        android:text="@string/start_name"
+        android:textColor="#333fff"
+        android:textSize="@dimen/font30"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/iv_split"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/tv_logo"
+        android:layout_marginLeft="@dimen/unit30"
+        android:layout_marginRight="@dimen/unit30"
+        android:layout_marginTop="@dimen/unit10"
+        android:background="@drawable/top_split" />
+
+    <LinearLayout
+        android:id="@+id/ll_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/unit40"
+        android:layout_below="@id/iv_split"
+        android:layout_marginLeft="@dimen/unit30"
+        android:layout_marginRight="@dimen/unit30"
+        android:layout_marginTop="@dimen/unit10"
+        android:background="@drawable/dragonbonus_popup"
+        android:orientation="horizontal"
+        android:weightSum="8">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:gravity="center"
+            android:text="@string/login_name"
+            android:textColor="@color/mainGolden"
+            android:textSize="@dimen/font14" />
+
+        <EditText
+            android:id="@+id/et_user"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4.5"
+            android:background="@null"
+            android:imeOptions="actionNext|flagNoExtractUi"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/mainGolden"
+            android:textCursorDrawable="@drawable/cursor"
+            android:textSize="@dimen/font14" />
+
+        <RelativeLayout
+            android:id="@+id/rl_history_user"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ac_spinner_down_arrow" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_user_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/standard_height"
+        android:layout_below="@id/ll_user_name"
+        android:layout_marginLeft="@dimen/unit30"
+        android:layout_marginRight="@dimen/unit30"
+        android:layout_marginTop="@dimen/unit10"
+        android:background="@drawable/dragonbonus_popup"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:weightSum="8">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:gravity="center"
+            android:text="@string/password"
+            android:textColor="@color/mainGolden"
+            android:textSize="@dimen/font14" />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5.5"
+            android:background="@null"
+            android:imeOptions="actionDone|flagNoExtractUi"
+            android:inputType="textPassword"
+            android:maxLength="11"
+            android:textColor="@color/white"
+            android:textColorHint="@color/mainGolden"
+            android:textCursorDrawable="@drawable/cursor"
+            android:textSize="@dimen/font14" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_gesture"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/unit40"
+        android:layout_below="@id/ll_user_pwd"
+        android:layout_margin="@dimen/unit10"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/tv_gesture"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.15"
+            android:gravity="center"
+            android:text="@string/gesture_unlock"
+            android:textColor="@color/mainGolden"
+            android:textSize="@dimen/font14"
+            android:textStyle="bold" />
+
+        <ToggleButton
+            android:id="@+id/toggle_btn_select_type"
+            style="@style/MyToggleButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/unit15"
+            android:layout_weight="0.7"
+            android:background="#00000000"
+            android:checked="true"
+            android:textOff=""
+            android:textOn="" />
+
+        <TextView
+            android:id="@+id/tv_keyboard"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/keyboard_unlock"
+            android:textColor="@color/mainBlack"
+            android:textSize="@dimen/font14"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!--https://github.com/7heaven/GestureLock  手势密码-->
+    <com.sevenheaven.gesturelock.GestureLock
+        android:id="@+id/gesture_lock"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/unit300"
+        android:layout_below="@id/ll_gesture"
+        android:layout_marginLeft="@dimen/unit30"
+        android:layout_marginRight="@dimen/unit30">
+
+    </com.sevenheaven.gesturelock.GestureLock>
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="@dimen/unit150"
+        android:layout_height="@dimen/unit40"
+        android:layout_above="@id/tv_try_play"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/select_common_btn"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="@string/login"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font20"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_try_play"
+        android:layout_width="@dimen/unit150"
+        android:layout_height="@dimen/unit40"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/unit20"
+        android:layout_marginTop="@dimen/unit5"
+        android:background="@drawable/select_common_btn"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="@string/free_try"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font20" />
+</RelativeLayout>

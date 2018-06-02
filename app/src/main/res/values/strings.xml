@@ -1,0 +1,117 @@
+<resources>
+    <!--SmartPlayerSDKDemo 真板电玩城-->
+    <string name="app_name">真板电玩城</string>
+    <string name="start_name">真板电玩城</string>
+
+    <!--login zh-->
+    <string name="login_name">用户名称</string>
+    <string name="password">用户密码</string>
+    <string name="gesture_unlock">手势密码</string>
+    <string name="keyboard_unlock">字符密码</string>
+    <string name="login">登入</string>
+    <string name="free_try">免费试玩</string>
+
+    <!--dialog-->
+    <string name="yoplay_enter">确认</string>
+    <string name="btn_exit_game">退出游戏</string>
+    <string name="retry">重试</string>
+    <string name="network_not_available">无网络连接，请检查网络设置。</string>
+    <string name="error_code_4_iv">账号不存在</string>
+    <string name="password_alert">请输入密码</string>
+    <string name="bet_start">已开局，请下注</string>
+    <string name="bet_stop">停止下注</string>
+    <string name="no_bet_warning">你已经连续3局没下注，连续5局不下注将被踢出</string>
+
+    <!--home-->
+    <string name="hot_new">热门/最新</string>
+    <string name="live_games">视讯游戏</string>
+    <string name="arcade_games">街机游戏</string>
+    <string name="card_games">棋牌游戏</string>
+    <string name="total_player">在线人数:</string>
+
+    <!--games-->
+    <string name="ba_game">百家乐</string>
+    <string name="dt_game">龙虎</string>
+    <string name="link_game">自选多台</string>
+    <string name="fish_hunter">捕鱼达人</string>
+    <string name="fruit_slot">水果老虎机</string>
+    <string name="high_roller">大豪客</string>
+
+    <!--user-->
+    <string name="level">等级</string>
+    <string name="total_stake">总有效投注:</string>
+    <string name="currency">玩家币种:</string>
+    <string name="today_stake">今日有效下注:</string>
+    <string name="credits">在线积分:</string>
+    <string name="online_duration">在线时长:</string>
+    <string name="stake_limit">下注限红:</string>
+
+    <!--baccarat game-->
+    <string name="total_table">(总台数：%1$d台)</string>
+    <string name="good_road_sorting">好路排序</string>
+    <string name="good_road_switch_off">关</string>
+    <string name="good_road_switch_on">开</string>
+    <string name="players">人数:</string>
+    <string name="banker">庄</string>
+    <string name="player">闲</string>
+    <string name="tie">和</string>
+    <string name="loading">加载中</string>
+    <string name="shuffling">洗牌中</string>
+    <string name="clearing">结算中</string>
+    <string name="start_game">开始游戏</string>
+
+    <string name="table_limits">桌台限红</string>
+    <string name="game_code">局号</string>
+    <string name="no_commission">免佣</string>
+    <string name="no_commission_off">非免佣</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="dragon_bonus">龙宝</string>
+
+    <string name="play_type_player_dragon_bonus">闲龙宝</string>
+    <string name="play_type_player_pair">闲对</string>
+    <string name="play_type_banker_pair">庄对</string>
+    <string name="play_type_banker_dragon_bonus">庄龙宝</string>
+    <string name="play_type_player">闲</string>
+    <string name="play_type_dt_tie">和</string>
+    <string name="play_type_banker">庄</string>
+
+    <string name="in_game_total">和</string>
+    <string name="in_game_banker">庄</string>
+    <string name="in_game_player">闲</string>
+    <string name="in_game_tie">和</string>
+    <string name="in_game_banker_pair">庄对</string>
+    <string name="in_game_player_pair">闲对</string>
+    <string name="ask_road_bank">庄问路</string>
+    <string name="ask_road_player">闲问路</string>
+    <string name="full_road">全路</string>
+
+    <string name="db_1_1">1赔1</string>
+    <string name="db_1_10">1赔10</string>
+    <string name="db_1_2">1赔2</string>
+    <string name="db_1_3">1赔3</string>
+    <string name="db_1_30">1赔30</string>
+    <string name="db_1_5">1赔5</string>
+    <string name="db_4_point">赢4点</string>
+    <string name="db_5_point">赢5点</string>
+    <string name="db_6_point">赢6点</string>
+    <string name="db_7_point">赢7点</string>
+    <string name="db_8_point">赢8点</string>
+    <string name="db_9_point">赢9点</string>
+    <string name="db_banker_dragon_bonus">庄龙宝</string>
+    <string name="db_banker_hand">庄家牌</string>
+    <string name="db_banker_pay_table">庄家以非例牌：</string>
+    <string name="db_banker_payout">庄龙宝派彩</string>
+    <string name="db_bets_refunded">退回本金</string>
+    <string name="db_natural">例牌定义：</string>
+    <string name="db_natural_msg">头两张牌的点数总和为8或9点。</string>
+    <string name="db_natural_tie">例牌和局</string>
+    <string name="db_natural_winner">以例牌胜出</string>
+    <string name="db_non_natural">非例牌定义：</string>
+    <string name="db_non_natural_msg">头两张牌的点数总和并非8或9点。所有三张牌的情况即属非例牌</string>
+    <string name="db_odds">赔率</string>
+    <string name="db_player_dragon_bonus">闲龙宝</string>
+    <string name="db_player_hand">闲家牌</string>
+    <string name="db_player_pay_table">闲家以非例牌：</string>
+    <string name="db_player_payout">闲龙宝派彩</string>
+</resources>

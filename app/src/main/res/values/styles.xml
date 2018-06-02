@@ -1,0 +1,19 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- This disables the black preview screen FLAG_ACTIVITY_CLEAR_TASK-->
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+    <style name="MyToggleButton" parent="@android:style/Widget.CompoundButton">
+        <item name="android:button">@drawable/select_toggle_btn</item>
+        <item name="android:gravity" >center</item>
+    </style>
+
+    <style name="hintDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+</resources>

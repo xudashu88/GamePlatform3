@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">真板电玩城</string>
+    <string name="start_name">True Plate Game Center</string>
+
+    <!--login en-->
+    <string name="login_name">Username</string>
+    <string name="password">Password</string>
+    <string name="gesture_unlock">gesture unlock</string>
+    <string name="keyboard_unlock">keyboard unlock</string>
+    <string name="login">Login</string>
+    <string name="free_try">Free Trial</string>
+
+    <!--dialog-->
+    <string name="yoplay_enter">Confirm</string>
+    <string name="btn_exit_game">Exit</string>
+    <string name="retry">Retry</string>
+    <string name="network_not_available">Network unavailable, please check the network setting.</string>
+    <string name="error_code_4_iv">Invalid account</string>
+    <string name="password_alert">Please type in your password</string>
+    <string name="bet_start">Place your bet now</string>
+    <string name="bet_stop">No more bets</string>
+    <string name="no_bet_warning">You have not bet in 3 continuous rounds and you will be kickout if not bet in 5 continuous rounds</string>
+
+    <!--home-->
+    <array name="tab_titles">
+        <item>Hot/New</item>
+        <item>Live Games</item>
+        <item>Arcade Games</item>
+        <item>Card Games</item>
+    </array>
+    <string name="hot_new">Hot/New</string>
+    <string name="live_games">Live Games</string>
+    <string name="arcade_games">Arcade Games</string>
+    <string name="card_games">Card Games</string>
+    <string name="total_player">Current Online:</string>
+
+    <!--games-->
+    <string name="ba_game">Baccarat</string>
+    <string name="dt_game">Dragon Tiger</string>
+    <string name="link_game">MultiPlay</string>
+    <string name="fish_hunter">Fish Hunter 2</string>
+    <string name="fruit_slot">Fruit Slot</string>
+    <string name="high_roller">High Roller</string>
+
+    <!--user-->
+    <string name="level">Level</string>
+    <string name="total_stake">Total Bets:</string>
+    <string name="currency">Currency:</string>
+    <string name="today_stake">Valid Bets:</string>
+    <string name="credits">Online Points:</string>
+    <string name="online_duration">Online Duration:</string>
+    <string name="stake_limit">Bet Limit:</string>
+
+    <!--baccarat game-->
+    <string name="total_table">(Total：%1$d tables)</string>
+    <string name="good_road_sorting">Good Road Sorting</string>
+    <string name="good_road_switch_off">Off</string>
+    <string name="good_road_switch_on">On</string>
+    <string name="players">players:</string>
+    <string name="banker">B</string>
+    <string name="player">P</string>
+    <string name="tie">T</string>
+    <string name="loading">Loading</string>
+    <string name="shuffling">Shuffle</string>
+    <string name="clearing">Settling</string>
+    <string name="start_game">Start Game</string>
+
+    <string name="table_limits">Table Limit</string>
+    <string name="game_code">Code</string>
+    <string name="no_commission">"No
+Comm"</string>
+    <string name="no_commission_off">"Pay
+Comm"</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="dragon_bonus">Dragon Bonus</string>
+
+    <string name="play_type_player_dragon_bonus">Player Dragon Bonus</string>
+    <string name="play_type_player_pair">Player Pair</string>
+    <string name="play_type_banker_pair">Banker Pair</string>
+    <string name="play_type_banker_dragon_bonus">Banker Dragon Bonus</string>
+    <string name="play_type_player">Player</string>
+    <string name="play_type_dt_tie">Tie</string>
+    <string name="play_type_banker">Banker</string>
+
+    <string name="in_game_total">Total</string>
+    <string name="in_game_banker">B</string>
+    <string name="in_game_player">P</string>
+    <string name="in_game_tie">Tie</string>
+    <string name="in_game_banker_pair">BP</string>
+    <string name="in_game_player_pair">PP</string>
+    <string name="ask_road_bank">Banker</string>
+    <string name="ask_road_player">Player</string>
+    <string name="full_road">Full</string>
+
+    <string name="db_1_1">1:1</string>
+    <string name="db_1_10">1:10</string>
+    <string name="db_1_2">1:2</string>
+    <string name="db_1_3">1:3</string>
+    <string name="db_1_30">1:30</string>
+    <string name="db_1_5">1:5</string>
+    <string name="db_4_point">4 point difference</string>
+    <string name="db_5_point">5 point difference</string>
+    <string name="db_6_point">6 point difference</string>
+    <string name="db_7_point">7 point difference</string>
+    <string name="db_8_point">8 point difference</string>
+    <string name="db_9_point">9 point difference</string>
+    <string name="db_banker_dragon_bonus">"B Dragon
+ Bonus"</string>
+    <string name="db_banker_hand">Banker’s Hand</string>
+    <string name="db_banker_pay_table">Pay Table:</string>
+    <string name="db_banker_payout">DB Banker Payout</string>
+    <string name="db_bets_refunded">Bets are refunded</string>
+    <string name="db_natural">Natural:</string>
+    <string name="db_natural_msg">First two card total point equal to 8 or 9 points</string>
+    <string name="db_natural_tie">Natural Tie</string>
+    <string name="db_natural_winner">Natural Winner</string>
+    <string name="db_non_natural">Non-natural:</string>
+    <string name="db_non_natural_msg">First two card total point not equal to 8 or 9 points; If your hand with third card are also count as non-natural</string>
+    <string name="db_odds">Odds</string>
+    <string name="db_player_dragon_bonus">"P Dragon
+ Bonus"</string>
+    <string name="db_player_hand">Player’s Hand</string>
+    <string name="db_player_pay_table">Pay Table:</string>
+    <string name="db_player_payout">DB Player Payout</string>
+
+</resources>

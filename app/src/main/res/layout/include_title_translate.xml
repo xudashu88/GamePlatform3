@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_title"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/unit50"
+    android:background="@color/transparent"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/unit10"
+    android:paddingRight="@dimen/unit5"
+    android:weightSum="18">
+
+    <LinearLayout
+        android:id="@+id/ll_back"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/unit20"
+            android:layout_height="@dimen/unit40"
+            android:background="@drawable/back" />
+    </LinearLayout>
+
+    <!--@string/ba_game-->
+    <TextView
+        android:id="@+id/tv_game_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/unit5"
+        android:layout_weight="4"
+        android:gravity="center_vertical"
+        android:text="@string/ba_game"
+        android:textColor="@color/mainGolden"
+        android:textSize="@dimen/font20"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/tv_table_limits"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/unit10"
+            android:background="@drawable/select_bet_limit_btn"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="@string/table_limits"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font16" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2.7" />
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/unit3"
+        android:layout_marginTop="@dimen/unit3"
+        android:layout_weight="1.5"
+        android:background="@drawable/avatar_03"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:id="@+id/ll_user_info"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/unit5"
+        android:layout_weight="3.5"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/unit3"
+        android:paddingTop="@dimen/unit3">
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/profile_bar"
+            android:drawableLeft="@drawable/ac_icon"
+            android:drawablePadding="@dimen/unit5"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/unit5"
+            android:text="光风霁月"
+            android:textColor="#62503e" />
+
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/unit5"
+            android:layout_weight="1"
+            android:background="@drawable/balance_bar"
+            android:drawableLeft="@drawable/balance_icon"
+            android:drawablePadding="@dimen/unit5"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/unit5"
+            android:text="20000000.00"
+            android:textColor="@color/mainGolden" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2">
+
+        <ImageView
+            android:id="@+id/iv_set"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="@dimen/unit5"
+            android:layout_marginLeft="@dimen/unit20"
+            android:layout_marginTop="@dimen/unit5"
+            android:layout_weight="1.5"
+            android:background="@drawable/menu_pressed" />
+    </RelativeLayout>
+
+</LinearLayout>

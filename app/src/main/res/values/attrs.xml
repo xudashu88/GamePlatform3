@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--手势锁-->
+    <declare-styleable name="GestureLock">
+        <attr name="line_width" format="dimension" />
+        <attr name="line_normal_color" format="color" />
+        <attr name="line_error_color" format="color" />
+    </declare-styleable>
+    <!--圆环进度条倒计时-->
+    <declare-styleable name="PercentageRing">
+        <attr name="radius" format="integer" />
+        <attr name="circleBackground" format="color" />
+        <attr name="ringColor" format="color" />
+        <attr name="textColor" format="color" />
+    </declare-styleable>
+</resources>

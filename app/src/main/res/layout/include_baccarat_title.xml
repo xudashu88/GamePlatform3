@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_title"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/unit50"
+    android:background="@drawable/topbar"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/unit10"
+    android:paddingRight="@dimen/unit5"
+    android:weightSum="18">
+
+    <LinearLayout
+        android:id="@+id/ll_back"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/unit20"
+            android:layout_height="@dimen/unit40"
+            android:background="@drawable/back" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="6.5">
+
+        <TextView
+            android:id="@+id/tv_game_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/unit5"
+            android:text="@string/ba_game"
+            android:textColor="@color/mainGolden"
+            android:textSize="@dimen/font20" />
+
+        <TextView
+            android:id="@+id/tv_game_table_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/unit5"
+            android:layout_toRightOf="@id/tv_game_name"
+            android:text="(總台數：10台)"
+            android:textColor="@color/mainGolden"
+            android:textSize="@dimen/font14" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_weight="1.2"
+            android:background="@drawable/top_bar_msg_btn" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/unit10"
+        android:layout_weight="3.8"
+        android:background="@drawable/shape_bg_golden"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:weightSum="5">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/unit5"
+            android:layout_weight="3"
+            android:text="@string/good_road_sorting"
+            android:textColor="@color/mainGoldenDeep"
+            android:textSize="@dimen/font12" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/tv_switch_on"
+                android:layout_width="@dimen/unit40"
+                android:layout_height="@dimen/unit20"
+                android:background="@drawable/toggle_positive"
+                android:gravity="center"
+                android:paddingRight="@dimen/unit18"
+                android:text="@string/good_road_switch_on"
+                android:textColor="@color/white"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tv_switch_off"
+                android:layout_width="@dimen/unit40"
+                android:layout_height="@dimen/unit20"
+                android:background="@drawable/toggle_negative"
+                android:gravity="center"
+                android:paddingLeft="@dimen/unit18"
+                android:text="@string/good_road_switch_off"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/unit3"
+        android:layout_marginTop="@dimen/unit3"
+        android:layout_weight="2"
+        android:background="@drawable/avatar_03"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:id="@+id/ll_user_info"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/unit5"
+        android:layout_weight="3.5"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/unit3"
+        android:paddingTop="@dimen/unit3">
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/profile_bar"
+            android:drawableLeft="@drawable/ac_icon"
+            android:drawablePadding="@dimen/unit5"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/unit5"
+            android:text="光风霁月"
+            android:textColor="#62503e" />
+
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/balance_bar"
+            android:drawableLeft="@drawable/balance_icon"
+            android:drawablePadding="@dimen/unit5"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/unit5"
+            android:text="20000000.00"
+            android:textColor="@color/mainGolden" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/iv_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginBottom="@dimen/unit10"
+            android:layout_marginLeft="@dimen/unit5"
+            android:layout_marginTop="@dimen/unit10"
+            android:layout_weight="1.5"
+            android:background="@drawable/menu_pressed"
+            android:paddingBottom="@dimen/unit3" />
+    </RelativeLayout>
+
+</LinearLayout>
