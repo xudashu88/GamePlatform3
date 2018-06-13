@@ -3,6 +3,7 @@ package com.gangbeng.basemodule.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
@@ -94,12 +95,12 @@ public class Util {
     /**
      * Long类型秒值时间转换成 2017年7月07日 00:00 HH:mm
      */
-    public static String formartLongToTime(String time, String formart) {
+    public static String formatLongToTime(String time, String format) {
 //        String _time = String.valueOf(time);
         if (!TextUtils.isEmpty(time)) {
 //            "yyyy-MM-dd HH:mm"
-            SimpleDateFormat format = new SimpleDateFormat(formart);
-            time = format.format(new Date(Long.valueOf(time) * 1000));
+            SimpleDateFormat _format = new SimpleDateFormat(format);
+            time = _format.format(new Date(Long.valueOf(time) * 1000));
         }
         return time;
     }
@@ -208,6 +209,18 @@ public class Util {
         }
         alertDialog.getWindow().setAttributes(lp);
         return alertDialog;
+    }
+
+    public void hideSystemNavigationBar() {
+        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) {
+            View view = ((Activity)mContext).getWindow().getDecorView();
+            view.setSystemUiVisibility(View.GONE);
+        } else if (Build.VERSION.SDK_INT >= 19) {
+            View decorView = ((Activity)mContext).getWindow().getDecorView();
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
     }
 
 }

@@ -3,11 +3,13 @@
     <color name="mainGoldenYellow">#ffd800</color>
     <color name="mainGoldenUnderTine">#FACCAB</color>
     <color name="mainGolden">#dea150</color>
+    <color name="halfGolden">#55ffffff</color>
     <color name="mainGoldenDeep">#6A543F</color>
     <color name="mainBlack">#4d4542</color>
     <color name="mainItemGray">#434242</color>
     <color name="line">#ffd3dde6</color>
     <color name="gridLine">#A5A5A5</color>
+    <color name="inGameRed">#A60201</color>
 
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>

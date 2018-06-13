@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.chuangku.gameplatform3.annotation.ContentViewUtils;
 import com.chuangku.languagemodule.MultiLanguageUtil;
+import com.gangbeng.basemodule.utils.Util;
 
 import butterknife.ButterKnife;
 
@@ -28,7 +29,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ContentViewUtils.inject(this);
         ButterKnife.bind(this);
-
+        Util.getInstance().init(this);
+        Util.getInstance().hideSystemNavigationBar();
         initView();
     }
 

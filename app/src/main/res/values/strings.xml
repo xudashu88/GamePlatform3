@@ -21,6 +21,7 @@
     <string name="bet_start">已开局，请下注</string>
     <string name="bet_stop">停止下注</string>
     <string name="no_bet_warning">你已经连续3局没下注，连续5局不下注将被踢出</string>
+    <string name="bet_all_remain">下注所有余额</string>
 
     <!--home-->
     <string name="hot_new">热门/最新</string>
@@ -84,7 +85,7 @@
     <string name="dt_tie_colon">和:</string>
     <string name="banker_colon">庄:</string>
 
-    <string name="in_game_total">和</string>
+    <string name="in_game_total">总数</string>
     <string name="in_game_banker">庄</string>
     <string name="in_game_player">闲</string>
     <string name="in_game_tie">和</string>
@@ -122,4 +123,6 @@
     <string name="db_player_hand">闲家牌</string>
     <string name="db_player_pay_table">闲家以非例牌：</string>
     <string name="db_player_payout">闲龙宝派彩</string>
+
+    <string name="no_commission_msg">庄6点赢赔0.5</string>
 </resources>

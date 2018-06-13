@@ -2,22 +2,55 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/unit8"
     android:layout_height="@dimen/unit8"
-    android:background="@drawable/bg_gv">
-
+    android:background="@drawable/bg_gv_black">
+    <!-- android:background="@drawable/hollow_red" -->
+    <!--   android:background="@drawable/line_green" -->
     <TextView
         android:id="@+id/tv_dot"
         android:layout_width="@dimen/unit7"
         android:layout_height="@dimen/unit7"
         android:layout_centerInParent="true"
-        android:background="@drawable/hollow_red_1"
+        android:background="@drawable/hollow_red"
         android:gravity="center"
         android:text="2"
         android:textColor="@color/green"
         android:textSize="@dimen/font5" />
 
     <TextView
+        android:id="@+id/tv_line"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:background="@drawable/line_green_1" />
+        android:background="@drawable/line_green" />
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_left_top"-->
+    <!--android:layout_width="@dimen/unit4"-->
+    <!--android:layout_height="@dimen/unit4"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_alignParentTop="true" />-->
+
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_right_top"-->
+    <!--android:layout_width="@dimen/unit4"-->
+    <!--android:layout_height="@dimen/unit4"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentLeft="true" />-->
+
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_left_bottom"-->
+    <!--android:layout_width="@dimen/unit4"-->
+    <!--android:layout_height="@dimen/unit4"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_alignParentTop="true" />-->
+
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_right_bottom"-->
+    <!--android:layout_width="@dimen/unit4"-->
+    <!--android:layout_height="@dimen/unit4"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentRight="true" />-->
 </RelativeLayout>

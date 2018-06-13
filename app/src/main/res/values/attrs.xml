@@ -13,4 +13,16 @@
         <attr name="ringColor" format="color" />
         <attr name="textColor" format="color" />
     </declare-styleable>
+
+    <!--GridView网格线-->
+    <declare-styleable name="AlmightyGridView">
+        <attr name="isShowBottomLine" format="boolean" />
+        <attr name="isShowMoreLine" format="boolean" />
+        <attr name="transverseLineColor" format="color" />
+        <attr name="verticaLineColor" format="color" />
+        <attr name="transverseLineWidth" format="dimension" />
+        <attr name="verticaLineWidth" format="dimension" />
+    </declare-styleable>
+
+
 </resources>

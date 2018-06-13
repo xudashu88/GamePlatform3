@@ -35,6 +35,8 @@ public class TXCDemoActivity extends BaseActivity {
         //rtmp://player.daniulive.com:1935/hls/stream
         //rtmp://119.188.246.217:1935/live/stream
         //rtmp://119.188.246.217/live/room1
+        //rtmp://ledrp.agingames.com:1936/record/
+        //rtmp://rcpb.11hk.com/record/ 白屏
         startPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks",tvv_1,mLivePlayer0,mPlayRtmp);
     }
 

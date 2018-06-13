@@ -20,6 +20,7 @@
     <string name="bet_start">已開局，請下注</string>
     <string name="bet_stop">停止下注</string>
     <string name="no_bet_warning">你已經連續3局未下注，連續5局不下注將被踢出</string>
+    <string name="bet_all_remain">下注所有餘額</string>
 
     <!--home-->
     <string name="hot_new">熱門/最新</string>
@@ -121,4 +122,6 @@
     <string name="db_player_hand">閒家牌</string>
     <string name="db_player_pay_table">閒家以非例牌：</string>
     <string name="db_player_payout">閒龍寶派彩</string>
+
+    <string name="no_commission_msg">莊6點贏賠0.5</string>
 </resources>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
+    <!--  list_item_bac_v2 -->
     <ImageView
         android:id="@+id/iv_bg"
         android:layout_width="match_parent"
@@ -14,20 +14,21 @@
         android:layout_alignTop="@id/contentContainer"
         android:background="@drawable/choose_table_row2_bg"
         android:scaleType="fitXY" />
-    <!--  android:background="@drawable/choose_table_row2_bg"-->
-    <LinearLayout
+
+    <RelativeLayout
         android:id="@+id/contentContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/unit125"
         android:orientation="horizontal"
         android:padding="@dimen/unit2"
         android:visibility="visible"
-        android:weightSum="33">
+        android:weightSum="40">
 
         <RelativeLayout
-            android:layout_width="0dp"
+            android:id="@+id/rl_1"
+            android:layout_width="@dimen/unit70"
             android:layout_height="wrap_content"
-            android:layout_weight="4.5"
+            android:layout_weight="5"
             android:visibility="visible">
 
             <ImageView
@@ -49,119 +50,94 @@
                 android:textSize="@dimen/font16" />
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
+        <RelativeLayout
+            android:id="@+id/rl_2"
+            android:layout_width="@dimen/unit400"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/unit1"
-            android:layout_marginRight="@dimen/unit1"
-            android:layout_weight="21"
+            android:layout_toRightOf="@id/rl_1"
+            android:layout_weight="27.5"
             android:orientation="vertical"
             android:visibility="visible"
             android:weightSum="15">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="12"
-                android:orientation="horizontal"
-                android:weightSum="25">
-                <!--6行10列 delay -->
-                <GridView
-                    android:id="@+id/gv_left"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10"
-                    android:horizontalSpacing="0.0dip"
-                    android:listSelector="@null"
-                    android:numColumns="10"
-                    android:scrollbars="none"
-                    android:stretchMode="columnWidth"
-                    android:verticalSpacing="0.0dip" />
+            <GridView
+                android:id="@+id/gv_left"
+                android:layout_width="@dimen/unit160"
+                android:layout_height="@dimen/unit96"
+                android:horizontalSpacing="0.0dip"
+                android:listSelector="@null"
+                android:numColumns="10"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="0.0dip" />
 
-                <include layout="@layout/in_divide_vertical_grid_line" />
+            <!--6行30列-->
+            <GridView
+                android:id="@+id/gv_right_top"
+                android:layout_width="@dimen/unit240"
+                android:layout_height="@dimen/unit48"
+                android:layout_toRightOf="@id/gv_left"
+                android:horizontalSpacing="0.0dip"
+                android:listSelector="@null"
+                android:numColumns="30"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="0.0dip"
+                android:visibility="visible" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="15"
-                    android:orientation="vertical"
-                    android:visibility="visible"
-                    android:weightSum="12">
+            <!--3行30列-->
+            <GridView
+                android:id="@+id/gv_right_middle"
+                android:layout_width="@dimen/unit240"
+                android:layout_height="@dimen/unit24"
+                android:layout_below="@id/gv_right_top"
+                android:layout_toRightOf="@id/gv_left"
+                android:horizontalSpacing="0.0dip"
+                android:listSelector="@null"
+                android:numColumns="30"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="0.0dip"
+                android:visibility="visible" />
 
-                    <!--6行30列-->
-                    <GridView
-                        android:id="@+id/gv_right_top"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="6"
-                        android:horizontalSpacing="0.0dip"
-                        android:listSelector="@null"
-                        android:numColumns="30"
-                        android:scrollbars="none"
-                        android:stretchMode="columnWidth"
-                        android:verticalSpacing="0.0dip"
-                        android:visibility="visible" />
+            <!--3行15列-->
+            <GridView
+                android:id="@+id/gv_right_bottom_1"
+                android:layout_width="@dimen/unit240"
+                android:layout_height="@dimen/unit24"
+                android:layout_below="@id/gv_right_middle"
+                android:layout_toRightOf="@id/gv_left"
+                android:horizontalSpacing="0.0dip"
+                android:listSelector="@null"
+                android:numColumns="30"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="0.0dip"
+                android:visibility="visible" />
 
-                    <include layout="@layout/in_divide_horizontal_grid_line" />
-                    <!--3行30列-->
-                    <GridView
-                        android:id="@+id/gv_right_middle"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="3"
-                        android:horizontalSpacing="0.0dip"
-                        android:listSelector="@null"
-                        android:numColumns="30"
-                        android:scrollbars="vertical"
-                        android:stretchMode="columnWidth"
-                        android:verticalSpacing="0.0dip"
-                        android:visibility="visible" />
-
-                    <include layout="@layout/in_divide_horizontal_grid_line" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="3"
-                        android:orientation="horizontal"
-                        android:visibility="visible"
-                        android:weightSum="2">
-                        <!--3行15列-->
-                        <GridView
-                            android:id="@+id/gv_right_bottom_1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:horizontalSpacing="0.0dip"
-                            android:listSelector="@null"
-                            android:numColumns="15"
-                            android:scrollbars="none"
-                            android:stretchMode="columnWidth"
-                            android:verticalSpacing="0.0dip" />
-
-                        <include layout="@layout/in_divide_vertical_grid_line" />
-                        <!--3行15列-->
-                        <GridView
-                            android:id="@+id/gv_right_bottom_2"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:horizontalSpacing="0.0dip"
-                            android:listSelector="@null"
-                            android:numColumns="15"
-                            android:scrollbars="none"
-                            android:stretchMode="columnWidth"
-                            android:verticalSpacing="0.0dip" />
-                    </LinearLayout>
-
-                </LinearLayout>
-            </LinearLayout>
+            <!--3行15列-->
+            <GridView
+                android:id="@+id/gv_right_bottom_2"
+                android:layout_width="@dimen/unit120"
+                android:layout_height="@dimen/unit24"
+                android:layout_below="@id/gv_right_middle"
+                android:layout_toRightOf="@id/gv_right_bottom_1"
+                android:horizontalSpacing="0.0dip"
+                android:listSelector="@null"
+                android:numColumns="15"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="0.0dip"
+                android:visibility="gone" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/unit30"
+                android:layout_marginRight="@dimen/unit1"
                 android:layout_weight="3"
-                android:background="@drawable/choose_table_bottom_board_bg">
+                android:background="@drawable/choose_table_bottom_board_bg"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -211,13 +187,16 @@
                         android:textSize="@dimen/font12" />
                 </LinearLayout>
             </RelativeLayout>
-        </LinearLayout>
+        </RelativeLayout>
+
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/ll_3"
+            android:layout_width="@dimen/unit50"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/unit1"
             android:layout_marginTop="@dimen/unit1"
+            android:layout_toRightOf="@id/rl_2"
             android:layout_weight="3.5"
             android:background="#5A4B3F"
             android:orientation="vertical"
@@ -234,9 +213,9 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/unit5"
+                    android:layout_marginBottom="@dimen/unit8"
                     android:layout_marginLeft="@dimen/unit5"
-                    android:layout_marginTop="@dimen/unit5"
+                    android:layout_marginTop="@dimen/unit8"
                     android:layout_weight="1"
                     android:background="@drawable/tv_shape_oval_red"
                     android:gravity="center"
@@ -264,9 +243,9 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/unit5"
+                    android:layout_marginBottom="@dimen/unit8"
                     android:layout_marginLeft="@dimen/unit5"
-                    android:layout_marginTop="@dimen/unit5"
+                    android:layout_marginTop="@dimen/unit8"
                     android:layout_weight="1"
                     android:background="@drawable/tv_shape_oval_blue"
                     android:gravity="center"
@@ -294,9 +273,9 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/unit5"
+                    android:layout_marginBottom="@dimen/unit8"
                     android:layout_marginLeft="@dimen/unit5"
-                    android:layout_marginTop="@dimen/unit5"
+                    android:layout_marginTop="@dimen/unit8"
                     android:layout_weight="1"
                     android:background="@drawable/tv_shape_oval_green"
                     android:gravity="center"
@@ -316,8 +295,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/ll_4"
+            android:layout_width="@dimen/unit100"
             android:layout_height="match_parent"
+            android:layout_toRightOf="@id/ll_3"
             android:layout_weight="4"
             android:gravity="center"
             android:orientation="vertical"
@@ -327,7 +308,7 @@
             <!--EEC51A F00000-->
             <com.chuangku.gameplatform3.widget.PercentCircleAntiClockwise
                 android:id="@+id/pcac"
-                android:layout_width="@dimen/unit60"
+                android:layout_width="@dimen/unit55"
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_weight="4"
@@ -356,7 +337,7 @@
                 android:textColor="@android:color/white" />
 
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </RelativeLayout>

@@ -13,7 +13,7 @@
         android:id="@+id/ll_back"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="0.8"
         android:gravity="center_vertical">
 
         <ImageView
@@ -26,7 +26,7 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="6.5">
+        android:layout_weight="7">
 
         <TextView
             android:id="@+id/tv_game_name"
@@ -36,7 +36,7 @@
             android:layout_marginLeft="@dimen/unit5"
             android:text="@string/ba_game"
             android:textColor="@color/mainGolden"
-            android:textSize="@dimen/font20" />
+            android:textSize="@dimen/font18" />
 
         <TextView
             android:id="@+id/tv_game_table_num"
@@ -47,7 +47,7 @@
             android:layout_toRightOf="@id/tv_game_name"
             android:text="(總台數：10台)"
             android:textColor="@color/mainGolden"
-            android:textSize="@dimen/font14" />
+            android:textSize="@dimen/font12" />
     </RelativeLayout>
 
 

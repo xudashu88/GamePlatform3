@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/unit8"
+    android:layout_height="@dimen/unit8"
+    android:background="@drawable/bg_gv_gold">
+
+    <TextView
+        android:id="@+id/tv_left_top"
+        android:layout_width="@dimen/unit4"
+        android:layout_height="@dimen/unit4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/img_hollow_blue" />
+
+    <TextView
+        android:id="@+id/tv_right_top"
+        android:layout_width="@dimen/unit4"
+        android:layout_height="@dimen/unit4"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/img_hollow_blue" />
+
+    <TextView
+        android:id="@+id/tv_left_bottom"
+        android:layout_width="@dimen/unit4"
+        android:layout_height="@dimen/unit4"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/img_hollow_red" />
+
+    <TextView
+        android:id="@+id/tv_right_bottom"
+        android:layout_width="@dimen/unit4"
+        android:layout_height="@dimen/unit4"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/img_hollow_red" />
+
+</RelativeLayout>

@@ -32,7 +32,7 @@ public class HotNewFragment extends BaseFragment {
     @Override
     protected void initView(View view) {
         mLayoutManager = new GridLayoutManager(getActivity(), 5);
-        mAdapter = new MyAdapter(getData());
+        mAdapter = new HotNewAdapter(getData());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -73,11 +73,11 @@ public class HotNewFragment extends BaseFragment {
         return data;
     }
 
-    class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+    class HotNewAdapter extends RecyclerView.Adapter<HotNewAdapter.ViewHolder> {
 
         private ArrayList<Game> mData;
 
-        public MyAdapter(ArrayList<Game> data) {
+        public HotNewAdapter(ArrayList<Game> data) {
             this.mData = data;
         }
 
@@ -89,8 +89,7 @@ public class HotNewFragment extends BaseFragment {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rv, parent, false);
-            ViewHolder viewHolder = new ViewHolder(v);
-            return viewHolder;
+            return new ViewHolder(v);
         }
 
         @Override

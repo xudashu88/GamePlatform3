@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/unit8"
     android:layout_height="@dimen/unit8"
-    android:background="@drawable/bg_gv">
+    android:background="@drawable/bg_gv_black">
 
     <TextView
-        android:id="@+id/tv_dot"
+        android:id="@+id/tv_left_top"
         android:layout_width="@dimen/unit4"
         android:layout_height="@dimen/unit4"
         android:layout_alignParentLeft="true"
@@ -13,6 +13,7 @@
         android:background="@drawable/img_line_blue" />
 
     <TextView
+        android:id="@+id/tv_right_top"
         android:layout_width="@dimen/unit4"
         android:layout_height="@dimen/unit4"
         android:layout_alignParentBottom="true"
@@ -20,6 +21,7 @@
         android:background="@drawable/img_line_blue" />
 
     <TextView
+        android:id="@+id/tv_left_bottom"
         android:layout_width="@dimen/unit4"
         android:layout_height="@dimen/unit4"
         android:layout_alignParentRight="true"
@@ -27,6 +29,7 @@
         android:background="@drawable/img_line_red" />
 
     <TextView
+        android:id="@+id/tv_right_bottom"
         android:layout_width="@dimen/unit4"
         android:layout_height="@dimen/unit4"
         android:layout_alignParentBottom="true"

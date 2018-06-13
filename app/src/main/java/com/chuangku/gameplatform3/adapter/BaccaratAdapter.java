@@ -32,12 +32,13 @@ public class BaccaratAdapter extends CommonRecyclerViewAdapter<Baccarat> {
         GridView gv_right_middle = h.getView(R.id.gv_right_middle);
         GridView gv_right_bottom_1 = h.getView(R.id.gv_right_bottom_1);
         GridView gv_right_bottom_2 = h.getView(R.id.gv_right_bottom_2);
+        final ImageView iv_bg = h.getView(R.id.iv_bg);
         gv_left.setAdapter(new GridLeftAdapter(mContext));
         gv_right_top.setAdapter(new GridRightTopAdapter(mContext));
         gv_right_middle.setAdapter(new GridRightMiddleAdapter(mContext));
         gv_right_bottom_1.setAdapter(new GridRightBottom1Adapter(mContext));
         gv_right_bottom_2.setAdapter(new GridRightBottom2Adapter(mContext));
-        final ImageView iv_bg = h.getView(R.id.iv_bg);
+
 //        final TextView tv_account = h.getView(R.id.tv_account);
 //        final TextView tv_createTime = h.getView(R.id.tv_createTime);
 //        final TextView tv_integral = h.getView(R.id.tv_integral);
@@ -61,6 +62,6 @@ public class BaccaratAdapter extends CommonRecyclerViewAdapter<Baccarat> {
 
     @Override
     public int getLayoutViewId(int viewType) {
-        return R.layout.item_baccarat;
+        return R.layout.item_baccarat_1;
     }
 }

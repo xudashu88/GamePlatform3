@@ -10,9 +10,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chuangku.gameplatform3.R;
+import com.chuangku.gameplatform3.base.Constant;
 import com.chuangku.gameplatform3.entity.Chip;
 import com.chuangku.gameplatform3.entity.Game;
 import com.chuangku.gameplatform3.widget.ChoiceItemLayout;
+import com.gangbeng.basemodule.utils.SharedPreUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +23,8 @@ public class ChipAdapter extends RecyclerView.Adapter<ChipAdapter.ViewHolder> {
 
     private Context mContext;
     //    int[] new_chipNumberArr = {10, 20, 50, 100, 200, 500, 1000, 5000, 10000, 50000};
-//    int[] new_chipImgArr = {R.drawable.new_chip_01, R.drawable.new_chip_02, R.drawable.new_chip_03, R.drawable.new_chip_04,
-//            R.drawable.new_chip_05, R.drawable.new_chip_06, R.drawable.new_chip_07, R.drawable.new_chip_08, R.drawable.new_chip_09, R.drawable.new_chip_10};
+//    int[] new_chipImgArr = {R.drawable.new_chip_01, R.drawable.new_chip_20, R.drawable.new_chip_50, R.drawable.new_chip_100,
+//            R.drawable.new_chip_05, R.drawable.new_chip_500, R.drawable.new_chip_07, R.drawable.new_chip_5000, R.drawable.new_chip_10000, R.drawable.new_chip_10};
     private List<Chip> chipList;
 
     public ChipAdapter(Context context, List<Chip> chipList) {
@@ -30,7 +32,7 @@ public class ChipAdapter extends RecyclerView.Adapter<ChipAdapter.ViewHolder> {
         this.chipList = chipList;
     }
 
-    public void updateData(ArrayList<Chip> data) {
+    public void updateData(List<Chip> data) {
         this.chipList = data;
         notifyDataSetChanged();
     }
@@ -56,6 +58,7 @@ public class ChipAdapter extends RecyclerView.Adapter<ChipAdapter.ViewHolder> {
                 @Override
                 public void onClick(View view) {
                     onItemClickListener.onItemClick(view, position);
+                    SharedPreUtil.getInstance(mContext).saveParam(Constant.CHIP_POSITION, position);
                 }
             });
         }

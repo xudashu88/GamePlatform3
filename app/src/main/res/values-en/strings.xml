@@ -20,6 +20,7 @@
     <string name="bet_start">Place your bet now</string>
     <string name="bet_stop">No more bets</string>
     <string name="no_bet_warning">You have not bet in 3 continuous rounds and you will be kickout if not bet in 5 continuous rounds</string>
+    <string name="bet_all_remain">Betting all remaining credits</string>
 
     <!--home-->
     <array name="tab_titles">
@@ -75,10 +76,10 @@ Comm"</string>
     <string name="confirm">Confirm</string>
     <string name="dragon_bonus">Dragon Bonus</string>
 
-    <string name="play_type_player_dragon_bonus">Player Dragon Bonus</string>
+    <string name="play_type_player_dragon_bonus">P Dragon Bonus</string>
     <string name="play_type_player_pair">Player Pair</string>
     <string name="play_type_banker_pair">Banker Pair</string>
-    <string name="play_type_banker_dragon_bonus">Banker Dragon Bonus</string>
+    <string name="play_type_banker_dragon_bonus">B Dragon Bonus</string>
     <string name="play_type_player">Player</string>
     <string name="play_type_dt_tie">Tie</string>
     <string name="play_type_banker">Banker</string>
@@ -131,5 +132,7 @@ Comm"</string>
     <string name="db_player_hand">Player’s Hand</string>
     <string name="db_player_pay_table">Pay Table:</string>
     <string name="db_player_payout">DB Player Payout</string>
+
+    <string name="no_commission_msg">Banker wins at 6 pays 1 to 2</string>
 
 </resources>

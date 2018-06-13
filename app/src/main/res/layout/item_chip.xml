@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.chuangku.gameplatform3.widget.ChoiceItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_chip_item"
-    android:layout_width="@dimen/unit65"
-    android:layout_height="@dimen/unit65"
+    android:layout_width="@dimen/unit58"
+    android:layout_height="@dimen/unit58"
     android:orientation="vertical"
     android:weightSum="3">
-
+<!--    android:background="@drawable/shape_border_golden_bg_gray"-->
     <TextView
         android:id="@+id/tv_chip"
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:gravity="center_horizontal"
         android:text="50"
         android:textColor="@color/white"
-        android:textSize="@dimen/font16" />
+        android:textSize="@dimen/font14" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
             android:layout_height="@dimen/unit30"
             android:layout_centerInParent="true"
             android:layout_margin="@dimen/unit10"
-            android:background="@drawable/new_chip_01"
+            android:background="@drawable/new_chip_10"
             android:scaleType="fitCenter" />
     </RelativeLayout>
 

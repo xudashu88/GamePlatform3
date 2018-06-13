@@ -17,7 +17,8 @@ public class Constant {
     public static final String TOGGLE_OFF = "toggle_off";//好路排序-關
     public static final String COMMISSION_OFF = "commission_off";//非免佣-開
     public static final String COMMISSION_ON = "commission_on";//好路排序-關
-
+    public static final String CHIP_POSITION = "chip_position";//选中的筹码位置
+    public static final String IS_EXPAND = "is_expand";//
     /**
      * 60秒倒计时
      */
