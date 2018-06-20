@@ -52,17 +52,10 @@ public class GridRightBottom1LiveAdapter extends BaseAdapter {
             ((Activity) mContext).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-//                    if (position < 45) {
-						_v.tv_left_top.setBackground(mContext.getResources().getDrawable(R.drawable.solid_circle_blue));
-						_v.tv_right_top.setBackground(mContext.getResources().getDrawable(R.drawable.solid_circle_blue));
-						_v.tv_left_bottom.setBackground(mContext.getResources().getDrawable(R.drawable.solid_circle_red));
-						_v.tv_right_bottom.setBackground(mContext.getResources().getDrawable(R.drawable.solid_circle_red));
-//                    } else {
-//						_v.tv_left_top.setBackground(mContext.getResources().getDrawable(R.drawable.img_line_blue));
-//						_v.tv_right_top.setBackground(mContext.getResources().getDrawable(R.drawable.img_line_blue));
-//						_v.tv_left_bottom.setBackground(mContext.getResources().getDrawable(R.drawable.img_line_red));
-//						_v.tv_right_bottom.setBackground(mContext.getResources().getDrawable(R.drawable.img_line_red));
-//                    }
+//						_v.tv_left_top.setBackground(mContext.getResources().getDrawable(R.drawable.solid_circle_blue));
+//						_v.tv_right_top.setBackground(mContext.getResources().getDrawable(R.drawable.solid_circle_blue));
+//						_v.tv_left_bottom.setBackground(mContext.getResources().getDrawable(R.drawable.solid_circle_red));
+//						_v.tv_right_bottom.setBackground(mContext.getResources().getDrawable(R.drawable.solid_circle_red));
                 }
             });
 

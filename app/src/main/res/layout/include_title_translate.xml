@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_title"
     android:layout_width="match_parent"
     android:layout_height="@dimen/unit50"
@@ -35,7 +36,22 @@
         android:textColor="@color/mainGolden"
         android:textSize="@dimen/font18"
         android:textStyle="bold" />
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="center">
 
+        <com.chuangku.gameplatform3.widget.PercentCircleAntiClockwise
+            android:id="@+id/pcac"
+            android:layout_width="@dimen/unit45"
+            android:layout_height="@dimen/unit45"
+            android:layout_gravity="center"
+            app:circleBackground="#55000000"
+            app:radius="220"
+            app:ringColor="#EEC51A"
+            app:textColor="#ffffff" />
+    </RelativeLayout>
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -59,10 +75,7 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="2" />
+
 
     <ImageView
         android:id="@+id/iv_avatar"

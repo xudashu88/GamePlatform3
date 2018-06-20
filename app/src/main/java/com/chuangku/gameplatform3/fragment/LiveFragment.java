@@ -7,6 +7,7 @@ import com.chuangku.gameplatform3.R;
 import com.chuangku.gameplatform3.activity.TXCDemoActivity;
 import com.chuangku.gameplatform3.annotation.ContentView;
 import com.chuangku.gameplatform3.base.BaseFragment;
+import com.chuangku.gameplatform3.widget.popup.PopupWindowActivity;
 import com.tencent.rtmp.TXLiveConstants;
 import com.tencent.rtmp.TXLivePlayer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
@@ -33,7 +34,8 @@ public class LiveFragment extends BaseFragment {
 //        rtmp://119.188.246.217/live/room1
 //       startPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks",tvv_1,mLivePlayer0,mPlayRtmp);
 
-        startActivity(new Intent(getActivity(), TXCDemoActivity.class));
+//        startActivity(new Intent(getActivity(), TXCDemoActivity.class));
+        startActivity(new Intent(getActivity(), PopupWindowActivity.class));
     }
 
     private void startPlay(String playUrl, TXCloudVideoView mPlayerView, TXLivePlayer mLivePlayer, int playType) {

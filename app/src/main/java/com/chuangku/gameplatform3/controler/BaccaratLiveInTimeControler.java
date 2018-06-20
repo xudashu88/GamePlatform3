@@ -3,6 +3,7 @@ package com.chuangku.gameplatform3.controler;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -11,8 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.chuangku.gameplatform3.R;
-import com.chuangku.gameplatform3.activity.UserActivity;
+import com.chuangku.gameplatform3.utils.ScreenUtil;
 import com.chuangku.gameplatform3.adapter.GridLeftLiveAdapter;
 import com.chuangku.gameplatform3.adapter.GridRightBottom1LiveAdapter;
 import com.chuangku.gameplatform3.adapter.GridRightBottom2LiveAdapter;
@@ -21,11 +21,9 @@ import com.chuangku.gameplatform3.adapter.GridRightTopLiveAdapter;
 import com.chuangku.gameplatform3.base.Constant;
 import com.gangbeng.basemodule.utils.SharedPreUtil;
 
-import butterknife.BindView;
-
 /**
- * 功能：
- * 描述：
+ * 功能：实时开奖模块
+ * 描述：左上角缩放模块和正中下方黑色背景纸牌模块
  * Create by purity on 2018/5/19.
  */
 public class BaccaratLiveInTimeControler {
@@ -118,25 +116,39 @@ public class BaccaratLiveInTimeControler {
             public void onClick(View v) {
                 isExpand = SharedPreUtil.getInstance(mContext).getBoolean(Constant.IS_EXPAND);
                 if (isExpand == true) {
-                    //-1520f
-                    if (displayMetrics.widthPixels < 1800) {
-                        slideView(0, -((float) (displayMetrics.widthPixels * 0.848)), rl_in_time_layout);
-                    } else if (displayMetrics.widthPixels < 2100) {
-                        slideView(0, -((float) (displayMetrics.widthPixels * 0.733)), rl_in_time_layout);
-                    } else {
-                        slideView(0, -((float) (displayMetrics.widthPixels * 0.828)), rl_in_time_layout);
-                    }
+                    //176+272+20=468 huaweiM5-sw480dp-v13   S8-sw360dp-v13
+//                    slideView(0, -(dp2px(505f)), rl_in_time_layout);
+//                    slideView(0, -(dip2px(mContext,505f)), rl_in_time_layout);
+//                    slideView(0, -(dp2px(mContext,505f)), rl_in_time_layout);
+                    slideView(0, -(ScreenUtil.dip2px(506f)), rl_in_time_layout);
+//                    if (displayMetrics.widthPixels < 1800) {
+//                        slideView(0, -((float) (displayMetrics.widthPixels * 0.848)), rl_in_time_layout);
+//                    } else if (displayMetrics.widthPixels < 2000) {
+//                        slideView(0, -((float) (displayMetrics.widthPixels * 0.795)), rl_in_time_layout);
+//                    } else if (displayMetrics.widthPixels < 2100) {
+//                        slideView(0, -((float) (displayMetrics.widthPixels * 0.733)), rl_in_time_layout);
+//
+//                    } else {
+//                        slideView(0, -((float) (displayMetrics.widthPixels * 0.828)), rl_in_time_layout);
+//                    }
                     iv_in.setVisibility(View.GONE);
                     iv_ex.setVisibility(View.VISIBLE);
                     SharedPreUtil.getInstance(mContext).saveParam(Constant.IS_EXPAND, false);
                 } else if (isExpand == false) {
-                    if (displayMetrics.widthPixels < 1800) {
-                        slideView(-((float) (displayMetrics.widthPixels * 0.848)), 0, rl_in_time_layout);
-                    } else if (displayMetrics.widthPixels < 2100) {
-                        slideView(-((float) (displayMetrics.widthPixels * 0.733)), 0, rl_in_time_layout);
-                    } else {
-                        slideView(-((float) (displayMetrics.widthPixels * 0.828)), 0, rl_in_time_layout);
-                    }
+//                    slideView(-(dp2px(505f)), 0, rl_in_time_layout);
+//                    slideView(-(dip2px(mContext,505f)), 0, rl_in_time_layout);
+//                    slideView(-(dp2px(mContext,505f)), 0, rl_in_time_layout);
+                    slideView(-(ScreenUtil.dip2px(506f)), 0, rl_in_time_layout);
+//                    if (displayMetrics.widthPixels < 1800) {
+//                        slideView(-((float) (displayMetrics.widthPixels * 0.848)), 0, rl_in_time_layout);
+//                    } else if (displayMetrics.widthPixels < 2000) {
+//                        slideView(-((float) (displayMetrics.widthPixels * 0.795)), 0, rl_in_time_layout);
+//                    } else if (displayMetrics.widthPixels < 2100) {
+//                        slideView(-((float) (displayMetrics.widthPixels * 0.733)), 0, rl_in_time_layout);
+//
+//                    } else {
+//                        slideView(-((float) (displayMetrics.widthPixels * 0.828)), 0, rl_in_time_layout);
+//                    }
 
                     iv_in.setVisibility(View.VISIBLE);
                     iv_ex.setVisibility(View.GONE);
@@ -152,8 +164,32 @@ public class BaccaratLiveInTimeControler {
 //        });
     }
 
-    private int dp2px(float value) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, mContext.getResources().getDisplayMetrics());
+    public float dp2px(float value) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, mContext.getResources().getDisplayMetrics());
+    }
+
+    public static int px2dip(Context context, float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+
+    public static int dip2px(Context context, float dipValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dipValue * scale + 0.5f);
+    }
+
+    public static float dip2px(float dipValue)
+    {
+        final float scale = Resources.getSystem().getDisplayMetrics().density;
+        return  (dipValue * scale + 0.5f);
+    }
+
+    /**
+     * dp转px
+     */
+    public static int dp2px(Context context, float dpVal) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                dpVal, context.getResources().getDisplayMetrics());
     }
 
     /**

@@ -7,35 +7,21 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chuangku.gameplatform3.R;
 import com.chuangku.gameplatform3.adapter.ChipAdapter;
-import com.chuangku.gameplatform3.adapter.GridLeftLiveAdapter;
-import com.chuangku.gameplatform3.adapter.GridRightBottom1Adapter;
-import com.chuangku.gameplatform3.adapter.GridRightBottom1LiveAdapter;
-import com.chuangku.gameplatform3.adapter.GridRightBottom2LiveAdapter;
-import com.chuangku.gameplatform3.adapter.GridRightMiddleLiveAdapter;
-import com.chuangku.gameplatform3.adapter.GridRightTopLiveAdapter;
 import com.chuangku.gameplatform3.base.Constant;
 import com.chuangku.gameplatform3.entity.Chip;
-import com.gangbeng.basemodule.utils.LogUtil;
 import com.gangbeng.basemodule.utils.SharedPreUtil;
-import com.gangbeng.basemodule.utils.ToastUtil;
 import com.gangbeng.basemodule.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * 功能：
@@ -51,7 +37,6 @@ public class BaccaratLiveControler {
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Chip> chipList;
 
-    TextView tv_table_limits;
     RelativeLayout rl_dragon_bonus;
     RecyclerView rv_new_chip;
     TextView tv_switch_on;
@@ -80,11 +65,11 @@ public class BaccaratLiveControler {
     }
 
     //上到下，左到右
-    public void copyWidget(TextView tv_table_limits, TextView tv_switch_on, TextView tv_switch_off, TextView tv_no_commission_msg, RelativeLayout rl_dragon_bonus, RecyclerView rv_new_chip,
+    public void copyWidget( TextView tv_switch_on, TextView tv_switch_off, TextView tv_no_commission_msg, RelativeLayout rl_dragon_bonus, RecyclerView rv_new_chip,
                            RelativeLayout rl_p_dragon_bonus, RelativeLayout rl_player_pair, RelativeLayout rl_banker_pair, RelativeLayout rl_b_dragon_bonus, RelativeLayout rl_player, RelativeLayout rl_tie, RelativeLayout rl_banker
 
     ) {
-        this.tv_table_limits = tv_table_limits;
+
         this.tv_switch_on = tv_switch_on;
         this.tv_switch_off = tv_switch_off;
         this.tv_no_commission_msg = tv_no_commission_msg;
@@ -158,12 +143,6 @@ public class BaccaratLiveControler {
     }
 
     private void initEvent() {
-        tv_table_limits.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initBetLimitDialog();
-            }
-        });
         rl_dragon_bonus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -253,39 +232,5 @@ public class BaccaratLiveControler {
         });
     }
 
-    private void initBetLimitDialog() {
 
-        final View layout = layoutInflater.inflate(R.layout.dialog_bet_limit, null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style.dialog).setView(layout);
-        AlertDialog betLimitDialog = builder.create();
-//        Util.getInstance().init(mContext);
-//        Util.getInstance().hideSystemNavigationBar();
-        betLimitDialog.show();
-        Window window = betLimitDialog.getWindow();
-
-
-        //设置dialog弹出时的动画效果，从屏幕左侧向右弹出
-        window.setWindowAnimations(R.style.virtualKeyboardDialogAnim);
-//        window.setWindowAnimations(0);
-        WindowManager.LayoutParams lp = window.getAttributes();
-        window.setGravity(Gravity.TOP | Gravity.LEFT);
-        //S8:2076x1080 3.0 480  HUAWEI-M5:2454x1600 3.0 480 lan:1794x1080 3.0 480
-        LogUtil.i("initBetLimitDialog width:" + displayMetrics.widthPixels + " height:" + displayMetrics.heightPixels + " displayMetrics.density:" + displayMetrics.density + " displayMetrics.densityDpi:" + displayMetrics.densityDpi);
-        WindowManager m = ((Activity) mContext).getWindowManager();
-        Display display = m.getDefaultDisplay();
-        lp.width = (int) (display.getWidth() * 0.26f);
-        lp.height = (int) (display.getHeight() * 0.45f);
-        lp.y = (int) (displayMetrics.heightPixels * 0.15);
-        lp.x = (int) (displayMetrics.widthPixels * 0.308);
-        lp.dimAmount = 0.0f;
-        window.setAttributes(lp);
-
-        betLimitDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                Util.getInstance().init(mContext);
-                Util.getInstance().hideSystemNavigationBar();
-            }
-        });
-    }
 }

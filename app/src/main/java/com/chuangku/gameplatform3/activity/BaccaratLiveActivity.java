@@ -1,11 +1,7 @@
 package com.chuangku.gameplatform3.activity;
 
 import android.content.Context;
-import android.os.Build;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -16,11 +12,10 @@ import android.widget.TextView;
 import com.chuangku.gameplatform3.R;
 import com.chuangku.gameplatform3.annotation.ContentView;
 import com.chuangku.gameplatform3.base.BaseActivity;
-import com.chuangku.gameplatform3.base.Constant;
+import com.chuangku.gameplatform3.controler.BaccaratLiveAnimControler;
 import com.chuangku.gameplatform3.controler.BaccaratLiveControler;
 import com.chuangku.gameplatform3.controler.BaccaratLiveInTimeControler;
 import com.chuangku.gameplatform3.widget.PercentCircleAntiClockwise;
-import com.gangbeng.basemodule.utils.SharedPreUtil;
 import com.gangbeng.basemodule.utils.Util;
 import com.tencent.rtmp.TXLiveConstants;
 import com.tencent.rtmp.TXLivePlayer;
@@ -36,6 +31,8 @@ import butterknife.OnClick;
  */
 @ContentView(R.layout.activity_baccarat_live)
 public class BaccaratLiveActivity extends BaseActivity {
+    @BindView(R.id.root_video)
+    RelativeLayout root_video;
     @BindView(R.id.tvv_1)
     TXCloudVideoView tvv_1;
     @BindView(R.id.ll_back)
@@ -118,33 +115,33 @@ public class BaccaratLiveActivity extends BaseActivity {
     @BindView(R.id.iv_in)
     public ImageView iv_in;
 
-    private Context mContext;
-    private TXLivePlayer mLivePlayer0 = null;
-    private int mPlayRtmp = TXLivePlayer.PLAY_TYPE_LIVE_RTMP;//RTMP推流类型
+    @BindView(R.id.rl_video_select)
+    public RelativeLayout rl_video_select;
+    @BindView(R.id.iv_video_select)
+    public ImageView iv_video_select;
 
     @Override
     protected void initView() {
-        mContext = BaccaratLiveActivity.this;
         Util.getInstance().init(this);
-        if (mLivePlayer0 == null) {
-            mLivePlayer0 = new TXLivePlayer(mContext);
-        }
         initEvent();
         BaccaratLiveControler.getInstance().init(this);
-        BaccaratLiveControler.getInstance().copyWidget(tv_table_limits, tv_switch_on, tv_switch_off, tv_no_commission_msg, rl_dragon_bonus, rv_chip,
+        BaccaratLiveControler.getInstance().copyWidget(tv_switch_on, tv_switch_off, tv_no_commission_msg, rl_dragon_bonus, rv_chip,
                 rl_p_dragon_bonus, rl_player_pair, rl_banker_pair, rl_b_dragon_bonus, rl_player, rl_tie, rl_banker
         );
         BaccaratLiveInTimeControler.getInstance().init(this);
         BaccaratLiveInTimeControler.getInstance().copyWidget(rl_in_time_layout, gv_left, gv_right_top, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, rl_statistic, tv_in_game_total_value, tv_in_game_banker_value, tv_in_game_player_value,
                 tv_in_game_tie_value, tv_in_game_banker_pair_value, tv_in_game_player_pair_value, rl_banker_to_player, iv_banker_to_player_1, iv_banker_to_player_2, iv_banker_to_player_3,
-                rl_player_to_banker, iv_player_to_banker_1, iv_player_to_banker_2, iv_player_to_banker_3,rl_ex_in,iv_ex,iv_in);
+                rl_player_to_banker, iv_player_to_banker_1, iv_player_to_banker_2, iv_player_to_banker_3, rl_ex_in, iv_ex, iv_in);
+
+        BaccaratLiveAnimControler.getInstance().init(this);
+        BaccaratLiveAnimControler.getInstance().copyWidget(tv_table_limits, rl_in_time_layout, iv_in, iv_ex, rl_video_select, iv_video_select, tvv_1,root_video,ll_back);
         //rtmp://player.daniulive.com:1935/hls/stream
         //rtmp://192.168.0.120:1935/live/stream 本地 ok
         //rtmp://live.hkstv.hk.lxdns.com/live/hks 香港电视ok
         //rtmp://player.daniulive.com:1935/hls/stream
         //rtmp://119.188.246.217:1935/live/stream
-        //rtmp://119.188.246.217/live/room1
-//        startPlay("rtmp://live.hkstv.hk.lxdns.com/live/hks",tvv_1,mLivePlayer0,mPlayRtmp);
+        //rtmp://119.188.246.217/live/room8
+//        startPlay("rtmp://119.188.246.217/live/room8", tvv_1, mLivePlayer0, mPlayRtmp);
     }
 
     private void initEvent() {
@@ -156,35 +153,5 @@ public class BaccaratLiveActivity extends BaseActivity {
 //                pcac.reInitView();
 //            }
 //        });
-    }
-
-
-    private void startPlay(String playUrl, TXCloudVideoView mPlayerView, TXLivePlayer mLivePlayer, int playType) {
-        mLivePlayer.setPlayerView(mPlayerView);
-        mLivePlayer.setRenderMode(TXLiveConstants.RENDER_MODE_FULL_FILL_SCREEN);
-        mLivePlayer.startPlay(playUrl, playType);
-    }
-
-    private void stopPlay(TXLivePlayer mLivePlayer, TXCloudVideoView mPlayerView) {
-        if (mLivePlayer != null) {
-            mLivePlayer.stopRecord();
-            mLivePlayer.stopPlay(true);
-            mPlayerView.onDestroy();
-        }
-    }
-
-    @OnClick({R.id.ll_back})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.ll_back:
-                finish();
-                break;
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        stopPlay(mLivePlayer0, tvv_1);
     }
 }

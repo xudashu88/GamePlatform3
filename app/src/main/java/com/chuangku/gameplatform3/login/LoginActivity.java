@@ -18,6 +18,7 @@ import com.chuangku.gameplatform3.R;
 import com.chuangku.gameplatform3.annotation.ContentView;
 import com.chuangku.gameplatform3.base.BaseActivity;
 import com.chuangku.gameplatform3.controler.LoginControler;
+import com.chuangku.gameplatform3.utils.PermissionsUtil;
 import com.chuangku.gameplatform3.widget.NetStateDialog;
 import com.chuangku.languagemodule.CommSharedUtil;
 import com.chuangku.languagemodule.LanguageType;
@@ -59,6 +60,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void initView() {
         this.mContext = LoginActivity.this;
+        PermissionsUtil.checkAndRequestPermissions(this);
         LoginControler.getInstance().init(this);
         LoginControler.getInstance().copyWidget(tv_version, imgBtn_language, et_user, rl_history_user, ll_user_pwd, et_password, tv_gesture, toggle_btn_select_type, tv_keyboard,
                 gesture_lock, tv_login, tv_try_play);

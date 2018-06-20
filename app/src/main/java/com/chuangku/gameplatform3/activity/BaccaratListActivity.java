@@ -2,8 +2,6 @@ package com.chuangku.gameplatform3.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -16,9 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.chuangku.gameplatform3.R;
-import com.chuangku.gameplatform3.adapter.BaccaratAdapter;
 import com.chuangku.gameplatform3.adapter.GridLeftAdapter;
 import com.chuangku.gameplatform3.adapter.GridRightBottom1Adapter;
 import com.chuangku.gameplatform3.adapter.GridRightBottom2Adapter;
@@ -26,12 +22,10 @@ import com.chuangku.gameplatform3.adapter.GridRightMiddleAdapter;
 import com.chuangku.gameplatform3.adapter.GridRightTopAdapter;
 import com.chuangku.gameplatform3.annotation.ContentView;
 import com.chuangku.gameplatform3.base.BaseActivity;
-import com.chuangku.gameplatform3.base.BaseListActivity;
 import com.chuangku.gameplatform3.base.Constant;
 import com.chuangku.gameplatform3.entity.Baccarat;
-import com.chuangku.gameplatform3.entity.Game;
-import com.chuangku.gameplatform3.fragment.HotNewFragment;
 import com.chuangku.gameplatform3.widget.PercentCircleAntiClockwise;
+import com.gangbeng.basemodule.utils.LogUtil;
 import com.gangbeng.basemodule.utils.SharedPreUtil;
 
 import java.util.ArrayList;
@@ -62,12 +56,6 @@ public class BaccaratListActivity extends BaseActivity {
     public TextView tv_switch_on;
     @BindView(R.id.tv_switch_off)
     public TextView tv_switch_off;
-    //    @BindView(R.id.tv_switch_on)
-//    public TextView tv_switch_on;
-//    @BindView(R.id.tv_switch_on)
-//    public TextView tv_switch_on;
-//    @BindView(R.id.tv_switch_on)
-//    public TextView tv_switch_on;
     private Context context;
     private List<Baccarat> baccaratList;
     private List<Baccarat> baccaratListAll;
@@ -82,7 +70,9 @@ public class BaccaratListActivity extends BaseActivity {
         baccaratList = new ArrayList<>();
         baccaratListAll = new ArrayList<>();
         int _interview = R.dimen.unit45;
-        if (displayMetrics.widthPixels < 2100&&displayMetrics.widthPixels>1800) {
+        //魅族 1920x1014 3.0 华为M5 8.4英寸 三星S85.6英寸2076x1080 480
+        LogUtil.i("widthPx="+displayMetrics.widthPixels+" height="+displayMetrics.heightPixels+" density="+displayMetrics.density+" dpi="+displayMetrics.densityDpi);
+        if (displayMetrics.widthPixels < 2100&&displayMetrics.widthPixels>2000) {
             ll_title.setPadding(getResources().getDimensionPixelSize(_interview), 0, getResources().getDimensionPixelSize(_interview), 0);
             rl_rv.setPadding(getResources().getDimensionPixelSize(_interview), 0, getResources().getDimensionPixelSize(_interview), 0);
         }

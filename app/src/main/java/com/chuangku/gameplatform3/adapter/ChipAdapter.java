@@ -12,11 +12,9 @@ import android.widget.TextView;
 import com.chuangku.gameplatform3.R;
 import com.chuangku.gameplatform3.base.Constant;
 import com.chuangku.gameplatform3.entity.Chip;
-import com.chuangku.gameplatform3.entity.Game;
 import com.chuangku.gameplatform3.widget.ChoiceItemLayout;
 import com.gangbeng.basemodule.utils.SharedPreUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChipAdapter extends RecyclerView.Adapter<ChipAdapter.ViewHolder> {

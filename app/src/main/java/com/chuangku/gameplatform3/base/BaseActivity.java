@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.chuangku.gameplatform3.annotation.ContentViewUtils;
 import com.chuangku.languagemodule.MultiLanguageUtil;
@@ -17,7 +16,6 @@ import butterknife.ButterKnife;
  * Activity基类
  */
 public abstract class BaseActivity extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

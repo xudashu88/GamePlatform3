@@ -22,6 +22,9 @@
     <string name="no_bet_warning">你已經連續3局未下注，連續5局不下注將被踢出</string>
     <string name="bet_all_remain">下注所有餘額</string>
 
+    <!--toast-->
+    <string name="change_channel_resolution">已切換到%1$s</string>
+
     <!--home-->
     <string name="hot_new">熱門/最新</string>
     <string name="live_games">視訊遊戲</string>
@@ -124,4 +127,8 @@
     <string name="db_player_payout">閒龍寶派彩</string>
 
     <string name="no_commission_msg">莊6點贏賠0.5</string>
+    <string name="video_selection">視頻選項</string>
+    <string name="video_close">關閉視頻</string>
+    <string name="video_hd">高清</string>
+    <string name="video_ld">標清</string>
 </resources>

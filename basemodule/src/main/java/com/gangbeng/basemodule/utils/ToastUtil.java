@@ -1,11 +1,18 @@
 package com.gangbeng.basemodule.utils;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.gangbeng.basemodule.R;
 
 /**
  * Toast
@@ -56,6 +63,30 @@ public class ToastUtil {
                     mToast.setView(view);
                 }
                 mToast.setText(msg);//这里必需设置，否则下次显示一直是上次的值
+                mToast.show();
+            }
+        });
+    }
+
+    public static void showToast(final String info) {
+        runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mToast == null) {
+                    mToast = Toast.makeText(mContext, info, Toast.LENGTH_LONG);
+                    mToast.setGravity(Gravity.CENTER, 0, 0);
+                    LinearLayout layout = (LinearLayout) mToast.getView();
+                    layout.setBackgroundResource(R.drawable.bg_black_stroke_golden);
+                    TextView tv = (TextView) mToast.getView().findViewById(android.R.id.message);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    lp.setMargins(50, 2, 50, 2);
+                    tv.setLayoutParams(lp);
+                    tv.setTextColor(Color.WHITE);
+                    tv.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                    tv.setTextSize(16);
+                } else {
+                    mToast.setText(info);
+                }
                 mToast.show();
             }
         });

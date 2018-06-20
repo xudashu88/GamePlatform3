@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import com.chuangku.gameplatform3.R;
 import com.chuangku.gameplatform3.annotation.ContentView;
-import com.chuangku.gameplatform3.base.BaseActivity;
 import com.chuangku.gameplatform3.base.BaseActivity2;
 import com.chuangku.gameplatform3.controler.TabHostControler;
 

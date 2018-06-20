@@ -22,13 +22,10 @@
     <string name="no_bet_warning">You have not bet in 3 continuous rounds and you will be kickout if not bet in 5 continuous rounds</string>
     <string name="bet_all_remain">Betting all remaining credits</string>
 
+    <!--toast-->
+    <string name="change_channel_resolution">Switched to %1$s</string>
+
     <!--home-->
-    <array name="tab_titles">
-        <item>Hot/New</item>
-        <item>Live Games</item>
-        <item>Arcade Games</item>
-        <item>Card Games</item>
-    </array>
     <string name="hot_new">Hot/New</string>
     <string name="live_games">Live Games</string>
     <string name="arcade_games">Arcade Games</string>
@@ -134,5 +131,8 @@ Comm"</string>
     <string name="db_player_payout">DB Player Payout</string>
 
     <string name="no_commission_msg">Banker wins at 6 pays 1 to 2</string>
-
+    <string name="video_selection">Video Options</string>
+    <string name="video_close">Close</string>
+    <string name="video_hd">HD</string>
+    <string name="video_ld">LD</string>
 </resources>

@@ -19,6 +19,8 @@ public class Constant {
     public static final String COMMISSION_ON = "commission_on";//好路排序-關
     public static final String CHIP_POSITION = "chip_position";//选中的筹码位置
     public static final String IS_EXPAND = "is_expand";//
+    public static final String ROOM8 = "room8";//
+    public static final String ROOM9 = "room9";//
     /**
      * 60秒倒计时
      */
