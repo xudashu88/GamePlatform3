@@ -40,7 +40,7 @@ public class CircleDialog extends Dialog {
         WindowManager m = ((Activity) context).getWindowManager();
         Display d = m.getDefaultDisplay(); // 为获取屏幕宽、高
         lp.width = (int) (d.getWidth() * 0.5); // 宽度设置为屏幕的0.8倍
-        lp.height = (int) (d.getHeight() * 0.2);
+        lp.height = (int) (d.getHeight() * 0.4);
         lp.gravity = Gravity.CENTER;
         getWindow().setAttributes(lp);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);//一定加上这句才起效果

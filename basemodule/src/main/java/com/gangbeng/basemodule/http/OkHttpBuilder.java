@@ -17,7 +17,7 @@ public class OkHttpBuilder {
     Map<String, List<String>> heads = new HashMap();
     List<NetElement> elementList = new ArrayList();
     private Object bindParam = null;
-    OkHttpBuilder.RequestLife requestLife;
+    RequestLife requestLife;
     Object liftParam;
     boolean hasEncrypt = false;
     String secrect;
@@ -106,7 +106,7 @@ public class OkHttpBuilder {
             this.liftParam = this.requestLife.OnStart();
         }
 
-        OkHttpManger.getInstance().executeJsonPost(this.url, this, new OkHttpBuilder.CallBack(callback));
+        OkHttpManger.getInstance().executeJsonPost(this.url, this, new CallBack(callback));
     }
 
     public void executeFormPost(OkHttpManger.ResultCallback callback) {
@@ -114,7 +114,7 @@ public class OkHttpBuilder {
             this.liftParam = this.requestLife.OnStart();
         }
 
-        OkHttpManger.getInstance().enqueueFormPost(this.url, this, new OkHttpBuilder.CallBack(callback));
+        OkHttpManger.getInstance().enqueueFormPost(this.url, this, new CallBack(callback));
     }
 
     public void executeGetParams(OkHttpManger.ResultCallback callback) {
@@ -122,10 +122,10 @@ public class OkHttpBuilder {
             this.liftParam = this.requestLife.OnStart();
         }
 
-        OkHttpManger.getInstance().executeGet(this.url, this, new OkHttpBuilder.CallBack(callback));
+        OkHttpManger.getInstance().executeGet(this.url, this, new CallBack(callback));
     }
 
-    public void setRequestLife(OkHttpBuilder.RequestLife requestLife) {
+    public void setRequestLife(RequestLife requestLife) {
         this.requestLife = requestLife;
     }
 

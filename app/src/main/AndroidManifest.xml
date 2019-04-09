@@ -1,76 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.chuangku.gameplatform3">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.purity.yu.gameplatform">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 读取SD卡 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!-- 写入扩展存储 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 硬件加速对X5视频播放非常重要，建议开启 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
 
-
+    <!--
+      android:hardwareAccelerated="true"
+      android:largeHeap="true"
+    -->
     <application
         android:name=".base.GlobeApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/logo"
+        android:largeHeap="true"
+        android:roundIcon="@drawable/logo2"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:name">
         <activity
-            android:name=".login.LoginActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:name=".login.KittyActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.StartActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.HomeActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity android:name=".activity.SetLanguageActivity" />
         <activity
             android:name=".activity.TabHostActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
+
         <activity
             android:name=".activity.UserActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.TXCDemoActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.BaccaratListActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.BaccaratListActivity2"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.BaccaratLiveActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
-        <activity android:name=".widget.popup.PopupWindowActivity" />
+        <activity
+            android:name=".activity.SettingActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.SuggestionActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.xmplayer.XMPlayerActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:hardwareAccelerated="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.DtListActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.DtListActivity2"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.DtLiveActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.DtActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.xmplayer.RobotFishActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.BetRecordListActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.QuotaRecordListActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".base.LocalHtmlWebViewActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.HolyDayActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.LdRoadActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".login.RegisterActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RoyalActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ServiceWebActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SinglePickListActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.SinglePickLiveActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.MessageListActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.HolyDayListActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.MacauListActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.MacauActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+
+        <activity
+            android:name=".activity.BacActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+
+        <service
+            android:name=".service.MusicService"
+            android:enabled="true"
+            android:exported="true" />
+        <!--<receiver android:name=".receiver.PhoneBroadcastReceiver">-->
+        <!--<intent-filter>-->
+        <!--&lt;!&ndash; 获取来电广播 &ndash;&gt;-->
+        <!--<action android:name="android.intent.action.PHONE_STATE" />-->
+        <!--&lt;!&ndash; 获取去电广播 &ndash;&gt;-->
+        <!--<action android:name="android.intent.action.NEW_OUTGOING_CALL" />-->
+        <!--</intent-filter>-->
+        <!--</receiver>-->
     </application>
 
 </manifest>

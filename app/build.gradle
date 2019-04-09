@@ -1,57 +1,96 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.mob.sdk'
+//apply plugin: 'AndResGuard'
+// com.purity.yu.gameplatform3 测试    com.purity.yu.gameplatform2正式43  com.purity.yu.gameplatform6 龙虎测试103 com.purity.yu.gameplatform5 本地測試192 com.purity.yu.gameplatform9皇家对接
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
-        applicationId "com.chuangku.gameplatform3"
+        applicationId "com.gangbeng.fenxiao"
         minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        targetSdkVersion 28
+        versionCode 64
+        versionName "3.4"
+        multiDexEnabled true
+        resConfigs "zh", "en", "zh-rTW"//只包含中文简体繁体和英文3种国际化
         ndk {
-            abiFilters "armeabi","arm64-v8a","armeabi-v7a"
+//            abiFilters /*"armeabi", "arm64-v8a",*/ "armeabi-v7a"
+            abiFilters /*"armeabi",*/ "armeabi-v7a"/*, "arm64-v8a"*/
         }
+        MobSDK {
+            appKey "2aa942ca04e48"
+            appSecret "00e901311abd9d712f7ead5e7b0d7fc8"
+            ShareSDK {
+                devInfo {
+                    Wechat {
+                        appId "wx86f654aa160691bc"
+                        appSecret "a1544a9a1137ee284d04b806ae744b16"
+                    }
+//            QQ {
+//                appId "1106209899"
+//                appKey "aed9b0303e3ed1e27bae87c33761161d"
+//            }
+//            WechatMoments {
+//                appId "wx86f654aa160691bc"
+//                appSecret "a1544a9a1137ee284d04b806ae744b16"
+//            }
+//            WechatFavorite {
+//                appId "wx86f654aa160691bc"
+//                appSecret "a1544a9a1137ee284d04b806ae744b16"
+//            }
+                }
+            }
+        }
+
+    }
+    //https://github.com/shwenzhang/AndResGuard 除了代码混淆还需要资源混淆
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled false // 删除无引用的方法和开启混淆
+            shrinkResources false //压缩资源
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            buildConfigField "String", "ImageSite", project.FORMALIMAGESITE
-            buildConfigField "String", "ImageSite2", project.FORMALIMAGESITE2
-            buildConfigField "String", "Site", project.FORMALSITE
-        }
-
-        debug {
-            buildConfigField "String", "ImageSite", project.FORMALIMAGESITE
-            buildConfigField "String", "ImageSite2", project.FORMALIMAGESITE2
-            buildConfigField "String", "Site", project.FORMALSITE
-        }
-    }
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
         }
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api project(path:':basemodule')
-    api project(path:':languagemodule')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    api project(path: ':basemodule')
+    api project(path: ':languagemodule')
+    api project(path: ':twowaygallery')
+    api project(path: ':xrecyclerview')
+    api project(':okhttp3')
+    api project(':marqueelibrary')
+    api project(':animations')
+    implementation files('libs/smartavengine.jar')
+    implementation files('libs/xmplayer.jar')
+    implementation files('libs/QuickIntegrater.jar')//mob登录
+//    implementation files('libs/tbs_sdk_thirdapp_v3.6.0.1310_43612_sharewithdownload_withoutGame_obfs_20180706_163319.jar')
     implementation rootProject.ext.supportV4
     implementation rootProject.ext.appCompat
     implementation rootProject.ext.cardView
     implementation rootProject.ext.designCompat
-    implementation (name: 'LiteAVSDK_Player', ext: 'aar')
+//    implementation 'com.squareup.okhttp:okhttp:2.7.5' 过时
+//    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.squareup.okhttp:okhttp:+'
     implementation 'com.google.code.gson:gson:2.8.0'
+
     implementation 'com.github.bumptech.glide:glide:4.0.0'
     implementation 'org.greenrobot:eventbus:3.0.0'
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    implementation 'com.jcodecraeer:xrecyclerview:1.5.9'//刷新功能
+    // butterknife 9.0 RC 有问题不用
+    implementation 'com.jakewharton:butterknife:8.7.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+    implementation('io.socket:socket.io-client:0.8.3') { //android socket
+        exclude group: 'org.json', module: 'json'
+    }
 
-    implementation 'com.7heaven.widgets:gesturelock:1.3'
+//    implementation 'com.gongwen:marqueelibrary:1.1.3'
+
+
+    //提升xml加载速度
+//    annotationProcessor 'com.zhangyue.we:x2c-apt:1.1.2'
+//    implementation 'com.zhangyue.we:x2c-lib:1.0.6'
 }

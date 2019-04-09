@@ -7,18 +7,34 @@
     <color name="mainFont">#333333</color>
     <color name="mainFontLight">#666666</color>
     <color name="mainFontLightLight">#999999</color>
+    <color name="coffee">#8C6238</color>
+    <color name="ruleBg">#FFF3CD</color>
+
 
     <color name="transparent">#00000000</color>
     <color name="transparent_background">#00000000</color>
-    <color name="halfTransparent">#55000000</color>
+    <color name="halfWhiteTransparent">#99ffffff</color>
 
 
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
-    <color name="red">#ff0000</color>
+    <color name="red">#FFff0000</color>
     <color name="blue">#0000EE</color>
     <color name="skyBlue">#0693FF</color>
     <color name="green">#18ee00</color>
-    <color name="yellow">#fcd741</color>
+    <color name="yellow">#FFfcd741</color>
     <color name="pink">#FF4270</color>
+    <color name="gold">#85662D</color>
+    <color name="card">#24517B</color>
+    <color name="bet">#0A93A0</color>
+    <color name="sv">#00A1E9</color>
+    <color name="new_tie">#59116D</color>
+    <color name="new_pair">#F638A1</color>
+    <color name="new_bg_bet">#5390b1</color>
+    <color name="new_bg_bet_pre">#63A5C9</color>
+    <color name="new_gray">#537188</color>
+    <color name="new_coffee">#C57230</color>
+    <color name="new_coffee_pre">#CF8346</color>
+    <color name="btn">#B9A385</color>
+
 </resources>

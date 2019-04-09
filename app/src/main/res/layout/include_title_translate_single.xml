@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_title"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/unit50"
+    android:layout_marginRight="@dimen/unit60"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/unit10"
+    android:weightSum="18">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2" />
+
+    <LinearLayout
+        android:id="@+id/ll_back"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/unit20"
+            android:layout_height="@dimen/unit40"
+            android:background="@drawable/back" />
+    </LinearLayout>
+
+    <!--@string/ba_game-->
+    <TextView
+        android:id="@+id/tv_game_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/unit5"
+        android:layout_weight="3.2"
+        android:gravity="center_vertical"
+        android:text="@string/single_pick_game"
+        android:textColor="@color/mainGolden"
+        android:textSize="@dimen/font18"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/rl_table"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3.5"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/tv_table_limits"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/unit10"
+            android:layout_marginTop="@dimen/unit10"
+            android:layout_marginRight="@dimen/unit10"
+            android:layout_marginBottom="@dimen/unit10"
+            android:background="@drawable/select_bet_limit_btn"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="@string/table_limits"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font12" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="center">
+
+        <com.purity.yu.gameplatform.widget.PercentCircleAntiClockwise
+            android:id="@+id/pcac"
+            android:layout_width="@dimen/unit45"
+            android:layout_height="@dimen/unit45"
+            android:layout_gravity="center"
+            app:circleBackground="#55000000"
+            app:radius="220"
+            app:ringColor="#EEC51A"
+            app:textColor="#ffffff" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_video_select1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/unit30"
+        android:layout_weight="2.5"
+        android:background="@drawable/video_btn"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="@dimen/unit55"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:text="@string/switch_line"
+            android:textColor="@color/mainGoldenUnderTine"
+            android:textSize="@dimen/font10"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_video_select1"
+            android:layout_width="@dimen/unit15"
+            android:layout_height="@dimen/unit35"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/video_arrow"
+            android:rotation="180"/>
+    </RelativeLayout>
+
+
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/unit3"
+        android:layout_marginBottom="@dimen/unit3"
+        android:layout_weight="1.5"
+        android:scaleType="fitXY"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/ll_user_info"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/unit5"
+        android:layout_weight="3.5"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/unit3"
+        android:paddingBottom="@dimen/unit3">
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/profile_bar"
+            android:drawableLeft="@drawable/ac_icon"
+            android:drawablePadding="@dimen/unit5"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/unit5"
+            android:text="光风霁月"
+            android:textColor="#62503e"
+            android:textSize="@dimen/font12" />
+
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/unit5"
+            android:layout_weight="1"
+            android:background="@drawable/balance_bar"
+            android:drawableLeft="@drawable/balance_icon"
+            android:drawablePadding="@dimen/unit5"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/unit5"
+            android:text="0"
+            android:textColor="@color/mainGolden"
+            android:textSize="@dimen/font12" />
+    </LinearLayout>
+
+
+</LinearLayout>

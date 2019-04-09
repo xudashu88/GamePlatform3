@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/unit35"
+        android:background="#453C35"
+        android:weightSum="9">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="姓名"
+            android:textColor="@color/mainFontGolden"
+            android:textSize="@dimen/font10" />
+
+        <include layout="@layout/include_vertical_line_golden" />
+
+        <TextView
+            android:id="@+id/tv_bank_account"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="银行卡号"
+            android:textColor="@color/mainFontGolden"
+            android:textSize="@dimen/font10" />
+
+        <include layout="@layout/include_vertical_line_golden" />
+
+        <TextView
+            android:id="@+id/tv_bank_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="银行名称"
+            android:textColor="@color/mainFontGolden"
+            android:textSize="@dimen/font10" />
+
+        <include layout="@layout/include_vertical_line_golden" />
+
+        <TextView
+            android:id="@+id/tv_branch_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="手机号码"
+            android:textColor="@color/mainFontGolden"
+            android:textSize="@dimen/font10" />
+
+        <include layout="@layout/include_vertical_line_golden" />
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="删除"
+            android:textColor="@color/mainFontGolden"
+            android:textSize="@dimen/font10" />
+
+    </LinearLayout>
+</LinearLayout>

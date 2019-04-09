@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/new_bg_bet"
+    android:orientation="vertical"
+    android:weightSum="6">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:text="@string/bank_play_limit_colon"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font12" />
+
+        <TextView
+            android:id="@+id/tv_bet_limit_bp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/unit5"
+            android:layout_weight="1"
+            android:text="30000"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font12" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:text="@string/tie_limit_colon"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font12" />
+
+        <TextView
+            android:id="@+id/tv_bet_limit_tie"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/unit5"
+            android:layout_weight="1"
+            android:text="30000"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font12" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:text="@string/pair_limit_colon"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font12" />
+
+        <TextView
+            android:id="@+id/tv_bet_limit_pair"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/unit5"
+            android:layout_weight="1"
+            android:text="30000"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font12" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:text="全台庄闲:"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font12" />
+
+        <TextView
+            android:id="@+id/tv_table_limit_bp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/unit5"
+            android:layout_weight="1"
+            android:text="20-100000"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font12" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:text="全台和:"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font12" />
+
+        <TextView
+            android:id="@+id/tv_table_limit_tie"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/unit5"
+            android:layout_weight="1"
+            android:text="20-100000"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font12" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:text="全台对子:"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font12" />
+
+        <TextView
+            android:id="@+id/tv_table_limit_pair"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/unit5"
+            android:layout_weight="1"
+            android:text="20-100000"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font12" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.widget.VideoView;
 
 /**
- * 全屏视频
+ * 全屏VideoView
  */
 public class CustomerVideoView extends VideoView {
 

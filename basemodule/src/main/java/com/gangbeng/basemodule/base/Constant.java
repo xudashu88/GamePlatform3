@@ -5,8 +5,8 @@ package com.gangbeng.basemodule.base;
  */
 
 public class Constant {
-    public static final String USER_ID = "id";
-    public static final String USER_TOKEN = "token";
+    public static final String USER_ID = "userid";
+    public static final String USER_TOKEN = "auth";
     /**
      * 60秒倒计时
      */

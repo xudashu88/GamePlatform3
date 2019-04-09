@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_xmplayer_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+>
+
+    <SurfaceView
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/iv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/unit70"
+        android:layout_marginBottom="@dimen/unit50"
+        android:background="@drawable/tip_pos_down"
+        android:tag="iv_1"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/unit50"
+        android:background="@drawable/tip_pos_down"
+        android:tag="iv_2"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/unit70"
+        android:layout_marginBottom="@dimen/unit50"
+        android:background="@drawable/tip_pos_down"
+        android:tag="iv_3"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/unit50"
+        android:layout_marginBottom="@dimen/unit50"
+        android:background="@drawable/tip_pos_right"
+        android:tag="iv_4"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/unit50"
+        android:layout_marginRight="@dimen/unit50"
+        android:background="@drawable/tip_pos_right"
+        android:tag="iv_5"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/unit50"
+        android:layout_marginRight="@dimen/unit70"
+        android:background="@drawable/tip_pos_down"
+        android:rotation="180"
+        android:tag="iv_6"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/unit50"
+        android:background="@drawable/tip_pos_down"
+        android:rotation="180"
+        android:tag="iv_7"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/unit70"
+        android:layout_marginTop="@dimen/unit50"
+        android:background="@drawable/tip_pos_down"
+        android:rotation="180"
+        android:tag="iv_8"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/unit50"
+        android:layout_marginTop="@dimen/unit50"
+        android:background="@drawable/tip_pos_right"
+        android:rotation="180"
+        android:tag="iv_9"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/unit50"
+        android:layout_marginBottom="@dimen/unit50"
+        android:background="@drawable/tip_pos_right"
+        android:rotation="180"
+        android:tag="iv_10"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/bntExit"
+            android:layout_width="@dimen/unit80"
+            android:layout_height="@dimen/unit30"
+            android:layout_gravity="left"
+            android:background="@drawable/select_arcade_back_btn"
+            android:gravity="center"
+            android:onClick="onExitClick" />
+
+        <Button
+            android:id="@+id/bntSound"
+            android:layout_width="@dimen/unit40"
+            android:layout_height="@dimen/unit30"
+            android:background="@drawable/off"
+            android:onClick="onSoundClick" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bntSettlement"
+        android:layout_width="@dimen/unit60"
+        android:layout_height="@dimen/unit20"
+        android:layout_marginTop="@dimen/unit10"
+        android:layout_marginRight="@dimen/unit5"
+        android:layout_toLeftOf="@id/bntScore1000"
+        android:background="@drawable/xiafen1"
+        android:onClick="onSettlementClick"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/bntScore1000"
+        android:layout_width="@dimen/unit60"
+        android:layout_height="@dimen/unit20"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/unit10"
+        android:layout_marginRight="@dimen/unit20"
+        android:background="@drawable/up_1000"
+        android:onClick="onScore1000Click"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/bntScore10000"
+        android:layout_width="@dimen/unit60"
+        android:layout_height="@dimen/unit20"
+        android:layout_below="@id/bntSettlement"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/unit10"
+        android:layout_marginRight="@dimen/unit20"
+        android:background="@drawable/up_10000"
+        android:onClick="onScore10000Click"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:layout_width="@dimen/unit60"
+        android:layout_height="@dimen/unit20"
+        android:layout_below="@id/bntScore10000"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/unit10"
+        android:layout_marginRight="@dimen/unit20"
+        android:background="@drawable/up_100000"
+        android:clickable="true"
+        android:onClick="onScore100000Click"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/unit16"
+            android:layout_height="@dimen/unit16"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/unit5"
+            android:background="@drawable/gold_yuan" />
+
+        <TextView
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/unit5"
+            android:text="10000000"
+            android:textColor="@color/yellow"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/bntMirror"
+        android:layout_width="@dimen/unit45"
+        android:layout_height="@dimen/unit30"
+        android:layout_marginTop="@dimen/unit40"
+        android:background="@drawable/object_flip_vertical"
+        android:onClick="onMirrorClick" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true">
+
+        <Button
+            android:id="@+id/butSellEnhance"
+            android:layout_width="@dimen/unit64"
+            android:layout_height="@dimen/unit64"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/unit100"
+            android:layout_marginBottom="@dimen/unit100"
+            android:background="@drawable/select_arcade_b_btn"
+            android:onClick="onSellEnhance" />
+
+        <Button
+            android:id="@+id/bntSellSend"
+            android:layout_width="@dimen/unit100"
+            android:layout_height="@dimen/unit100"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/unit10"
+            android:layout_marginBottom="@dimen/unit30"
+            android:background="@drawable/select_arcade_a_btn"
+            android:onClick="onSellSend" />
+
+        <com.xmplayer.RockerView
+            android:id="@+id/rockerView"
+            android:layout_width="@dimen/unit140"
+            android:layout_height="@dimen/unit140"
+            android:layout_alignBottom="@+id/bntSellSend"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"></com.xmplayer.RockerView>
+    </RelativeLayout>
+</RelativeLayout>

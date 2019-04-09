@@ -24,7 +24,10 @@ import java.lang.reflect.Field;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import okio.ByteString;
 
@@ -46,6 +49,7 @@ public class Util {
         }
         return instance;
     }
+
     public static String getId(Context context) {
         String id = null;
         try {
@@ -55,7 +59,6 @@ public class Util {
         }
         return id;
     }
-
 
 
     public static String getToken(Context context) {
@@ -100,7 +103,7 @@ public class Util {
         if (!TextUtils.isEmpty(time)) {
 //            "yyyy-MM-dd HH:mm"
             SimpleDateFormat _format = new SimpleDateFormat(format);
-            time = _format.format(new Date(Long.valueOf(time) * 1000));
+            time = _format.format(new Date(Long.valueOf(time) * 1000L));
         }
         return time;
     }
@@ -154,8 +157,8 @@ public class Util {
     }
 
     /*
-    * 字符串非空null
-    * */
+     * 字符串非空null
+     * */
     public static boolean isEmpty(@Nullable CharSequence str) {
         if (str == null || str.length() == 0 || str.equals("null") || str.equals("0"))
             return true;
@@ -184,12 +187,13 @@ public class Util {
      * @parm gravity2 居上48
      */
     public static AlertDialog setDialog(Context context, int themeResId, View addView, float width, float height, float dimAmount,
-                                        int screenWidth, int screenHeight, int gravity1, int gravity2) {
+                                        int screenWidth, int screenHeight, int gravity1, int gravity2, int anim) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, themeResId).setView(addView);
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
         Window window = alertDialog.getWindow();
         window.setGravity(gravity1 | gravity2);
+        window.setWindowAnimations(anim);
         WindowManager.LayoutParams lp;
         lp = alertDialog.getWindow().getAttributes();
         lp.dimAmount = dimAmount;
@@ -211,16 +215,41 @@ public class Util {
         return alertDialog;
     }
 
+    /**
+     * 隐藏系统底部虚拟键盘
+     */
     public void hideSystemNavigationBar() {
         if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) {
-            View view = ((Activity)mContext).getWindow().getDecorView();
+            View view = ((Activity) mContext).getWindow().getDecorView();
             view.setSystemUiVisibility(View.GONE);
         } else if (Build.VERSION.SDK_INT >= 19) {
-            View decorView = ((Activity)mContext).getWindow().getDecorView();
+            View decorView = ((Activity) mContext).getWindow().getDecorView();
             int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
             decorView.setSystemUiVisibility(uiOptions);
         }
+    }
+
+    public static List<String> stringToList(String strs) {
+        List<String> _list = new ArrayList<>();
+        if (!TextUtils.isEmpty(strs)) {
+            String str[] = strs.split(",");
+            _list = Arrays.asList(str);
+        }
+        return _list;
+    }
+
+    private static final int MIN_CLICK_DELAY_TIME = 300;
+    private static long lastClickTime;
+
+    public static boolean isFastClick(int minDelayTime) {
+        boolean flag = false;
+        long curClickTime = System.currentTimeMillis();
+        if ((curClickTime - lastClickTime) >= minDelayTime) {
+            flag = true;
+        }
+        lastClickTime = curClickTime;
+        return flag;
     }
 
 }

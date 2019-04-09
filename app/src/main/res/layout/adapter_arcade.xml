@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/unit75"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/unit20">
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="@dimen/unit60"
+        android:layout_height="@dimen/unit80"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text=""
+        android:textStyle="bold"
+        android:textColor="@color/red"
+        android:textSize="@dimen/font16" />
+
+</RelativeLayout>

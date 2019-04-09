@@ -47,6 +47,7 @@ public class MultiLanguageUtil {
      * 设置语言
      */
     public void setConfiguration() {
+        Log.i("getLanguageType","setConfiguration");
         Locale targetLocale = getLanguageLocale();
         Configuration configuration = mContext.getResources().getConfiguration();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
@@ -103,6 +104,7 @@ public class MultiLanguageUtil {
      * @param languageType
      */
     public void updateLanguage(int languageType) {
+        Log.i("getLanguageType","updateLanguage"+languageType);
         CommSharedUtil.getInstance(mContext).putInt(MultiLanguageUtil.SAVE_LANGUAGE, languageType);
         MultiLanguageUtil.getInstance().setConfiguration();
     }

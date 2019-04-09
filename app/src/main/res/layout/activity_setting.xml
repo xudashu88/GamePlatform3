@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/menuPress"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:id="@+id/fragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="9.5" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2.5">
+
+        <RelativeLayout
+            android:id="@+id/rl_menu_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/unit50"
+            android:background="@color/menu">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="@dimen/unit25"
+                android:layout_height="@dimen/unit40"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/unit10"
+                android:background="@drawable/back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/unit40"
+                android:text="@string/setting"
+                android:textColor="@color/mainFontGolden"
+                android:textSize="@dimen/font16"
+                android:textStyle="bold" />
+
+            <include layout="@layout/include_setting_line" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_menu_chips"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/unit40"
+            android:layout_below="@id/rl_menu_title"
+            android:background="@color/menuPress"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/tv_menu_chips"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/unit10"
+                android:gravity="center_vertical"
+                android:tag="tv_menu_chips"
+                android:text="@string/set_stake"
+                android:textColor="@color/mainFontGolden"
+                android:textSize="@dimen/font16"
+                android:textStyle="bold" />
+
+            <include layout="@layout/include_setting_line" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_menu_language"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/unit40"
+            android:layout_below="@id/rl_menu_chips"
+            android:background="@color/menu"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/tv_menu_language"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/unit10"
+                android:gravity="center_vertical"
+                android:tag="tv_menu_language"
+                android:text="@string/set_language"
+                android:textColor="@color/mainFontGolden"
+                android:textSize="@dimen/font16"
+                android:textStyle="bold" />
+
+            <include layout="@layout/include_setting_line" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_menu_music"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/unit40"
+            android:layout_below="@id/rl_menu_language"
+            android:background="@color/menu"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/tv_menu_music"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/unit10"
+                android:gravity="center_vertical"
+                android:tag="tv_menu_music"
+                android:text="@string/set_sound"
+                android:textColor="@color/mainFontGolden"
+                android:textSize="@dimen/font16"
+                android:textStyle="bold" />
+
+            <include layout="@layout/include_setting_line" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_menu_other"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/unit40"
+            android:layout_below="@id/rl_menu_music"
+            android:background="@color/menu"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/tv_menu_other"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/unit10"
+                android:gravity="center_vertical"
+                android:tag="tv_menu_other"
+                android:text="@string/set_other"
+                android:textColor="@color/mainFontGolden"
+                android:textSize="@dimen/font16"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rl_menu_other"
+            android:background="@color/menu" />
+    </RelativeLayout>
+</LinearLayout>

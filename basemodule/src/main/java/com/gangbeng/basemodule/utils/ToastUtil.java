@@ -5,9 +5,9 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,17 +19,19 @@ import com.gangbeng.basemodule.R;
  */
 
 public class ToastUtil {
-    public static Context mContext;
     private static Toast mToast;
-
-    public static void init(Context context) {
-        mContext = context;
-    }
 
     private static Handler mHandler = new Handler(Looper.getMainLooper());
 
-    public static Handler getMainHandler() {
-        return mHandler;
+    private ToastUtil() {
+    }
+
+    private static class Holder {
+        private static ToastUtil instance = new ToastUtil();
+    }
+
+    public static ToastUtil getInstance() {
+        return Holder.instance;
     }
 
     /**
@@ -52,7 +54,7 @@ public class ToastUtil {
     /**
      * 可以在子线程中调用
      */
-    public static void show(final String msg) {
+    public static void show(final Context mContext, final String msg) {
         runOnUIThread(new Runnable() {
             @Override
             public void run() {
@@ -68,7 +70,7 @@ public class ToastUtil {
         });
     }
 
-    public static void showToast(final String info) {
+    public static void showToast(final Context mContext, final String info) {
         runOnUIThread(new Runnable() {
             @Override
             public void run() {
@@ -84,6 +86,7 @@ public class ToastUtil {
                     tv.setTextColor(Color.WHITE);
                     tv.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                     tv.setTextSize(16);
+                    mToast.setView(layout);
                 } else {
                     mToast.setText(info);
                 }
@@ -92,7 +95,37 @@ public class ToastUtil {
         });
     }
 
-    public static void showLong(final String msg) {
+
+    public static void showToastWin(final Context mContext, final String info) {
+        runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast mToast=null;
+                if (mToast == null) {
+                    mToast = Toast.makeText(mContext, info, Toast.LENGTH_LONG);
+                    mToast.setGravity(Gravity.CENTER, 0, 0);
+                    LinearLayout layout = (LinearLayout) mToast.getView();
+                    layout.setBackgroundResource(R.drawable.result_popup_gradient);
+                    TextView tv = (TextView) mToast.getView().findViewById(android.R.id.message);
+                    int width = mContext.getResources().getDimensionPixelSize(R.dimen.unit220);
+                    int height = mContext.getResources().getDimensionPixelSize(R.dimen.unit40);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(width, height);
+                    lp.gravity = Gravity.CENTER;
+                    tv.setLayoutParams(lp);
+                    tv.setTextColor(mContext.getResources().getColor(R.color.gold));
+                    tv.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimensionPixelSize(R.dimen.font14));
+                    tv.setGravity(Gravity.CENTER);
+                    mToast.setView(layout);
+                } else {
+                    mToast.setText(info);
+                }
+                mToast.show();
+            }
+        });
+    }
+
+    public static void showLong(final Context mContext, final String msg) {
         runOnUIThread(new Runnable() {
             @Override
             public void run() {
