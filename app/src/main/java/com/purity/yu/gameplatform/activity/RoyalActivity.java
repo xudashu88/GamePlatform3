@@ -16,6 +16,7 @@ import com.gangbeng.basemodule.utils.ToastUtil;
 import com.purity.yu.gameplatform.R;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.base.ServiceIpConstant;
+import com.purity.yu.gameplatform.http.HttpRequest;
 import com.purity.yu.gameplatform.myview.ProgressWebView;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebSettings;
@@ -95,14 +96,14 @@ public class RoyalActivity extends AppCompatActivity {
     private void postLoginInfo() {
         String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
         String base = SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE);
-        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(base + Constant.LOGIN_INFO + "?token=" + token + "&game_type=hj&url=http://android&amount=-1", null),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(base + Constant.LOGIN_INFO + "?token=" + token + "&game_type=hj&url=http://android&amount=-1")
+                .executeGetParams(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             LogUtil.i("登录信息" + json);
                             int code = json.optInt("code");
                             if (code == -1) {
@@ -152,12 +153,70 @@ public class RoyalActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(base + Constant.LOGIN_INFO + "?token=" + token + "&game_type=hj&url=http://android&amount=-1", null),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            LogUtil.i("登录信息" + json);
+//                            int code = json.optInt("code");
+//                            if (code == -1) {
+//                                String error = mContext.getResources().getString(R.string.login_fail);
+//                                ToastUtil.show(mContext, error);
+//                                return;
+//                            }
+//                            String data = json.optString("data");
+//                            MyWeb(data);
+//
+//                            webView.setWebViewClient(new WebViewClient() {
+//
+//                                @Override
+//                                public void onPageStarted(WebView view, String url, Bitmap favicon) {
+//                                    LogUtil.i("RoyalActivity-onPageStarted=" + url);
+//                                    if (url.equals("http://m.onetop.pw/") || url.equals("https://android/")) {
+//                                        Intent intent = new Intent(RoyalActivity.this, TabHostActivity.class);
+//                                        startActivity(intent);
+//                                        finish();
+//                                    }
+//                                    super.onPageStarted(view, url, favicon);
+//                                }
+//
+//                                @Override
+//                                public boolean shouldOverrideUrlLoading(final WebView view, final String url) {
+//                                    LogUtil.i("RoyalActivity-shouldOverrideUrlLoading=" + url);
+//                                    return false;
+//                                }
+//
+//                                @Override
+//                                public void onPageFinished(WebView webView, String url) {
+//                                    LogUtil.i("RoyalActivity-onPageFinished=" + url);
+//                                    if (!url.contains("http")) {
+//                                        ToastUtil.show(mContext, "登录失败");
+//                                        RoyalActivity.this.finish();
+//                                        return;
+//                                    }
+//                                    if (url.equals("http://m.onetop.pw/") || url.equals("http://m.onetop.pw/login.html") || url.equals("https://android/")) {// 不能在shouldOverrideUrlLoading中退到APP
+//                                        Intent intent = new Intent(RoyalActivity.this, TabHostActivity.class);
+//                                        startActivity(intent);
+//                                        finish();
+//                                    }
+//                                    super.onPageFinished(webView, url);
+//                                }
+//                            });
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
     //WebView
@@ -203,7 +262,7 @@ public class RoyalActivity extends AppCompatActivity {
         // 使用localStorage则必须打开
         webSettings.setDomStorageEnabled(true);
         // 排版适应屏幕
-        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+        webSettings.setLayoutAlgorithm(com.tencent.smtt.sdk.WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
         // WebView是否支持多个窗口。
         webSettings.setSupportMultipleWindows(true);
         webSettings.setUseWideViewPort(true); // 关键点

@@ -28,8 +28,8 @@ public class HttpRequest {
     }
 
     public static OkHttpBuilder request(String key) {
-        OkHttpBuilder builder = OkHttpManger.getInstance().getBuilder().url(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + key);
-
+        OkHttpBuilder builder = OkHttpManger.getInstance().getBuilder().url(key);
+        LogUtil.i("连接=" + key);
         return builder;
     }
 

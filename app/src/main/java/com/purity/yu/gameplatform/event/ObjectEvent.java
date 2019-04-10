@@ -113,8 +113,13 @@ public class ObjectEvent {
         public String type;
     }
 
-    public static class MarqueeTextEvent{
+    public static class MarqueeTextEvent {
         public String message;
         public String money;
+    }
+
+    public static class VerifyStateEvent {
+        public int type;//1 存款 2取款
+        public int state;//0 审核取消 1审核中 2审核通过
     }
 }

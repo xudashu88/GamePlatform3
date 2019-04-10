@@ -51,9 +51,9 @@ public class DtRVAdapter extends RecyclerView.Adapter<DtRVAdapter.ViewHolder> {
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DtRVAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dt, parent, false);
-        return new ViewHolder(v);
+        return new DtRVAdapter.ViewHolder(v);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class DtRVAdapter extends RecyclerView.Adapter<DtRVAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final DtRVAdapter.ViewHolder holder, final int position) {
         scale(holder);
         holder.tv_room.setText(mBaccaratList.get(position).roomName);
         holder.stakeLimitLabel.setText(mBaccaratList.get(position).minBetList.get(0) + "-" + mBaccaratList.get(position).maxBetList.get(0));

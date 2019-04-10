@@ -29,6 +29,7 @@ import com.purity.yu.gameplatform.controler.TabHostController;
 import com.purity.yu.gameplatform.entity.Bank;
 import com.purity.yu.gameplatform.entity.Notice;
 import com.purity.yu.gameplatform.event.ObjectEvent;
+import com.purity.yu.gameplatform.http.HttpRequest;
 import com.purity.yu.gameplatform.utils.MathRandomUtil;
 import com.purity.yu.gameplatform.utils.ProtocolUtil;
 
@@ -177,6 +178,16 @@ public class TabHostActivity extends BaseActivity {
                 getNotice(tv_money, mContext);
                 getNoRead(tv_dot);
                 getAccount2(tv_online_count, tv_profit, tv_bet_count);
+                int withdraw_state_id = SharedPreUtil.getInstance(mContext).getInt("withdraw_state_id");
+                if (withdraw_state_id != 0) {
+                    getWithdrawFind(withdraw_state_id);
+                }
+                int deposit_state_id = SharedPreUtil.getInstance(mContext).getInt("deposit_state_id");
+                LogUtil.i("存款 2 id="+deposit_state_id);
+                if (deposit_state_id != 0) {
+                    getDepositFind(deposit_state_id);
+                }
+
             }
         };
         timer.schedule(task, 1000, 5000);
@@ -184,14 +195,14 @@ public class TabHostActivity extends BaseActivity {
 
     private void getSysNoticeList() {
         String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
-        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.SYS_NOTICE_LIST + "?token=" + token, null),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.SYS_NOTICE_LIST + "?token=" + token)
+                .executeGetParams(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             int code = json.optInt("code");
                             if (code != 0) {
                                 return;
@@ -213,12 +224,42 @@ public class TabHostActivity extends BaseActivity {
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.SYS_NOTICE_LIST + "?token=" + token, null),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            int code = json.optInt("code");
+//                            if (code != 0) {
+//                                return;
+//                            }
+//                            String _data = json.optString("data");
+//                            LogUtil.i("系统通告=" + json);
+//                            noticeList.clear();//清除,每一页都是新的
+//                            noticeList = parseArrayObject(_data, "items", Notice.class);
+//
+//                            final String content = noticeList.get(noticeList.size() - 1).content;
+//                            runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    LogUtil.i("系统通告2=" + content);
+//                                    initMarquee(content);
+//                                }
+//                            });
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
     //当前显示的fragment
@@ -227,15 +268,15 @@ public class TabHostActivity extends BaseActivity {
     public void getGold(final String message, final TextView tv_money, final Context mContext) {
         String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
         String base = SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE);
-        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(base + Constant.USER_INFO + "?token=" + token, null),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(base + Constant.USER_INFO + "?token=" + token)
+                .executeGetParams(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         JSONObject __user = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             int code = json.optInt("code");
 
                             if (code != 0) {
@@ -269,12 +310,55 @@ public class TabHostActivity extends BaseActivity {
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(base + Constant.USER_INFO + "?token=" + token, null),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        JSONObject __user = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            int code = json.optInt("code");
+//
+//                            if (code != 0) {
+//                                String error = mContext.getResources().getString(R.string.login_fail);
+//                                ToastUtil.show(mContext, error);
+//                                return;
+//                            }
+//                            String _data = json.optString("data");
+//                            __data = new JSONObject(_data);
+//                            String account = __data.optString("account");
+//                            __user = new JSONObject(account);
+//                            final String available_amount = __user.optString("available_amount");
+//                            LogUtil.i("getGold=" + json + " available_amount=" + available_amount);
+//                            if (!TextUtils.isEmpty(available_amount)) {
+////                                final double gold = MathRandomUtil.formatDouble1(Double.parseDouble(available_amount));
+//                                final String money = MathRandomUtil.subString(available_amount);
+//                                tv_money.setText(money);
+//                                ((TabHostActivity) mContext).runOnUiThread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        if (!TextUtils.isEmpty(message)) {
+//                                            ProtocolUtil.getInstance().hintDialog(mContext, message + ".余额为:" + available_amount);
+//                                            postEventMarqueeText(message, money);
+//                                        }
+//                                    }
+//                                });
+//
+//                                getFree();
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
     private void postEventMarqueeText(String message, String money) {
@@ -290,14 +374,14 @@ public class TabHostActivity extends BaseActivity {
 
     private void getFree() {
         String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
-        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.USER_ACCOUNT + "?token=" + token, null),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.USER_ACCOUNT + "?token=" + token)
+                .executeGetParams(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             String _data = json.optString("data");
                             __data = new JSONObject(_data);
                             double free_amount = __data.optDouble("free_amount");
@@ -308,32 +392,48 @@ public class TabHostActivity extends BaseActivity {
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.USER_ACCOUNT + "?token=" + token, null),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            String _data = json.optString("data");
+//                            __data = new JSONObject(_data);
+//                            double free_amount = __data.optDouble("free_amount");
+//                            double fee_rate = __data.optDouble("fee_rate");
+////                            tv_free.setText("您当前可用额度为" + String.valueOf(free_amount) + ",超出额度按" + fee_rate + "收取。");
+//                            postEventCreditsAmount(free_amount, fee_rate);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
     public void getNotice(final TextView textView, final Context mContext) {
         String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
         String base = SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE);
-        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(base + Constant.NOTICE + "?token=" + token, null),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(base + Constant.NOTICE + "?token=" + token)
+                .executeGetParams(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         JSONObject __user = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             LogUtil.i("通知消息" + json);
-                            //{"code":0,"data":[[{"topic":"system-notice","message":"Test1"},{"topic":"system-notice","message":"Test2"},{"topic":"system-notice","message":"Test2"},{"topic":"system-notice","message":"Test3"}]]}
                             int code = json.optInt("code");
                             if (code != 0) {
-//                                String error = mContext.getResources().getString(R.string.login_fail);
-//                                ToastUtil.show(mContext, error);
                                 return;
                             }
                             if (json.optString("data").contains("changeamount-success")) {
@@ -356,7 +456,6 @@ public class TabHostActivity extends BaseActivity {
                                 __data = new JSONObject(_data);
                                 String message = __data.optString("message");
                                 LogUtil.i("通知消息 系统通告=" + message);
-//                                ProtocolUtil.getInstance().notification(message);
                                 postEventMarqueeText(message);
                             }
 
@@ -364,26 +463,68 @@ public class TabHostActivity extends BaseActivity {
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(base + Constant.NOTICE + "?token=" + token, null),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        JSONObject __user = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            LogUtil.i("通知消息" + json);
+//                            int code = json.optInt("code");
+//                            if (code != 0) {
+//                                return;
+//                            }
+//                            if (json.optString("data").contains("changeamount-success")) {
+//                                String message = new JSONObject(json.optString("data").replace("[", "").replace("]", "")).getString("message");
+//                                getGold(message, textView, mContext);
+//                            }
+//                            if (json.optString("data").contains("withdraw-success")) {
+//                                ToastUtil.getInstance().showToast(mContext, "取款申请成功");//todo 2019.12.31 后台需要在财务管理审核通过才行，以后加取款密码
+//                                String message = new JSONObject(json.optString("data").replace("[", "").replace("]", "")).getString("message");
+//                                getGold(message, textView, mContext);
+//                            }
+//                            if (json.optString("data").contains("deposit-success")) {
+//                                ToastUtil.getInstance().showToast(mContext, "存款申请成功");
+//                                String message = new JSONObject(json.optString("data").replace("[", "").replace("]", "")).getString("message");
+//                                getGold(message, textView, mContext);
+//                            }
+//                            if (json.optString("data").contains("system-notice")) {
+//                                //[[{"topic":"system-notice","message":"2019猪年快乐"}]]
+//                                String _data = json.optString("data").replace("[[", "").replace("]]", "");
+//                                __data = new JSONObject(_data);
+//                                String message = __data.optString("message");
+//                                LogUtil.i("通知消息 系统通告=" + message);
+//                                postEventMarqueeText(message);
+//                            }
+//
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
     public void getNoRead(final TextView tv_dot) {
         String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
         String base = SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE);
-        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(base + Constant.NO_READ + "?token=" + token, null),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(base + Constant.NO_READ + "?token=" + token)
+                .executeGetParams(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         JSONObject __user = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             int code = json.optInt("code");
                             if (code != 0) {
                                 return;
@@ -405,25 +546,56 @@ public class TabHostActivity extends BaseActivity {
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-//                        ToastUtil.show(mContext, "连接超时");//没有任何数据时 报错
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(base + Constant.NO_READ + "?token=" + token, null),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        JSONObject __user = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            int code = json.optInt("code");
+//                            if (code != 0) {
+//                                return;
+//                            }
+//                            int data = json.optInt("data");
+//                            if (data > 9) {
+//                                tv_dot.setVisibility(View.VISIBLE);
+//                                tv_dot.setText("");
+//                                tv_dot.setWidth(mContext.getResources().getDimensionPixelOffset(R.dimen.font10));
+//                                tv_dot.setHeight(mContext.getResources().getDimensionPixelOffset(R.dimen.font10));
+//                            } else if (data > 0 && data < 10) {
+//                                tv_dot.setVisibility(View.VISIBLE);
+//                                tv_dot.setText(String.valueOf(data));
+//                            } else {
+//                                tv_dot.setVisibility(View.GONE);
+//                            }
+//                            SharedPreUtil.getInstance(mContext).saveParam("unRead", data);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+////                        ToastUtil.show(mContext, "连接超时");//没有任何数据时 报错
+//                    }
+//                })));
     }
 
     public void getAccount2(final TextView tv_online_count, final TextView tv_profit, final TextView tv_bet_count) {
         String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
         String base = SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE);
-        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(base + Constant.USER_ACCOUNT + "?token=" + token, null),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(base + Constant.USER_ACCOUNT + "?token=" + token)
+                .executeGetParams(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             int code = json.optInt("code");
                             if (code != 0) {
                                 return;
@@ -444,18 +616,172 @@ public class TabHostActivity extends BaseActivity {
                             e.printStackTrace();
                         }
                     }
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(base + Constant.USER_ACCOUNT + "?token=" + token, null),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            int code = json.optInt("code");
+//                            if (code != 0) {
+//                                return;
+//                            }
+//                            LogUtil.i("getAccount2" + json);
+//                            String _data = json.optString("data");
+//                            __data = new JSONObject(_data);
+//                            String bet_data = __data.optString("bet_data");
+//                            JSONObject _bet_data = new JSONObject(bet_data);//todo 测试服务未加
+//                            String bet_amount = _bet_data.optString("bet_amount");
+//                            String profit = _bet_data.optString("profit");
+//                            String bet_num = _bet_data.optString("bet_num");
+//
+//                            tv_online_count.setText(bet_amount);
+//                            tv_profit.setText(profit);
+//                            tv_bet_count.setText(bet_num);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
+    }
 
+    private void getWithdrawFind(final int id) {
+        String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
+        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.WITHDRAW_FIND + "?token=" + token + "&id=" + id)
+                .executeGetParams(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
+                    public void onResultOk(String result) {
+                        JSONObject json = null;
+                        JSONObject __data = null;
+                        try {
+                            json = new JSONObject(result);
+                            LogUtil.i("取款 审核id=" + id + " " + json);
+                            int code = json.optInt("code");
+                            if (code != 0) {
+                                return;
+                            }
+                            int state = json.optInt("data");
+                            postEventVerifyState(2,state);
+                            if (state == 1) {//1 审核中
+
+                            } else if (state == 2) {//2 审核通过
+
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.WITHDRAW_FIND + "?token=" + token + "&id=" + id, null),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            LogUtil.i("取款 审核id=" + id + " " + json);
+//                            int code = json.optInt("code");
+//                            if (code != 0) {
+//                                return;
+//                            }
+//                            int state = json.optInt("data");
+//                            depositState(btn_withdraw, state, "取款");
+//                            if (state == 1) {//1 审核中
+//
+//                            } else if (state == 2) {//2 审核通过
+//
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
+    }
+
+    private void getDepositFind(final int id) {
+        String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
+        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.DEPOSIT_FIND + "?token=" + token + "&id=" + id)
+                .executeGetParams(new HttpRequest.HttpCallBack() {
+                    @Override
+                    public void onResultOk(String result) {
+                        JSONObject json = null;
+                        JSONObject __data = null;
+                        try {
+                            json = new JSONObject(result);
+                            LogUtil.i("存款 审核id=" + id + " " + json);
+                            int code = json.optInt("code");
+                            if (code != 0) {
+                                return;
+                            }
+                            int state = json.optInt("data");
+                            postEventVerifyState(1,state);
+                            if (state == 1) {//1 审核中
+
+                            } else if (state == 2) {//2 审核通过
+
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.DEPOSIT_FIND + "?token=" + token + "&id=" + id, null),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            LogUtil.i("存款 审核id=" + id + " " + json);
+//                            int code = json.optInt("code");
+//                            if (code != 0) {
+//                                return;
+//                            }
+//                            int state = json.optInt("data");
+//                            depositState(state);
+//                            if (state == 1) {//1 审核中
+//
+//                            } else if (state == 2) {//2 审核通过
+//
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
     private void postEventCreditsAmount(double creditsAmount, double creditsRate) {
         ObjectEvent.CreditsAmountEvent event = new ObjectEvent.CreditsAmountEvent();
         event.creditsAmount = creditsAmount;
         event.creditsRate = creditsRate;
+        EventBus.getDefault().post(event);
+    }
+
+    private void postEventVerifyState(int type, int state) {
+        ObjectEvent.VerifyStateEvent event = new ObjectEvent.VerifyStateEvent();
+        event.type = type;
+        event.state = state;
         EventBus.getDefault().post(event);
     }
 

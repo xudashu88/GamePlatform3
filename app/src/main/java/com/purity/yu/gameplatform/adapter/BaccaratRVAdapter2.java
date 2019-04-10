@@ -49,9 +49,9 @@ public class BaccaratRVAdapter2 extends RecyclerView.Adapter<BaccaratRVAdapter2.
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BaccaratRVAdapter2.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_baccarat, parent, false);
-        return new ViewHolder(v);
+        return new BaccaratRVAdapter2.ViewHolder(v);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class BaccaratRVAdapter2 extends RecyclerView.Adapter<BaccaratRVAdapter2.
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final BaccaratRVAdapter2.ViewHolder holder, final int position) {
         scale(holder);
         holder.tv_room.setText(mBaccaratList.get(position).roomName);
         holder.stakeLimitLabel.setText(mBaccaratList.get(position).minBetList.get(0) + "-" + mBaccaratList.get(position).maxBetList.get(0));

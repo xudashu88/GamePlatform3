@@ -2,6 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
 //apply plugin: 'AndResGuard'
 // com.purity.yu.gameplatform3 测试    com.purity.yu.gameplatform2正式43  com.purity.yu.gameplatform6 龙虎测试103 com.purity.yu.gameplatform5 本地測試192 com.purity.yu.gameplatform9皇家对接
+//https://gitee.com/login 18718886956
+//purity2019@outlook.com  查看浏览器保存的密码
+//yu244934256@gmail.com
 android {
     compileSdkVersion 28
     defaultConfig {

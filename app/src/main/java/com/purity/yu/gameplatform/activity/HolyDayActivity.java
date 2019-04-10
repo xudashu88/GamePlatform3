@@ -1223,7 +1223,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
             //1.庄几点 闲几点 一遍 先报庄几点再报闲几点
             //2.庄赢/闲赢 2遍 和局 1遍
             BaccaratUtil.sayBacDot(0, bankScore);
-            new Handler().postDelayed(new Runnable() {
+            new android.os.Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     BaccaratUtil.sayBacDot(1, playScore);
@@ -1233,7 +1233,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
                 whoWin = 1;
 //                rl_play_light.setVisibility(View.VISIBLE);
 //                FlashHelper.getInstance().startFlick(rl_play_light, 4);
-                new Handler().postDelayed(new Runnable() {
+                new android.os.Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         BaccaratUtil.sayBacDot(1, playScore, isPlayPair, isBankPair);
@@ -1244,7 +1244,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
                 whoWin = 0;
 //                rl_bank_light.setVisibility(View.VISIBLE);
 //                FlashHelper.getInstance().startFlick(rl_bank_light, 4);
-                new Handler().postDelayed(new Runnable() {
+                new android.os.Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         BaccaratUtil.sayBacDot(0, bankScore, isPlayPair, isBankPair);
@@ -1253,7 +1253,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
 
             } else {
                 whoWin = 2;
-                new Handler().postDelayed(new Runnable() {
+                new android.os.Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         BaccaratUtil.sayBacDot(2, -1, isPlayPair, isBankPair);//和局

@@ -13,6 +13,8 @@ import com.purity.yu.gameplatform.annotation.ContentView;
 import com.purity.yu.gameplatform.base.BaseFragment;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.base.ServiceIpConstant;
+import com.purity.yu.gameplatform.http.HttpRequest;
+import com.purity.yu.gameplatform.utils.ProtocolUtil;
 
 import org.json.JSONObject;
 
@@ -130,15 +132,16 @@ public class SecurityAccountFragment extends BaseFragment {
         HashMap<String, String> map = new HashMap<>();
         map.put("old_password", et_old_login_pwd.getText().toString());
         map.put("password", et_new_login_pwd.getText().toString());
-//        map.put("et_new_login_pwd", et_confirm_login.getText().toString());
-        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.USER_PASSWORD + "?token=" + token, new RequestParams(map)),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.USER_PASSWORD + "?token=" + token)
+                .addParam("old_password", et_old_login_pwd.getText().toString())
+                .addParam("password", et_new_login_pwd.getText().toString())
+                .executeFormPost(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             int code = json.optInt("code");
                             String _data = json.optString("data");
                             if (code == 0) {
@@ -151,12 +154,33 @@ public class SecurityAccountFragment extends BaseFragment {
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.USER_PASSWORD + "?token=" + token, new RequestParams(map)),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            int code = json.optInt("code");
+//                            String _data = json.optString("data");
+//                            if (code == 0) {
+//                                ToastUtil.showToast(mContext, "修改登录密码成功");
+//                            } else {
+//                                ToastUtil.showToast(mContext, "修改登录密码失败");
+//                            }
+//
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
     private void postModifyPayPwd() {
@@ -165,15 +189,16 @@ public class SecurityAccountFragment extends BaseFragment {
         HashMap<String, String> map = new HashMap<>();
         map.put("password", et_old_pay_pwd.getText().toString());//登录密码。不是旧的支付密码
         map.put("password_pay", et_new_pay_pwd.getText().toString());
-//        map.put("et_new_login_pwd", et_confirm_login.getText().toString());
-        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.USER_PASSWORD_PAY + "?token=" + token, new RequestParams(map)),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.USER_PASSWORD_PAY + "?token=" + token)
+                .addParam("password", et_old_pay_pwd.getText().toString())
+                .addParam("password_pay", et_new_pay_pwd.getText().toString())
+                .executeFormPost(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             int code = json.optInt("code");
                             String _data = json.optString("data");
                             if (code == 0) {
@@ -186,12 +211,33 @@ public class SecurityAccountFragment extends BaseFragment {
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.USER_PASSWORD_PAY + "?token=" + token, new RequestParams(map)),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            int code = json.optInt("code");
+//                            String _data = json.optString("data");
+//                            if (code == 0) {
+//                                ToastUtil.showToast(mContext, "修改支付密码成功");
+//                            } else {
+//                                ToastUtil.showToast(mContext, "修改支付密码失败");
+//                            }
+//
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
 }

@@ -32,14 +32,14 @@ public class ChipAdapter2 extends RecyclerView.Adapter<ChipAdapter2.ViewHolder> 
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ChipAdapter2.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chip2, parent, false);
-        ViewHolder viewHolder = new ViewHolder(v);
+        ChipAdapter2.ViewHolder viewHolder = new ChipAdapter2.ViewHolder(v);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ChipAdapter2.ViewHolder holder, final int position) {
         Chip chip = chipList.get(position);
         holder.iv_new_chip.setBackground(mContext.getResources().getDrawable(chip.chipImg));
         ChoiceItemLayout2 layout = (ChoiceItemLayout2) holder.itemView;

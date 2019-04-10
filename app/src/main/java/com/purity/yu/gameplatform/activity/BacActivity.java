@@ -913,14 +913,14 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
             //1.庄几点 闲几点 一遍 先报庄几点再报闲几点
             //2.庄赢/闲赢 2遍 和局 1遍
             BaccaratUtil.sayBacDot(0, bankScore);
-            new Handler().postDelayed(new Runnable() {
+            new android.os.Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     BaccaratUtil.sayBacDot(1, playScore);
                 }
             }, 1200);
             if (playScore > bankScore) {
-                new Handler().postDelayed(new Runnable() {
+                new android.os.Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         BaccaratUtil.sayBacDot(1, playScore, isPlayPair, isBankPair);
@@ -928,7 +928,7 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
                 }, 3500);
 
             } else if (playScore < bankScore) {
-                new Handler().postDelayed(new Runnable() {
+                new android.os.Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         BaccaratUtil.sayBacDot(0, bankScore, isPlayPair, isBankPair);
@@ -936,7 +936,7 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
                 }, 3500);
 
             } else {
-                new Handler().postDelayed(new Runnable() {
+                new android.os.Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         BaccaratUtil.sayBacDot(2, -1, isPlayPair, isBankPair);//和局
@@ -1878,7 +1878,7 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
                     SoundPoolUtil.getInstance().initBacZH(this);
                 }
                 //初始化完毕才能播放（延迟加载，是因为偶尔播放）
-                new Handler().postDelayed(new Runnable() {
+                new android.os.Handler().postDelayed(new Runnable() {
                     public void run() {
                         SoundPoolUtil.getInstance().play("1");
                     }

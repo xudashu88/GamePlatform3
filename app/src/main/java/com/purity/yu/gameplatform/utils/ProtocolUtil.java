@@ -33,6 +33,7 @@ import com.purity.yu.gameplatform.entity.GamePlay;
 import com.purity.yu.gameplatform.entity.GameRoom;
 import com.purity.yu.gameplatform.entity.Games;
 import com.purity.yu.gameplatform.event.ObjectEvent;
+import com.purity.yu.gameplatform.http.HttpRequest;
 import com.purity.yu.gameplatform.login.KittyActivity;
 import com.purity.yu.gameplatform.login.LoginActivity;
 import com.purity.yu.gameplatform.login.RegisterActivity;
@@ -437,13 +438,13 @@ public class ProtocolUtil {
 
     public void getGameList() {
         String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
-        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.GAME_LIST + "?token=" + token, null),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.GAME_LIST + "?token=" + token)
+                .executeGetParams(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             String _data = json.optString("data");
                             gameList = parseArrayObject(_data, "items", Game2.class);
                             for (int i = 0; i < gameList.size(); i++) {
@@ -467,12 +468,43 @@ public class ProtocolUtil {
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.GAME_LIST + "?token=" + token, null),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            String _data = json.optString("data");
+//                            gameList = parseArrayObject(_data, "items", Game2.class);
+//                            for (int i = 0; i < gameList.size(); i++) {
+//                                String verify = gameList.get(i).platformCode + gameList.get(i).gameNameEn;
+//                                if (verify.equals("JXB" + "baccarat")) {
+//                                    gameList.get(i).gameDot = SharedPreUtil.getInstance(mContext).getInt(Constant.BAC_ROOM_COUNT);
+//                                } else if (verify.equals("JXB" + "dragonTiger")/*gameList.get(i).gameName.equals("龙虎")*/) {
+//                                    gameList.get(i).gameDot = SharedPreUtil.getInstance(mContext).getInt(Constant.DT_ROOM_COUNT);
+//                                } else if (verify.equals("JXB" + "dragonTiger2")/*gameList.get(i).gameName.equals("龙虎")*/) {
+//                                    gameList.get(i).gameDot = SharedPreUtil.getInstance(mContext).getInt(Constant.DT_ROOM_COUNT);
+//                                } else if (verify.equals("JXB" + "duel")/*gameList.get(i).gameName.equals("单挑")*/) {
+//                                    gameList.get(i).gameDot = SharedPreUtil.getInstance(mContext).getInt(Constant.SINGLE_ROOM_COUNT);
+//                                } else if (verify.equals("JXB" + "macau")/*gameList.get(i).gameName.equals("澳门五路")*/) {
+//                                    gameList.get(i).gameDot = SharedPreUtil.getInstance(mContext).getInt(Constant.BAC_ROOM_COUNT);
+//                                } else if (verify.equals("JXB" + "macau.")/*gameList.get(i).gameName.equals("澳门五路.")*/) {
+//                                    gameList.get(i).gameDot = SharedPreUtil.getInstance(mContext).getInt(Constant.BAC_ROOM_COUNT);
+//                                }
+//                            }
+//                            SharedPreUtil.getInstance(mContext).saveParam(Constant.PRE_GAME_LIST, new Gson().toJson(gameList));
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
     public void postLoginInfo(final TextView tv_money) {

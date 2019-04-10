@@ -29,8 +29,10 @@ import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.base.ServiceIpConstant;
 import com.purity.yu.gameplatform.entity.Bank;
 import com.purity.yu.gameplatform.event.ObjectEvent;
+import com.purity.yu.gameplatform.http.HttpRequest;
 import com.purity.yu.gameplatform.utils.BaccaratUtil;
 import com.purity.yu.gameplatform.utils.ImgUtils;
+import com.purity.yu.gameplatform.utils.ProtocolUtil;
 import com.purity.yu.gameplatform.widget.HintDialog;
 import com.purity.yu.gameplatform.widget.popup.PopupWindow.CommonPopupWindow;
 
@@ -126,6 +128,14 @@ public class MyWalletFragment extends BaseFragment implements CommonPopupWindow.
         LogUtil.i("审核成功=存款吗" + event.message);
         if (event.money != null) {
             depositState(0);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void acceptEventVerifyState(final ObjectEvent.VerifyStateEvent event) {
+        LogUtil.i("审核取消" + event.state + "存款" + event.type);
+        if (event.type == 1 && event.state == 0) {
+            depositState(2);
         }
     }
 
@@ -227,14 +237,14 @@ public class MyWalletFragment extends BaseFragment implements CommonPopupWindow.
 
     private void getBankList(final RelativeLayout rl_data, final TextView tv_no_data, final RecyclerView recyclerView, final AlertDialog alertDialog) {
         String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
-        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.BANK_LIST + "?token=" + token, null),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.BANK_LIST + "?token=" + token)
+                .executeGetParams(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             int code = json.optInt("code");
                             if (code != 0) {
                                 String error = mContext.getResources().getString(R.string.username_existed);
@@ -258,24 +268,56 @@ public class MyWalletFragment extends BaseFragment implements CommonPopupWindow.
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.BANK_LIST + "?token=" + token, null),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            int code = json.optInt("code");
+//                            if (code != 0) {
+//                                String error = mContext.getResources().getString(R.string.username_existed);
+//                                ToastUtil.show(mContext, error);
+//                                return;
+//                            }
+//
+//                            String _data = json.optString("data");
+//                            __data = new JSONObject(_data);
+//                            bankList.clear();//清除,每一页都是新的
+//                            bankList = parseArrayObject(_data, "items", Bank.class);
+//                            initAdapter(recyclerView, alertDialog);
+//                            if (bankList.size() > 0) {
+//                                tv_no_data.setVisibility(View.GONE);
+//                                rl_data.setVisibility(View.VISIBLE);
+//                            } else {
+//                                tv_no_data.setVisibility(View.VISIBLE);
+//                                rl_data.setVisibility(View.GONE);
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
     private void getDepositFind(final int id) {
         String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
-        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.DEPOSIT_FIND + "?token=" + token + "&id=" + id, null),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.DEPOSIT_FIND + "?token=" + token + "&id=" + id)
+                .executeGetParams(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             LogUtil.i("存款 审核id=" + id + " " + json);
                             int code = json.optInt("code");
                             if (code != 0) {
@@ -292,12 +334,37 @@ public class MyWalletFragment extends BaseFragment implements CommonPopupWindow.
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.DEPOSIT_FIND + "?token=" + token + "&id=" + id, null),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            LogUtil.i("存款 审核id=" + id + " " + json);
+//                            int code = json.optInt("code");
+//                            if (code != 0) {
+//                                return;
+//                            }
+//                            int state = json.optInt("data");
+//                            depositState(state);
+//                            if (state == 1) {//1 审核中
+//
+//                            } else if (state == 2) {//2 审核通过
+//
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
     private void hintDialog(String hint) {
@@ -393,14 +460,14 @@ public class MyWalletFragment extends BaseFragment implements CommonPopupWindow.
 
     private void getPayCode() {
         String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
-        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.PAY_CODE + "?token=" + token, null),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.PAY_CODE + "?token=" + token)
+                .executeGetParams(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
 
                             String _data = json.optString("data");
                             __data = new JSONObject(_data);
@@ -417,12 +484,37 @@ public class MyWalletFragment extends BaseFragment implements CommonPopupWindow.
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.PAY_CODE + "?token=" + token, null),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        try {
+//                            json = new JSONObject(s);
+//
+//                            String _data = json.optString("data");
+//                            __data = new JSONObject(_data);
+//                            String icon = __data.optString("icon");
+//                            iv_pay_code.setVisibility(View.VISIBLE);
+////                            tv_pay_code.setVisibility(View.GONE);
+//                            String base = SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE);
+//                            String icon_pre = base.substring(0, base.length() - 4);
+//                            icon.replace("\\", "");
+//                            LogUtil.i("二维码" + json + " base=" + base + " icon_pre=" + icon_pre + " icon=" + icon);
+////http://103.112.29.145/admin/uploads/images/20190330/QQ%E6%88%AA%E5%9B%BE20190330112557.png
+//                            Glide.with(mContext).load(icon_pre + icon).into(iv_pay_code);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -434,42 +526,56 @@ public class MyWalletFragment extends BaseFragment implements CommonPopupWindow.
     private void getFree() {
         LogUtil.i("额度=");
         String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
-        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.USER_ACCOUNT + "?token=" + token, null),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.USER_ACCOUNT + "?token=" + token)
+                .executeGetParams(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         try {
-                            json = new JSONObject(s);
-                            LogUtil.i("额度=" + json);
-                            String _data = json.optString("data");
-                            __data = new JSONObject(_data);
-                            double free_amount = __data.optDouble("free_amount");
-                            double fee_rate = __data.optDouble("fee_rate");
-                            tv_free.setText("您当前可用额度为" + String.valueOf(free_amount) + ",超出额度按" + fee_rate + "收取。");
+                            json = new JSONObject(result);
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.USER_ACCOUNT + "?token=" + token, null),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            LogUtil.i("额度=" + json);
+//                            String _data = json.optString("data");
+//                            __data = new JSONObject(_data);
+//                            double free_amount = __data.optDouble("free_amount");
+//                            double fee_rate = __data.optDouble("fee_rate");
+//                            tv_free.setText("您当前可用额度为" + String.valueOf(free_amount) + ",超出额度按" + fee_rate + "收取。");
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
     private void getPayBank() {
         String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
-        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.PAY_BANK + "?token=" + token, null),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.PAY_BANK + "?token=" + token)
+                .executeGetParams(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             String _data = json.optString("data");
                             __data = new JSONObject(_data);
                             String bank_username = __data.optString("bank_username");
@@ -487,12 +593,38 @@ public class MyWalletFragment extends BaseFragment implements CommonPopupWindow.
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.PAY_BANK + "?token=" + token, null),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            String _data = json.optString("data");
+//                            __data = new JSONObject(_data);
+//                            String bank_username = __data.optString("bank_username");
+//                            String bank_account = __data.optString("bank_account");
+//                            String bank_name = __data.optString("bank_name");
+//                            String province = __data.optString("province");
+//                            String city = __data.optString("city");
+//                            //李四 131313123
+//                            //四川成都建设银行
+////                            iv_pay_code.setVisibility(View.GONE);
+//                            tv_pay_code.setVisibility(View.VISIBLE);
+//                            String content = bank_username + "\n" + bank_account + "\n" + province + city + " " + bank_name;
+//                            tv_pay_code.setText(content);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
     private void pay() {
@@ -504,14 +636,19 @@ public class MyWalletFragment extends BaseFragment implements CommonPopupWindow.
         map.put("pay_nickname", et_pay_nickname.getText().toString());
         map.put("apply_amount", et_deposit.getText().toString());
         LogUtil.i("取款 参数=" + SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.PAY + "?token=" + token + map.toString());
-        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.PAY + "?token=" + token, new RequestParams(map)),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.PAY + "?token=" + token)
+                .addParam("pay_channel", "" + payChannel)
+                .addParam("pay_info", et_pay_number.getText().toString())
+                .addParam("pay_username", et_pay_account.getText().toString())
+                .addParam("pay_nickname", et_pay_nickname.getText().toString())
+                .addParam("apply_amount", et_deposit.getText().toString())
+                .executeFormPost(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             LogUtil.i(TAG, "存款 json=" + json);
                             //{{base_url}}/deposit/find?token={{token}}&&id=3 data=1审核中 data=2审核通过
                             String data = json.optString("data");
@@ -522,6 +659,7 @@ public class MyWalletFragment extends BaseFragment implements CommonPopupWindow.
                                 ToastUtil.showToast(mContext, "存款" + et_deposit.getText().toString() + "，请等待管理员审核通过");
                                 SharedPreUtil.getInstance(mContext).saveParam("deposit_state", 1);
                                 SharedPreUtil.getInstance(mContext).saveParam("deposit_state_id", id);
+                                LogUtil.i("存款 1 id=" + id);
                                 depositState(1);
                                 et_deposit.setText("");
                             }
@@ -529,12 +667,38 @@ public class MyWalletFragment extends BaseFragment implements CommonPopupWindow.
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.PAY + "?token=" + token, new RequestParams(map)),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            LogUtil.i(TAG, "存款 json=" + json);
+//                            //{{base_url}}/deposit/find?token={{token}}&&id=3 data=1审核中 data=2审核通过
+//                            String data = json.optString("data");
+//                            __data = new JSONObject(data);
+//                            int id = __data.optInt("id");
+//                            int code = json.optInt("code");
+//                            if (code == 0) {
+//                                ToastUtil.showToast(mContext, "存款" + et_deposit.getText().toString() + "，请等待管理员审核通过");
+//                                SharedPreUtil.getInstance(mContext).saveParam("deposit_state", 1);
+//                                SharedPreUtil.getInstance(mContext).saveParam("deposit_state_id", id);
+//                                depositState(1);
+//                                et_deposit.setText("");
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
     private void withdraw() {
@@ -546,14 +710,20 @@ public class MyWalletFragment extends BaseFragment implements CommonPopupWindow.
         map.put("bank_name", et_bank_name.getText().toString());
         map.put("branch_name", et_bank_branch.getText().toString());
         map.put("password_pay", et_pay_pwd.getText().toString());
-        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.ADD_CARD + "?token=" + token, new RequestParams(map)),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.ADD_CARD + "?token=" + token)
+                .addParam("bank_username", et_your_name.getText().toString())
+                .addParam("bank_account", et_bank_number.getText().toString())
+                .addParam("bank_name", et_bank_name.getText().toString())
+                .addParam("branch_name", et_bank_branch.getText().toString())
+                .addParam("password_pay", et_pay_pwd.getText().toString())
+                .addParam("password_pay", et_pay_pwd.getText().toString())
+                .executeFormPost(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             int code = json.optInt("code");
 
                             if (code == 0) {
@@ -565,18 +735,44 @@ public class MyWalletFragment extends BaseFragment implements CommonPopupWindow.
                                 } else
                                     addCard(user_bank_id);
                             } else {
-                                ToastUtil.showToast(mContext, "提现失败" + s);
+                                ToastUtil.showToast(mContext, "提现失败" + result);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.ADD_CARD + "?token=" + token, new RequestParams(map)),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            int code = json.optInt("code");
+//
+//                            if (code == 0) {
+//                                String _data = json.optString("data");
+//                                __data = new JSONObject(_data);
+//                                int user_bank_id = __data.optInt("id");
+//                                if (id != -1) {
+//                                    addCard(id);
+//                                } else
+//                                    addCard(user_bank_id);
+//                            } else {
+//                                ToastUtil.showToast(mContext, "提现失败" + s);
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
     private void addCard(int id) {
@@ -584,33 +780,57 @@ public class MyWalletFragment extends BaseFragment implements CommonPopupWindow.
         HashMap<String, String> map = new HashMap<>();
         map.put("apply_amount", et_withdraw.getText().toString());
         map.put("user_bank_id", String.valueOf(id));
-        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.WITHDRAW + "?token=" + token, new RequestParams(map)),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.WITHDRAW + "?token=" + token)
+                .addParam("apply_amount", et_withdraw.getText().toString())
+                .addParam("user_bank_id", String.valueOf(id))
+                .executeFormPost(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             int code = json.optInt("code");
 
                             if (code == 0) {
                                 ToastUtil.showToast(mContext, "提现" + et_withdraw.getText().toString() + "，请等待管理员审核通过");
                                 et_withdraw.setText("");
                             } else {
-                                ToastUtil.showToast(mContext, "提现失败" + s);
+                                ToastUtil.showToast(mContext, "提现失败" + result);
                             }
 
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.WITHDRAW + "?token=" + token, new RequestParams(map)),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            int code = json.optInt("code");
+//
+//                            if (code == 0) {
+//                                ToastUtil.showToast(mContext, "提现" + et_withdraw.getText().toString() + "，请等待管理员审核通过");
+//                                et_withdraw.setText("");
+//                            } else {
+//                                ToastUtil.showToast(mContext, "提现失败" + s);
+//                            }
+//
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
     private void downPopupWindow(View v) {

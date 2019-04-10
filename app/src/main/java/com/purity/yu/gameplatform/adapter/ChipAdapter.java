@@ -33,14 +33,14 @@ public class ChipAdapter extends RecyclerView.Adapter<ChipAdapter.ViewHolder> {
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ChipAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chip, parent, false);
-        ViewHolder viewHolder = new ViewHolder(v);
+        ChipAdapter.ViewHolder viewHolder = new ChipAdapter.ViewHolder(v);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(ChipAdapter.ViewHolder holder, final int position) {
         Chip chip = chipList.get(position);
         holder.tv_new_chip.setText("" + chip.chipNumber);
         holder.iv_new_chip.setBackground(mContext.getResources().getDrawable(chip.chipImg));

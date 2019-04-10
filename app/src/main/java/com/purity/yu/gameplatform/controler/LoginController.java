@@ -28,6 +28,7 @@ import com.purity.yu.gameplatform.entity.Baccarat;
 import com.purity.yu.gameplatform.entity.GamePlay;
 import com.purity.yu.gameplatform.entity.GameRoom;
 import com.purity.yu.gameplatform.entity.Games;
+import com.purity.yu.gameplatform.http.HttpRequest;
 import com.purity.yu.gameplatform.login.KittyActivity;
 import com.purity.yu.gameplatform.utils.BaccaratUtil;
 import com.purity.yu.gameplatform.utils.ProtocolUtil;
@@ -282,14 +283,14 @@ public class LoginController {
         //上分，-1不上分，0上所有的分，>0 上具体分数
         String base = SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE);
         LogUtil.i("获取登陆信息=" + base + Constant.LOGIN_INFO + "?token=" + token + "&game_type=jxb&amount=-1");
-        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(base + Constant.LOGIN_INFO + "?token=" + token + "&game_type=jxb&amount=-1", null),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(base + Constant.LOGIN_INFO + "?token=" + token + "&game_type=jxb&amount=-1")
+                .executeGetParams(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             LogUtil.i("登录2json" + json);
                             int code = json.optInt("code");
                             String data = json.optString("data");
@@ -309,26 +310,54 @@ public class LoginController {
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(base + Constant.LOGIN_INFO + "?token=" + token + "&game_type=jxb&amount=-1", null),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            LogUtil.i("登录2json" + json);
+//                            int code = json.optInt("code");
+//                            String data = json.optString("data");
+//                            __data = new JSONObject(data);
+//
+//                            if (code != 0) {
+//                                String error = mContext.getResources().getString(R.string.login_fail_jxb);
+//                                ToastUtil.show(mContext, data);
+//                                return;
+//                            }
+//                            String token = __data.optString("token");
+//                            String userId = __data.optString("userid");
+//                            SharedPreUtil.getInstance(mContext).saveParam(Constant.USER_TOKEN_SOCKET, token);
+//                            SharedPreUtil.getInstance(mContext).saveParam(Constant.USER_ID, userId);
+//                            getGameRoomCount(token, userId);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
     private void getGameRoomCount(final String token, final String userId) {
         String base = SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant._BASE);
-        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant._BASE) + Constant.LOGIN_VALIDATE + "?auth=" + token + "&userid=" + userId, null),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant._BASE) + Constant.LOGIN_VALIDATE + "?auth=" + token + "&userid=" + userId)
+                .executeGetParams(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         JSONObject __user = null;
 
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             LogUtil.i("登录3json" + json);
                             int code = json.optInt("code");
                             if (code == -1) {
@@ -409,43 +438,104 @@ public class LoginController {
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-
-                    }
-                })));
-    }
-
-    private void getRoomCount() {
-        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant._BASE) + Constant.ROOM_COUNT + "?code=catchFish", null),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
-                    @Override
-                    public void onSuccess(String s) {
-                        JSONObject json;
-                        try {
-                            json = new JSONObject(s);
-                            int code = json.optInt("code");
-                            if (code == -1) {
-                                String error = mContext.getResources().getString(R.string.login_fail);
-                                ToastUtil.show(mContext, error);
-                                return;
-                            }
-                            int _data = json.optInt("data");
-                            SharedPreUtil.getInstance(mContext).saveParam(Constant.FISH_ROOM_COUNT, _data);
-                            getGameRoomCount();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant._BASE) + Constant.LOGIN_VALIDATE + "?auth=" + token + "&userid=" + userId, null),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        JSONObject __user = null;
+//
+//                        try {
+//                            json = new JSONObject(s);
+//                            LogUtil.i("登录3json" + json);
+//                            int code = json.optInt("code");
+//                            if (code == -1) {
+//                                String error = mContext.getResources().getString(R.string.login_fail);
+//                                ToastUtil.show(mContext, error);
+//                                return;
+//                            }
+//                            String _data = json.optString("data");
+//                            __data = new JSONObject(_data);
+//                            List<Games> gamesList = new ArrayList<>();
+//                            gamesList.clear();
+//                            JSONArray data_array = __data.getJSONArray("games");
+//                            for (int i = 0; i < data_array.length(); i++) {
+//                                Games games = new Games();
+//                                JSONObject _json = data_array.getJSONObject(i);
+//                                String gameName = _json.optString("gameName");
+//                                games.gameName = gameName;
+//                                JSONArray _gamePlays = _json.getJSONArray("gamePlays");
+//                                for (int j = 0; j < _gamePlays.length(); j++) {
+//                                    GamePlay gamePlay = new GamePlay();
+//                                    JSONObject _gamePlays_json = _gamePlays.getJSONObject(j);
+//                                    int minCoin = _gamePlays_json.optInt("minCoin");
+//                                    gamePlay.minCoin = minCoin;
+//                                    games.gamePlays.add(gamePlay);
+//                                    JSONArray _gameRooms = _gamePlays_json.getJSONArray("gameRooms");
+//                                    for (int k = 0; k < _gameRooms.length(); k++) {
+//                                        GameRoom gameRoom = new GameRoom();
+//                                        JSONObject _gameRooms_json = _gameRooms.getJSONObject(k);
+//                                        String _id = _gameRooms_json.optString("id");
+//                                        String name = _gameRooms_json.optString("name");
+//                                        int status = _gameRooms_json.optInt("status");
+//                                        int betSecond = _gameRooms_json.optInt("betSecond");
+//                                        String _code = _gameRooms_json.optString("code");
+//                                        String minBet = _gameRooms_json.optString("minBet");
+//                                        String maxBet = _gameRooms_json.optString("maxBet");
+//                                        String betLimit = _gameRooms_json.optString("betLimit");
+//                                        String roomConfig = _gameRooms_json.optString("roomConfig");
+//                                        JSONObject _roomConfig = new JSONObject(roomConfig);
+//                                        String lan_rtmpAddress = _roomConfig.optString("lan_rtmpAddress");
+//                                        String[] lan_rtmpAddressArr = new Gson().fromJson(lan_rtmpAddress, String[].class);
+//                                        String dx_rtmpAddress = _roomConfig.optString("dx_rtmpAddress");
+//                                        String[] dx_rtmpAddressArr = new Gson().fromJson(dx_rtmpAddress, String[].class);
+//                                        String yd_rtmpAddress = _roomConfig.optString("yd_rtmpAddress");
+//                                        String[] yd_rtmpAddressArr = new Gson().fromJson(yd_rtmpAddress, String[].class);
+//                                        String color = _roomConfig.optString("color");
+//                                        String[] colorArr = new Gson().fromJson(color, String[].class);
+//                                        gameRoom.rtmp = lan_rtmpAddressArr;
+//                                        gameRoom.dxRtmp = dx_rtmpAddressArr;
+//                                        gameRoom.ydRtmp = yd_rtmpAddressArr;
+//                                        gameRoom.color = colorArr;
+//                                        int[] minBetInt = new Gson().fromJson(minBet, int[].class);
+//                                        int[] maxBetInt = new Gson().fromJson(maxBet, int[].class);
+//                                        List<Integer> minBetList = new ArrayList<>();
+//                                        List<Integer> maxBetList = new ArrayList<>();
+//                                        for (int a = 0; a < minBetInt.length; a++) {
+//                                            minBetList.add(minBetInt[a]);
+//                                        }
+//                                        for (int a = 0; a < maxBetInt.length; a++) {
+//                                            maxBetList.add(maxBetInt[a]);
+//                                        }
+//                                        gameRoom.minBet.clear();
+//                                        gameRoom.maxBet.clear();
+//                                        gameRoom.minBet.addAll(minBetList);
+//                                        gameRoom.maxBet.addAll(maxBetList);
+//                                        gameRoom.id = _id;
+//                                        gameRoom.name = name;
+//                                        gameRoom.status = status;
+//                                        gameRoom.code = _code;
+//                                        gameRoom.betLimit = betLimit;
+//                                        gameRoom.betSecond = betSecond;
+//                                        gameRoomList.add(gameRoom);
+//                                    }
+//                                }
+//                                gamesList.add(games);
+//                            }
+//                            getGameRoomCount();
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//
+//                    }
+//                })));
     }
 
     private void getGameRoomCount() {

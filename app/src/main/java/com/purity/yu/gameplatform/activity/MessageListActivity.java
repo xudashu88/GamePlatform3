@@ -23,6 +23,7 @@ import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.base.ServiceIpConstant;
 import com.purity.yu.gameplatform.entity.Message;
 import com.purity.yu.gameplatform.event.ObjectEvent;
+import com.purity.yu.gameplatform.http.HttpRequest;
 import com.purity.yu.gameplatform.widget.popup.PopupWindow.CommonPopupWindow;
 
 import org.greenrobot.eventbus.EventBus;
@@ -157,14 +158,14 @@ public class MessageListActivity extends BaseListActivity implements CommonPopup
             startDate = TimeUtil.getRecentWeek();
             endDate = TimeUtil.getToday();
         }
-        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.MESSAGE_LIST + "?token=" + token/* + "&startDate=" + startDate + "&endDate=" + endDate*/, null),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.MESSAGE_LIST + "?token=" + token/* + "&startDate=" + startDate + "&endDate=" + endDate*/)
+                .executeGetParams(new HttpRequest.HttpCallBack() {
                     @Override
-                    public void onSuccess(String s) {
+                    public void onResultOk(String result) {
                         JSONObject json = null;
                         JSONObject __data = null;
                         try {
-                            json = new JSONObject(s);
+                            json = new JSONObject(result);
                             int code = json.optInt("code");
                             if (code != 0) {
                                 String error = mContext.getResources().getString(R.string.username_existed);
@@ -197,12 +198,53 @@ public class MessageListActivity extends BaseListActivity implements CommonPopup
                             e.printStackTrace();
                         }
                     }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
+                });
+//        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.MESSAGE_LIST + "?token=" + token/* + "&startDate=" + startDate + "&endDate=" + endDate*/, null),//perfect
+//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
+//                    @Override
+//                    public void onSuccess(String s) {
+//                        JSONObject json = null;
+//                        JSONObject __data = null;
+//                        try {
+//                            json = new JSONObject(s);
+//                            int code = json.optInt("code");
+//                            if (code != 0) {
+//                                String error = mContext.getResources().getString(R.string.username_existed);
+//                                ToastUtil.show(mContext, error);
+//                                return;
+//                            }
+//
+//                            String _data = json.optString("data");
+//                            __data = new JSONObject(_data);
+//                            recordList.clear();//清除,每一页都是新的
+//                            recordList = parseArrayObject(_data, "items", Message.class);
+//                            String meta = __data.optString("_meta");
+//                            JSONObject _meta = new JSONObject(meta);
+//                            total = _meta.optInt("totalCount");
+//
+//                            if (page == 1) {
+//                                recordListAll.clear();//下拉刷新,要清除总集合
+//                            }
+//                            recordListAll.addAll(recordList);
+//                            adapter.updateList(recordListAll);
+//                            if (recordList.size() > 0) {
+//                                tv_no_data.setVisibility(View.GONE);
+//                                rl_data.setVisibility(View.VISIBLE);
+//                            } else {
+//                                tv_no_data.setVisibility(View.VISIBLE);
+//                                rl_data.setVisibility(View.GONE);
+//                            }
+//                            onFinish();
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(OkHttpException e) {
+//                        ToastUtil.show(mContext, "连接超时");
+//                    }
+//                })));
     }
 
     @Override

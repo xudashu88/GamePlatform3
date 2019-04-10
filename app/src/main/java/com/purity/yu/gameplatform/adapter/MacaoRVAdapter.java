@@ -54,9 +54,9 @@ public class MacaoRVAdapter extends RecyclerView.Adapter<MacaoRVAdapter.ViewHold
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MacaoRVAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_baccarat, parent, false);
-        return new ViewHolder(v);
+        return new MacaoRVAdapter.ViewHolder(v);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class MacaoRVAdapter extends RecyclerView.Adapter<MacaoRVAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final MacaoRVAdapter.ViewHolder holder, final int position) {
                 holder.tv_bank.setTypeface(typeface1);
         holder.tv_play.setTypeface(typeface1);
         holder.tv_tie.setTypeface(typeface1);

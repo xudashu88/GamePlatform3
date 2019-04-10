@@ -164,7 +164,7 @@ public class SinglePickListActivity extends BaseActivity {
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, final int position) {
+        public void onBindViewHolder(final SinglePickRVAdapter.ViewHolder holder, final int position) {
             holder.tv_room.setText(mBaccaratList.get(position).roomName);
             holder.stakeLimitLabel.setText(mBaccaratList.get(position).minBetList.get(0) + "-" + mBaccaratList.get(position).maxBetList.get(0));
             holder.iv_bg.setOnClickListener(new View.OnClickListener() {
@@ -191,7 +191,7 @@ public class SinglePickListActivity extends BaseActivity {
             }
         }
 
-        private void init(ViewHolder holder, int position, int times) {
+        private void init(SinglePickRVAdapter.ViewHolder holder, int position, int times) {
             times++;
             SharedPreUtil.getInstance(mContext).saveParam("times", times);
             for (int i = 0; i < mHallList.size(); i++) {
@@ -224,7 +224,7 @@ public class SinglePickListActivity extends BaseActivity {
             }
         }
 
-        private void update(ViewHolder holder, int position) {
+        private void update(SinglePickRVAdapter.ViewHolder holder, int position) {
             for (int i = 0; i < mHallList.size(); i++) {
                 Hall hall = mHallList.get(i);
                 if (hall.boardMessageList.size() > 0 && mBaccaratList.get(position).roomId.equals(hall.roomId) && hall.state.equals(Constant.BACCARAT_WAIT)) {
@@ -246,7 +246,7 @@ public class SinglePickListActivity extends BaseActivity {
             }
         }
 
-        private void draw(ViewHolder holder, Hall hall) {
+        private void draw(SinglePickRVAdapter.ViewHolder holder, Hall hall) {
             List<Integer> boardMessageList = new ArrayList<>();
             List<String> cardList = new ArrayList<>();
             boardMessageList.clear();

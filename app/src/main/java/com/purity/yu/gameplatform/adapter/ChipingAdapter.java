@@ -33,9 +33,9 @@ public class ChipingAdapter extends RecyclerView.Adapter<ChipingAdapter.ViewHold
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ChipingAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chiping, parent, false);
-        ViewHolder viewHolder = new ViewHolder(v);
+        ChipingAdapter.ViewHolder viewHolder = new ChipingAdapter.ViewHolder(v);
         return viewHolder;
     }
 
@@ -46,7 +46,7 @@ public class ChipingAdapter extends RecyclerView.Adapter<ChipingAdapter.ViewHold
      * @param position
      */
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(ChipingAdapter.ViewHolder holder, final int position) {
         Chip chip = chipList.get(position);
         holder.iv_chip_number.setBackground(mContext.getResources().getDrawable(getNumber(chip.chipNumber)));
     }
