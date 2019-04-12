@@ -44,7 +44,6 @@ import com.purity.yu.gameplatform.base.BaseActivity;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.base.LocalHtmlWebViewActivity;
 import com.purity.yu.gameplatform.controler.DtSocketController;
-import com.purity.yu.gameplatform.controler.HolyDaySocketController;
 import com.purity.yu.gameplatform.entity.Baccarat;
 import com.purity.yu.gameplatform.entity.Liquidation;
 import com.purity.yu.gameplatform.event.ObjectEvent;
