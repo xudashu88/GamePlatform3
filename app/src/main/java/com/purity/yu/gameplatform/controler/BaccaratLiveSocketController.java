@@ -71,15 +71,6 @@ public class BaccaratLiveSocketController {
     List<String> _calPlayer = new ArrayList<>();
     List<String> _calBanker = new ArrayList<>();
 
-//    {
-//        try {
-//            mSocket = IO.socket(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.SOCKET_ROOM));
-////            mSocket = IO.socket("http://192.168.0.115:9082/");
-//        } catch (URISyntaxException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
     public void init(Context context) {
         mContext = context;
         timer = new Timer(true);
@@ -133,7 +124,7 @@ public class BaccaratLiveSocketController {
             mSocket.on("command", OnCommand);
             mSocket.connect();
             if (!mSocket.connected()) {
-                perOnePerformance();
+//                perOnePerformance();
             } else {
                 if (timer != null) {
                     timer.cancel();

@@ -3096,6 +3096,7 @@ public class AlgorithmMacau {
         int tie_2 = 2;
         int tie_3 = 2;
         int tie_4 = 2;
+        int tie_0 = 0;
         int b = -1;
         StringBuffer turnSb = new StringBuffer(); //保存 所有拐弯数据
         int m = -1;
@@ -3107,14 +3108,17 @@ public class AlgorithmMacau {
             int k = 1;//k++ k<7 添加前判断下一个有没有数据，有就从当前行直接拐弯，没有下一行
             for (int j = 0; j < bigRoadList.get(i).size(); j++) {//一个二维数组，有多少输出多少，跟n无关。
                 if (i == 0 && bigRoadList.get(0).get(0) == 2) {
-                    if (j == 2 && bigRoadList.get(0).get(0) == 2 && bigRoadList.get(0).get(1) == 9 && bigRoadList.get(0).get(2) == 10) {
-                        list2.add(new SingleRingNode(0, 0, Color.TRANSPARENT, true, "3"));
+                    tie_0++;
+                    if (j > 1 && bigRoadList.get(0).get(0) == 2 && bigRoadList.get(0).get(1) == 9 && bigRoadList.get(0).get(j) == 11) {
+                        removeLateEle(list2);
+                        list2.add(new SingleRingNode(0, 0, Color.TRANSPARENT, true, "" + tie_0));
                     } else if (j == 1 && bigRoadList.get(0).get(0) == 2 && bigRoadList.get(0).get(1) == 9) {
                         list2.add(new SingleRingNode(0, 0, Color.TRANSPARENT, true, "2"));
                     } else if (j == 0 && bigRoadList.get(0).get(0) == 2) {
                         list2.add(new SingleRingNode(0, 0, Color.TRANSPARENT, true, ""));
                     }
                 } else if (k < 7) {
+                    tie_0 = 0;
                     if (!turnSb.toString().contains(+m + "" + k)) {
                         if (n == 5) {
                             if (bigRoadList.get(i).get(j) == 0) {

@@ -2262,7 +2262,9 @@ public class AlgorithmHoly {
             for (int j = 0; j < bigRoadList.get(i).size(); j++) {//一个二维数组，有多少输出多少，跟n无关。
                 b++;//分数
                 if (i == 0 && bigRoadList.get(0).get(0) == 2) {
-                    if (j == 2 && bigRoadList.get(0).get(0) == 2 && bigRoadList.get(0).get(1) == 9 && bigRoadList.get(0).get(2) == 10) {
+                    if (j == 3 && bigRoadList.get(0).get(0) == 2 && bigRoadList.get(0).get(1) == 9 && bigRoadList.get(0).get(3) == 11) {
+                        list2.add(new SingleRingNodeHoly(0, 0, Color.TRANSPARENT, 4, ""));
+                    } else if (j == 2 && bigRoadList.get(0).get(0) == 2 && bigRoadList.get(0).get(1) == 9 && bigRoadList.get(0).get(2) == 11) {
                         list2.add(new SingleRingNodeHoly(0, 0, Color.TRANSPARENT, 3, ""));
                     } else if (j == 1 && bigRoadList.get(0).get(0) == 2 && bigRoadList.get(0).get(1) == 9) {
                         list2.add(new SingleRingNodeHoly(0, 0, Color.TRANSPARENT, 2, ""));

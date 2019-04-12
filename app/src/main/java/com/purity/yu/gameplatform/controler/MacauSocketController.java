@@ -118,7 +118,7 @@ public class MacauSocketController {
             mSocket.on("command", OnCommand);
             mSocket.connect();
             if (!mSocket.connected()) {
-                perOnePerformance();
+//                perOnePerformance();
             } else {
                 if (timer != null) {
                     timer.cancel();

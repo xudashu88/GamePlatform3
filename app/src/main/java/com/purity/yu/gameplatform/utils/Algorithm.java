@@ -3012,7 +3012,7 @@ public class Algorithm {
         int tie_2 = 2;
         int tie_3 = 2;
         int tie_4 = 2;
-
+        int tie_0 = 0;
         StringBuffer turnSb = new StringBuffer(); //保存 所有拐弯数据
         int m = -1;
         //0庄 1闲(只存庄和闲)  用于大眼路，小路和小强路分析       2和 3庄和 4庄和2  5闲和 6闲和2 7庄和3 8闲和3 9和2 10和3
@@ -3023,14 +3023,17 @@ public class Algorithm {
             int k = 1;//k++ k<7 添加前判断下一个有没有数据，有就从当前行直接拐弯，没有下一行
             for (int j = 0; j < bigRoadList.get(i).size(); j++) {//一个二维数组，有多少输出多少，跟n无关。
                 if (i == 0 && bigRoadList.get(0).get(0) == 2) {
-                    if (j == 2 && bigRoadList.get(0).get(0) == 2 && bigRoadList.get(0).get(1) == 9 && bigRoadList.get(0).get(2) == 10) {
-                        list2.add(new SingleRingNode(0, 0, Color.TRANSPARENT, true, "3"));
+                    tie_0++;
+                    if (j > 1 && bigRoadList.get(0).get(0) == 2 && bigRoadList.get(0).get(1) == 9 && bigRoadList.get(0).get(j) == 11) {
+                        removeLateEle(list2);
+                        list2.add(new SingleRingNode(0, 0, Color.TRANSPARENT, true, "" + tie_0));
                     } else if (j == 1 && bigRoadList.get(0).get(0) == 2 && bigRoadList.get(0).get(1) == 9) {
                         list2.add(new SingleRingNode(0, 0, Color.TRANSPARENT, true, "2"));
                     } else if (j == 0 && bigRoadList.get(0).get(0) == 2) {
                         list2.add(new SingleRingNode(0, 0, Color.TRANSPARENT, true, ""));
                     }
                 } else if (k < 7) {
+                    tie_0 = 0;
                     if (!turnSb.toString().contains(+m + "" + k)) {
                         if (n == 5) {
                             if (bigRoadList.get(i).get(j) == 0) {
