@@ -1,11 +1,8 @@
 package com.purity.yu.gameplatform.controler;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,9 +24,7 @@ import java.util.List;
 public class DtLiveController {
     private Context mContext;
     private static DtLiveController instance = null;
-    private LayoutInflater layoutInflater;
     private ChipAdapter mAdapter;
-    private DisplayMetrics displayMetrics;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Chip> chipList;
 
@@ -45,9 +40,6 @@ public class DtLiveController {
 
     public void init(Context context) {
         mContext = context;
-        layoutInflater = ((Activity) mContext).getWindow().getLayoutInflater();
-        displayMetrics = mContext.getResources().getDisplayMetrics();
-
     }
 
     public static DtLiveController getInstance() {

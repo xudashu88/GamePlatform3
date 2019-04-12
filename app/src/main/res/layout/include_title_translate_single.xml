@@ -18,14 +18,14 @@
         android:id="@+id/ll_back"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical">
+        android:layout_weight="1.2"
+        android:gravity="center">
 
         <ImageView
-            android:id="@+id/iv_back"
             android:layout_width="@dimen/unit20"
             android:layout_height="@dimen/unit40"
-            android:background="@drawable/back" />
+            android:background="@drawable/back"
+            android:gravity="center" />
     </LinearLayout>
 
     <!--@string/ba_game-->
@@ -64,6 +64,7 @@
             android:textSize="@dimen/font12" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -80,6 +81,7 @@
             app:ringColor="#EEC51A"
             app:textColor="#ffffff" />
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rl_video_select1"
         android:layout_width="0dp"
@@ -104,11 +106,10 @@
             android:layout_height="@dimen/unit35"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:rotation="180"
             android:scaleType="fitCenter"
-            android:src="@drawable/video_arrow"
-            android:rotation="180"/>
+            android:src="@drawable/video_arrow" />
     </RelativeLayout>
-
 
 
     <ImageView

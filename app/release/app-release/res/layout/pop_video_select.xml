@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/transparent" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@id/rl_hd" android:background="@drawable/select_video" android:clickable="true" android:layout_width="@dimen/unit70" android:layout_height="@dimen/unit25">
+        <TextView android:textSize="@dimen/font10" android:textColor="@color/mainGoldenUnderTine" android:gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="@dimen/unit35" android:layout_marginLeft="@dimen/unit5" android:text="@string/video_hd" />
+        <ImageView android:background="@drawable/video_channel" android:layout_width="@dimen/unit5" android:layout_height="@dimen/unit20" android:layout_marginRight="@dimen/unit5" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    </RelativeLayout>
+    <RelativeLayout android:id="@id/rl_ld" android:background="@drawable/select_video" android:clickable="true" android:layout_width="@dimen/unit70" android:layout_height="@dimen/unit25" android:layout_marginTop="@dimen/unit2">
+        <TextView android:textSize="@dimen/font10" android:textColor="@color/mainGoldenUnderTine" android:gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:text="@string/video_ld" />
+        <ImageView android:background="@drawable/video_channel" android:layout_width="@dimen/unit5" android:layout_height="@dimen/unit20" android:layout_marginRight="@dimen/unit5" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+    </RelativeLayout>
+    <TextView android:textSize="@dimen/font10" android:textColor="@color/mainGoldenUnderTine" android:gravity="center_vertical" android:id="@id/tv_close" android:background="@drawable/select_video" android:paddingLeft="@dimen/unit5" android:clickable="true" android:layout_width="@dimen/unit70" android:layout_height="@dimen/unit25" android:layout_marginTop="@dimen/unit2" android:text="@string/video_close" />
+</LinearLayout>

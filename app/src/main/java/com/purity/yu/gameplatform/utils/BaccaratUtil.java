@@ -875,6 +875,11 @@ public class BaccaratUtil {
         return df.format((float) a / b);
     }
 
+    public String getScaleX(float a, float b) {
+        DecimalFormat df = new DecimalFormat("0.000");
+        return df.format(a / b);
+    }
+
     public void toast(RelativeLayout rl_show, TextView tv_show, String meg) {
         rl_show.setBackground(mContext.getResources().getDrawable(R.drawable.toast));
         tv_show.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(com.gangbeng.basemodule.R.dimen.unit10));

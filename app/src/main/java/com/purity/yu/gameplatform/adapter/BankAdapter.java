@@ -12,26 +12,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.gangbeng.basemodule.utils.SharedPreUtil;
-import com.gangbeng.basemodule.utils.ToastUtil;
 import com.gangbeng.basemodule.utils.Util;
 import com.purity.yu.gameplatform.R;
-import com.purity.yu.gameplatform.base.Constant;
-import com.purity.yu.gameplatform.base.ServiceIpConstant;
 import com.purity.yu.gameplatform.entity.Bank;
+import com.purity.yu.gameplatform.utils.ProtocolUtil;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
 import java.util.List;
-
-import me.gcg.GdroidSdk.okhttp.client.CommonOkhttpClient;
-import me.gcg.GdroidSdk.okhttp.exception.OkHttpException;
-import me.gcg.GdroidSdk.okhttp.listener.DisposeDataHandle;
-import me.gcg.GdroidSdk.okhttp.listener.DisposeDataListener;
-import me.gcg.GdroidSdk.okhttp.request.CommonRequest;
-import me.gcg.GdroidSdk.okhttp.request.RequestParams;
-import me.gcg.GdroidSdk.okhttp.response.CommonJsonCallback;
 
 public class BankAdapter extends RecyclerView.Adapter<BankAdapter.ViewHolder> implements View.OnClickListener {
     private Context mContext;
@@ -93,41 +79,11 @@ public class BankAdapter extends RecyclerView.Adapter<BankAdapter.ViewHolder> im
         tv_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postRemove(id, dialog);
+                ProtocolUtil.getInstance().postRemove(mContext, id, dialog);
             }
         });
     }
 
-    private void postRemove(int id, final AlertDialog dialog) {
-        String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
-        HashMap<String, String> map = new HashMap<>();
-        map.put("id", String.valueOf(id));
-        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.BANK_REMOVE + "?token=" + token, new RequestParams(map)),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
-                    @Override
-                    public void onSuccess(String s) {
-                        JSONObject json = null;
-                        JSONObject __data = null;
-                        try {
-                            json = new JSONObject(s);
-                            int code = json.optInt("code");
-                            String data = json.optString("data");
-                            if (code != 0) {
-                                ToastUtil.show(mContext, data);
-                                return;
-                            }
-                            dialog.dismiss();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
-    }
 
     @Override
     public int getItemCount() {

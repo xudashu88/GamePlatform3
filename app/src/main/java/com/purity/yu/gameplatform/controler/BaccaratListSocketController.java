@@ -20,6 +20,8 @@ import org.json.JSONObject;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -34,6 +36,7 @@ public class BaccaratListSocketController {
     private Context mContext;
     private static BaccaratListSocketController instance = null;
     private Socket mSocket;
+    private Timer timer;
 
     //0庄 1闲 2和 3庄赢 庄对 4 庄赢 闲对 5 庄赢 庄对闲对 6闲赢 庄对 7闲赢 闲对 8闲赢 庄对闲对 9和赢 庄对 10和赢 闲对 11和赢 庄对闲对
 //    {
@@ -46,8 +49,10 @@ public class BaccaratListSocketController {
 
     public void init(Context context) {
         mContext = context;
+        timer = new Timer(true);
         try {
             mSocket = IO.socket(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.SOCKET_LOBBY));
+            LogUtil.i("大厅-百家乐初始化" + mSocket);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
@@ -68,7 +73,23 @@ public class BaccaratListSocketController {
             mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
             mSocket.on("hall", OnCommand);
             mSocket.connect();
+            if (!mSocket.connected()) {
+                perOnePerformance();
+            } else {
+                if (timer != null) {
+                    timer.cancel();
+                }
+            }
         }
+    }
+
+    private void perOnePerformance() {
+        TimerTask task = new TimerTask() {
+            public void run() {
+                connectSocket();
+            }
+        };
+        timer.schedule(task, 1000, 2000);
     }
 
     public void disconnectSocket() {
@@ -85,9 +106,7 @@ public class BaccaratListSocketController {
     private Emitter.Listener OnCommand = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
-            LogUtil.i("进入大厅6 ok啦");
-            LogUtil.i("socket_command=" + args[0].toString());
-
+            LogUtil.i("大厅-百家乐 socket_command=" + args[0].toString());
             JSONObject json;
             String roomId = "";
             String state = "";
@@ -147,6 +166,8 @@ public class BaccaratListSocketController {
     private Emitter.Listener onConnect = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
+            LogUtil.i("大厅-百家乐 onConnect");
+            timer.cancel();
             conn();
         }
     };
@@ -164,6 +185,7 @@ public class BaccaratListSocketController {
     private Emitter.Listener onDisconnect = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
+            LogUtil.i("大厅-百家乐 onDisconnect");
             ToastUtil.show(mContext, "已断开服务器");
             conn();
         }
@@ -172,6 +194,7 @@ public class BaccaratListSocketController {
     private Emitter.Listener onConnectError = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
+            LogUtil.i("大厅-百家乐 onConnectError");
             ToastUtil.show(mContext, mContext.getResources().getString(R.string.disconnect));
             conn();
         }

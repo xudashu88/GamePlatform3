@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="#ff1b1b1b" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="@dimen/font16" android:textColor="@color/mainFontGolden" android:gravity="center" android:layout_width="fill_parent" android:layout_height="@dimen/unit25" android:layout_marginTop="@dimen/unit20" android:text="@string/set_sound" />
+    <LinearLayout android:background="@drawable/bg_gray_stroke_golden_menu_bg" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_margin="@dimen/unit30">
+        <LinearLayout android:orientation="vertical" android:background="#ff252525" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_margin="@dimen/unit8" android:weightSum="3.0">
+            <RelativeLayout android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0">
+                <TextView android:textSize="@dimen/font20" android:textColor="@color/mainFontGolden" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit20" android:text="@string/sound_effect" android:layout_centerVertical="true" />
+                <FrameLayout android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="@dimen/unit30" android:layout_alignParentRight="true" android:layout_centerVertical="true">
+                    <TextView android:id="@id/tv_sound_switch_off" android:background="@drawable/setting_toggle_off" android:visibility="visible" android:layout_width="@dimen/unit70" android:layout_height="@dimen/unit30" />
+                    <TextView android:id="@id/tv_sound_switch_on" android:background="@drawable/setting_toggle_on" android:visibility="gone" android:layout_width="@dimen/unit70" android:layout_height="@dimen/unit30" />
+                </FrameLayout>
+            </RelativeLayout>
+            <RelativeLayout android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0">
+                <TextView android:textSize="@dimen/font20" android:textColor="@color/mainFontGolden" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit20" android:text="@string/music_effect" android:layout_centerVertical="true" />
+                <FrameLayout android:layout_gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="@dimen/unit30" android:layout_alignParentRight="true" android:layout_centerVertical="true">
+                    <TextView android:id="@id/tv_music_switch_off" android:background="@drawable/setting_toggle_off" android:visibility="visible" android:layout_width="@dimen/unit70" android:layout_height="@dimen/unit30" />
+                    <TextView android:id="@id/tv_music_switch_on" android:background="@drawable/setting_toggle_on" android:visibility="gone" android:layout_width="@dimen/unit70" android:layout_height="@dimen/unit30" />
+                </FrameLayout>
+            </RelativeLayout>
+            <RelativeLayout android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0">
+                <TextView android:textSize="@dimen/font20" android:textColor="@color/mainFontGolden" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit20" android:text="@string/volume" android:layout_centerVertical="true" />
+                <TextView android:textSize="@dimen/font20" android:textColor="@color/mainFontGolden" android:gravity="left" android:id="@id/tv_volume" android:padding="6.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit100" android:text="\ 100" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+                <SeekBar android:id="@id/seekBar" android:paddingLeft="12.0dip" android:paddingTop="3.0dip" android:paddingBottom="3.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="@dimen/unit30" android:maxHeight="2.0dip" android:max="100" android:progress="100" android:progressDrawable="@drawable/layer_progress" android:minHeight="2.0dip" android:thumb="@drawable/shape_circle" android:layout_toRightOf="@id/tv_volume" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

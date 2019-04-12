@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.gangbeng.basemodule.utils.LogUtil;
 import com.gangbeng.basemodule.utils.SharedPreUtil;
 import com.purity.yu.gameplatform.R;
 import com.purity.yu.gameplatform.activity.SinglePickLiveActivity;
@@ -75,6 +76,7 @@ public class SinglePickLiveInTimeController {
         ll_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LogUtil.i("单挑退出 1");
                 ((SinglePickLiveActivity) mContext).finish();
             }
         });

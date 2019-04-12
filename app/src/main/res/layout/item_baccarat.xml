@@ -406,7 +406,8 @@
         <RelativeLayout
             android:id="@+id/rl_5"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/unit20"
+            android:background="@color/transparent"
             android:layout_toLeftOf="@+id/ll_3"
             android:layout_toRightOf="@+id/ll_2" />
     </RelativeLayout>

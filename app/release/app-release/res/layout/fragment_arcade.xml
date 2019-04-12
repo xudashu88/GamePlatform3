@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView android:textSize="@dimen/font16" android:textColor="@color/mainGolden" android:id="@id/tv_room_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit10" android:layout_marginTop="@dimen/unit10" android:text="房间1" />
+    <FrameLayout android:id="@id/fragment" android:layout_width="@dimen/unit300" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit10" android:layout_alignParentLeft="true" />
+    <RelativeLayout android:layout_width="@dimen/unit120" android:layout_height="fill_parent" android:layout_alignParentRight="true">
+        <ImageView android:id="@id/iv_arrow_top" android:background="@drawable/arrow_arcade" android:layout_width="@dimen/unit10" android:layout_height="@dimen/unit20" android:layout_centerHorizontal="true" android:rotation="90.0" />
+        <ImageView android:id="@id/iv_arrow_bottom" android:background="@drawable/arrow_arcade" android:layout_width="@dimen/unit10" android:layout_height="@dimen/unit20" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" android:rotation="270.0" />
+        <com.purity.twowaygallery.flow.CoverFlow android:id="@id/gallery_vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_above="@id/iv_arrow_bottom" android:layout_below="@id/iv_arrow_top" app:autoCycle="false" app:orientation="vertical" app:spacing="0.0dip" app:unselectedAlpha="0.7" app:unselectedScale="0.8" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="#66000000"
     android:orientation="vertical"
-    android:weightSum="2">
+    android:weightSum="3">
 
     <LinearLayout
         android:id="@+id/ll_alipay"
@@ -33,7 +33,7 @@
         android:layout_weight="1"
         android:background="@drawable/select_video"
         android:clickable="true"
-        android:visibility="gone"
+        android:visibility="visible"
         android:orientation="horizontal">
 
         <TextView

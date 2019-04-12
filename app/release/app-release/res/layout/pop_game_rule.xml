@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/ruleBg" android:layout_width="fill_parent" android:layout_height="@dimen/unit74"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:background="@color/coffee" android:layout_width="fill_parent" android:layout_height="1.0dip" />
+    <LinearLayout android:id="@id/ll_rule_bac" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TextView android:textSize="@dimen/font16" android:textColor="@color/mainGolden" android:gravity="center_vertical" android:id="@id/tv_rule_bac" android:layout_width="wrap_content" android:layout_height="@dimen/unit35" android:layout_marginLeft="@dimen/unit15" android:text="@string/ba_game" />
+    </LinearLayout>
+    <LinearLayout android:id="@id/ll_rule_dt" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TextView android:textSize="@dimen/font16" android:textColor="@color/mainGolden" android:gravity="center_vertical" android:id="@id/tv_rule_dt" android:layout_width="wrap_content" android:layout_height="@dimen/unit35" android:layout_marginLeft="@dimen/unit15" android:text="@string/dt_game" />
+    </LinearLayout>
+    <View android:background="@color/coffee" android:layout_width="fill_parent" android:layout_height="2.0dip" />
+</LinearLayout>

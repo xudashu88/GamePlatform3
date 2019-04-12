@@ -6,7 +6,6 @@ import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 //https://blog.csdn.net/u013278099/article/details/50881431 渐变
 public class GradientTextView extends AppCompatTextView {

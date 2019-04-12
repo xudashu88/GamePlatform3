@@ -16,7 +16,7 @@
         android:textSize="@dimen/font16" />
 
     <FrameLayout
-        android:id="@+id/fragment"
+        android:id="@+id/frame_layout"
         android:layout_width="@dimen/unit300"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"

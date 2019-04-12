@@ -14,34 +14,17 @@ import android.widget.TextView;
 
 import com.gangbeng.basemodule.base.CommonRecyclerViewAdapter;
 import com.gangbeng.basemodule.base.CommonRecyclerViewHolder;
-import com.gangbeng.basemodule.utils.SharedPreUtil;
-import com.gangbeng.basemodule.utils.ToastUtil;
 import com.gangbeng.basemodule.utils.Util;
 import com.purity.yu.gameplatform.R;
-import com.purity.yu.gameplatform.base.Constant;
-import com.purity.yu.gameplatform.base.ServiceIpConstant;
 import com.purity.yu.gameplatform.entity.Message;
-import com.purity.yu.gameplatform.event.ObjectEvent;
+import com.purity.yu.gameplatform.utils.ProtocolUtil;
 
-import org.greenrobot.eventbus.EventBus;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import me.gcg.GdroidSdk.okhttp.client.CommonOkhttpClient;
-import me.gcg.GdroidSdk.okhttp.exception.OkHttpException;
-import me.gcg.GdroidSdk.okhttp.listener.DisposeDataHandle;
-import me.gcg.GdroidSdk.okhttp.listener.DisposeDataListener;
-import me.gcg.GdroidSdk.okhttp.request.CommonRequest;
-import me.gcg.GdroidSdk.okhttp.request.RequestParams;
-import me.gcg.GdroidSdk.okhttp.response.CommonJsonCallback;
 
 public class MessageAdapter extends CommonRecyclerViewAdapter<Message> {
     private static final String TAG = "MessageAdapter";
     private Context mContext;
-    private List<Message> messageList = new ArrayList<>();
+    private List<Message> messageList;
     private LayoutInflater layoutInflater;
 
     public MessageAdapter(Context context, List<Message> data) {
@@ -99,7 +82,7 @@ public class MessageAdapter extends CommonRecyclerViewAdapter<Message> {
         rl_new_message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postLook(entity.id, iv_new_message);
+                ProtocolUtil.getInstance().postLook(mContext, entity.id, iv_new_message);
             }
         });
     }
@@ -142,83 +125,11 @@ public class MessageAdapter extends CommonRecyclerViewAdapter<Message> {
         tv_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postRemove(id, dialog, position);
+                ProtocolUtil.getInstance().postRemove(mContext, id, dialog, position);
             }
         });
     }
 
-    private void postRemove(int id, final AlertDialog dialog, final int position) {
-        String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
-        HashMap<String, String> map = new HashMap<>();
-        map.put("id", String.valueOf(id));
-        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE)+Constant.MESSAGE_REMOVE + "?token=" + token, new RequestParams(map)),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
-                    @Override
-                    public void onSuccess(String s) {
-                        JSONObject json = null;
-                        JSONObject __data = null;
-                        try {
-                            json = new JSONObject(s);
-                            int code = json.optInt("code");
-                            String data = json.optString("data");
-                            if (code != 0) {
-                                ToastUtil.show(mContext, data);
-                                return;
-                            }
-                            dialog.dismiss();
-//                            updateList(messageList);
-//                            notifyItemChanged(position);
-                            ObjectEvent.notifyItemChangedEvent event = new ObjectEvent.notifyItemChangedEvent();
-                            event.position = position;
-                            EventBus.getDefault().post(event);
-                            String _data = json.optString("data");
-                            __data = new JSONObject(_data);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
-    }
-
-    private void postLook(int id, final ImageView imageView) {
-        String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
-        CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE)+Constant.MESSAGE_DETAIL + "?token=" + token + "&id=" + id/* + "&startDate=" + startDate + "&endDate=" + endDate*/, null),//perfect
-                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
-                    @Override
-                    public void onSuccess(String s) {
-                        JSONObject json = null;
-                        JSONObject __data = null;
-                        try {
-                            json = new JSONObject(s);
-                            int code = json.optInt("code");
-                            String data = json.optString("data");
-                            if (code != 0) {
-                                ToastUtil.show(mContext, data);
-                                return;
-                            }
-                            String _data = json.optString("data");
-                            __data = new JSONObject(_data);
-                            imageView.setVisibility(View.GONE);
-                            imageView.setBackgroundResource(0);
-                            int unRead = SharedPreUtil.getInstance(mContext).getInt("unRead");
-                            SharedPreUtil.getInstance(mContext).saveParam("unRead", --unRead);
-                            ToastUtil.show(mContext, "朕已阅");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(OkHttpException e) {
-                        ToastUtil.show(mContext, "连接超时");
-                    }
-                })));
-    }
 
     @Override
     public long getItemId(int position) {

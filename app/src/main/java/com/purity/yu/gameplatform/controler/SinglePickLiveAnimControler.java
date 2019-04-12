@@ -294,11 +294,13 @@ public class SinglePickLiveAnimControler implements CommonPopupWindow.ViewInterf
         ll_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ToastUtil.show(mContext, "退出中。。");
                 libPlayer.SmartPlayerStopPlay(playerHandle);
                 isPlaying = false;
                 SharedPreUtil.getInstance(mContext).saveParam(Constant.BAC_VIDEO_PLAYING, 0);//点击退出停止播放
                 SharedPreUtil.getInstance(mContext).saveParam(Constant.VIDEO_PLAYING, 0);
                 ((SinglePickLiveActivity) mContext).finish();
+                LogUtil.i("单挑退出 2");
                 mContext.startActivity(new Intent(mContext, SinglePickListActivity.class));
             }
         });
@@ -323,7 +325,7 @@ public class SinglePickLiveAnimControler implements CommonPopupWindow.ViewInterf
         RelativeLayout rl_menu_game_rule = (RelativeLayout) layout.findViewById(R.id.rl_menu_game_rule);
         RelativeLayout rl_menu_message = (RelativeLayout) layout.findViewById(R.id.rl_menu_message);
         RelativeLayout rl_menu_exit = (RelativeLayout) layout.findViewById(R.id.rl_menu_exit);
-        if(SharedPreUtil.getInstance(mContext).getInt(Constant.WHERE_SET)!=1){
+        if (SharedPreUtil.getInstance(mContext).getInt(Constant.WHERE_SET) != 1) {
             rl_menu_exit.setVisibility(View.GONE);
         }
         rl_menu_records.setOnClickListener(new View.OnClickListener() {
@@ -382,7 +384,7 @@ public class SinglePickLiveAnimControler implements CommonPopupWindow.ViewInterf
             @Override
             public void onClick(View v) {
                 libPlayer.SmartPlayerStopPlay(playerHandle);
-                mContext.startActivity(new Intent(mContext, LocalHtmlWebViewActivity.class).putExtra("selectBac",0));
+                mContext.startActivity(new Intent(mContext, LocalHtmlWebViewActivity.class).putExtra("selectBac", 0));
             }
         });
         rl_menu_message.setOnClickListener(new View.OnClickListener() {

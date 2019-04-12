@@ -25,6 +25,8 @@ import org.json.JSONObject;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -39,22 +41,16 @@ public class SinglePickLiveSocketController {
     private Context mContext;
     private static SinglePickLiveSocketController instance = null;
     private Socket mSocket;
+    private Timer timer;
 
     String roomId;
     List<Integer> boardMessageList = new ArrayList<>();
     private List<String> cardList = new ArrayList<>();
     PercentCircleAntiClockwise pcac;
 
-//    {
-//        try {
-//            mSocket = IO.socket(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.SOCKET_ROOM));
-//        } catch (URISyntaxException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
     public void init(Context context) {
         mContext = context;
+        timer = new Timer(true);
         try {
             mSocket = IO.socket(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.SOCKET_ROOM));
         } catch (URISyntaxException e) {
@@ -83,7 +79,23 @@ public class SinglePickLiveSocketController {
             mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
             mSocket.on("command", OnCommand);
             mSocket.connect();
+            if (!mSocket.connected()) {
+                perOnePerformance();
+            } else {
+                if (timer != null) {
+                    timer.cancel();
+                }
+            }
         }
+    }
+
+    private void perOnePerformance() {
+        TimerTask task = new TimerTask() {
+            public void run() {
+                connectSocket();
+            }
+        };
+        timer.schedule(task, 1000, 2000);
     }
 
     public Socket getSocket() {
@@ -111,7 +123,7 @@ public class SinglePickLiveSocketController {
                 @Override
                 public void run() {
                     Log.i("socket_command=", args[0].toString());
-                    JSONObject json = null;
+                    JSONObject json  ;
                     try {
                         json = new JSONObject(args[0].toString());
                         String command = json.optString("command");
@@ -454,7 +466,6 @@ public class SinglePickLiveSocketController {
         @Override
         public void call(Object... args) {
             SharedPreUtil.getInstance(mContext).saveParam(Constant.IS_CHIP_SUCCESS, 0);
-            ToastUtil.show(mContext, mContext.getResources().getString(R.string.disconnect));
             conn();
         }
     };

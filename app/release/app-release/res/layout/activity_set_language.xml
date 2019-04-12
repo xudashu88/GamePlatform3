@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/mainBlack" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:id="@id/ll_simple_chinese" android:background="@drawable/select_language" android:layout_width="fill_parent" android:layout_height="@dimen/unit40">
+        <TextView android:textSize="@dimen/font16" android:textColor="@color/selector_font_golden_language" android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="@dimen/unit40" android:layout_marginLeft="@dimen/unit20" android:text="简体中文" />
+    </LinearLayout>
+    <include layout="@layout/include_divide_horizontal_line" />
+    <LinearLayout android:id="@id/ll_traditional_chinese" android:background="@drawable/select_language" android:layout_width="fill_parent" android:layout_height="@dimen/unit40">
+        <TextView android:textSize="@dimen/font16" android:textColor="@color/selector_font_golden_language" android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="@dimen/unit40" android:layout_marginLeft="@dimen/unit20" android:text="繁體中文" />
+    </LinearLayout>
+    <include layout="@layout/include_divide_horizontal_line" />
+    <LinearLayout android:id="@id/ll_english" android:background="@drawable/select_language" android:layout_width="fill_parent" android:layout_height="@dimen/unit40">
+        <TextView android:textSize="@dimen/font16" android:textColor="@color/selector_font_golden_language" android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="@dimen/unit40" android:layout_marginLeft="@dimen/unit20" android:text="English" />
+    </LinearLayout>
+    <include layout="@layout/include_divide_horizontal_line" />
+</LinearLayout>

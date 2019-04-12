@@ -1633,15 +1633,16 @@
         android:layout_marginRight="@dimen/unit76"
         android:layout_toLeftOf="@+id/v_divide" />
 
-
+    <!--
+        android:layout_toLeftOf="@+id/v_divide"
+    -->
     <SurfaceView
         android:id="@+id/sv1"
-        android:layout_width="@dimen/unit75"
+        android:layout_width="@dimen/unit65"
         android:layout_height="@dimen/unit65"
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/unit1"
-        android:layout_marginRight="@dimen/unit1"
-        android:layout_toLeftOf="@+id/v_divide" />
+        android:layout_marginRight="@dimen/unit1" />
 
     <TextView
         android:id="@+id/tv_middle_sv_l"

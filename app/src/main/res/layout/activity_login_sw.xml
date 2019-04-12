@@ -231,6 +231,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/unit25"
         android:layout_marginBottom="@dimen/unit25"
+        android:visibility="gone"
         android:layout_toRightOf="@+id/tv_login_out"
         android:background="@drawable/wechat" />
 

@@ -78,6 +78,7 @@ public class ArcadeCrazyFragment extends BaseFragment {
         addImageView(puyu_seat_9);
         addImageView(puyu_seat_10);
         init(getActivity());
+        initTableView();
         connectSocket();
     }
 

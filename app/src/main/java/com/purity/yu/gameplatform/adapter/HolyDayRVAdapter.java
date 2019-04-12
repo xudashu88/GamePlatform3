@@ -67,6 +67,7 @@ public class HolyDayRVAdapter extends RecyclerView.Adapter<HolyDayRVAdapter.View
             public void onClick(View v) {
                 Baccarat baccarat = mBaccaratList.get(position);
                 Intent intent = new Intent(mContext, HolyDayActivity.class);
+//                Intent intent = new Intent(mContext, MacauActivity.class);
                 intent.putExtra("baccarat", baccarat);
                 intent.putExtra("roomId", mBaccaratList.get(position).roomId);
                 intent.putExtra("roomName", mBaccaratList.get(position).roomName);

@@ -32,6 +32,8 @@ import org.json.JSONObject;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -46,6 +48,7 @@ public class DtLiveSocketController {
     private Context mContext;
     private static DtLiveSocketController instance = null;
     private Socket mSocket;
+    private Timer timer;
 
     String roomId;
     List<Integer> boardMessageList = new ArrayList<>();
@@ -63,16 +66,14 @@ public class DtLiveSocketController {
     List<String> _calPlayer = new ArrayList<>();
     List<String> _calBanker = new ArrayList<>();
 
-    {
+    public void init(Context context) {
+        mContext = context;
+        timer = new Timer(true);
         try {
             mSocket = IO.socket(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.SOCKET_ROOM));
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void init(Context context) {
-        mContext = context;
     }
 
     public static DtLiveSocketController getInstance() {
@@ -110,7 +111,23 @@ public class DtLiveSocketController {
             mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
             mSocket.on("command", OnCommand);
             mSocket.connect();
+            if (!mSocket.connected()) {
+                perOnePerformance();
+            } else {
+                if (timer != null) {
+                    timer.cancel();
+                }
+            }
         }
+    }
+
+    private void perOnePerformance() {
+        TimerTask task = new TimerTask() {
+            public void run() {
+                connectSocket();
+            }
+        };
+        timer.schedule(task, 1000, 2000);
     }
 
     public Socket getSocket() {

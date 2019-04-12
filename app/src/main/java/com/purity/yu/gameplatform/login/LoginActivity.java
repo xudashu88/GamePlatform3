@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -32,8 +31,6 @@ import com.chuangku.languagemodule.LanguageType;
 import com.chuangku.languagemodule.MultiLanguageUtil;
 import com.gangbeng.basemodule.utils.SharedPreUtil;
 import com.gangbeng.basemodule.utils.Util;
-import com.gongwen.marqueen.SimpleMF;
-import com.gongwen.marqueen.SimpleMarqueeView;
 import com.purity.yu.gameplatform.R;
 import com.purity.yu.gameplatform.annotation.ContentViewUtils;
 import com.purity.yu.gameplatform.base.Constant;
@@ -42,9 +39,6 @@ import com.purity.yu.gameplatform.controler.LoginController;
 import com.purity.yu.gameplatform.utils.PermissionsUtil;
 import com.purity.yu.gameplatform.utils.ProtocolUtil;
 import com.purity.yu.gameplatform.widget.NetStateDialog;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import avi.AVLoadingIndicatorView;
 import butterknife.BindView;
@@ -266,7 +260,7 @@ public class LoginActivity extends AppCompatActivity {
             lastOnClickTime = time;
             return;
         } else {
-            ProtocolUtil.getInstance().postLogOutSys();
+            ProtocolUtil.getInstance().postLogOutSys(mContext);
         }
     }
 

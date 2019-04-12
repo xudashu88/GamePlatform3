@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:id="@id/ll_title" android:background="@drawable/top_bar" android:paddingLeft="@dimen/unit10" android:paddingRight="@dimen/unit5" android:layout_width="fill_parent" android:layout_height="@dimen/unit50" android:weightSum="18.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center_vertical" android:id="@id/ll_back" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="0.8">
+        <ImageView android:id="@id/iv_back" android:background="@drawable/back" android:layout_width="@dimen/unit20" android:layout_height="@dimen/unit40" />
+    </LinearLayout>
+    <RelativeLayout android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="7.0">
+        <TextView android:textSize="@dimen/font18" android:textColor="@color/mainGolden" android:id="@id/tv_game_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit5" android:text="@string/ba_game" android:layout_centerVertical="true" />
+        <TextView android:textSize="@dimen/font12" android:textColor="@color/mainGolden" android:id="@id/tv_game_table_num" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit5" android:text="@string/total_table" android:layout_toRightOf="@id/tv_game_name" android:layout_centerVertical="true" />
+    </RelativeLayout>
+    <RelativeLayout android:visibility="gone" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="5.0">
+        <ImageView android:id="@id/iv_msg" android:background="@drawable/top_bar_msg_btn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1.2" android:layout_centerInParent="true" />
+    </RelativeLayout>
+    <LinearLayout android:orientation="horizontal" android:id="@id/ll_good_road_sorting" android:background="@drawable/shape_bg_golden" android:visibility="invisible" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_margin="@dimen/unit10" android:weightSum="5.0" android:layout_weight="3.6">
+        <TextView android:textSize="@dimen/font12" android:textColor="@color/mainGoldenDeep" android:layout_gravity="center_vertical" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit5" android:text="@string/good_road_sorting" android:layout_weight="3.0" />
+        <FrameLayout android:layout_gravity="center_vertical" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="2.0">
+            <TextView android:textColor="@color/white" android:gravity="center" android:id="@id/tv_switch_on" android:background="@drawable/toggle_positive" android:paddingRight="@dimen/unit18" android:visibility="visible" android:layout_width="@dimen/unit40" android:layout_height="@dimen/unit20" android:text="@string/good_road_switch_on" />
+            <TextView android:textColor="@color/white" android:gravity="center" android:id="@id/tv_switch_off" android:background="@drawable/toggle_negative" android:paddingLeft="@dimen/unit18" android:visibility="gone" android:layout_width="@dimen/unit40" android:layout_height="@dimen/unit20" android:text="@string/good_road_switch_off" />
+        </FrameLayout>
+    </LinearLayout>
+    <ImageView android:id="@id/iv_avatar" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginTop="@dimen/unit3" android:layout_marginBottom="@dimen/unit3" android:scaleType="fitXY" android:layout_weight="2.0" />
+    <LinearLayout android:orientation="vertical" android:id="@id/ll_user_info" android:paddingTop="@dimen/unit3" android:paddingBottom="@dimen/unit3" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:layout_weight="3.5">
+        <TextView android:textSize="@dimen/font12" android:textColor="#ff62503e" android:gravity="center_vertical" android:id="@id/tv_nickname" android:background="@drawable/profile_bar" android:paddingLeft="@dimen/unit5" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="光风霁月" android:drawableLeft="@drawable/ac_icon" android:drawablePadding="@dimen/unit5" android:layout_weight="1.0" />
+        <TextView android:textSize="@dimen/font12" android:textColor="@color/mainGolden" android:gravity="center_vertical" android:id="@id/tv_money" android:background="@drawable/balance_bar" android:paddingLeft="@dimen/unit5" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="\ 0" android:drawableLeft="@drawable/balance_icon" android:drawablePadding="@dimen/unit5" android:layout_weight="1.0" />
+    </LinearLayout>
+    <RelativeLayout android:padding="@dimen/unit5" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.3">
+        <ImageView android:id="@id/iv_bac_set" android:background="@drawable/menu_pressed" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    </RelativeLayout>
+</LinearLayout>

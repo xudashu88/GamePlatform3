@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@id/rl_menu_title" android:background="@drawable/top_bar" android:layout_width="fill_parent" android:layout_height="@dimen/unit50">
+        <ImageView android:background="@drawable/logo" android:layout_width="@dimen/unit50" android:layout_height="@dimen/unit50" android:layout_centerInParent="true" />
+    </RelativeLayout>
+    <View android:id="@id/menu_v1" android:background="@color/menuPress" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_below="@id/rl_menu_title" />
+    <RelativeLayout android:id="@id/rl_menu_records" android:background="@drawable/select_menu" android:clickable="true" android:layout_width="fill_parent" android:layout_height="@dimen/unit40" android:layout_below="@id/menu_v1">
+        <ImageView android:id="@id/iv_records" android:background="@drawable/menu_records" android:layout_width="@dimen/unit25" android:layout_height="@dimen/unit25" android:layout_marginLeft="@dimen/unit10" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+        <TextView android:textSize="@dimen/font16" android:textStyle="bold" android:textColor="@color/mainFontGolden" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit40" android:text="@string/records" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+    </RelativeLayout>
+    <View android:id="@id/menu_v2" android:background="@color/menuPress" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_below="@id/rl_menu_records" />
+    <RelativeLayout android:id="@id/rl_menu_setting" android:background="@drawable/select_menu" android:clickable="true" android:layout_width="fill_parent" android:layout_height="@dimen/unit40" android:layout_below="@id/menu_v2">
+        <ImageView android:id="@id/iv_setting" android:background="@drawable/menu_settings" android:layout_width="@dimen/unit25" android:layout_height="@dimen/unit25" android:layout_marginLeft="@dimen/unit10" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+        <TextView android:textSize="@dimen/font16" android:textStyle="bold" android:textColor="@color/mainFontGolden" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit40" android:text="@string/setting" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+    </RelativeLayout>
+    <View android:id="@id/menu_v3" android:background="@color/menuPress" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_below="@id/rl_menu_setting" />
+    <RelativeLayout android:id="@id/rl_menu_suggestion" android:background="@drawable/select_menu" android:clickable="true" android:layout_width="fill_parent" android:layout_height="@dimen/unit40" android:layout_below="@id/menu_v3">
+        <ImageView android:id="@id/iv_suggestion" android:background="@drawable/menu_feedback" android:layout_width="@dimen/unit25" android:layout_height="@dimen/unit25" android:layout_marginLeft="@dimen/unit10" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+        <TextView android:textSize="@dimen/font16" android:textStyle="bold" android:textColor="@color/mainFontGolden" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit40" android:text="@string/suggestion" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+    </RelativeLayout>
+    <View android:id="@id/menu_v4" android:background="@color/menuPress" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_below="@id/rl_menu_suggestion" />
+    <RelativeLayout android:id="@id/rl_menu_game_rule" android:background="@drawable/select_menu" android:clickable="true" android:layout_width="fill_parent" android:layout_height="@dimen/unit40" android:layout_below="@id/menu_v4">
+        <ImageView android:id="@id/iv_game_rule" android:background="@drawable/menu_help" android:layout_width="@dimen/unit25" android:layout_height="@dimen/unit25" android:layout_marginLeft="@dimen/unit10" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+        <TextView android:textSize="@dimen/font16" android:textStyle="bold" android:textColor="@color/mainFontGolden" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit40" android:text="@string/game_rule" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+    </RelativeLayout>
+    <View android:id="@id/menu_v5" android:background="@color/menuPress" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_below="@id/rl_menu_game_rule" />
+    <RelativeLayout android:id="@id/rl_menu_message" android:background="@drawable/select_menu" android:clickable="true" android:layout_width="fill_parent" android:layout_height="@dimen/unit40" android:layout_below="@id/menu_v5">
+        <ImageView android:id="@id/iv_message" android:background="@drawable/menu_feedback" android:layout_width="@dimen/unit25" android:layout_height="@dimen/unit25" android:layout_marginLeft="@dimen/unit10" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+        <TextView android:textSize="@dimen/font16" android:textStyle="bold" android:textColor="@color/mainFontGolden" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit40" android:text="@string/message" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+    </RelativeLayout>
+    <View android:id="@id/menu_v6" android:background="@color/menuPress" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_below="@id/rl_menu_message" />
+    <RelativeLayout android:id="@id/rl_menu_exit" android:background="@drawable/select_menu" android:clickable="true" android:layout_width="fill_parent" android:layout_height="@dimen/unit40" android:layout_below="@id/menu_v6">
+        <TextView android:textSize="@dimen/font16" android:textStyle="bold" android:textColor="@color/mainFontGolden" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit40" android:text="@string/exit_app" android:layout_centerInParent="true" />
+    </RelativeLayout>
+    <RelativeLayout android:background="@color/menuPress" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_below="@id/rl_menu_exit" />
+</RelativeLayout>

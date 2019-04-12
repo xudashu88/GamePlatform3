@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@drawable/bg_black_stroke_golden" android:layout_width="fill_parent" android:layout_height="fill_parent" android:weightSum="5.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="3.5">
+        <TextView android:textSize="@dimen/font14" android:textColor="@color/mainGolden" android:id="@id/tv_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="确定删除收藏？" />
+    </LinearLayout>
+    <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.5">
+        <TextView android:textSize="@dimen/font20" android:textColor="@color/black" android:gravity="center" android:id="@id/tv_sure" android:background="@drawable/select_common_btn" android:clickable="true" android:layout_width="@dimen/unit80" android:layout_height="@dimen/standard_height" android:text="@string/yoplay_enter" />
+    </LinearLayout>
+</LinearLayout>

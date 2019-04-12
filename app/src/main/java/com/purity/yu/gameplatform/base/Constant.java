@@ -147,6 +147,7 @@ public class Constant {
     public static final String MONEY = "money";
     public static final String CLOSE_ALL_VIDEO = "close_all_video";//默认0开启 1关闭
     public static final String ADDS = "adds";//系统公告
+    public static final String USER_QRCODE = "/user/qrcode";//客服二维码
 
     /**
      * 60秒倒计时

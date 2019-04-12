@@ -11,10 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.gangbeng.basemodule.utils.LogUtil;
 import com.gangbeng.basemodule.utils.SharedPreUtil;
 import com.gangbeng.basemodule.utils.ToastUtil;
-import com.gongwen.marqueen.SimpleMF;
-import com.gongwen.marqueen.SimpleMarqueeView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.purity.yu.gameplatform.R;
@@ -31,25 +30,15 @@ import com.purity.yu.gameplatform.base.BaseFragment;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.base.ServiceIpConstant;
 import com.purity.yu.gameplatform.entity.Game2;
-import com.purity.yu.gameplatform.event.ObjectEvent;
 import com.purity.yu.gameplatform.http.HttpRequest;
 import com.purity.yu.gameplatform.utils.BaccaratUtil;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import me.gcg.GdroidSdk.okhttp.client.CommonOkhttpClient;
-import me.gcg.GdroidSdk.okhttp.exception.OkHttpException;
-import me.gcg.GdroidSdk.okhttp.listener.DisposeDataHandle;
-import me.gcg.GdroidSdk.okhttp.listener.DisposeDataListener;
-import me.gcg.GdroidSdk.okhttp.request.CommonRequest;
-import me.gcg.GdroidSdk.okhttp.response.CommonJsonCallback;
 
 import static com.gangbeng.basemodule.http.HttpParse.parseArrayObject;
 
@@ -86,6 +75,25 @@ public class HotNewFragment extends BaseFragment {
         if (list != null && list.size() > 0) {
             gameList.clear();
             gameList.addAll(list);
+            LogUtil.i("登录获取房间列表信息 5" + gameList.toString());
+            for (int i = 0; i < gameList.size(); i++) {
+                String verify = gameList.get(i).platformCode + gameList.get(i).gameNameEn;
+                if (verify.equals("JXB" + "baccarat")) {
+                    gameList.get(i).gameDot = SharedPreUtil.getInstance(getActivity()).getInt(Constant.BAC_ROOM_COUNT);
+                } else if (verify.equals("JXB" + "baccarat2")/*gameList.get(i).gameName.equals("百家乐2")*/) {
+                    gameList.get(i).gameDot = SharedPreUtil.getInstance(getActivity()).getInt(Constant.BAC_ROOM_COUNT);
+                } else if (verify.equals("JXB" + "dragonTiger")/*gameList.get(i).gameName.equals("龙虎")*/) {
+                    gameList.get(i).gameDot = SharedPreUtil.getInstance(getActivity()).getInt(Constant.DT_ROOM_COUNT);
+                } else if (verify.equals("JXB" + "dragonTiger2")/*gameList.get(i).gameName.equals("龙虎2")*/) {
+                    gameList.get(i).gameDot = SharedPreUtil.getInstance(getActivity()).getInt(Constant.DT_ROOM_COUNT);
+                } else if (verify.equals("JXB" + "duel")/*gameList.get(i).gameName.equals("单挑")*/) {
+                    gameList.get(i).gameDot = SharedPreUtil.getInstance(getActivity()).getInt(Constant.SINGLE_ROOM_COUNT);
+                } else if (verify.equals("JXB" + "macau")/*gameList.get(i).gameName.equals("澳门五路")*/) {
+                    gameList.get(i).gameDot = SharedPreUtil.getInstance(getActivity()).getInt(Constant.BAC_ROOM_COUNT);
+                } else if (verify.equals("JXB" + "macau.")/*gameList.get(i).gameName.equals("澳门五路.")*/) {
+                    gameList.get(i).gameDot = SharedPreUtil.getInstance(getActivity()).getInt(Constant.BAC_ROOM_COUNT);
+                }
+            }
             initAdapter();
         } else {
             gameList.clear();
@@ -94,7 +102,7 @@ public class HotNewFragment extends BaseFragment {
                     .executeGetParams(new HttpRequest.HttpCallBack() {
                         @Override
                         public void onResultOk(String result) {
-                            JSONObject json = null;
+                            JSONObject json  ;
                             try {
                                 json = new JSONObject(result);
                                 String _data = json.optString("data");
@@ -123,44 +131,6 @@ public class HotNewFragment extends BaseFragment {
                             }
                         }
                     });
-//            CommonOkhttpClient.sendRequest(CommonRequest.createGetRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.GAME_LIST + "?token=" + token, null),//perfect
-//                    new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
-//                        @Override
-//                        public void onSuccess(String s) {
-//                            JSONObject json = null;
-//                            try {
-//                                json = new JSONObject(s);
-//                                String _data = json.optString("data");
-//                                gameList = parseArrayObject(_data, "items", Game2.class);
-//                                for (int i = 0; i < gameList.size(); i++) {
-//                                    String verify = gameList.get(i).platformCode + gameList.get(i).gameNameEn;
-//                                    if (verify.equals("JXB" + "baccarat")) {
-//                                        gameList.get(i).gameDot = SharedPreUtil.getInstance(getActivity()).getInt(Constant.BAC_ROOM_COUNT);
-//                                    } else if (verify.equals("JXB" + "baccarat2")/*gameList.get(i).gameName.equals("百家乐2")*/) {
-//                                        gameList.get(i).gameDot = SharedPreUtil.getInstance(getActivity()).getInt(Constant.BAC_ROOM_COUNT);
-//                                    } else if (verify.equals("JXB" + "dragonTiger")/*gameList.get(i).gameName.equals("龙虎")*/) {
-//                                        gameList.get(i).gameDot = SharedPreUtil.getInstance(getActivity()).getInt(Constant.DT_ROOM_COUNT);
-//                                    } else if (verify.equals("JXB" + "dragonTiger2")/*gameList.get(i).gameName.equals("龙虎2")*/) {
-//                                        gameList.get(i).gameDot = SharedPreUtil.getInstance(getActivity()).getInt(Constant.DT_ROOM_COUNT);
-//                                    } else if (verify.equals("JXB" + "duel")/*gameList.get(i).gameName.equals("单挑")*/) {
-//                                        gameList.get(i).gameDot = SharedPreUtil.getInstance(getActivity()).getInt(Constant.SINGLE_ROOM_COUNT);
-//                                    } else if (verify.equals("JXB" + "macau")/*gameList.get(i).gameName.equals("澳门五路")*/) {
-//                                        gameList.get(i).gameDot = SharedPreUtil.getInstance(getActivity()).getInt(Constant.BAC_ROOM_COUNT);
-//                                    } else if (verify.equals("JXB" + "macau.")/*gameList.get(i).gameName.equals("澳门五路.")*/) {
-//                                        gameList.get(i).gameDot = SharedPreUtil.getInstance(getActivity()).getInt(Constant.BAC_ROOM_COUNT);
-//                                    }
-//                                }
-//                                initAdapter();
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onFailure(OkHttpException e) {
-//                            ToastUtil.show(mContext, "连接超时");
-//                        }
-//                    })));
         }
     }
 

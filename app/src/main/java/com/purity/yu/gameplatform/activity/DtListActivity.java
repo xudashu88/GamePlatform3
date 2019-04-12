@@ -100,7 +100,7 @@ public class DtListActivity extends BaseActivity {
             String sFinal = String.format(totalTable, list.size());
             tv_game_table_num.setText(sFinal);
             initAdapter();
-            ProtocolUtil.getInstance().postLoginInfo(tv_money);
+            ProtocolUtil.getInstance().postLoginInfo(mContext,tv_money);
         }
         initEvent();
     }

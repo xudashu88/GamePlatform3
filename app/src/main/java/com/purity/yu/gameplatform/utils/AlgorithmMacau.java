@@ -14,7 +14,6 @@ import com.purity.yu.gameplatform.baccarat.FourLineNode;
 import com.purity.yu.gameplatform.baccarat.FourRingsNode;
 import com.purity.yu.gameplatform.baccarat.NodeImp;
 import com.purity.yu.gameplatform.baccarat.SingleRingNode;
-import com.purity.yu.gameplatform.baccarat.SingleRingNode;
 import com.purity.yu.gameplatform.baccarat.YHZGridView;
 
 import java.util.ArrayList;

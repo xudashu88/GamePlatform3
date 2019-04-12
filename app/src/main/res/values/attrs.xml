@@ -43,4 +43,13 @@
         <attr name="indicatorName" format="string"/>
         <attr name="indicatorColor" format="color"/>
     </declare-styleable>
+
+    <declare-styleable name="MarqueeTextView">
+        <attr name="scroll_interval" format="integer" />
+        <attr name="scroll_first_delay" format="integer"/>
+        <attr name="scroll_mode">
+            <enum name="mode_forever" value="100"/>
+            <enum name="mode_once" value="101"/>
+        </attr>
+    </declare-styleable>
 </resources>

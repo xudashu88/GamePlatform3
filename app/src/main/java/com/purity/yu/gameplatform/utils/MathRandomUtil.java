@@ -96,10 +96,12 @@ public class MathRandomUtil {
         String[] string = str.split("\\.");
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(string[0]);
-        if (string[1].length() > 2) {
-            stringBuffer.append("." + string[1].substring(0, 2));
-        } else {
-            stringBuffer.append("." + string[1]);
+        if (string.length > 2) {
+            if (string[1].length() > 2) {
+                stringBuffer.append("." + string[1].substring(0, 2));
+            } else {
+                stringBuffer.append("." + string[1]);
+            }
         }
         return stringBuffer.toString();
     }

@@ -1,5 +1,7 @@
 package com.purity.yu.gameplatform.activity;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -736,7 +739,7 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
             //测试用例 暂时下注
             rl_poker.setVisibility(View.GONE);
             isShowChip(View.GONE);
-            tv_robot.setVisibility(View.VISIBLE);
+            tv_robot.setVisibility(View.GONE);//显示
         } else {
             currentMoney = Double.parseDouble(tv_money.getText().toString());
             isShowChip(View.VISIBLE);
@@ -749,7 +752,7 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
         }
         if (event.state.equals(Constant.BACCARAT_RESULT)) {
             tv_time.setText("发牌中");
-            tv_robot.setVisibility(View.VISIBLE);//只有发牌阶段才能换托管状态
+            tv_robot.setVisibility(View.GONE);//只有发牌阶段才能换托管状态 显示
             zoomQuarterVideo();
         } else if (event.state.equals(Constant.BACCARAT_WAIT)) {
             tv_time.setText("等待");
@@ -988,7 +991,7 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
             timer.cancel();
             second = 0;
             tv_robot.setClickable(true);//发牌阶段才能换托管状态
-            tv_robot.setVisibility(View.VISIBLE);
+            tv_robot.setVisibility(View.GONE); //显示
         } else if (event.state.equals("OVER")) {
             onClick(false);
             isChipClick(false, false, R.drawable.button_bet_disable_bg, R.drawable.button_bet_disable_bg, R.string.confirm);
@@ -3398,18 +3401,7 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
                 if (time == 0) {
                     zoomQuarterVideo();
                 } else if (time == 1) {
-                    RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSv1.getLayoutParams();
-                    layoutParams.width = RelativeLayout.LayoutParams.MATCH_PARENT;
-                    layoutParams.height = RelativeLayout.LayoutParams.MATCH_PARENT;
-                    layoutParams.removeRule(RelativeLayout.LEFT_OF);
-                    mSv1.setLayoutParams(layoutParams);
-                    tv_middle_sv_l.setVisibility(View.GONE);
-                    tv_middle_sv_h.setVisibility(View.GONE);
-                    tv_big_sv_l.setVisibility(View.VISIBLE);
-                    tv_big_sv_h.setVisibility(View.VISIBLE);
-                    rl_video_select1.setVisibility(View.GONE);
-                    rl_video_select2.setVisibility(View.VISIBLE);
-                    time = 2;
+                    zoomFullVideo();
                 } else if (time == 2) {
                     zoomReturnVideo();
                 }
@@ -3463,23 +3455,20 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
     }
 
     /**
-     * 发牌--视频放大四分之一
+     * 下注-视频还原
      */
     private void zoomReturnVideo() {
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSv1.getLayoutParams();
-        if (rl_test.getWidth() > 5) {
-            layoutParams.width = (int) (tv_manual.getWidth() * scaleX - mContext.getResources().getDimensionPixelOffset(R.dimen.unit1));//0.132 0.135
-        } else {
-            layoutParams.width = tv_manual.getWidth() - mContext.getResources().getDimensionPixelOffset(R.dimen.unit1);
-        }
-        if (displayMetrics.densityDpi == 160) {
-            layoutParams.height = (int) (mContext.getResources().getDimensionPixelSize(R.dimen.unit65) * topScaleY);
-        } else {
-            layoutParams.height = mContext.getResources().getDimensionPixelSize(R.dimen.unit65);
-        }
-        layoutParams.addRule(RelativeLayout.LEFT_OF, v_divide.getId());
-        mSv1.setLayoutParams(layoutParams);
-
+        AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
+        ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, 1f);
+        ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, 1f);
+        mSv1.setPivotX(0);
+        mSv1.setPivotY(0);
+        animatorSetVideo.setDuration(600);
+        _scaleX.setRepeatMode(ObjectAnimator.RESTART);
+        _scaleY.setRepeatMode(ObjectAnimator.RESTART);
+        animatorSetVideo.setInterpolator(new DecelerateInterpolator());
+        animatorSetVideo.play(_scaleX).with(_scaleY);//两个动画同时开始
+        animatorSetVideo.start();
         tv_big_sv_l.setVisibility(View.GONE);
         tv_big_sv_h.setVisibility(View.GONE);
         tv_middle_sv_l.setVisibility(View.GONE);
@@ -3490,17 +3479,9 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
     }
 
     /**
-     * 下注-视频还原
+     * 发牌-视频宽高各一半
      */
     private void zoomQuarterVideo() {
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSv1.getLayoutParams();
-        layoutParams.width = (int) (displayMetrics.widthPixels * 0.5);
-        layoutParams.height = (int) (displayMetrics.heightPixels * 0.5);
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        layoutParams.removeRule(RelativeLayout.LEFT_OF);
-        int top = mContext.getResources().getDimensionPixelSize(R.dimen.unit1);
-        layoutParams.setMargins(0, top, 0, 0);
-        mSv1.setLayoutParams(layoutParams);
         tv_middle_sv_l.setVisibility(View.VISIBLE);
         tv_middle_sv_h.setVisibility(View.VISIBLE);
         tv_big_sv_l.setVisibility(View.GONE);
@@ -3508,6 +3489,50 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
         rl_video_select1.setVisibility(View.VISIBLE);
         rl_video_select2.setVisibility(View.GONE);
         time = 1;
+        float toX3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(displayMetrics.widthPixels * 0.5f, mSv1.getWidth()));
+        float toY3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(displayMetrics.heightPixels * 0.55f, mSv1.getHeight()));
+        AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
+        ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 0f, toX3);
+        ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 0f, toY3);
+        float pivotX = mSv1.getWidth();
+        mSv1.setPivotX(pivotX);
+        mSv1.setPivotY(0);
+        animatorSetVideo.setDuration(600);
+        _scaleX.setRepeatMode(ObjectAnimator.RESTART);
+        _scaleY.setRepeatMode(ObjectAnimator.RESTART);
+        animatorSetVideo.setInterpolator(new DecelerateInterpolator());
+        animatorSetVideo.play(_scaleX).with(_scaleY);//两个动画同时开始
+        animatorSetVideo.start();
+    }
+
+    private void zoomFullVideo() {
+        tv_middle_sv_l.setVisibility(View.GONE);
+        tv_middle_sv_h.setVisibility(View.GONE);
+        rl_video_select1.setVisibility(View.GONE);
+        time = 2;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                tv_big_sv_l.setVisibility(View.VISIBLE);
+                tv_big_sv_h.setVisibility(View.VISIBLE);
+                rl_video_select2.setVisibility(View.VISIBLE);
+            }
+        }, 600);
+        float toX3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(displayMetrics.widthPixels * 1.06f, mSv1.getWidth()));
+        float toY3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(displayMetrics.heightPixels, mSv1.getHeight()));
+        AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 0f, toX3);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 0f, toY3);
+        float pivotX = mSv1.getWidth();
+        mSv1.setPivotX(pivotX);
+        LogUtil.i("视频缩放 全屏 toX3=" + toX3 + " toY3=" + toY3 + " pivotX=" + pivotX);
+        mSv1.setPivotY(0);
+        animatorSetVideo.setDuration(600);
+        scaleX.setRepeatMode(ObjectAnimator.RESTART);
+        scaleY.setRepeatMode(ObjectAnimator.RESTART);
+        animatorSetVideo.setInterpolator(new DecelerateInterpolator());
+        animatorSetVideo.play(scaleX).with(scaleY);//两个动画同时开始
+        animatorSetVideo.start();
     }
 
     //---------------------daniu start------------------------

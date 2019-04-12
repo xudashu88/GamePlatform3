@@ -709,7 +709,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/light_dot"
                     android:visibility="gone" />
 
                 <TextView
@@ -845,7 +844,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/light_dot"
                     android:visibility="gone" />
 
                 <TextView
@@ -971,7 +969,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
-                android:background="@drawable/light_dot"
                 android:visibility="gone" />
 
             <TextView
@@ -1041,7 +1038,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/light_dot"
                     android:visibility="gone" />
 
                 <RelativeLayout
@@ -1144,7 +1140,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/light_dot"
                     android:visibility="gone" />
 
                 <RelativeLayout

@@ -27,13 +27,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import me.gcg.GdroidSdk.okhttp.client.CommonOkhttpClient;
-import me.gcg.GdroidSdk.okhttp.exception.OkHttpException;
-import me.gcg.GdroidSdk.okhttp.listener.DisposeDataHandle;
-import me.gcg.GdroidSdk.okhttp.listener.DisposeDataListener;
-import me.gcg.GdroidSdk.okhttp.request.CommonRequest;
-import me.gcg.GdroidSdk.okhttp.response.CommonJsonCallback;
-
 public class RoyalActivity extends AppCompatActivity {
     private String url = "http://appapp.gzlwcg.com/login-third.html?loginUrl=http%3A%2F%2Fm.onetop.pw&username=16311111111&password=42b342a02e2bb0abd10270077d145da7&sign=35274a28abbd18857d523912603758d0";
     private ProgressWebView webView;
@@ -154,69 +147,6 @@ public class RoyalActivity extends AppCompatActivity {
                         }
                     }
                 });
-//        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(base + Constant.LOGIN_INFO + "?token=" + token + "&game_type=hj&url=http://android&amount=-1", null),//perfect
-//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
-//                    @Override
-//                    public void onSuccess(String s) {
-//                        JSONObject json = null;
-//                        JSONObject __data = null;
-//                        try {
-//                            json = new JSONObject(s);
-//                            LogUtil.i("登录信息" + json);
-//                            int code = json.optInt("code");
-//                            if (code == -1) {
-//                                String error = mContext.getResources().getString(R.string.login_fail);
-//                                ToastUtil.show(mContext, error);
-//                                return;
-//                            }
-//                            String data = json.optString("data");
-//                            MyWeb(data);
-//
-//                            webView.setWebViewClient(new WebViewClient() {
-//
-//                                @Override
-//                                public void onPageStarted(WebView view, String url, Bitmap favicon) {
-//                                    LogUtil.i("RoyalActivity-onPageStarted=" + url);
-//                                    if (url.equals("http://m.onetop.pw/") || url.equals("https://android/")) {
-//                                        Intent intent = new Intent(RoyalActivity.this, TabHostActivity.class);
-//                                        startActivity(intent);
-//                                        finish();
-//                                    }
-//                                    super.onPageStarted(view, url, favicon);
-//                                }
-//
-//                                @Override
-//                                public boolean shouldOverrideUrlLoading(final WebView view, final String url) {
-//                                    LogUtil.i("RoyalActivity-shouldOverrideUrlLoading=" + url);
-//                                    return false;
-//                                }
-//
-//                                @Override
-//                                public void onPageFinished(WebView webView, String url) {
-//                                    LogUtil.i("RoyalActivity-onPageFinished=" + url);
-//                                    if (!url.contains("http")) {
-//                                        ToastUtil.show(mContext, "登录失败");
-//                                        RoyalActivity.this.finish();
-//                                        return;
-//                                    }
-//                                    if (url.equals("http://m.onetop.pw/") || url.equals("http://m.onetop.pw/login.html") || url.equals("https://android/")) {// 不能在shouldOverrideUrlLoading中退到APP
-//                                        Intent intent = new Intent(RoyalActivity.this, TabHostActivity.class);
-//                                        startActivity(intent);
-//                                        finish();
-//                                    }
-//                                    super.onPageFinished(webView, url);
-//                                }
-//                            });
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(OkHttpException e) {
-//                        ToastUtil.show(mContext, "连接超时");
-//                    }
-//                })));
     }
 
     //WebView

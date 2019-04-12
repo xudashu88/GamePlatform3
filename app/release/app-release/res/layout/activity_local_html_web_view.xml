@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@id/rl_back" android:background="@drawable/top_bar" android:layout_width="fill_parent" android:layout_height="@dimen/unit50">
+        <ImageView android:id="@id/iv_back" android:background="@drawable/back" android:layout_width="@dimen/unit20" android:layout_height="@dimen/unit40" android:layout_marginLeft="@dimen/unit10" android:layout_centerVertical="true" />
+        <TextView android:textSize="@dimen/font20" android:textColor="@color/mainFontGolden" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/game_rule" android:layout_centerInParent="true" />
+    </RelativeLayout>
+    <RelativeLayout android:id="@id/rl_rule" android:background="@color/ruleBg" android:layout_width="fill_parent" android:layout_height="@dimen/unit50">
+        <TextView android:textSize="@dimen/font20" android:textColor="@color/mainFontGolden" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit15" android:text="@string/game_rule" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+        <ImageView android:id="@id/iv_rule" android:background="@drawable/arrow_yellow" android:layout_width="@dimen/unit40" android:layout_height="@dimen/unit20" android:layout_marginLeft="@dimen/unit10" android:layout_marginRight="@dimen/unit15" android:layout_alignParentRight="true" android:layout_centerVertical="true" android:rotation="180.0" />
+    </RelativeLayout>
+    <View android:background="@color/coffee" android:layout_width="fill_parent" android:layout_height="1.0dip" />
+    <FrameLayout android:id="@id/fragment" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</LinearLayout>

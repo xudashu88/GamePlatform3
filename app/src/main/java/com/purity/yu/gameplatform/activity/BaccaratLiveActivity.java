@@ -27,8 +27,6 @@ import com.chuangku.languagemodule.MultiLanguageUtil;
 import com.gangbeng.basemodule.utils.LogUtil;
 import com.gangbeng.basemodule.utils.SharedPreUtil;
 import com.gangbeng.basemodule.utils.ToastUtil;
-import com.gongwen.marqueen.SimpleMF;
-import com.gongwen.marqueen.SimpleMarqueeView;
 import com.purity.yu.gameplatform.R;
 import com.purity.yu.gameplatform.annotation.ContentView;
 import com.purity.yu.gameplatform.baccarat.YHZGridView;

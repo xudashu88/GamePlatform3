@@ -10,18 +10,15 @@ import com.gangbeng.basemodule.utils.Util;
 import com.purity.yu.gameplatform.R;
 import com.purity.yu.gameplatform.entity.QuotaRecords;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class QuotaRecordAdapter extends CommonRecyclerViewAdapter<QuotaRecords> {
     private static final String TAG = "QuotaRecordAdapter";
     private Context mContext;
-    private List<QuotaRecords> recordsList = new ArrayList<>();
 
     public QuotaRecordAdapter(Context context, List<QuotaRecords> data) {
         super(context, data);
         this.mContext = context;
-        this.recordsList = data;
     }
 
     @Override

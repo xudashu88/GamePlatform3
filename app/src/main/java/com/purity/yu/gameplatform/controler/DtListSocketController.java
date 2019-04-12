@@ -20,6 +20,8 @@ import org.json.JSONObject;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -34,18 +36,16 @@ public class DtListSocketController {
     private Context mContext;
     private static DtListSocketController instance = null;
     private Socket mSocket;
-    //0庄 1闲 2和 3庄赢 庄对 4 庄赢 闲对 5 庄赢 庄对闲对 6闲赢 庄对 7闲赢 闲对 8闲赢 庄对闲对 9和赢 庄对 10和赢 闲对 11和赢 庄对闲对
+    private Timer timer;
 
-    {
+    public void init(Context context) {
+        mContext = context;
+        timer = new Timer(true);
         try {
             mSocket = IO.socket(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.SOCKET_LOBBY));
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void init(Context context) {
-        mContext = context;
     }
 
     public static DtListSocketController getInstance() {
@@ -63,7 +63,23 @@ public class DtListSocketController {
             mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
             mSocket.on("hall", OnCommand);
             mSocket.connect();
+            if (!mSocket.connected()) {
+                perOnePerformance();
+            } else {
+                if (timer != null) {
+                    timer.cancel();
+                }
+            }
         }
+    }
+
+    private void perOnePerformance() {
+        TimerTask task = new TimerTask() {
+            public void run() {
+                connectSocket();
+            }
+        };
+        timer.schedule(task, 1000, 2000);
     }
 
     public void disconnectSocket() {

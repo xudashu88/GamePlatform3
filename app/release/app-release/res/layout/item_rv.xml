@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="@dimen/unit75" android:layout_height="@dimen/unit95"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/iv_game_avatar" android:layout_width="@dimen/unit75" android:layout_height="@dimen/unit75" />
+    <TextView android:textSize="@dimen/font12" android:textColor="@color/mainGolden" android:gravity="center" android:id="@id/tv_games_name" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit5" android:text="百家樂" android:layout_below="@id/iv_game_avatar" />
+    <TextView android:textSize="@dimen/font10" android:textStyle="bold" android:textColor="#ffffffff" android:gravity="center" android:id="@id/tv_dot" android:background="@drawable/solid_circle_red" android:visibility="visible" android:layout_width="@dimen/unit23" android:layout_height="@dimen/unit23" android:layout_marginRight="@dimen/unit5" android:text="\ 99" android:layout_alignParentTop="true" android:layout_alignParentRight="true" />
+</RelativeLayout>

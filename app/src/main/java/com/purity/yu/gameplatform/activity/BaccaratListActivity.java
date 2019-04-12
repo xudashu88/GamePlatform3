@@ -1,6 +1,5 @@
 package com.purity.yu.gameplatform.activity;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -102,7 +101,7 @@ public class BaccaratListActivity extends BaseActivity {
             String sFinal = String.format(totalTable, list.size());
             tv_game_table_num.setText(sFinal);
             initAdapter();
-            ProtocolUtil.getInstance().postLoginInfo(tv_money);
+            ProtocolUtil.getInstance().postLoginInfo(mContext,tv_money);
         }
         initEvent();
     }

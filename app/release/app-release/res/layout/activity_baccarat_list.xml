@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="#ff000000" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:id="@id/ll_title" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <include layout="@layout/include_baccarat_title" />
+    </LinearLayout>
+    <RelativeLayout android:id="@id/rl_rv" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/ll_title">
+        <android.support.v7.widget.RecyclerView android:id="@id/rv_baccarat" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <avi.AVLoadingIndicatorView android:id="@id/avi" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true" app:indicatorName="BallClipRotatePulseIndicator" style="@style/AVLoadingIndicatorView.Large" />
+</RelativeLayout>

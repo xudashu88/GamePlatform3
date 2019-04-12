@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.gangbeng.basemodule.utils.SharedPreUtil;
 import com.purity.yu.gameplatform.R;
 import com.purity.yu.gameplatform.activity.BacActivity;
-import com.purity.yu.gameplatform.activity.MacauActivity;
 import com.purity.yu.gameplatform.baccarat.YHZGridView;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.entity.Baccarat;

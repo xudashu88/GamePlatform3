@@ -30,6 +30,8 @@ import org.json.JSONObject;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -45,6 +47,7 @@ public class BacSocketController {
     private static BacSocketController instance = null;
     private Socket mSocket;
     private Socket mSocketProdict;
+    private Timer timer;
 
     String roomId;
     String token;
@@ -70,18 +73,9 @@ public class BacSocketController {
     List<String> _calPlayer = new ArrayList<>();
     List<String> _calBanker = new ArrayList<>();
 
-//    {
-//        try {
-//            mSocket = IO.socket(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.SOCKET_ROOM));
-//            mSocketProdict = IO.socket(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.SOCKET_PRODICT));
-//            LogUtil.i("SOCKET_PRODICT" + SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.SOCKET_PRODICT));
-//        } catch (URISyntaxException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
     public void init(Context context) {
         mContext = context;
+        timer = new Timer(true);
         try {
             mSocket = IO.socket(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.SOCKET_ROOM));
             mSocketProdict = IO.socket(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.SOCKET_PRODICT));
@@ -131,7 +125,23 @@ public class BacSocketController {
             mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
             mSocket.on("command", OnCommand);
             mSocket.connect();
+            if (!mSocket.connected()) {
+                perOnePerformance();
+            } else {
+                if (timer != null) {
+                    timer.cancel();
+                }
+            }
         }
+    }
+
+    private void perOnePerformance() {
+        TimerTask task = new TimerTask() {
+            public void run() {
+                connectSocket();
+            }
+        };
+        timer.schedule(task, 1000, 2000);
     }
 
     public void connectSocketProdict() {

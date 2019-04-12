@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="#ff1b1b1b" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="@dimen/font16" android:textColor="@color/mainFontGolden" android:gravity="center" android:layout_width="fill_parent" android:layout_height="@dimen/unit25" android:layout_marginTop="@dimen/unit20" android:text="@string/set_language" />
+    <LinearLayout android:background="@drawable/bg_gray_stroke_golden_menu_bg" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_margin="@dimen/unit30">
+        <LinearLayout android:orientation="vertical" android:background="#ff252525" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_margin="@dimen/unit8" android:weightSum="3.0">
+            <RelativeLayout android:id="@id/rl_language_zh" android:tag="rl_language_zh" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0">
+                <TextView android:textSize="@dimen/font20" android:textColor="@color/mainFontGolden" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit20" android:text="简体中文" android:layout_centerVertical="true" />
+                <ImageView android:id="@id/iv_language_zh" android:background="#ff343434" android:layout_width="@dimen/unit35" android:layout_height="@dimen/unit30" android:layout_marginRight="@dimen/unit100" android:src="@null" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+            </RelativeLayout>
+            <RelativeLayout android:id="@id/rl_language_zh_tw" android:tag="rl_language_zh_tw" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0">
+                <TextView android:textSize="@dimen/font20" android:textColor="@color/mainFontGolden" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit20" android:text="繁體中文" android:layout_centerVertical="true" />
+                <ImageView android:id="@id/iv_language_zh_tw" android:background="#ff343434" android:layout_width="@dimen/unit35" android:layout_height="@dimen/unit30" android:layout_marginRight="@dimen/unit100" android:src="@null" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+            </RelativeLayout>
+            <RelativeLayout android:id="@id/rl_language_en" android:tag="rl_language_en" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0">
+                <TextView android:textSize="@dimen/font20" android:textColor="@color/mainFontGolden" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit20" android:text="English" android:layout_centerVertical="true" />
+                <ImageView android:id="@id/iv_language_en" android:background="#ff343434" android:layout_width="@dimen/unit35" android:layout_height="@dimen/unit30" android:layout_marginRight="@dimen/unit100" android:src="@null" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

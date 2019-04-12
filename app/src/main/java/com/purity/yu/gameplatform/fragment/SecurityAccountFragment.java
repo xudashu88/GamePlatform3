@@ -14,20 +14,12 @@ import com.purity.yu.gameplatform.base.BaseFragment;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.base.ServiceIpConstant;
 import com.purity.yu.gameplatform.http.HttpRequest;
-import com.purity.yu.gameplatform.utils.ProtocolUtil;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
 
 import butterknife.BindView;
-import me.gcg.GdroidSdk.okhttp.client.CommonOkhttpClient;
-import me.gcg.GdroidSdk.okhttp.exception.OkHttpException;
-import me.gcg.GdroidSdk.okhttp.listener.DisposeDataHandle;
-import me.gcg.GdroidSdk.okhttp.listener.DisposeDataListener;
-import me.gcg.GdroidSdk.okhttp.request.CommonRequest;
-import me.gcg.GdroidSdk.okhttp.request.RequestParams;
-import me.gcg.GdroidSdk.okhttp.response.CommonJsonCallback;
 
 @ContentView(R.layout.fragment_security_account)
 public class SecurityAccountFragment extends BaseFragment {
@@ -138,8 +130,7 @@ public class SecurityAccountFragment extends BaseFragment {
                 .executeFormPost(new HttpRequest.HttpCallBack() {
                     @Override
                     public void onResultOk(String result) {
-                        JSONObject json = null;
-                        JSONObject __data = null;
+                        JSONObject json;
                         try {
                             json = new JSONObject(result);
                             int code = json.optInt("code");
@@ -155,32 +146,6 @@ public class SecurityAccountFragment extends BaseFragment {
                         }
                     }
                 });
-//        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.USER_PASSWORD + "?token=" + token, new RequestParams(map)),//perfect
-//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
-//                    @Override
-//                    public void onSuccess(String s) {
-//                        JSONObject json = null;
-//                        JSONObject __data = null;
-//                        try {
-//                            json = new JSONObject(s);
-//                            int code = json.optInt("code");
-//                            String _data = json.optString("data");
-//                            if (code == 0) {
-//                                ToastUtil.showToast(mContext, "修改登录密码成功");
-//                            } else {
-//                                ToastUtil.showToast(mContext, "修改登录密码失败");
-//                            }
-//
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(OkHttpException e) {
-//                        ToastUtil.show(mContext, "连接超时");
-//                    }
-//                })));
     }
 
     private void postModifyPayPwd() {
@@ -212,32 +177,6 @@ public class SecurityAccountFragment extends BaseFragment {
                         }
                     }
                 });
-//        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.USER_PASSWORD_PAY + "?token=" + token, new RequestParams(map)),//perfect
-//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
-//                    @Override
-//                    public void onSuccess(String s) {
-//                        JSONObject json = null;
-//                        JSONObject __data = null;
-//                        try {
-//                            json = new JSONObject(s);
-//                            int code = json.optInt("code");
-//                            String _data = json.optString("data");
-//                            if (code == 0) {
-//                                ToastUtil.showToast(mContext, "修改支付密码成功");
-//                            } else {
-//                                ToastUtil.showToast(mContext, "修改支付密码失败");
-//                            }
-//
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(OkHttpException e) {
-//                        ToastUtil.show(mContext, "连接超时");
-//                    }
-//                })));
     }
 
 }

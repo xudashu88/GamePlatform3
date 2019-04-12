@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:background="@drawable/start_bg" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <ImageView android:id="@id/iv_logo" android:background="@drawable/logo2" android:layout_width="@dimen/unit150" android:layout_height="@dimen/unit150" android:layout_centerInParent="true" />
+    <ProgressBar android:id="@id/pb_horizontal" android:layout_width="@dimen/unit200" android:layout_height="@dimen/unit3" android:layout_marginTop="@dimen/unit10" android:max="120" android:progress="0" android:progressDrawable="@drawable/start_progressbar" android:layout_below="@id/iv_logo" android:layout_centerHorizontal="true" style="?android:progressBarStyleHorizontal" />
+</RelativeLayout>

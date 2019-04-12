@@ -34,8 +34,8 @@ public class ArcadeFragment extends BaseFragment {
     ImageView iv_arrow_bottom;
     @BindView(R.id.tv_room_name)
     TextView tv_room_name;
-    @BindView(R.id.fragment)
-    FrameLayout fragment;
+    @BindView(R.id.frame_layout)
+    FrameLayout frame_layout;
     @BindView(R.id.rl_select_fish_rome)
     RelativeLayout rl_select_fish_rome;
 
@@ -50,11 +50,11 @@ public class ArcadeFragment extends BaseFragment {
     protected void initView(View view) {
         mContext = getActivity();
         int fishRome = SharedPreUtil.getInstance(mContext).getInt(Constant.FISH_ROOM_COUNT);
-        fishRome = 0;
+        fishRome = 1;
         if (fishRome == 0) {
             tv_room_name.setText("暂未开放，敬请期待！");
             rl_select_fish_rome.setVisibility(View.GONE);
-            fragment.setVisibility(View.GONE);
+            frame_layout.setVisibility(View.GONE);
         } else {
             mAdapter = new ArcadeAdapter(getActivity(), mImageViewArray);
             gallery_vertical.setAdapter(mAdapter);
@@ -112,7 +112,7 @@ public class ArcadeFragment extends BaseFragment {
             if (currentFragment != null) {
                 transaction.hide(currentFragment);
             }
-            transaction.add(R.id.fragment, targetFragment, targetFragment.getClass().getName());
+            transaction.add(R.id.frame_layout, targetFragment, targetFragment.getClass().getName());
         } else {
             transaction.hide(currentFragment).show(targetFragment);
         }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:id="@id/ll_title" android:background="#ff453c35" android:layout_width="fill_parent" android:layout_height="@dimen/unit35" android:weightSum="20.0">
+        <TextView android:textSize="@dimen/font10" android:textColor="@color/mainFontGolden" android:gravity="center" android:id="@id/tv_bill_no" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/bill_no" android:layout_weight="4.0" />
+        <include layout="@layout/include_vertical_line_golden" />
+        <TextView android:textSize="@dimen/font10" android:textColor="@color/mainFontGolden" android:gravity="center" android:id="@id/tv_bet_time" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/bet_time" android:layout_weight="3.0" />
+        <include layout="@layout/include_vertical_line_golden" />
+        <TextView android:textSize="@dimen/font10" android:textColor="@color/mainFontGolden" android:gravity="center" android:id="@id/tv_game_code" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/game_code" android:layout_weight="4.0" />
+        <include layout="@layout/include_vertical_line_golden" />
+        <TextView android:textSize="@dimen/font10" android:textColor="@color/mainFontGolden" android:gravity="center" android:id="@id/tv_play_type" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/game_type" android:layout_weight="3.0" />
+        <include layout="@layout/include_vertical_line_golden" />
+        <TextView android:textSize="@dimen/font10" android:textColor="@color/mainFontGolden" android:gravity="center" android:id="@id/tv_total_bets" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/bet" android:layout_weight="3.0" />
+        <include layout="@layout/include_vertical_line_golden" />
+        <TextView android:textSize="@dimen/font10" android:textColor="@color/mainFontGolden" android:gravity="center" android:id="@id/tv_dividend" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/prize" android:layout_weight="3.0" />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:id="@id/ll_poker_bac" android:background="@color/transparent" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="@dimen/unit107" android:layout_marginLeft="@dimen/unit80" android:layout_marginRight="@dimen/unit140" android:weightSum="2.0" android:layout_alignParentBottom="true">
+        <RelativeLayout android:id="@id/rl_jet_player_layout" android:paddingBottom="@dimen/unit5" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+            <RelativeLayout android:id="@id/rl_jet_player" android:layout_width="@dimen/unit70" android:layout_height="@dimen/unit40">
+                <TextView android:textSize="@dimen/font20" android:textColor="@color/skyBlue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit15" android:text="@string/in_game_player" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+                <ImageView android:background="@drawable/result_player" android:layout_width="@dimen/unit55" android:layout_height="@dimen/unit30" android:layout_centerInParent="true" />
+                <TextView android:textSize="@dimen/font20" android:textColor="@color/white" android:id="@id/tv_jet_player_value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="@dimen/unit13" android:text="\ 0" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+            </RelativeLayout>
+            <ImageView android:id="@id/iv_jet_player_01" android:layout_width="@dimen/unit45" android:layout_height="@dimen/unit60" android:layout_marginLeft="@dimen/unit15" android:layout_alignParentBottom="true" />
+            <ImageView android:id="@id/iv_jet_player_02" android:layout_width="@dimen/unit45" android:layout_height="@dimen/unit60" android:layout_marginLeft="@dimen/unit15" android:layout_toRightOf="@id/iv_jet_player_01" android:layout_alignParentBottom="true" />
+            <ImageView android:id="@id/iv_jet_player_03" android:layout_width="@dimen/unit45" android:layout_height="@dimen/unit60" android:layout_marginLeft="@dimen/unit15" android:layout_toRightOf="@id/iv_jet_player_02" android:layout_alignParentBottom="true" android:rotation="90.0" />
+        </RelativeLayout>
+        <RelativeLayout android:id="@id/rl_jet_banker_layout" android:paddingBottom="@dimen/unit5" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+            <RelativeLayout android:id="@id/rl_jet_banker" android:layout_width="@dimen/unit70" android:layout_height="@dimen/unit40">
+                <TextView android:textSize="@dimen/font20" android:textColor="@color/pink" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit15" android:text="@string/in_game_banker" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+                <ImageView android:background="@drawable/result_banker" android:layout_width="@dimen/unit55" android:layout_height="@dimen/unit30" android:layout_centerInParent="true" />
+                <TextView android:textSize="@dimen/font20" android:textColor="@color/white" android:id="@id/tv_jet_banker_value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="@dimen/unit13" android:text="\ 0" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+            </RelativeLayout>
+            <ImageView android:id="@id/iv_jet_banker_01" android:layout_width="@dimen/unit45" android:layout_height="@dimen/unit60" android:layout_marginLeft="@dimen/unit15" android:layout_alignParentBottom="true" />
+            <ImageView android:id="@id/iv_jet_banker_02" android:layout_width="@dimen/unit45" android:layout_height="@dimen/unit60" android:layout_marginLeft="@dimen/unit15" android:layout_toRightOf="@id/iv_jet_banker_01" android:layout_alignParentBottom="true" />
+            <ImageView android:id="@id/iv_jet_banker_03" android:layout_width="@dimen/unit45" android:layout_height="@dimen/unit60" android:layout_marginLeft="@dimen/unit15" android:layout_toRightOf="@id/iv_jet_banker_02" android:layout_alignParentBottom="true" android:rotation="90.0" />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:id="@id/ll_poker_dt" android:background="@color/transparent" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="@dimen/unit107" android:layout_marginLeft="@dimen/unit80" android:layout_marginRight="@dimen/unit140" android:weightSum="2.0" android:layout_alignParentBottom="true">
+        <RelativeLayout android:id="@id/rl_jet_banker_layout_dt" android:paddingBottom="@dimen/unit5" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+            <RelativeLayout android:id="@id/rl_jet_banker_dt" android:layout_width="@dimen/unit70" android:layout_height="@dimen/unit40">
+                <TextView android:textSize="@dimen/font20" android:textColor="@color/pink" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit15" android:text="@string/dragon" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+                <ImageView android:background="@drawable/result_banker" android:layout_width="@dimen/unit55" android:layout_height="@dimen/unit30" android:layout_centerInParent="true" />
+                <TextView android:textSize="@dimen/font20" android:textColor="@color/white" android:id="@id/tv_jet_banker_value_dt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="@dimen/unit13" android:text="\ 0" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+            </RelativeLayout>
+            <ImageView android:id="@id/iv_jet_banker_01_dt" android:layout_width="@dimen/unit45" android:layout_height="@dimen/unit60" android:layout_marginRight="@dimen/unit35" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+        </RelativeLayout>
+        <RelativeLayout android:id="@id/rl_jet_player_layout_dt" android:paddingBottom="@dimen/unit5" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+            <RelativeLayout android:id="@id/rl_jet_player_dt" android:layout_width="@dimen/unit70" android:layout_height="@dimen/unit40">
+                <TextView android:textSize="@dimen/font20" android:textColor="@color/skyBlue" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/unit15" android:text="@string/tiger" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+                <ImageView android:background="@drawable/result_player" android:layout_width="@dimen/unit55" android:layout_height="@dimen/unit30" android:layout_centerInParent="true" />
+                <TextView android:textSize="@dimen/font20" android:textColor="@color/white" android:id="@id/tv_jet_player_value_dt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="@dimen/unit13" android:text="\ 0" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+            </RelativeLayout>
+            <ImageView android:id="@id/iv_jet_player_01_dt" android:layout_width="@dimen/unit45" android:layout_height="@dimen/unit60" android:layout_marginRight="@dimen/unit35" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

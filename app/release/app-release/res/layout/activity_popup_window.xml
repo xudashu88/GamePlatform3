@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="45.0dip" android:text="向下弹出" android:layout_centerHorizontal="true" android:onClick="showDownPop" />
+    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="150.0dip" android:text="向右弹出" android:onClick="showRightPop" />
+    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="200.0dip" android:text="向左弹出" android:layout_alignParentRight="true" android:onClick="showLeftPop" />
+    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="全屏弹出(带阴影)" android:layout_centerInParent="true" android:onClick="showAll" />
+    <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:text="向上弹出" android:layout_alignParentLeft="true" android:layout_centerVertical="true" android:onClick="showUpPop" />
+    <ImageView android:layout_width="30.0dip" android:layout_height="30.0dip" android:layout_marginRight="40.0dip" android:layout_marginBottom="40.0dip" android:layout_alignParentRight="true" android:layout_alignParentBottom="true" android:onClick="showReminder" />
+</RelativeLayout>

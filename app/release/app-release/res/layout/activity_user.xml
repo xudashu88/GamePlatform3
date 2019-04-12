@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:weightSum="10.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:background="@drawable/top_bar" android:paddingLeft="@dimen/unit20" android:paddingRight="@dimen/unit20" android:layout_width="fill_parent" android:layout_height="0.0dip" android:weightSum="18.0" android:layout_weight="1.5">
+        <RelativeLayout android:visibility="gone" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="2.0">
+            <ImageView android:id="@id/iv_avatar" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginTop="@dimen/unit3" android:layout_marginBottom="@dimen/unit3" android:layout_weight="2.0" />
+            <ImageView android:background="@drawable/profilepic_cam" android:layout_width="@dimen/unit20" android:layout_height="@dimen/unit20" android:layout_alignParentRight="true" android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+        <LinearLayout android:orientation="vertical" android:id="@id/ll_user_info" android:paddingTop="@dimen/unit3" android:paddingBottom="@dimen/unit3" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:layout_weight="4.0">
+            <TextView android:textSize="@dimen/font12" android:textColor="#ff62503e" android:gravity="center_vertical" android:id="@id/tv_nickname" android:background="@drawable/profile_bar" android:paddingLeft="@dimen/unit5" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="光风霁月" android:drawableLeft="@drawable/ac_icon" android:drawablePadding="@dimen/unit5" android:layout_weight="1.0" />
+            <TextView android:textSize="@dimen/font12" android:textColor="@color/mainGolden" android:gravity="center_vertical" android:id="@id/tv_money" android:background="@drawable/balance_bar" android:paddingLeft="@dimen/unit5" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="20000000.00" android:drawableLeft="@drawable/balance_icon" android:drawablePadding="@dimen/unit5" android:layout_weight="1.0" />
+        </LinearLayout>
+        <RelativeLayout android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="2.0">
+            <ImageView android:id="@id/iv_msg" android:background="@drawable/nomsg" android:layout_width="@dimen/unit25" android:layout_height="@dimen/unit25" android:layout_centerInParent="true" />
+        </RelativeLayout>
+        <TextView android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="9.0" />
+        <RelativeLayout android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="2.0">
+            <ImageView android:id="@id/iv_close" android:background="@drawable/icon_cancel" android:layout_width="@dimen/unit25" android:layout_height="@dimen/unit25" android:layout_centerInParent="true" />
+        </RelativeLayout>
+    </LinearLayout>
+    <RelativeLayout android:background="#ff1b1b1b" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="8.5">
+        <LinearLayout android:orientation="horizontal" android:background="@drawable/shape_border_golden_bg_trans" android:padding="@dimen/unit3" android:layout_width="@dimen/unit350" android:layout_height="fill_parent" android:layout_marginTop="@dimen/unit3" android:layout_marginBottom="@dimen/unit5" android:weightSum="2.0" android:layout_centerInParent="true">
+            <LinearLayout android:orientation="vertical" android:background="#ff3d3d3d" android:paddingLeft="@dimen/unit15" android:layout_width="0.0dip" android:layout_height="fill_parent" android:weightSum="7.0" android:layout_weight="1.0">
+                <TextView android:textSize="@dimen/font18" android:textStyle="bold" android:textColor="@color/mainGolden" android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="@string/level" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font18" android:textStyle="bold" android:textColor="@color/mainGolden" android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="@string/total_stake" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font18" android:textStyle="bold" android:textColor="@color/mainGolden" android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="@string/currency" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font18" android:textStyle="bold" android:textColor="@color/mainGolden" android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="@string/today_stake" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font18" android:textStyle="bold" android:textColor="@color/mainGolden" android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="@string/credits" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font18" android:textStyle="bold" android:textColor="@color/mainGolden" android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="@string/online_duration" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font18" android:textStyle="bold" android:textColor="@color/mainGolden" android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="@string/stake_limit" android:layout_weight="1.0" />
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical" android:background="#ff646464" android:paddingLeft="@dimen/unit15" android:layout_width="0.0dip" android:layout_height="fill_parent" android:weightSum="7.0" android:layout_weight="1.0">
+                <TextView android:textSize="@dimen/font18" android:textStyle="bold" android:textColor="@color/white" android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font18" android:textStyle="bold" android:textColor="@color/white" android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font18" android:textStyle="bold" android:textColor="@color/white" android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font18" android:textStyle="bold" android:textColor="@color/white" android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font18" android:textStyle="bold" android:textColor="@color/white" android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font18" android:textStyle="bold" android:textColor="@color/white" android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font18" android:textStyle="bold" android:textColor="@color/white" android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="" android:layout_weight="1.0" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

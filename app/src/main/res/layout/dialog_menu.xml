@@ -101,7 +101,7 @@
         android:layout_height="@dimen/unit40"
         android:layout_below="@id/menu_v3"
         android:background="@drawable/select_menu"
-        android:visibility="gone"
+        android:visibility="visible"
         android:clickable="true">
 
         <ImageView
@@ -130,7 +130,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/rl_menu_suggestion"
-        android:visibility="gone"
+        android:visibility="visible"
         android:background="@color/menuPress" />
 
     <RelativeLayout

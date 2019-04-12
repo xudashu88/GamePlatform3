@@ -1,1 +1,1 @@
-include ':app',':basemodule', ':languagemodule', ':twowaygallery',':xrecyclerview', ':okhttp3', ':marqueelibrary','animations'
+include ':app',':basemodule', ':languagemodule', ':twowaygallery',':xrecyclerview', ':okhttp3','animations'

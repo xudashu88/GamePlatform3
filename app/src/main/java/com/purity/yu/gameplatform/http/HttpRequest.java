@@ -6,10 +6,8 @@ import android.support.annotation.CallSuper;
 import com.gangbeng.basemodule.http.OkHttpBuilder;
 import com.gangbeng.basemodule.http.OkHttpManger;
 import com.gangbeng.basemodule.utils.LogUtil;
-import com.gangbeng.basemodule.utils.SharedPreUtil;
 import com.gangbeng.basemodule.utils.ToastUtil;
 import com.gangbeng.basemodule.utils.Util;
-import com.purity.yu.gameplatform.base.ServiceIpConstant;
 import com.squareup.okhttp.Request;
 
 import org.json.JSONException;
@@ -29,7 +27,7 @@ public class HttpRequest {
 
     public static OkHttpBuilder request(String key) {
         OkHttpBuilder builder = OkHttpManger.getInstance().getBuilder().url(key);
-        LogUtil.i("连接=" + key);
+        LogUtil.i("请求完整路径=" + key);
         return builder;
     }
 
@@ -44,27 +42,26 @@ public class HttpRequest {
         @Override
         @CallSuper
         public void onFailure(Request request, Exception e) {
-            ToastUtil.show(mContext, "当前无网络，请连接后再试");
-            return;
+            ToastUtil.show(mContext, "连接超时");
+            LogUtil.i("请求异常=" + request.toString() + " 异常信息=" + e.getMessage());
         }
 
         @Override
         @CallSuper
         public void onSuccess(String s) {
             onResultFinish(s);
-            String data = null;
+            String data;
             try {
                 JSONObject jsonObject = new JSONObject(s);
                 int status = jsonObject.optInt("code");//todo status
                 data = jsonObject.optString("data");
-                if (status == 0) {//todo 原来200
-                    LogUtil.v(LogUtil.jsonToLog(s));
+                if (status == 0) { //todo 原来200
                     onResultOk(s);
                 } /*else if (status == 403) {
                     LogUtil.e(status + "  未登录");
                     ToastUtil.show(mContext, "请登录");
                 } */ else {
-                    onResultFault("", "" + data);
+                    onResultFault(status, data);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -73,11 +70,13 @@ public class HttpRequest {
 
         public abstract void onResultOk(String result);
 
-        public void onResultFault(String code, String hint) {
+        public void onResultFault(int code, String hint) {
             ToastUtil.show(mContext, hint);
+            LogUtil.i("请求失败= code" + code + " hint=" + hint);
         }
 
         public void onResultFinish(String result) {
+            LogUtil.i("请求完成=" + result);
         }
 
     }

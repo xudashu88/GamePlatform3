@@ -1,14 +1,10 @@
 package com.purity.yu.gameplatform.baccarat;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-
-import com.gangbeng.basemodule.utils.LogUtil;
-import com.purity.yu.gameplatform.base.Constant;
 
 /**
  * 珠盘路

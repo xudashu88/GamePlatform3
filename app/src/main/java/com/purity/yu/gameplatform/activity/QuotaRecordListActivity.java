@@ -32,12 +32,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import me.gcg.GdroidSdk.okhttp.client.CommonOkhttpClient;
-import me.gcg.GdroidSdk.okhttp.exception.OkHttpException;
-import me.gcg.GdroidSdk.okhttp.listener.DisposeDataHandle;
-import me.gcg.GdroidSdk.okhttp.listener.DisposeDataListener;
-import me.gcg.GdroidSdk.okhttp.request.CommonRequest;
-import me.gcg.GdroidSdk.okhttp.response.CommonJsonCallback;
 
 import static com.gangbeng.basemodule.http.HttpParse.parseArrayObject;
 
@@ -181,53 +175,6 @@ public class QuotaRecordListActivity extends BaseListActivity implements CommonP
                         }
                     }
                 });
-//        CommonOkhttpClient.sendRequest(CommonRequest.createPostRequest(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.QUOTA_RECORD + "?token=" + token + "&startDate=" + startDate + "&endDate=" + endDate + "&page=" + page, null),//perfect
-//                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener<String>() {
-//                    @Override
-//                    public void onSuccess(String s) {
-//                        JSONObject json = null;
-//                        JSONObject __data = null;
-//                        try {
-//                            json = new JSONObject(s);
-//                            LogUtil.i("额度记录=" + json);
-//                            int code = json.optInt("code");
-//                            if (code == -1) {
-//                                String error = mContext.getResources().getString(R.string.username_existed);
-//                                ToastUtil.show(mContext, error);
-//                                return;
-//                            }
-//
-//                            String _data = json.optString("data");
-//                            __data = new JSONObject(_data);
-//                            recordList.clear();//清除,每一页都是新的
-//                            recordList = parseArrayObject(_data, "items", QuotaRecords.class);
-//                            String meta = __data.optString("_meta");
-//                            JSONObject _meta = new JSONObject(meta);
-//                            total = _meta.optInt("totalCount");
-//
-//                            if (page == 1) {
-//                                recordListAll.clear();//下拉刷新,要清除总集合
-//                            }
-//                            recordListAll.addAll(recordList);
-//                            adapter.updateList(recordListAll);
-//                            if (recordList.size() > 0) {
-//                                tv_no_data.setVisibility(View.GONE);
-//                                rl_data.setVisibility(View.VISIBLE);
-//                            } else {
-//                                tv_no_data.setVisibility(View.VISIBLE);
-//                                rl_data.setVisibility(View.GONE);
-//                            }
-//                            onFinish();
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(OkHttpException e) {
-//                        ToastUtil.show(mContext, "连接超时");
-//                    }
-//                })));
     }
 
     @Override
@@ -266,11 +213,8 @@ public class QuotaRecordListActivity extends BaseListActivity implements CommonP
                     @Override
                     public void onClick(View v) {
                         tv_select_date.setText(mContext.getResources().getString(R.string.today));
-                        //刷新 todo
                         dateType = 0;
                         requestData(1);
-//                        tv_no_data.setVisibility(View.VISIBLE);
-//                        rl_data.setVisibility(View.GONE);
                         popupWindow.dismiss();
                     }
                 });
@@ -278,11 +222,8 @@ public class QuotaRecordListActivity extends BaseListActivity implements CommonP
                     @Override
                     public void onClick(View v) {
                         tv_select_date.setText(mContext.getResources().getString(R.string.yesterday));
-                        //刷新 todo
                         dateType = 1;
                         requestData(1);
-//                        tv_no_data.setVisibility(View.VISIBLE);
-//                        rl_data.setVisibility(View.GONE);
                         popupWindow.dismiss();
                     }
                 });
@@ -290,11 +231,8 @@ public class QuotaRecordListActivity extends BaseListActivity implements CommonP
                     @Override
                     public void onClick(View v) {
                         tv_select_date.setText(mContext.getResources().getString(R.string.last_week));
-                        //刷新 todo
                         dateType = 2;
                         requestData(1);
-//                        tv_no_data.setVisibility(View.GONE);
-//                        rl_data.setVisibility(View.VISIBLE);
                         popupWindow.dismiss();
                     }
                 });

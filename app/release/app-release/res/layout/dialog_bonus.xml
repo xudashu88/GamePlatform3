@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@drawable/bg_gray_stroke_golden" android:layout_width="fill_parent" android:layout_height="fill_parent" android:weightSum="18.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:weightSum="2.0" android:layout_weight="14.5">
+        <LinearLayout android:orientation="vertical" android:paddingLeft="@dimen/unit20" android:paddingRight="@dimen/unit20" android:layout_width="0.0dip" android:layout_height="fill_parent" android:weightSum="16.0" android:layout_weight="1.0">
+            <TextView android:textSize="@dimen/font16" android:textStyle="bold" android:textColor="@color/mainGoldenUnderTine" android:gravity="center" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="@string/db_player_payout" android:layout_weight="2.5" />
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:weightSum="2.0" android:layout_weight="1.5">
+                <TextView android:textSize="@dimen/font14" android:textColor="@color/mainGoldenUnderTine" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_player_hand" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font14" android:textColor="@color/mainGoldenUnderTine" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_odds" android:layout_weight="1.0" />
+            </LinearLayout>
+            <View android:background="@color/mainGoldenUnderTine" android:layout_width="fill_parent" android:layout_height="@dimen/unit1" android:layout_marginTop="@dimen/unit5" />
+            <TextView android:textSize="@dimen/font14" android:textColor="@color/mainGoldenUnderTine" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="@string/db_player_pay_table" android:layout_weight="1.5" />
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="2.0" android:layout_weight="1.3">
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_9_point" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_1_30" android:layout_weight="1.0" />
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="2.0" android:layout_weight="1.3">
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_8_point" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_1_10" android:layout_weight="1.0" />
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="2.0" android:layout_weight="1.3">
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_7_point" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_1_5" android:layout_weight="1.0" />
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="2.0" android:layout_weight="1.3">
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_6_point" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_1_3" android:layout_weight="1.0" />
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="2.0" android:layout_weight="1.3">
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_5_point" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_1_2" android:layout_weight="1.0" />
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="2.0" android:layout_weight="1.3">
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_4_point" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_1_1" android:layout_weight="1.0" />
+            </LinearLayout>
+            <View android:background="@color/mainGoldenUnderTine" android:layout_width="fill_parent" android:layout_height="@dimen/unit1" android:layout_marginTop="@dimen/unit5" />
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="2.0" android:layout_weight="1.3">
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_natural_winner" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_1_1" android:layout_weight="1.0" />
+            </LinearLayout>
+            <View android:background="@color/mainGoldenUnderTine" android:layout_width="fill_parent" android:layout_height="@dimen/unit1" android:layout_marginTop="@dimen/unit5" />
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="2.0" android:layout_weight="1.3">
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_natural_tie" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_bets_refunded" android:layout_weight="1.0" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:paddingLeft="@dimen/unit20" android:paddingRight="@dimen/unit20" android:layout_width="0.0dip" android:layout_height="fill_parent" android:weightSum="16.0" android:layout_weight="1.0">
+            <TextView android:textSize="@dimen/font16" android:textStyle="bold" android:textColor="@color/mainGoldenUnderTine" android:gravity="center" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="@string/db_banker_payout" android:layout_weight="2.5" />
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:weightSum="2.0" android:layout_weight="1.5">
+                <TextView android:textSize="@dimen/font14" android:textColor="@color/mainGoldenUnderTine" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_banker_hand" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font14" android:textColor="@color/mainGoldenUnderTine" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_odds" android:layout_weight="1.0" />
+            </LinearLayout>
+            <View android:background="@color/mainGoldenUnderTine" android:layout_width="fill_parent" android:layout_height="@dimen/unit1" android:layout_marginTop="@dimen/unit5" />
+            <TextView android:textSize="@dimen/font14" android:textColor="@color/mainGoldenUnderTine" android:layout_width="fill_parent" android:layout_height="0.0dip" android:text="@string/db_banker_pay_table" android:layout_weight="1.5" />
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="2.0" android:layout_weight="1.3">
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_9_point" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_1_30" android:layout_weight="1.0" />
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="2.0" android:layout_weight="1.3">
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_8_point" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_1_10" android:layout_weight="1.0" />
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="2.0" android:layout_weight="1.3">
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_7_point" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_1_5" android:layout_weight="1.0" />
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="2.0" android:layout_weight="1.3">
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_6_point" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_1_3" android:layout_weight="1.0" />
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="2.0" android:layout_weight="1.3">
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_5_point" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_1_2" android:layout_weight="1.0" />
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="2.0" android:layout_weight="1.3">
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_4_point" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_1_1" android:layout_weight="1.0" />
+            </LinearLayout>
+            <View android:background="@color/mainGoldenUnderTine" android:layout_width="fill_parent" android:layout_height="@dimen/unit1" android:layout_marginTop="@dimen/unit5" />
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="2.0" android:layout_weight="1.3">
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_natural_winner" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_1_1" android:layout_weight="1.0" />
+            </LinearLayout>
+            <View android:background="@color/mainGoldenUnderTine" android:layout_width="fill_parent" android:layout_height="@dimen/unit1" android:layout_marginTop="@dimen/unit5" />
+            <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="2.0" android:layout_weight="1.3">
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_natural_tie" android:layout_weight="1.0" />
+                <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_bets_refunded" android:layout_weight="1.0" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout android:orientation="vertical" android:paddingLeft="@dimen/unit20" android:paddingRight="@dimen/unit20" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginBottom="@dimen/unit5" android:weightSum="7.0" android:layout_weight="3.5">
+        <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="8.0" android:layout_weight="5.0">
+            <TextView android:textSize="@dimen/font12" android:textColor="@color/mainGoldenUnderTine" android:gravity="left" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_non_natural" android:layout_weight="1.2" />
+            <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="left" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_non_natural_msg" android:lines="2" android:layout_weight="6.8" />
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="0.0dip" android:weightSum="8.0" android:layout_weight="2.0">
+            <TextView android:textSize="@dimen/font12" android:textColor="@color/mainGoldenUnderTine" android:gravity="center_vertical" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_natural" android:layout_weight="1.2" />
+            <TextView android:textSize="@dimen/font12" android:textColor="@color/white" android:gravity="center|left" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/db_natural_msg" android:layout_weight="6.8" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

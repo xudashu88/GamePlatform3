@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVersion="28" android:compileSdkVersionCodename="\ 9" package="com.purity.yu.gameplatform9" platformBuildVersionCode="64" platformBuildVersionName="3.4">
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <application android:allowBackup="true" android:appComponentFactory="android.support.v4.app.CoreComponentFactory" android:icon="@drawable/logo" android:label="@string/app_name" android:name="com.purity.yu.gameplatform.base.GlobeApplication" android:roundIcon="@drawable/logo2" android:supportsRtl="true" android:theme="@style/AppTheme">
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.login.LoginActivity" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.StartActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.purity.yu.gameplatform.activity.SetLanguageActivity"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.TabHostActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.UserActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.TXCDemoActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.BaccaratListActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.purity.yu.gameplatform.widget.popup.PopupWindowActivity"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.BaccaratLiveActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.SettingActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.SuggestionActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:hardwareAccelerated="true" android:launchMode="singleTask" android:name="com.xmplayer.XMPlayerActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.DtListActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.DtLiveActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:hardwareAccelerated="true" android:launchMode="singleTask" android:name="com.xmplayer.RobotFishActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.BetRecordListActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.QuotaRecordListActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.base.LocalHtmlWebViewActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.HolyDayActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.LdRoadActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.login.RegisterActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.RoyalActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.ServiceWebActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.SinglePickListActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.SinglePickLiveActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.MessageListActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.HolyDayListActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.login.LoginActivity_3" android:screenOrientation="portrait"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.MacauListActivity" android:screenOrientation="landscape"/>
+        <activity android:configChanges="locale|keyboard|keyboardHidden|layoutDirection|orientation" android:launchMode="singleTask" android:name="com.purity.yu.gameplatform.activity.MacauActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.purity.yu.gameplatform.activity.PlayingActivity"/>
+        <service android:enabled="true" android:exported="true" android:name="com.purity.yu.gameplatform.service.MusicService"/>
+        <meta-data android:name="com.openinstall.APP_KEY" android:value="jil8wn"/>
+        <service android:name="me.gcg.GdroidSdk.updateApp.UpdateService"/>
+    </application>
+</manifest>

@@ -10,7 +10,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -38,8 +37,6 @@ import com.gangbeng.basemodule.utils.LogUtil;
 import com.gangbeng.basemodule.utils.SharedPreUtil;
 import com.gangbeng.basemodule.utils.ToastUtil;
 import com.gangbeng.basemodule.utils.Util;
-import com.gongwen.marqueen.SimpleMF;
-import com.gongwen.marqueen.SimpleMarqueeView;
 import com.purity.yu.gameplatform.R;
 import com.purity.yu.gameplatform.adapter.ChipAdapter2;
 import com.purity.yu.gameplatform.annotation.ContentView;
@@ -251,13 +248,6 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
     ImageView iv_ask_play_3;
     //**************************************************房间基本信息*****************************************************
 
-//    @BindView(R.id.tv_switch_off)
-//    public TextView tv_switch_off;
-//    @BindView(R.id.tv_no_commission_msg)
-//    public TextView tv_no_commission_msg;
-//    @BindView(R.id.rl_switch)
-//    public RelativeLayout rl_switch;
-
     @BindView(R.id.rl_banker_dot_layout)
     public RelativeLayout rl_banker_dot_layout;
     @BindView(R.id.rl_player_dot_layout)
@@ -274,55 +264,12 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
     public TextView tv_bet_all_score;
     @BindView(R.id.tv_win)
     public TextView tv_win;
-    //    @BindView(R.id.tv_play_bank_bet_limit)
-//    TextView tv_play_bank_bet_limit;
-//    @BindView(R.id.tv_tie_bet_limit)
-//    TextView tv_tie_bet_limit;
-//    @BindView(R.id.tv_pair_bet_limit)
-//    TextView tv_pair_bet_limit;
     @BindView(R.id.tv_online_count)
     TextView tv_online_count;
     @BindView(R.id.tv_switch_on)
     public TextView tv_switch_on;
     @BindView(R.id.tv_bank_odds)
     public TextView tv_bank_odds;
-
-//    @BindView(R.id.tv_banker_limit)
-//    TextView tv_banker_limit;
-//    @BindView(R.id.tv_player_limit)
-//    TextView tv_player_limit;
-//    @BindView(R.id.tv_tie_limit)
-//    TextView tv_tie_limit;
-//    @BindView(R.id.tv_banker_pair_limit)
-//    TextView tv_banker_pair_limit;
-//    @BindView(R.id.tv_player_pair_limit)
-//    TextView tv_player_pair_limit;
-
-//
-//    @BindView(R.id.rl_bet)
-//    public RelativeLayout rl_bet;
-//    @BindView(R.id.rl_test2)
-//    public RelativeLayout rl_test2;
-
-
-//
-
-//    @BindView(R.id.v_divide)
-//    View v_divide;
-//    @BindView(R.id.v_divide2)
-//    View v_divide2;
-//
-//    @BindView(R.id.rl_left)
-//    RelativeLayout rl_left;
-//    @BindView(R.id.ll_statistic)
-//    LinearLayout ll_statistic;
-//    @BindView(R.id.ll_bet_score)
-//    LinearLayout ll_bet_score;
-//    @BindView(R.id.fl_sv)
-//    FrameLayout fl_sv;
-//    @BindView(R.id.ll_trends)
-//    LinearLayout ll_trends;
-//
 
     //**************************************************菜单点击*****************************************************
     @BindView(R.id.rl_video_select2)
@@ -462,16 +409,6 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
         currentBetScore.add(0);//闲对
         currentBetScore.add(0);//庄对
     }
-
-    private void perFivePerformance() {
-        TimerTask task = new TimerTask() {
-            public void run() {
-                SoundPoolUtil.getInstance().play("time");
-            }
-        };
-        timer.schedule(task, 1000, 1000);
-    }
-
     /*
      * 进入房间
      * */
@@ -3507,8 +3444,6 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
         animatorSetVideo.setInterpolator(new DecelerateInterpolator());
         animatorSetVideo.play(scaleX).with(scaleY);//两个动画同时开始
         animatorSetVideo.start();
-
-
     }
 
 

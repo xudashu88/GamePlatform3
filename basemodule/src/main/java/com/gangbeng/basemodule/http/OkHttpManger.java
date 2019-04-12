@@ -102,7 +102,7 @@ public class OkHttpManger {
 
     }
 
-    public void executeGet(String url, OkHttpBuilder builder, ResultCallback callback) {
+    public void executeGet(String url, OkHttpBuilder builder, OkHttpManger.ResultCallback callback) {
         StringBuilder urlWithParam = new StringBuilder();
         urlWithParam.append(url);
         urlWithParam.append("?");
@@ -117,7 +117,7 @@ public class OkHttpManger {
         this.enqueueGet(urlWithParam.toString(), callback);
     }
 
-    public void executeJsonPost(String url, OkHttpBuilder httpBuilder, ResultCallback callback) {
+    public void executeJsonPost(String url, OkHttpBuilder httpBuilder, OkHttpManger.ResultCallback callback) {
         try {
             JSONObject e = new JSONObject();
             StringBuilder stringBuilder = new StringBuilder();
@@ -158,7 +158,7 @@ public class OkHttpManger {
 
     }
 
-    public void enqueueFormPost(String url, OkHttpBuilder okHttpBuilder, ResultCallback callback) {
+    public void enqueueFormPost(String url, OkHttpBuilder okHttpBuilder, OkHttpManger.ResultCallback callback) {
         MultipartBuilder multipartBuilder = (new MultipartBuilder()).type(MultipartBuilder.FORM);
         StringBuilder stringBuilder = new StringBuilder();
         Iterator builder = okHttpBuilder.elementList.iterator();
@@ -212,7 +212,7 @@ public class OkHttpManger {
         return contentTypeFor;
     }
 
-    public void enqueueGet(String url, ResultCallback callback) {
+    public void enqueueGet(String url, OkHttpManger.ResultCallback callback) {
         Builder builder = new Builder();
         builder.url(url);
         this.enqueuePost(builder.build(), callback);
@@ -225,7 +225,7 @@ public class OkHttpManger {
         return response;
     }
 
-    public void enqueueFilePost(final String url, @NonNull final FileCallBack callback) {
+    public void enqueueFilePost(final String url, @NonNull final OkHttpManger.FileCallBack callback) {
         Builder builder = new Builder();
         builder.url(url);
         this.mOkHttpClient.newCall(builder.build()).enqueue(new Callback() {
@@ -278,8 +278,7 @@ public class OkHttpManger {
         return file_dir;
     }
 
-    private void enqueuePost(Request req, final ResultCallback callback) {
-        LogUtil.i("皇家对接="+req.toString());
+    private void enqueuePost(Request req, final OkHttpManger.ResultCallback callback) {
         final Call call = this.mOkHttpClient.newCall(req);
         final Object key = req.tag();
         if (req != key) {
@@ -299,7 +298,7 @@ public class OkHttpManger {
         });
     }
 
-    private void sendSuccessResultCallback(final String object, final ResultCallback callback) {
+    private void sendSuccessResultCallback(final String object, final OkHttpManger.ResultCallback callback) {
         this.mDelivery.post(new Runnable() {
             public void run() {
                 if (callback != null) {
@@ -310,7 +309,7 @@ public class OkHttpManger {
         });
     }
 
-    private void sendFailedStringCallback(final Request request, final Exception e, final ResultCallback callback) {
+    private void sendFailedStringCallback(final Request request, final Exception e, final OkHttpManger.ResultCallback callback) {
         this.mDelivery.post(new Runnable() {
             public void run() {
                 if (callback != null) {

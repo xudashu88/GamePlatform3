@@ -33,11 +33,11 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:name">
         <activity
-            android:name=".login.KittyActivity"
+            android:name=".login.LoginActivity"
             android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
             android:excludeFromRecents="false"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -217,6 +217,16 @@
             android:excludeFromRecents="false"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
+        <activity android:name=".activity.DepositActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".activity.WithdrawActivity"
+            android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
+            android:excludeFromRecents="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"/>
 
         <service
             android:name=".service.MusicService"

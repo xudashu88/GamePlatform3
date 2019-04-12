@@ -38,7 +38,6 @@ import com.purity.yu.gameplatform.fragment.HotNewFragment;
 import com.purity.yu.gameplatform.fragment.LiveFragment;
 import com.purity.yu.gameplatform.fragment.MyWalletFragment;
 import com.purity.yu.gameplatform.fragment.SecurityAccountFragment;
-import com.purity.yu.gameplatform.fragment.WithDrawFragment;
 import com.purity.yu.gameplatform.service.MusicService;
 import com.purity.yu.gameplatform.utils.BaccaratUtil;
 import com.purity.yu.gameplatform.utils.ProtocolUtil;
@@ -69,7 +68,6 @@ public class TabHostController {
     TextView tv_live;
     TextView tv_arcade;
     TextView tv_card;
-    TextView tv_card2;
     TextView tv_security_account;
     TextView tv_WeChat_link;
     TextView tv_service_web;
@@ -108,8 +106,8 @@ public class TabHostController {
         return instance;
     }
 
-    public void copyWidget(LinearLayout ll_hot_new, LinearLayout ll_live, LinearLayout ll_arcade, LinearLayout ll_card, LinearLayout ll_security_account,LinearLayout ll_WeChat_link,
-                           TextView tv_hot_new, TextView tv_live, TextView tv_arcade, TextView tv_card,TextView tv_card2, TextView tv_security_account,TextView tv_WeChat_link,
+    public void copyWidget(LinearLayout ll_hot_new, LinearLayout ll_live, LinearLayout ll_arcade, LinearLayout ll_card, LinearLayout ll_security_account, LinearLayout ll_WeChat_link,
+                           TextView tv_hot_new, TextView tv_live, TextView tv_arcade, TextView tv_card, TextView tv_security_account, TextView tv_WeChat_link,
                            LinearLayout ll_back, ImageView iv_sound_switch, LinearLayout ll_user_info, TextView tv_nickname, TextView tv_money, ImageView iv_bac_set, Bundle savedInstanceState,
             /*TextView tv_service_web*/TextView tv_deposit, TextView tv_withdraw, TextView tv_recycle,
                            Timer timer) {
@@ -123,7 +121,6 @@ public class TabHostController {
         this.tv_live = tv_live;
         this.tv_arcade = tv_arcade;
         this.tv_card = tv_card;
-        this.tv_card2 = tv_card2;
         this.tv_security_account = tv_security_account;
         this.tv_WeChat_link = tv_WeChat_link;
         this.ll_back = ll_back;
@@ -155,7 +152,6 @@ public class TabHostController {
             fragments.add(new LiveFragment());
             fragments.add(new ArcadeFragment());
             fragments.add(new MyWalletFragment());
-            fragments.add(new WithDrawFragment());
             fragments.add(new SecurityAccountFragment());
             fragments.add(new ContactServeFragment());
             showFragment();
@@ -165,7 +161,6 @@ public class TabHostController {
         addTextView(tv_live);
         addTextView(tv_arcade);
         addTextView(tv_card);
-        addTextView(tv_card2);
         addTextView(tv_security_account);
         addTextView(tv_WeChat_link);
         SharedPreUtil.getInstance(mContext).saveParam(Constant.WHERE_SET, 0);//从新开始（从DtListActivity中的语言选择后归来）
@@ -397,12 +392,10 @@ public class TabHostController {
                         currentIndex = 2;//隐藏了
                     } else if (_tvTag.equals("tv_card")) {
                         currentIndex = 3;
-                    } else if (_tvTag.equals("tv_card2")) {
-                        currentIndex = 4;
                     } else if (_tvTag.equals("tv_security_account")) {
+                        currentIndex = 4;
+                    } else if (_tvTag.equals("tv_WeChat_link")) {
                         currentIndex = 5;
-                    }else if (_tvTag.equals("tv_WeChat_link")) {
-                        currentIndex = 6;
                     }
                     showFragment();
                 }

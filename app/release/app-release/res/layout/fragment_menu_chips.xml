@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/menuPress" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="@dimen/font16" android:textColor="@color/mainFontGolden" android:gravity="center" android:layout_width="fill_parent" android:layout_height="@dimen/unit40" android:text="@string/select_game" />
+    <LinearLayout android:orientation="vertical" android:background="@drawable/bg_gray_stroke_golden_menu_bg" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_margin="@dimen/unit10" android:weightSum="6.0">
+        <LinearLayout android:orientation="horizontal" android:background="@color/menuBg" android:paddingLeft="@dimen/unit5" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginLeft="@dimen/unit8" android:layout_marginTop="@dimen/unit8" android:layout_marginRight="@dimen/unit8" android:layout_weight="1.0">
+            <RelativeLayout android:id="@id/rl_roulette" android:layout_width="@dimen/unit100" android:layout_height="fill_parent">
+                <TextView android:textStyle="bold" android:textColor="@color/mainFontGolden" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/holy_day" android:layout_centerInParent="true" />
+                <View android:id="@id/v_roulette" android:background="@color/mainFontGolden" android:layout_width="@dimen/unit80" android:layout_height="@dimen/unit4" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+            <RelativeLayout android:id="@id/rl_sicbo" android:layout_width="@dimen/unit100" android:layout_height="fill_parent">
+                <TextView android:textStyle="bold" android:textColor="@color/mainFontGolden" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/macao" android:layout_centerInParent="true" />
+                <View android:id="@id/v_sicbo" android:background="@color/mainFontGolden" android:visibility="gone" android:layout_width="@dimen/unit80" android:layout_height="@dimen/unit4" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:background="@color/menuBg" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginLeft="@dimen/unit8" android:layout_marginTop="@dimen/unit4" android:layout_marginRight="@dimen/unit8" android:layout_marginBottom="@dimen/unit8" android:layout_weight="5.0">
+            <TextView android:textColor="@color/mainFontGolden" android:gravity="center|left" android:layout_width="wrap_content" android:layout_height="0.0dip" android:layout_marginLeft="@dimen/unit15" android:text="@string/stake_hint" android:layout_weight="1.0" />
+            <LinearLayout android:orientation="horizontal" android:id="@id/ll_roulette" android:paddingLeft="@dimen/unit15" android:paddingRight="@dimen/unit15" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.0dip" android:weightSum="5.0" android:layout_weight="1.5">
+                <RelativeLayout android:id="@id/rl_rou_10" android:tag="rl_rou_10" android:background="@null" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 10" android:drawableBottom="@drawable/new_chip_10" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/rl_rou_20" android:tag="rl_rou_20" android:background="@drawable/bg_gray_stroke_golden_menu" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 20" android:drawableBottom="@drawable/new_chip_20" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/rl_rou_50" android:tag="rl_rou_50" android:background="@null" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 50" android:drawableBottom="@drawable/new_chip_50" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/rl_rou_100" android:tag="rl_rou_100" android:background="@drawable/bg_gray_stroke_golden_menu" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 100" android:drawableBottom="@drawable/new_chip_100" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/rl_rou_200" android:tag="rl_rou_200" android:background="@null" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 200" android:drawableBottom="@drawable/new_chip_200" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:id="@id/ll_sicbo" android:paddingLeft="@dimen/unit15" android:paddingRight="@dimen/unit15" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="0.0dip" android:weightSum="5.0" android:layout_weight="1.5">
+                <RelativeLayout android:id="@id/rl_sic_10" android:tag="rl_sic_10" android:background="@null" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 10" android:drawableBottom="@drawable/new_chip_10" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/rl_sic_20" android:tag="rl_sic_20" android:background="@drawable/bg_gray_stroke_golden_menu" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 20" android:drawableBottom="@drawable/new_chip_20" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/rl_sic_50" android:tag="rl_sic_50" android:background="@null" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 50" android:drawableBottom="@drawable/new_chip_50" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/rl_sic_100" android:tag="rl_sic_100" android:background="@drawable/bg_gray_stroke_golden_menu" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 100" android:drawableBottom="@drawable/new_chip_100" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/rl_sic_200" android:tag="rl_sic_200" android:background="@null" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 200" android:drawableBottom="@drawable/new_chip_200" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:id="@id/ll_roulette_1" android:paddingLeft="@dimen/unit15" android:paddingRight="@dimen/unit15" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="5.0" android:layout_weight="1.5">
+                <RelativeLayout android:id="@id/rl_rou_500" android:tag="rl_rou_500" android:background="@drawable/bg_gray_stroke_golden_menu" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 500" android:drawableBottom="@drawable/new_chip_500" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/rl_rou_1000" android:tag="rl_rou_1000" android:background="@drawable/bg_gray_stroke_golden_menu" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 1000" android:drawableBottom="@drawable/new_chip_1000" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/rl_rou_5000" android:tag="rl_rou_5000" android:background="@drawable/bg_gray_stroke_golden_menu" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 5000" android:drawableBottom="@drawable/new_chip_5000" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/rl_rou_10000" android:tag="rl_rou_10000" android:background="@null" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 10000" android:drawableBottom="@drawable/new_chip_10000" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/rl_rou_50000" android:tag="rl_rou_50000" android:background="@null" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 50000" android:drawableBottom="@drawable/new_chip_50000" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:id="@id/ll_sicbo_1" android:paddingLeft="@dimen/unit15" android:paddingRight="@dimen/unit15" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_marginTop="@dimen/unit5" android:weightSum="5.0" android:layout_weight="1.5">
+                <RelativeLayout android:id="@id/rl_sic_500" android:tag="rl_sic_500" android:background="@drawable/bg_gray_stroke_golden_menu" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 500" android:drawableBottom="@drawable/new_chip_500" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/rl_sic_1000" android:tag="rl_sic_1000" android:background="@drawable/bg_gray_stroke_golden_menu" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 1000" android:drawableBottom="@drawable/new_chip_1000" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/rl_sic_5000" android:tag="rl_sic_5000" android:background="@drawable/bg_gray_stroke_golden_menu" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 5000" android:drawableBottom="@drawable/new_chip_5000" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/rl_sic_10000" android:tag="rl_sic_10000" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 10000" android:drawableBottom="@drawable/new_chip_10000" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/rl_sic_50000" android:tag="rl_sic_50000" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit5" android:layout_weight="1.0">
+                    <TextView android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="\ 50000" android:drawableBottom="@drawable/new_chip_50000" android:drawablePadding="@dimen/unit4" android:layout_centerInParent="true" />
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:paddingTop="@dimen/unit2" android:paddingBottom="@dimen/unit2" android:layout_width="fill_parent" android:layout_height="0.0dip" android:weightSum="2.0" android:layout_weight="1.0">
+                <TextView android:textSize="@dimen/font14" android:textColor="@color/mainFontGolden" android:gravity="center|right" android:id="@id/tv_cancel" android:layout_width="@dimen/unit85" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit120" android:text="@string/menu_cancel" />
+                <TextView android:textSize="@dimen/font14" android:textColor="@color/black" android:gravity="center" android:id="@id/tv_confirm" android:background="@drawable/select_common_btn" android:clickable="true" android:layout_width="@dimen/unit85" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/unit80" android:text="@string/menu_confirm" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

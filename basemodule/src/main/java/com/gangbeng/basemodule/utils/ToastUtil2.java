@@ -30,7 +30,7 @@ public class ToastUtil2 {
     }
 
     public static ToastUtil2 getInstance() {
-        return Holder.instance;
+        return ToastUtil2.Holder.instance;
     }
 
     public static void init(Context context) {

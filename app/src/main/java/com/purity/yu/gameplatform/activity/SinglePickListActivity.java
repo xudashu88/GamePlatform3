@@ -24,7 +24,6 @@ import com.purity.yu.gameplatform.base.BaseActivity;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.controler.SinglePickListSocketController;
 import com.purity.yu.gameplatform.entity.Baccarat;
-import com.purity.yu.gameplatform.entity.GameRoom;
 import com.purity.yu.gameplatform.entity.Hall;
 import com.purity.yu.gameplatform.event.ObjectEvent;
 import com.purity.yu.gameplatform.utils.Algorithm;
@@ -78,8 +77,6 @@ public class SinglePickListActivity extends BaseActivity {
     private Context mContext;
     private SinglePickRVAdapter adapter;
     private List<Baccarat> baccaratList = new ArrayList<>();
-    int count = 0;
-    List<GameRoom> gameRoomList = new ArrayList<>();
     private String totalTable;
 
     @Override
@@ -103,7 +100,7 @@ public class SinglePickListActivity extends BaseActivity {
             String sFinal = String.format(totalTable, list.size());
             tv_game_table_num.setText(sFinal);
             initAdapter();
-            ProtocolUtil.getInstance().postLoginInfo(tv_money);
+            ProtocolUtil.getInstance().postLoginInfo(mContext, tv_money);
         }
 
     }
@@ -130,7 +127,7 @@ public class SinglePickListActivity extends BaseActivity {
 
     class SinglePickRVAdapter extends RecyclerView.Adapter<SinglePickRVAdapter.ViewHolder> {
 
-        private List<Baccarat> mBaccaratList = new ArrayList<>();
+        private List<Baccarat> mBaccaratList;
         private Context mContext;
         private List<Hall> mHallList = new ArrayList<>();
         private boolean isHall = false;//false 只加载一次大厅数据 true 根据状态=2在刷新界面

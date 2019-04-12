@@ -31,7 +31,7 @@ public class ToastUtil {
     }
 
     public static ToastUtil getInstance() {
-        return Holder.instance;
+        return ToastUtil.Holder.instance;
     }
 
     /**
