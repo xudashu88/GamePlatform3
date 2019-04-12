@@ -212,6 +212,10 @@ public class ProtocolUtil {
     }
 
     public void saveImage(Context mContext, ImageView iv_pay_code) {
+        if (iv_pay_code.getBackground() == null) {
+            ToastUtil.show(mContext,"未上传图片");
+            return;
+        }
         Bitmap bitmap = ((BitmapDrawable) iv_pay_code.getDrawable()).getBitmap();
         boolean isSaveSuccess = ImgUtils.saveImageToGallery(mContext, bitmap);
         if (isSaveSuccess) {

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.gangbeng.basemodule.utils.SharedPreUtil;
+import com.gangbeng.basemodule.utils.ToastUtil;
 import com.purity.yu.gameplatform.R;
 import com.purity.yu.gameplatform.base.ServiceIpConstant;
 import com.purity.yu.gameplatform.entity.Contact;
@@ -55,7 +56,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     }
 
     private void saveImage(ImageView imageView) {
-//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), iv_pay_code.getId());
+        if (imageView.getBackground() == null) {
+            ToastUtil.show(mContext,"未上传图片");
+            return;
+        }
         Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
         boolean isSaveSuccess = ImgUtils.saveImageToGallery(mContext, bitmap);
         if (isSaveSuccess) {
