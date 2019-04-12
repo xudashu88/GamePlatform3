@@ -45,6 +45,7 @@ public class DtSocketController {
     private Context mContext;
     private static DtSocketController instance = null;
     private Socket mSocket;
+    private Socket mSocketProdict;
     private Timer timer;
 
     String roomId;
@@ -60,12 +61,14 @@ public class DtSocketController {
     RelativeLayout rl_banker;
     List<String> _calPlayer = new ArrayList<>();
     List<String> _calBanker = new ArrayList<>();
+    private String token;
 
     public void init(Context context) {
         mContext = context;
         timer = new Timer(true);
         try {
             mSocket = IO.socket(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.SOCKET_ROOM));
+            mSocketProdict = IO.socket(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.SOCKET_PRODICT));
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
@@ -112,6 +115,16 @@ public class DtSocketController {
         }
     }
 
+    public void connectSocketProdict() {
+        if (mSocketProdict != null) {
+            mSocketProdict.on(Socket.EVENT_CONNECT, onConnectProdict);
+            mSocketProdict.on(Socket.EVENT_DISCONNECT, onDisconnectProdict);
+            mSocketProdict.on(Socket.EVENT_CONNECT_ERROR, onConnectErrorProdict);
+            mSocketProdict.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectErrorProdict);
+            mSocketProdict.connect();
+        }
+    }
+
     private void perOnePerformance() {
         TimerTask task = new TimerTask() {
             public void run() {
@@ -127,7 +140,12 @@ public class DtSocketController {
         }
         return null;
     }
-
+    public Socket getSocketProdict() {
+        if (mSocketProdict != null && mSocketProdict.connected()) {
+            return mSocketProdict;
+        }
+        return null;
+    }
     public void disconnectSocket() {
         if (mSocket != null) {
             mSocket.disconnect();
@@ -559,10 +577,10 @@ public class DtSocketController {
             ToastUtil.show(mContext, "未登录");
         } else {
             if (mSocket != null && mSocket.connected()) {//启动 http://localhost:8080/user/startroom
-                String _token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN_SOCKET);
+                token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN_SOCKET);
 //                String _token = "534332329808625664";
 //                roomId = "10000000000000001";
-                mSocket.emit("joinroom", "{'token':'" + _token + "','room':'" + roomId + "'}");
+                mSocket.emit("joinroom", "{'token':'" + token + "','room':'" + roomId + "'}");
             }
         }
     }
@@ -582,6 +600,33 @@ public class DtSocketController {
             SharedPreUtil.getInstance(mContext).saveParam(Constant.IS_CHIP_SUCCESS, 0);
             ToastUtil.show(mContext, mContext.getResources().getString(R.string.disconnect));
             conn();
+        }
+    };
+
+    private void connProdict() {
+        if (mSocketProdict != null && mSocketProdict.connected()) {
+            mSocketProdict.emit("joinroom", "{'monitor':'" + token + "','room':'" + roomId + "'}");
+        }
+    }
+
+    private Emitter.Listener onConnectProdict = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            connProdict();
+        }
+    };
+
+    private Emitter.Listener onDisconnectProdict = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            connProdict();
+        }
+    };
+
+    private Emitter.Listener onConnectErrorProdict = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+            connProdict();
         }
     };
 }

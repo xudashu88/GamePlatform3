@@ -1919,7 +1919,7 @@
 
     <SurfaceView
         android:id="@+id/sv1"
-        android:layout_width="@dimen/unit75"
+        android:layout_width="@dimen/unit54"
         android:layout_height="@dimen/unit65"
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/unit1"

@@ -44,6 +44,7 @@ import com.purity.yu.gameplatform.base.BaseActivity;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.base.LocalHtmlWebViewActivity;
 import com.purity.yu.gameplatform.controler.DtSocketController;
+import com.purity.yu.gameplatform.controler.HolyDaySocketController;
 import com.purity.yu.gameplatform.entity.Baccarat;
 import com.purity.yu.gameplatform.entity.Liquidation;
 import com.purity.yu.gameplatform.event.ObjectEvent;
@@ -335,6 +336,8 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
     private String roomId;
     private double currentMoney;
     private Socket mSocket;
+    private Socket mSocketProdict;
+    private String token;
     private Baccarat baccarat;
     private int playerIng = 0, bankerIng, tieIng;//实时下注积分
     private int playerScore = 0, bankerScore = 0, tieScore = 0;//当前局每个位置下注积分
@@ -409,6 +412,7 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//屏幕常亮
         roomName = getIntent().getStringExtra("roomName");
         roomId = getIntent().getStringExtra("roomId");
+        token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN_SOCKET);
         betSecond = getIntent().getIntExtra("betSecond", 25);
         tv_room_name.setText(roomName);
         tv_nickname.setText(SharedPreUtil.getInstance(mContext).getString(Constant.USER_NAME));
@@ -905,6 +909,8 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
                 initSound();//在低端机上 加载assets资源，超级耗时
             }
         }, 200);
+        DtSocketController.getInstance().connectSocketProdict();
+        mSocketProdict = DtSocketController.getInstance().getSocketProdict();
     }
 
     private void ask() {
@@ -955,6 +961,7 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
             currentBetScore.clear();
             currentBetScore.addAll(event.scoreList);
         }
+        mSocketProdict = DtSocketController.getInstance().getSocketProdict();
     }
 
     /*
@@ -1024,6 +1031,10 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
             isFirstPlay = true;
             isFirstBank = true;
             isFirstTie = true;
+            if (mSocketProdict != null && mSocketProdict.connected()) {
+                DtSocketController.getInstance().connectSocketProdict();
+                mSocketProdict = DtSocketController.getInstance().getSocketProdict();
+            }
             tv_robot.setVisibility(View.GONE);
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -1763,6 +1774,11 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
                 bankerScore = 0;
                 playerScore = 0;
                 tieScore = 0;
+                if (mSocketProdict != null && mSocketProdict.connected()) {
+                    LogUtil.i("mSocketProdict 预押注3=" + chipScore.toString());
+                    mSocketProdict.emit("prodict_score", "{'room':" + roomId + ",'player':" + token +
+                            ",'score':[" + playerScore + "," + bankerScore + "," + tieScore + " ],'clean':1}");
+                }
                 isChipClick(false, false, R.drawable.button_bet_disable_bg, R.drawable.button_bet_disable_bg, R.string.confirm);
                 if (isSame) {
                     cleanChip();
@@ -1931,6 +1947,12 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
                     LogUtil.i("当前下注续押" + chipScore.toString());
                     int allScore = perPlayer + perBanker + perTie;
                     tv_bet_all_score.setText(String.valueOf(allScore));
+                    if (mSocketProdict != null && mSocketProdict.connected()) {
+                        LogUtil.i("mSocketProdict 预押注4=" + chipScore.toString());
+                        mSocketProdict.emit("prodict_score", "{'room':" + roomId + ",'player':" + token +
+                                ",'score':[" + perPlayer + "," + perBanker + "," + perTie + "],'clean':0}");
+
+                    }
                 } else {
                     mSocket = DtSocketController.getInstance().getSocket();
                     if (mSocket != null && mSocket.connected()) {
@@ -2018,6 +2040,7 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
                 }
                 int allScore = perPlayer + perBanker + perTie;
                 tv_bet_all_score.setText(String.valueOf(allScore));
+                emitProdict();
             }
         });
         rl_tie.setOnClickListener(new View.OnClickListener() {//和
@@ -2087,6 +2110,7 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
                 }
                 int allScore = perPlayer + perBanker + perTie;
                 tv_bet_all_score.setText(String.valueOf(allScore));
+                emitProdict();
             }
         });
         rl_banker.setOnClickListener(new View.OnClickListener() {//庄
@@ -2155,6 +2179,7 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
                 }
                 int allScore = perPlayer + perBanker + perTie;
                 tv_bet_all_score.setText(String.valueOf(allScore));
+                emitProdict();
             }
         });
         //-----------------------------------------------------------------点击对应下注区域-end--------------------------------------------
@@ -2178,6 +2203,21 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
                 startActivity(intent);
             }
         });
+    }
+
+    private void emitProdict() {
+        if (mSocketProdict != null && mSocketProdict.connected()) {
+            LogUtil.i("mSocketProdict 预押注1=" + chipScore.toString());
+            mSocketProdict.emit("prodict_score", "{'room':" + roomId + ",'player':" + token +
+                    ",'score':[" + chipScore.get(1) + "," + chipScore.get(0) + "," + chipScore.get(2) + "," + chipScore.get(4) + "," + chipScore.get(3) + ",0,0],'clean':0}");
+        } else {
+            mSocketProdict = DtSocketController.getInstance().getSocketProdict();
+            if (mSocketProdict != null && mSocketProdict.connected()) {
+                LogUtil.i("mSocketProdict 预押注2=" + chipScore.toString());
+                mSocketProdict.emit("prodict_score", "{'room':" + roomId + ",'player':" + token +
+                        ",'score':[" + chipScore.get(1) + "," + chipScore.get(0) + "," + chipScore.get(2) + "," + chipScore.get(4) + "," + chipScore.get(3) + ",0,0],'clean':0}");
+            }
+        }
     }
 
     private void betPlayer(int _currentMoney) {
@@ -2628,10 +2668,19 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
      */
     private void zoomReturnVideo() {
         AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
-        ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, 1f);
-        ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, 1f);
-        mSv1.setPivotX(0);
-        mSv1.setPivotY(0);
+        float _returnX;
+        float _returnY = 1f;
+        if (rl_test.getWidth() > 0) {
+            _returnX = scaleX;
+            mSv1.setPivotX(fl_sv.getWidth());
+            mSv1.setPivotY(0);
+        } else {
+            _returnX = 1f;
+            mSv1.setPivotX(0);
+            mSv1.setPivotY(0);
+        }
+        ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, _returnX);
+        ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, _returnY);
         animatorSetVideo.setDuration(600);
         _scaleX.setRepeatMode(ObjectAnimator.RESTART);
         _scaleY.setRepeatMode(ObjectAnimator.RESTART);

@@ -3459,10 +3459,19 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
      */
     private void zoomReturnVideo() {
         AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
-        ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, 1f);
-        ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, 1f);
-        mSv1.setPivotX(0);
-        mSv1.setPivotY(0);
+        float _returnX;
+        float _returnY = 1f;
+        if (rl_test.getWidth() > 0) {
+            _returnX = scaleX;
+            mSv1.setPivotX(fl_sv.getWidth());
+            mSv1.setPivotY(0);
+        } else {
+            _returnX = 1f;
+            mSv1.setPivotX(0);
+            mSv1.setPivotY(0);
+        }
+        ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, _returnX);
+        ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, _returnY);
         animatorSetVideo.setDuration(600);
         _scaleX.setRepeatMode(ObjectAnimator.RESTART);
         _scaleY.setRepeatMode(ObjectAnimator.RESTART);

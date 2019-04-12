@@ -164,18 +164,6 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
     //赢后的变化
     @BindView(R.id.tv_win)
     public TextView tv_win;
-
-//    @BindView(R.id.iv_play_light_dot)
-//    public ImageView iv_play_light_dot;
-//    @BindView(R.id.iv_bank_light_dot)
-//    public ImageView iv_bank_light_dot;
-//    @BindView(R.id.iv_tie_light_dot)
-//    public ImageView iv_tie_light_dot;
-//    @BindView(R.id.iv_play_pair_light_dot)
-//    public ImageView iv_play_pair_light_dot;
-//    @BindView(R.id.iv_bank_pair_light_dot)
-//    public ImageView iv_bank_pair_light_dot;
-
     @BindView(R.id.tv_in_game_total_value)
     public TextView tv_in_game_total_value;
     @BindView(R.id.tv_in_game_banker_value)
@@ -419,6 +407,8 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
     ImageView iv_video_select2;
     @BindView(R.id.tv_robot)
     TextView tv_robot;
+    @BindView(R.id.rl_sv)
+    RelativeLayout rl_sv;
 
     private DisplayMetrics displayMetrics;
     private Context mContext;
@@ -654,8 +644,6 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
             @Override
             public void run() {
                 //顶部宽度=2560 总宽度=2454 珠路=72 需要花=0 留白=0 华为
-                LogUtil.i(" 三路左右留白=" + rl_test.getWidth() + " 下注底部留白=" + rl_test2.getHeight() + " 总宽度=" + displayMetrics.widthPixels);
-
                 float _value = 0.0f;
                 float __value = 0.0f;
                 float _value1 = Float.parseFloat(getScaleX(rl_top.getHeight(), displayMetrics.heightPixels));
@@ -668,7 +656,6 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
                     scaleX = _value + 1.00f;
                     rl_top.setScaleX(scaleX);   //rl_test.getWidth()*2/displayMetrics.widthPixels+0.05
                 }
-                LogUtil.i("displayMetrics.widthPixels=" + displayMetrics.widthPixels + "rl_top.getWidth()=" + rl_top.getWidth());
                 if (rl_top.getWidth() != 0) {
                     __value = Float.parseFloat(getScaleX(displayMetrics.widthPixels - rl_top.getWidth(), rl_top.getWidth()));
                     if (rl_top.getWidth() > displayMetrics.widthPixels) {
@@ -3649,10 +3636,19 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
      */
     private void zoomReturnVideo() {
         AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
-        ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, 1f);
-        ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, 1f);
-        mSv1.setPivotX(0);
-        mSv1.setPivotY(0);
+        float _returnX;
+        float _returnY = 1f;
+        if (rl_test.getWidth() > 0) {
+            _returnX = scaleX;
+            mSv1.setPivotX(rl_sv.getWidth());
+            mSv1.setPivotY(0);
+        } else {
+            _returnX = 1f;
+            mSv1.setPivotX(0);
+            mSv1.setPivotY(0);
+        }
+        ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, _returnX);
+        ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, _returnY);
         animatorSetVideo.setDuration(600);
         _scaleX.setRepeatMode(ObjectAnimator.RESTART);
         _scaleY.setRepeatMode(ObjectAnimator.RESTART);
