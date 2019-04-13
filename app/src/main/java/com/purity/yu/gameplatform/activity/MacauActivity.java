@@ -1159,7 +1159,7 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
             //1.庄几点 闲几点 一遍 先报庄几点再报闲几点
             //2.庄赢/闲赢 2遍 和局 1遍
             BaccaratUtil.sayBacDot(0, bankScore);
-            new android.os.Handler().postDelayed(new Runnable() {
+            new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     BaccaratUtil.sayBacDot(1, playScore);
@@ -1167,7 +1167,7 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
             }, 1200);
             if (playScore > bankScore) {
                 whoWin = 1;
-                new android.os.Handler().postDelayed(new Runnable() {
+                new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         BaccaratUtil.sayBacDot(1, playScore, isPlayPair, isBankPair);
@@ -1176,7 +1176,7 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
 
             } else if (playScore < bankScore) {
                 whoWin = 0;
-                new android.os.Handler().postDelayed(new Runnable() {
+                new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         BaccaratUtil.sayBacDot(0, bankScore, isPlayPair, isBankPair);
@@ -1185,7 +1185,7 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
 
             } else {
                 whoWin = 2;
-                new android.os.Handler().postDelayed(new Runnable() {
+                new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         BaccaratUtil.sayBacDot(2, -1, isPlayPair, isBankPair);//和局
@@ -3459,19 +3459,14 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
      */
     private void zoomReturnVideo() {
         AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
-        float _returnX;
-        float _returnY = 1f;
-        if (rl_test.getWidth() > 0) {
-            _returnX = scaleX;
-            mSv1.setPivotX(fl_sv.getWidth());
-            mSv1.setPivotY(0);
-        } else {
-            _returnX = 1f;
-            mSv1.setPivotX(0);
-            mSv1.setPivotY(0);
-        }
-        ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, _returnX);
-        ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, _returnY);
+        float toX3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX((fl_sv.getWidth() - mContext.getResources().getDimensionPixelOffset(R.dimen.unit2))* scaleX, mSv1.getWidth()));
+        float toY3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(fl_sv.getHeight()- mContext.getResources().getDimensionPixelOffset(R.dimen.unit2), mSv1.getHeight()));
+        ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, toX3);
+        ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, toY3);
+        LogUtil.i("视频缩放 widthPixels=" + displayMetrics.widthPixels + " mSv1.getWidth()=" + mSv1.getWidth() + " mSv1.getHeight()=" + mSv1.getHeight() +
+                " fl_sv.getWidth()=" + fl_sv.getWidth() + " fl_sv.getHeight()=" + fl_sv.getHeight() + " toX3=" + toX3 + " toY3=" + toY3);
+        mSv1.setPivotX(mSv1.getWidth());
+        mSv1.setPivotY(0f);
         animatorSetVideo.setDuration(600);
         _scaleX.setRepeatMode(ObjectAnimator.RESTART);
         _scaleY.setRepeatMode(ObjectAnimator.RESTART);
@@ -3498,11 +3493,10 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
         rl_video_select1.setVisibility(View.VISIBLE);
         rl_video_select2.setVisibility(View.GONE);
         time = 1;
-        float toX3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(displayMetrics.widthPixels * 0.5f, mSv1.getWidth()));
-        float toY3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(displayMetrics.heightPixels * 0.55f, mSv1.getHeight()));
+
         AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
-        ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 0f, toX3);
-        ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 0f, toY3);
+        ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, 1f);
+        ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, 1f);
         float pivotX = mSv1.getWidth();
         mSv1.setPivotX(pivotX);
         mSv1.setPivotY(0);
@@ -3530,8 +3524,8 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
         float toX3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(displayMetrics.widthPixels * 1.06f, mSv1.getWidth()));
         float toY3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(displayMetrics.heightPixels, mSv1.getHeight()));
         AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
-        ObjectAnimator scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 0f, toX3);
-        ObjectAnimator scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 0f, toY3);
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, toX3);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, toY3);
         float pivotX = mSv1.getWidth();
         mSv1.setPivotX(pivotX);
         LogUtil.i("视频缩放 全屏 toX3=" + toX3 + " toY3=" + toY3 + " pivotX=" + pivotX);

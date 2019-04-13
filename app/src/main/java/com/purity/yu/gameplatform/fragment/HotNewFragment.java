@@ -62,7 +62,7 @@ public class HotNewFragment extends BaseFragment {
     }
 
     private void initAdapter() {
-        mLayoutManager = new GridLayoutManager(getActivity(), 5);
+        mLayoutManager = new GridLayoutManager(getActivity(), 4);
         mAdapter = new HotNewAdapter(gameList);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);

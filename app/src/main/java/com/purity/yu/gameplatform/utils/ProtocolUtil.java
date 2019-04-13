@@ -51,6 +51,7 @@ import com.purity.yu.gameplatform.login.LoginActivity;
 import com.purity.yu.gameplatform.login.RegisterActivity;
 import com.purity.yu.gameplatform.widget.HintDialog;
 import com.purity.yu.gameplatform.widget.MarqueeTextView;
+import com.squareup.okhttp.Request;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
@@ -213,7 +214,7 @@ public class ProtocolUtil {
 
     public void saveImage(Context mContext, ImageView iv_pay_code) {
         if (iv_pay_code.getBackground() == null) {
-            ToastUtil.show(mContext,"未上传图片");
+            ToastUtil.show(mContext, "未上传图片");
             return;
         }
         Bitmap bitmap = ((BitmapDrawable) iv_pay_code.getDrawable()).getBitmap();
@@ -1061,7 +1062,9 @@ public class ProtocolUtil {
                             SharedPreUtil.getInstance(mContext).saveParam(ServiceIpConstant.SOCKET_ROOM, ServiceIpConstant.BASE_BEFORE + _ip + ":9082/");
                             SharedPreUtil.getInstance(mContext).saveParam(ServiceIpConstant.SOCKET_PRODICT, ServiceIpConstant.BASE_BEFORE + _ip + ":9080/");
                             avi.hide();
-                            mContext.startActivity(new Intent(mContext, StartActivity.class));
+                            Intent intent = new Intent(mContext, StartActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            mContext.startActivity(intent);
                             ((Activity) mContext).finish();
                             postLoginInfo(mContext);
                         } catch (Exception e) {
@@ -1089,7 +1092,10 @@ public class ProtocolUtil {
         SharedPreUtil.getInstance(mContext).saveParam(ServiceIpConstant.SOCKET_LOBBY, ServiceIpConstant.BASE_BEFORE + _ip + ":9081/");
         SharedPreUtil.getInstance(mContext).saveParam(ServiceIpConstant.SOCKET_ROOM, ServiceIpConstant.BASE_BEFORE + _ip + ":9082/");
         SharedPreUtil.getInstance(mContext).saveParam(ServiceIpConstant.SOCKET_PRODICT, ServiceIpConstant.BASE_BEFORE + _ip + ":9080/");
-        mContext.startActivity(new Intent(mContext, StartActivity.class));
+        Intent intent = new Intent(mContext, StartActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
+
         ((Activity) mContext).finish();
         LogUtil.i("登录获取房间列表信息 1");
         ProtocolUtil.getInstance().postLoginInfo(mContext);
@@ -1390,7 +1396,9 @@ public class ProtocolUtil {
                             __data = new JSONObject(_data);
                             int open_register = __data.optInt("open_register");
                             if (open_register == 1) {//1开放注册 其他关闭注册
-                                mContext.startActivity(new Intent(mContext, RegisterActivity.class));
+                                Intent intent = new Intent(mContext, RegisterActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                mContext.startActivity(intent);
                                 ((Activity) mContext).finish();
                             } else {
                                 ToastUtil.show(mContext, "需要注册，请联系管理员");
@@ -1399,6 +1407,16 @@ public class ProtocolUtil {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                    }
+
+                    @Override
+                    public void onResultFault(int code, String hint) {
+                        super.onResultFault(code, hint);
+                    }
+
+                    @Override
+                    public void onFailure(Request request, Exception e) {
+                        super.onFailure(request, e);
                     }
                 });
     }

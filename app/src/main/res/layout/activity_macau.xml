@@ -1919,19 +1919,18 @@
 
     <SurfaceView
         android:id="@+id/sv1"
-        android:layout_width="@dimen/unit54"
-        android:layout_height="@dimen/unit65"
+        android:layout_width="@dimen/unit270"
+        android:layout_height="@dimen/unit130"
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/unit1"
-        android:layout_marginRight="@dimen/unit1"
-        android:layout_toLeftOf="@+id/v_divide" />
+        android:layout_marginRight="@dimen/unit1" />
 
     <TextView
         android:id="@+id/tv_middle_sv_l"
-        android:layout_width="@dimen/unit45"
+        android:layout_width="@dimen/unit40"
         android:layout_height="@dimen/unit30"
+        android:layout_below="@id/tv_middle_sv_h"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/unit5"
         android:background="@drawable/st_text_bg"
         android:gravity="center"
@@ -1942,10 +1941,10 @@
 
     <TextView
         android:id="@+id/tv_middle_sv_h"
-        android:layout_width="@dimen/unit45"
+        android:layout_width="@dimen/unit40"
         android:layout_height="@dimen/unit30"
-        android:layout_above="@id/tv_middle_sv_l"
         android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/unit65"
         android:layout_marginRight="@dimen/unit5"
         android:layout_marginBottom="@dimen/unit5"
         android:background="@drawable/st_text_bg"
@@ -1957,12 +1956,12 @@
 
     <TextView
         android:id="@+id/tv_big_sv_l"
-        android:layout_width="@dimen/unit45"
+        android:layout_width="@dimen/unit40"
         android:layout_height="@dimen/unit30"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="@dimen/unit5"
-        android:layout_marginBottom="@dimen/unit45"
+        android:layout_marginBottom="@dimen/unit10"
         android:background="@drawable/st_text_bg"
         android:gravity="center"
         android:text="@string/vv_2"
@@ -1972,7 +1971,7 @@
 
     <TextView
         android:id="@+id/tv_big_sv_h"
-        android:layout_width="@dimen/unit45"
+        android:layout_width="@dimen/unit40"
         android:layout_height="@dimen/unit30"
         android:layout_above="@id/tv_big_sv_l"
         android:layout_alignParentRight="true"
@@ -1995,7 +1994,7 @@
         android:id="@+id/rl_video_select1"
         android:layout_width="@dimen/unit70"
         android:layout_height="@dimen/unit20"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/unit110"
         android:layout_marginRight="@dimen/unit10"
         android:layout_toLeftOf="@+id/tv_middle_sv_l"
         android:background="@drawable/st_text_bg"
@@ -2027,7 +2026,7 @@
         android:layout_height="@dimen/unit20"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="@dimen/unit10"
-        android:layout_marginBottom="@dimen/unit45"
+        android:layout_marginBottom="@dimen/unit10"
         android:layout_toLeftOf="@+id/tv_big_sv_l"
         android:background="@drawable/st_text_bg"
         android:visibility="gone">
