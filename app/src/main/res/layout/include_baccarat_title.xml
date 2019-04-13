@@ -26,7 +26,7 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="7">
+        android:layout_weight="10">
 
         <TextView
             android:id="@+id/tv_game_name"
@@ -50,7 +50,6 @@
             android:textSize="@dimen/font12" />
     </RelativeLayout>
 
-
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -72,7 +71,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/unit10"
-        android:layout_weight="3.6"
+        android:layout_weight="0.6"
         android:background="@drawable/shape_bg_golden"
         android:orientation="horizontal"
         android:visibility="invisible"
@@ -128,7 +127,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/unit3"
         android:layout_marginBottom="@dimen/unit3"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:scaleType="fitXY" />
 
     <LinearLayout
@@ -136,7 +135,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/unit5"
-        android:layout_weight="3.5"
+        android:layout_weight="4"
         android:orientation="vertical"
         android:paddingTop="@dimen/unit3"
         android:paddingBottom="@dimen/unit3">
@@ -173,7 +172,7 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1.3"
+        android:layout_weight="1.5"
         android:padding="@dimen/unit5">
 
         <ImageView

@@ -8,6 +8,7 @@ import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -409,6 +410,7 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
         currentBetScore.add(0);//闲对
         currentBetScore.add(0);//庄对
     }
+
     /*
      * 进入房间
      * */
@@ -3332,27 +3334,25 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
         rl_video_select2.setVisibility(View.GONE);
         time = 0;
 
-        //补间动画 只是View的变化，属性值没有变化，点击外部但是实在视图内缺点击没反应
-//        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 1f, 1f, scaleY);
-//        scaleAnimation.setDuration(600);
-//        scaleAnimation.setFillAfter(true);//true 停留在动画结束的位置
-//        scaleAnimation.setFillBefore(false);
-//        scaleAnimation.setInterpolator(new DecelerateInterpolator());//先快后慢
-//        scaleAnimation.setRepeatMode(Animation.RESTART);
-//        scaleAnimation.setRepeatCount(0);
-//        mSv1.startAnimation(scaleAnimation);
+        if (getSDK_INT() > 23) {
+            AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
+            ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, 1f);
+            ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, scaleY);
+            mSv1.setPivotX(0);
+            mSv1.setPivotY(0);
+            animatorSetVideo.setDuration(600);
+            _scaleX.setRepeatMode(ObjectAnimator.RESTART);
+            _scaleY.setRepeatMode(ObjectAnimator.RESTART);
+            animatorSetVideo.setInterpolator(new DecelerateInterpolator());
+            animatorSetVideo.play(_scaleX).with(_scaleY);//两个动画同时开始
+            animatorSetVideo.start();
+        } else {
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSv1.getLayoutParams();
+            layoutParams.width = mContext.getResources().getDimensionPixelOffset(R.dimen.unit210);
+            layoutParams.height = mContext.getResources().getDimensionPixelOffset(R.dimen.unit180);
+            mSv1.setLayoutParams(layoutParams);
+        }
 
-        AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
-        ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, 1f);
-        ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, scaleY);
-        mSv1.setPivotX(0);
-        mSv1.setPivotY(0);
-        animatorSetVideo.setDuration(600);
-        _scaleX.setRepeatMode(ObjectAnimator.RESTART);
-        _scaleY.setRepeatMode(ObjectAnimator.RESTART);
-        animatorSetVideo.setInterpolator(new DecelerateInterpolator());
-        animatorSetVideo.play(_scaleX).with(_scaleY);//两个动画同时开始
-        animatorSetVideo.start();
 
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSv1.getLayoutParams();
         if (rl_right_blank.getWidth() > 0) {
@@ -3369,28 +3369,24 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
     private void zoomQuarterVideo() {
         int scaleY_sv = (int) ((rl_sv.getHeight() - rl_poker.getHeight()) * scaleY);
         float toY = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(scaleY_sv, rl_sv.getHeight()));
-//        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, 1f, 1f, toY);
-//        scaleAnimation.setDuration(600);
-//        scaleAnimation.setFillAfter(true);//true 停留在动画结束的位置
-//        scaleAnimation.setFillBefore(false);
-//        scaleAnimation.setInterpolator(new DecelerateInterpolator());//先快后慢
-//        scaleAnimation.setRepeatMode(Animation.RESTART);
-//        scaleAnimation.setRepeatCount(0);
-//        mSv1.startAnimation(scaleAnimation);
-
-        AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
-        ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, 1f);
-        ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, toY);
-        mSv1.setPivotX(0);
-        mSv1.setPivotY(0);
-        animatorSetVideo.setDuration(600);
-        _scaleX.setRepeatMode(ObjectAnimator.RESTART);
-        _scaleY.setRepeatMode(ObjectAnimator.RESTART);
-        animatorSetVideo.setInterpolator(new DecelerateInterpolator());
-        animatorSetVideo.play(_scaleX).with(_scaleY);//两个动画同时开始
-        animatorSetVideo.start();
-
-
+        if (getSDK_INT() > 23) {
+            AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
+            ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, 1f);
+            ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, toY);
+            mSv1.setPivotX(0);
+            mSv1.setPivotY(0);
+            animatorSetVideo.setDuration(600);
+            _scaleX.setRepeatMode(ObjectAnimator.RESTART);
+            _scaleY.setRepeatMode(ObjectAnimator.RESTART);
+            animatorSetVideo.setInterpolator(new DecelerateInterpolator());
+            animatorSetVideo.play(_scaleX).with(_scaleY);//两个动画同时开始
+            animatorSetVideo.start();
+        } else {
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSv1.getLayoutParams();
+            layoutParams.width = mContext.getResources().getDimensionPixelOffset(R.dimen.unit210);
+            layoutParams.height = mContext.getResources().getDimensionPixelOffset(R.dimen.unit180)-mContext.getResources().getDimensionPixelOffset(R.dimen.unit48);
+            mSv1.setLayoutParams(layoutParams);
+        }
         tv_big_sv_l.setVisibility(View.GONE);
         tv_big_sv_h.setVisibility(View.GONE);
         rl_video_select2.setVisibility(View.GONE);
@@ -3418,34 +3414,32 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
         }, 600);
 
         time = 2;
-
-//        float toY = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(displayMetrics.heightPixels, mSv1.getHeight()));
-//        float toX = Float.parseFloat(BaccaratUtil.getInstance().getScaleX((rl_wrap.getWidth() + rl_right_blank.getWidth()), mSv1.getWidth()));
-
-//        ScaleAnimation scaleAnimation = new ScaleAnimation(1f, toX, 1f, toY);
-//        scaleAnimation.setDuration(600);
-//        scaleAnimation.setFillAfter(true);//true 停留在动画结束的位置
-//        scaleAnimation.setFillBefore(false);
-//        scaleAnimation.setInterpolator(new DecelerateInterpolator());//先快后慢
-//        scaleAnimation.setRepeatMode(Animation.RESTART);
-//        scaleAnimation.setRepeatCount(0);
-//        mSv1.startAnimation(scaleAnimation);
-
-        float toY3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(displayMetrics.heightPixels, mSv1.getHeight()));
-        float toX3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX((rl_wrap.getWidth() + rl_right_blank.getWidth()), mSv1.getWidth()));
-        AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
-        ObjectAnimator scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, toX3);
-        ObjectAnimator scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, toY3);
-        mSv1.setPivotX(0);
-        mSv1.setPivotY(0);
-        animatorSetVideo.setDuration(600);
-        scaleX.setRepeatMode(ObjectAnimator.RESTART);
-        scaleY.setRepeatMode(ObjectAnimator.RESTART);
-        animatorSetVideo.setInterpolator(new DecelerateInterpolator());
-        animatorSetVideo.play(scaleX).with(scaleY);//两个动画同时开始
-        animatorSetVideo.start();
+        if (getSDK_INT() > 23) {
+            float toY3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(displayMetrics.heightPixels, mSv1.getHeight()));
+            float toX3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX((rl_wrap.getWidth() + rl_right_blank.getWidth()), mSv1.getWidth()));
+            AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
+            ObjectAnimator scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, toX3);
+            ObjectAnimator scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, toY3);
+            mSv1.setPivotX(0);
+            mSv1.setPivotY(0);
+            animatorSetVideo.setDuration(600);
+            scaleX.setRepeatMode(ObjectAnimator.RESTART);
+            scaleY.setRepeatMode(ObjectAnimator.RESTART);
+            animatorSetVideo.setInterpolator(new DecelerateInterpolator());
+            animatorSetVideo.play(scaleX).with(scaleY);//两个动画同时开始
+            animatorSetVideo.start();
+        } else {
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSv1.getLayoutParams();
+            layoutParams.width = RelativeLayout.LayoutParams.MATCH_PARENT;
+            layoutParams.height = RelativeLayout.LayoutParams.MATCH_PARENT;
+            mSv1.setLayoutParams(layoutParams);
+        }
     }
 
+    public int getSDK_INT() {
+        //大于安卓6.0 SurfaceVIew可以进行缩放
+        return Build.VERSION.SDK_INT;
+    }
 
     //---------------------daniu start------------------------
     private SurfaceView CreateView(SurfaceView sv1) {

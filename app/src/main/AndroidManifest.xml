@@ -217,16 +217,18 @@
             android:excludeFromRecents="false"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
-        <activity android:name=".activity.DepositActivity"
+        <activity
+            android:name=".activity.DepositActivity"
             android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
             android:excludeFromRecents="false"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".activity.WithdrawActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.WithdrawActivity"
             android:configChanges="locale|layoutDirection|keyboard|orientation|keyboardHidden"
             android:excludeFromRecents="false"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
 
         <service
             android:name=".service.MusicService"

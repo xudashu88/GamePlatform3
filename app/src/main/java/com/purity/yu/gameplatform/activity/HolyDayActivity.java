@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -3635,21 +3636,36 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
      * 下注-视频还原
      */
     private void zoomReturnVideo() {
-        AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
-        float toX3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX((rl_sv.getWidth() - mContext.getResources().getDimensionPixelOffset(R.dimen.unit2)) * scaleX, mSv1.getWidth()));
-        float toY3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(rl_sv.getHeight() - mContext.getResources().getDimensionPixelOffset(R.dimen.unit2), mSv1.getHeight()));
-        ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, toX3);
-        ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, toY3);
-        LogUtil.i("视频缩放 widthPixels=" + displayMetrics.widthPixels + " mSv1.getWidth()=" + mSv1.getWidth() + " mSv1.getHeight()=" + mSv1.getHeight() +
-                " fl_sv.getWidth()=" + rl_sv.getWidth() + " fl_sv.getHeight()=" + rl_sv.getHeight() + " toX3=" + toX3 + " toY3=" + toY3);
-        mSv1.setPivotX(mSv1.getWidth());
-        mSv1.setPivotY(0f);
-        animatorSetVideo.setDuration(600);
-        _scaleX.setRepeatMode(ObjectAnimator.RESTART);
-        _scaleY.setRepeatMode(ObjectAnimator.RESTART);
-        animatorSetVideo.setInterpolator(new DecelerateInterpolator());
-        animatorSetVideo.play(_scaleX).with(_scaleY);//两个动画同时开始
-        animatorSetVideo.start();
+        if (getSDK_INT() > 23) {
+            AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
+            float toX3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX((rl_sv.getWidth() - mContext.getResources().getDimensionPixelOffset(R.dimen.unit2)) * scaleX, mSv1.getWidth()));
+            float toY3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(rl_sv.getHeight() - mContext.getResources().getDimensionPixelOffset(R.dimen.unit2), mSv1.getHeight()));
+            ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, toX3);
+            ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, toY3);
+            mSv1.setPivotX(mSv1.getWidth());
+            mSv1.setPivotY(0f);
+            animatorSetVideo.setDuration(600);
+            _scaleX.setRepeatMode(ObjectAnimator.RESTART);
+            _scaleY.setRepeatMode(ObjectAnimator.RESTART);
+            animatorSetVideo.setInterpolator(new DecelerateInterpolator());
+            animatorSetVideo.play(_scaleX).with(_scaleY);//两个动画同时开始
+            animatorSetVideo.start();
+        }else {
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSv1.getLayoutParams();
+            if (rl_test.getWidth() > 5) {
+                layoutParams.width = (int) (rl_sv.getWidth() * scaleX - mContext.getResources().getDimensionPixelOffset(R.dimen.unit2));//0.132 0.135
+            } else {
+                layoutParams.width = rl_sv.getWidth() - mContext.getResources().getDimensionPixelOffset(R.dimen.unit2);
+            }
+            if (displayMetrics.densityDpi == 160) {
+                layoutParams.height = (int) (rl_sv.getHeight() * topScaleY) - mContext.getResources().getDimensionPixelOffset(R.dimen.unit2);
+            } else {
+                layoutParams.height = rl_sv.getHeight() - mContext.getResources().getDimensionPixelOffset(R.dimen.unit2);
+            }
+            layoutParams.addRule(RelativeLayout.LEFT_OF, v_divide.getId());
+            mSv1.setLayoutParams(layoutParams);
+        }
+
         tv_big_sv_l.setVisibility(View.GONE);
         tv_big_sv_h.setVisibility(View.GONE);
         tv_middle_sv_l.setVisibility(View.GONE);
@@ -3670,19 +3686,27 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
         rl_video_select1.setVisibility(View.VISIBLE);
         rl_video_select2.setVisibility(View.GONE);
         time = 1;
-
-        AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
-        ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, 1f);
-        ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, 1f);
-        float pivotX = mSv1.getWidth();
-        mSv1.setPivotX(pivotX);
-        mSv1.setPivotY(0);
-        animatorSetVideo.setDuration(600);
-        _scaleX.setRepeatMode(ObjectAnimator.RESTART);
-        _scaleY.setRepeatMode(ObjectAnimator.RESTART);
-        animatorSetVideo.setInterpolator(new DecelerateInterpolator());
-        animatorSetVideo.play(_scaleX).with(_scaleY);//两个动画同时开始
-        animatorSetVideo.start();
+        if(getSDK_INT()>23){
+            AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
+            ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, 1f);
+            ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, 1f);
+            float pivotX = mSv1.getWidth();
+            mSv1.setPivotX(pivotX);
+            mSv1.setPivotY(0);
+            animatorSetVideo.setDuration(600);
+            _scaleX.setRepeatMode(ObjectAnimator.RESTART);
+            _scaleY.setRepeatMode(ObjectAnimator.RESTART);
+            animatorSetVideo.setInterpolator(new DecelerateInterpolator());
+            animatorSetVideo.play(_scaleX).with(_scaleY);//两个动画同时开始
+            animatorSetVideo.start();
+        }else {
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSv1.getLayoutParams();
+            layoutParams.width = mContext.getResources().getDimensionPixelOffset(R.dimen.unit270);
+            layoutParams.height = mContext.getResources().getDimensionPixelOffset(R.dimen.unit130);
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            layoutParams.removeRule(RelativeLayout.LEFT_OF);
+            mSv1.setLayoutParams(layoutParams);
+        }
     }
 
     private void zoomFullVideo() {
@@ -3697,25 +3721,37 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
                 tv_big_sv_h.setVisibility(View.VISIBLE);
                 rl_video_select2.setVisibility(View.VISIBLE);
             }
-        }, 600);
-        float toX3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(displayMetrics.widthPixels * 1.06f, mSv1.getWidth()));
-        float toY3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(displayMetrics.heightPixels, mSv1.getHeight()));
-        AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
-        ObjectAnimator scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, toX3);
-        ObjectAnimator scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, toY3);
-        float pivotX = mSv1.getWidth();
-        mSv1.setPivotX(pivotX);
-        LogUtil.i("视频缩放 全屏 toX3=" + toX3 + " toY3=" + toY3 + " pivotX=" + pivotX);
-        mSv1.setPivotY(0);
-        animatorSetVideo.setDuration(600);
-        scaleX.setRepeatMode(ObjectAnimator.RESTART);
-        scaleY.setRepeatMode(ObjectAnimator.RESTART);
-        animatorSetVideo.setInterpolator(new DecelerateInterpolator());
-        animatorSetVideo.play(scaleX).with(scaleY);//两个动画同时开始
-        animatorSetVideo.start();
+        }, 300);
+        if(getSDK_INT()>23){
+            float toX3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(displayMetrics.widthPixels * 1.06f, mSv1.getWidth()));
+            float toY3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(displayMetrics.heightPixels, mSv1.getHeight()));
+            AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
+            ObjectAnimator scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, toX3);
+            ObjectAnimator scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, toY3);
+            float pivotX = mSv1.getWidth();
+            mSv1.setPivotX(pivotX);
+            LogUtil.i("视频缩放 全屏 toX3=" + toX3 + " toY3=" + toY3 + " pivotX=" + pivotX);
+            mSv1.setPivotY(0);
+            animatorSetVideo.setDuration(600);
+            scaleX.setRepeatMode(ObjectAnimator.RESTART);
+            scaleY.setRepeatMode(ObjectAnimator.RESTART);
+            animatorSetVideo.setInterpolator(new DecelerateInterpolator());
+            animatorSetVideo.play(scaleX).with(scaleY);//两个动画同时开始
+            animatorSetVideo.start();
+        }else {
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSv1.getLayoutParams();
+            layoutParams.width = RelativeLayout.LayoutParams.MATCH_PARENT;
+            layoutParams.height = RelativeLayout.LayoutParams.MATCH_PARENT;
+            layoutParams.removeRule(RelativeLayout.LEFT_OF);
+            mSv1.setLayoutParams(layoutParams);
+        }
+
     }
 
-
+    public int getSDK_INT() {
+        //大于安卓6.0 SurfaceVIew可以进行缩放
+        return Build.VERSION.SDK_INT;
+    }
     //---------------------daniu start------------------------
     private SurfaceView CreateView(SurfaceView sv1) {
         if (sv1 == null) {
