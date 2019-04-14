@@ -128,6 +128,7 @@ public class DtListActivity extends BaseActivity {
     private void initAdapter() {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
         adapter = new DtRVAdapter(mContext, baccaratList);
+        rv_baccarat.setItemViewCacheSize(baccaratList.size());//牛逼  https://blog.csdn.net/MeloDev/article/details/76691951 解决第一条数据消失的问题
         rv_baccarat.setLayoutManager(mLayoutManager);
         rv_baccarat.setAdapter(adapter);
         DtListSocketController.getInstance().init(mContext);

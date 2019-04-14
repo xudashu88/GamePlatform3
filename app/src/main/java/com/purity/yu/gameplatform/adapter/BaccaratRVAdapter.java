@@ -62,7 +62,7 @@ public class BaccaratRVAdapter extends RecyclerView.Adapter<BaccaratRVAdapter.Vi
     public void onBindViewHolder(final BaccaratRVAdapter.ViewHolder holder, final int position) {
         scale(holder);
         holder.tv_room.setText(mBaccaratList.get(position).roomName);
-        if(mBaccaratList.get(position).minBetList!=null&&mBaccaratList.get(position).minBetList.size()>0){
+        if (mBaccaratList.get(position).minBetList != null && mBaccaratList.get(position).minBetList.size() > 0) {
             holder.stakeLimitLabel.setText(mBaccaratList.get(position).minBetList.get(0) + "-" + mBaccaratList.get(position).maxBetList.get(0));
         }
         holder.iv_bg.setOnClickListener(new View.OnClickListener() {
@@ -131,7 +131,7 @@ public class BaccaratRVAdapter extends RecyclerView.Adapter<BaccaratRVAdapter.Vi
                 holder.tv_player.setVisibility(View.GONE);
             }
             if (hall.boardMessageList.size() > 0 && mBaccaratList.get(position).roomId.equals(hall.roomId)) {
-                LogUtil.i("boardMessageList 链接="+hall.boardMessageList.toString());
+                LogUtil.i("boardMessageList 链接=" + hall.boardMessageList.toString());
                 draw(holder, hall);
                 if (hall.state.equals(Constant.BACCARAT_BET)) {
                     holder.pcac.setCurrentPercent(hall.second);

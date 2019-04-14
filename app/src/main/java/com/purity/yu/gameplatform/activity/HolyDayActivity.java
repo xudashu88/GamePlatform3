@@ -3650,7 +3650,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
             animatorSetVideo.setInterpolator(new DecelerateInterpolator());
             animatorSetVideo.play(_scaleX).with(_scaleY);//两个动画同时开始
             animatorSetVideo.start();
-        }else {
+        } else {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSv1.getLayoutParams();
             if (rl_test.getWidth() > 5) {
                 layoutParams.width = (int) (rl_sv.getWidth() * scaleX - mContext.getResources().getDimensionPixelOffset(R.dimen.unit2));//0.132 0.135
@@ -3686,7 +3686,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
         rl_video_select1.setVisibility(View.VISIBLE);
         rl_video_select2.setVisibility(View.GONE);
         time = 1;
-        if(getSDK_INT()>23){
+        if (getSDK_INT() > 23) {
             AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
             ObjectAnimator _scaleX = ObjectAnimator.ofFloat(mSv1, "scaleX", 1f, 1f);
             ObjectAnimator _scaleY = ObjectAnimator.ofFloat(mSv1, "scaleY", 1f, 1f);
@@ -3699,7 +3699,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
             animatorSetVideo.setInterpolator(new DecelerateInterpolator());
             animatorSetVideo.play(_scaleX).with(_scaleY);//两个动画同时开始
             animatorSetVideo.start();
-        }else {
+        } else {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSv1.getLayoutParams();
             layoutParams.width = mContext.getResources().getDimensionPixelOffset(R.dimen.unit270);
             layoutParams.height = mContext.getResources().getDimensionPixelOffset(R.dimen.unit130);
@@ -3722,7 +3722,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
                 rl_video_select2.setVisibility(View.VISIBLE);
             }
         }, 300);
-        if(getSDK_INT()>23){
+        if (getSDK_INT() > 23) {
             float toX3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(displayMetrics.widthPixels * 1.06f, mSv1.getWidth()));
             float toY3 = Float.parseFloat(BaccaratUtil.getInstance().getScaleX(displayMetrics.heightPixels, mSv1.getHeight()));
             AnimatorSet animatorSetVideo = new AnimatorSet();//组合动画
@@ -3738,7 +3738,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
             animatorSetVideo.setInterpolator(new DecelerateInterpolator());
             animatorSetVideo.play(scaleX).with(scaleY);//两个动画同时开始
             animatorSetVideo.start();
-        }else {
+        } else {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSv1.getLayoutParams();
             layoutParams.width = RelativeLayout.LayoutParams.MATCH_PARENT;
             layoutParams.height = RelativeLayout.LayoutParams.MATCH_PARENT;
@@ -3752,6 +3752,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
         //大于安卓6.0 SurfaceVIew可以进行缩放
         return Build.VERSION.SDK_INT;
     }
+
     //---------------------daniu start------------------------
     private SurfaceView CreateView(SurfaceView sv1) {
         if (sv1 == null) {

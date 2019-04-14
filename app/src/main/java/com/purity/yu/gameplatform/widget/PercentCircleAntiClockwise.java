@@ -237,10 +237,13 @@ public class PercentCircleAntiClockwise extends View {
      */
     public void reInitView() {
         init();
-        mArcRectF.left = mCircleX - mRadius;
-        mArcRectF.top = mCircleY - mRadius;
-        mArcRectF.right = mCircleX + mRadius;
-        mArcRectF.bottom = mCircleY + mRadius;
+        if(mArcRectF!=null){
+            mArcRectF.left = mCircleX - mRadius;
+            mArcRectF.top = mCircleY - mRadius;
+            mArcRectF.right = mCircleX + mRadius;
+            mArcRectF.bottom = mCircleY + mRadius;
+        }
+
         mRingColor = 0xfffff000;
         mRingPaint.setColor(mRingColor);
 //        mBackgroundPaint.setColor(0xffafb4db);//发现被遮住了  太细了
