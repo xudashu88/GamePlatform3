@@ -1,12 +1,9 @@
 package com.purity.yu.gameplatform.activity;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -22,7 +19,6 @@ import com.purity.yu.gameplatform.baccarat.YHZGridView;
 import com.purity.yu.gameplatform.base.BaseActivity;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.event.ObjectEvent;
-import com.purity.yu.gameplatform.utils.Algorithm;
 import com.purity.yu.gameplatform.utils.AlgorithmHoly;
 import com.purity.yu.gameplatform.utils.BaccaratUtil;
 

@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.widget.TextView;
 
-import com.gangbeng.basemodule.utils.LogUtil;
 import com.purity.yu.gameplatform.widget.DpUtil;
 
 import java.util.List;

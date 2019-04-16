@@ -21,7 +21,6 @@ import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.entity.Baccarat;
 import com.purity.yu.gameplatform.entity.Hall;
 import com.purity.yu.gameplatform.utils.Algorithm;
-import com.purity.yu.gameplatform.utils.AlgorithmMacau;
 import com.purity.yu.gameplatform.widget.PercentCircleAntiClockwise;
 
 import java.text.DecimalFormat;

@@ -2,7 +2,6 @@ package com.purity.yu.gameplatform.utils;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -16,14 +15,11 @@ import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,11 +31,9 @@ import com.google.gson.Gson;
 import com.purity.yu.gameplatform.R;
 import com.purity.yu.gameplatform.activity.StartActivity;
 import com.purity.yu.gameplatform.activity.TabHostActivity;
-import com.purity.yu.gameplatform.adapter.BankAdapter;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.base.ServiceIpConstant;
 import com.purity.yu.gameplatform.entity.Baccarat;
-import com.purity.yu.gameplatform.entity.Bank;
 import com.purity.yu.gameplatform.entity.Game2;
 import com.purity.yu.gameplatform.entity.GamePlay;
 import com.purity.yu.gameplatform.entity.GameRoom;
@@ -242,216 +236,7 @@ public class ProtocolUtil {
     }
 
     //----------------------------------取款--------------------------------------
-    private int id = -1;
-    private List<Bank> bankList = new ArrayList<>();
-    private BankAdapter bankAdapter;
 
-    public void getBankList(final Context mContext, final RelativeLayout rl_data, final TextView tv_no_data, final RecyclerView recyclerView, final AlertDialog alertDialog,
-                            final EditText et_your_name, final EditText et_bank_number, final EditText et_bank_name, final EditText et_phone, final EditText et_bank_branch) {
-        String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
-        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.BANK_LIST + "?token=" + token)
-                .executeGetParams(new HttpRequest.HttpCallBack() {
-                    @Override
-                    public void onResultOk(String result) {
-                        JSONObject json;
-                        try {
-                            json = new JSONObject(result);
-                            LogUtil.i("银行卡列表=" + json);
-                            int code = json.optInt("code");
-                            if (code != 0) {
-                                String error = mContext.getResources().getString(R.string.username_existed);
-                                ToastUtil.show(mContext, error);
-                                return;
-                            }
-                            String _data = json.optString("data");
-                            bankList.clear();//清除,每一页都是新的
-                            bankList = parseArrayObject(_data, "items", Bank.class);
-                            initAdapter(mContext, recyclerView, alertDialog, et_your_name, et_bank_number, et_bank_name, et_phone, et_bank_branch, bankList);
-                            if (bankList.size() > 0) {
-                                tv_no_data.setVisibility(View.GONE);
-                                rl_data.setVisibility(View.VISIBLE);
-                            } else {
-                                tv_no_data.setVisibility(View.VISIBLE);
-                                rl_data.setVisibility(View.GONE);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-    }
-
-    private void initAdapter(final Context mContext, RecyclerView recyclerView, final AlertDialog alertDialog, final EditText et_your_name, final EditText et_bank_number, final EditText et_bank_name, final EditText et_phone, final EditText et_bank_branch, final List<Bank> bankList) {
-        bankAdapter = new BankAdapter(mContext, bankList);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(bankAdapter);
-        bankAdapter.setOnItemClickListener(new BankAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                id = bankList.get(position).id;
-                et_your_name.setText(bankList.get(position).bank_username);
-                et_bank_number.setText(bankList.get(position).bank_account);
-                et_bank_branch.setText(bankList.get(position).bank_branch);
-                et_bank_name.setText(bankList.get(position).bank_name);
-                et_phone.setText(bankList.get(position).mobile);
-                et_your_name.setEnabled(false);
-                et_bank_number.setEnabled(false);
-                et_bank_branch.setEnabled(false);
-                et_bank_name.setEnabled(false);
-                et_phone.setEnabled(false);
-                alertDialog.dismiss();
-            }
-        });
-    }
-
-    public void withdraw(final Context mContext, final EditText et_your_name,
-                         final EditText et_bank_number, final EditText et_bank_name, final EditText et_bank_branch, final EditText et_pay_pwd, final EditText et_phone, final EditText et_withdraw,
-                         final TextView btn_withdraw) {
-        //先新建银行卡再充值
-        final String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
-        HashMap<String, String> map = new HashMap<>();
-        map.put("bank_username", et_your_name.getText().toString());
-        map.put("bank_account", et_bank_number.getText().toString());
-        map.put("bank_name", et_bank_name.getText().toString());
-        map.put("branch_name", et_bank_branch.getText().toString());
-        map.put("password_pay", et_pay_pwd.getText().toString());
-        map.put("mobile", et_phone.getText().toString());
-        LogUtil.i("提现 添加银行卡=" + map.toString());
-        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.ADD_CARD + "?token=" + token)
-                .addParam("bank_username", et_your_name.getText().toString())
-                .addParam("bank_account", et_bank_number.getText().toString())
-                .addParam("bank_name", et_bank_name.getText().toString())
-                .addParam("branch_name", "")
-                .addParam("password_pay", et_pay_pwd.getText().toString())
-                .addParam("mobile", et_phone.getText().toString())
-                .executeFormPost(new HttpRequest.HttpCallBack() {
-                    @Override
-                    public void onResultOk(String result) {
-                        JSONObject json;
-                        JSONObject __data;
-                        try {
-                            json = new JSONObject(result);
-                            LogUtil.i("提现 添加银行卡=" + json + " id=" + id);
-                            int code = json.optInt("code");
-                            if (code == 0) {
-                                String _data = json.optString("data");
-                                __data = new JSONObject(_data);
-
-                                int user_bank_id = __data.optInt("id");
-                                if (id != -1) {
-                                    addCard(id, et_your_name,
-                                            et_bank_number, et_bank_name, et_bank_branch, et_pay_pwd, et_phone, et_withdraw,
-                                            btn_withdraw);
-                                } else
-                                    addCard(user_bank_id, et_your_name,
-                                            et_bank_number, et_bank_name, et_bank_branch, et_pay_pwd, et_phone, et_withdraw,
-                                            btn_withdraw);
-                            } else {
-                                ToastUtil.showToast(mContext, "提现失败" + result);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-    }
-
-    private void addCard(int id, final EditText et_your_name,
-                         final EditText et_bank_number, final EditText et_bank_name, final EditText et_bank_branch, final EditText et_pay_pwd, final EditText et_phone, final EditText et_withdraw,
-                         final TextView btn_withdraw) {
-        final String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
-        HashMap<String, String> map = new HashMap<>();
-        map.put("apply_amount", et_withdraw.getText().toString());
-        map.put("user_bank_id", String.valueOf(id));
-        LogUtil.i("提现 开始提现=" + map.toString());
-        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.WITHDRAW + "?token=" + token)
-                .addParam("apply_amount", et_withdraw.getText().toString())
-                .addParam("user_bank_id", String.valueOf(id))
-                .executeFormPost(new HttpRequest.HttpCallBack() {
-                    @Override
-                    public void onResultOk(String result) {
-                        JSONObject json;
-                        JSONObject __data;
-                        try {
-                            json = new JSONObject(result);
-                            LogUtil.i("提现 开始提现 json=" + json);
-                            int code = json.optInt("code");
-                            String data = json.optString("data");
-                            __data = new JSONObject(data);
-                            int id = __data.optInt("id");
-                            if (code == 0) {
-                                ToastUtil.showToast(mContext, "提现" + et_withdraw.getText().toString() + "，请等待管理员审核通过");
-                                SharedPreUtil.getInstance(mContext).saveParam("withdraw_state", 1);
-                                SharedPreUtil.getInstance(mContext).saveParam("withdraw_state_id", id);
-                                depositState(btn_withdraw, 1, "取款");
-                                et_your_name.setText("");
-                                et_bank_number.setText("");
-                                et_withdraw.setText("");
-                                et_bank_name.setText("");
-                                et_phone.setText("");
-                            } else {
-                                ToastUtil.showToast(mContext, "提现失败" + data);
-                            }
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onResultFault(int code, String hint) {
-                        super.onResultFault(code, hint);
-                        LogUtil.i("提现 失败 code=" + code + " hint=" + hint);
-                    }
-                });
-    }
-
-    public void getWithdrawFind(final int id, final TextView btn_withdraw) {
-        String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
-        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.WITHDRAW_FIND + "?token=" + token + "&id=" + id)
-                .executeGetParams(new HttpRequest.HttpCallBack() {
-                    @Override
-                    public void onResultOk(String result) {
-                        JSONObject json;
-                        try {
-                            json = new JSONObject(result);
-                            LogUtil.i("取款 审核id=" + id + " " + json);
-                            int code = json.optInt("code");
-                            if (code != 0) {
-                                return;
-                            }
-                            int state = json.optInt("data");
-                            depositState(btn_withdraw, state, "取款");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-    }
-
-    public void getFree(Context mContext, final TextView tv_free) {
-        String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
-        HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.USER_ACCOUNT + "?token=" + token)
-                .executeGetParams(new HttpRequest.HttpCallBack() {
-                    @Override
-                    public void onResultOk(String result) {
-                        JSONObject json;
-                        JSONObject __data;
-                        try {
-                            json = new JSONObject(result);
-                            LogUtil.i("额度获取=" + json);
-                            String _data = json.optString("data");
-                            __data = new JSONObject(_data);
-                            double free_amount = __data.optDouble("free_amount");
-                            double fee_rate = __data.optDouble("fee_rate");
-                            tv_free.setText("您当前可用额度为" + String.valueOf(free_amount) + ",超出额度按" + fee_rate + "收取。");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-    }
 
     //----------------------------------大厅--------------------------------------
     private void postEventMarqueeText(String message, String money) {
@@ -474,9 +259,6 @@ public class ProtocolUtil {
 
     private void initMarquee2(String message, MarqueeTextView marquee) {
 //        DrawableCompat.setTint(DrawableCompat.wrap(yellowSpeaker.getDrawable().mutate()), getResources().getColor(R.color.yellow));
-//        if (!TextUtils.isEmpty(SharedPreUtil.getInstance(mContext).getString(Constant.ADDS))) {
-//            marqueeList = Arrays.asList(SharedPreUtil.getInstance(mContext).getString(Constant.ADDS), "");
-//        }
         marquee.setText(message);
         if (message.length() > 70) {
             marquee.setRndDuration(15500);
@@ -495,7 +277,6 @@ public class ProtocolUtil {
         } else {
             marquee.setRndDuration(2600);
         }
-        LogUtil.i("系统通告2 滚动时间=" + marquee.getRndDuration() + " 滚动字符长度=" + message.length());
         marquee.startScroll();
     }
 

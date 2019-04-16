@@ -5,8 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.util.AttributeSet;
-import android.view.View;
 
 import com.gangbeng.basemodule.utils.LogUtil;
 

@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.gangbeng.basemodule.utils.SharedPreUtil;
 import com.purity.yu.gameplatform.R;
 import com.purity.yu.gameplatform.activity.DtActivity;
-import com.purity.yu.gameplatform.activity.DtLiveActivity;
 import com.purity.yu.gameplatform.baccarat.TextCircleView;
 import com.purity.yu.gameplatform.baccarat.YHZGridView;
 import com.purity.yu.gameplatform.base.Constant;

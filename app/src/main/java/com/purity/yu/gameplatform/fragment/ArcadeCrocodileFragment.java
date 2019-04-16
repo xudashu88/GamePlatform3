@@ -2,13 +2,9 @@ package com.purity.yu.gameplatform.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.support.design.internal.FlowLayout;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.gangbeng.basemodule.utils.LogUtil;
 import com.gangbeng.basemodule.utils.SharedPreUtil;
@@ -27,7 +23,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 

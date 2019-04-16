@@ -2,11 +2,8 @@ package com.purity.yu.gameplatform.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.gangbeng.basemodule.utils.SharedPreUtil;
 import com.gangbeng.basemodule.utils.Util;
@@ -16,7 +13,6 @@ import com.purity.yu.gameplatform.base.BaseFragment;
 import com.purity.yu.gameplatform.base.Constant;
 import com.xmplayer.RobotFishActivity;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
