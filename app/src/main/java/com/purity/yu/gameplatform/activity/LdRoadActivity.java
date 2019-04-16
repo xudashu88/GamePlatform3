@@ -162,7 +162,11 @@ public class LdRoadActivity extends BaseActivity {
         SharedPreUtil.getInstance(mContext).saveParam(Constant.ASK_SMALL, -1);
         SharedPreUtil.getInstance(mContext).saveParam(Constant.ASK_COCKROACH, -1);
         initMessages();
-        LogUtil.i("-"+maxScoreList.size()+"--- 1--"+maxScoreList.toString());
+        if (maxScoreList.size() == 0) {
+            for (Integer integer : boardMessageList) {
+                maxScoreList.add(0);
+            }
+        }
         AlgorithmHoly.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
                 gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0, 0, false);//11列 加一局
         EventBus.getDefault().register(this);
