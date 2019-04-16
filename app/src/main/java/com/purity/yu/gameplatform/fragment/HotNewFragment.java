@@ -186,6 +186,7 @@ public class HotNewFragment extends BaseFragment {
                     String _macao = getActivity().getResources().getString(R.string.macao);
                     String _single = getActivity().getResources().getString(R.string.single_pick_game);
                     String verify = mData.get(position).platformCode + mData.get(position).gameNameEn;
+                    LogUtil.i("房间="+verify);
                     if (verify.equals("JXB" + "baccarat")) {
 //                        getActivity().finish();//防止安卓4.4不执行自定义控件实现内部接口，必须要关闭上一个页面，由房间进入大厅启发而来
                         getActivity().startActivity(new Intent(getActivity(), BaccaratListActivity.class).putExtra("roomName", mData.get(position).gameName));

@@ -507,6 +507,7 @@ public class ProtocolUtil {
 
     public void postLoginOut(final Context mContext, final Timer timer) {
         String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
+        LogUtil.i("退出 postLoginOut=" + token);
         if (TextUtils.isEmpty(token)) {
 //            System.exit(0);
             cleanSharedPre(mContext);
@@ -526,9 +527,9 @@ public class ProtocolUtil {
                     @Override
                     public void onResultOk(String result) {
                         try {
-                            JSONObject json = null;
-                            JSONObject __data = null;
+                            JSONObject json;
                             json = new JSONObject(result);
+                            LogUtil.i("退出=" + json);
                             int code = json.optInt("code");
                             String data = json.optString("data");
                             if (code != 0) {
@@ -554,6 +555,42 @@ public class ProtocolUtil {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                    }
+
+                    @Override
+                    public void onResultFault(int code, String hint) {
+                        super.onResultFault(code, hint);
+                        LogUtil.i("退出 onResultFault=" + hint);
+                        cleanSharedPre(mContext);
+                        ((TabHostActivity) mContext).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String ok = mContext.getResources().getString(R.string.exit_successfully);
+                                ToastUtil.show(mContext, ok);
+                                Intent intent = new Intent(mContext, LoginActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                mContext.startActivity(intent);
+                                ((TabHostActivity) mContext).finish();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Request request, Exception e) {
+                        super.onFailure(request, e);
+                        LogUtil.i("退出 onFailure=" + e.getMessage());
+                        cleanSharedPre(mContext);
+                        ((TabHostActivity) mContext).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                String ok = mContext.getResources().getString(R.string.exit_successfully);
+                                ToastUtil.show(mContext, ok);
+                                Intent intent = new Intent(mContext, LoginActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                mContext.startActivity(intent);
+                                ((TabHostActivity) mContext).finish();
+                            }
+                        });
                     }
                 });
     }
