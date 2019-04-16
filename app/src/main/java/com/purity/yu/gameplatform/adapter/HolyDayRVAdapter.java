@@ -14,7 +14,9 @@ import android.widget.TextView;
 
 import com.gangbeng.basemodule.utils.SharedPreUtil;
 import com.purity.yu.gameplatform.R;
+import com.purity.yu.gameplatform.activity.BaccaratLiveActivity;
 import com.purity.yu.gameplatform.activity.HolyDayActivity;
+import com.purity.yu.gameplatform.activity.MacauActivity;
 import com.purity.yu.gameplatform.baccarat.YHZGridView;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.entity.Baccarat;
@@ -67,7 +69,7 @@ public class HolyDayRVAdapter extends RecyclerView.Adapter<HolyDayRVAdapter.View
             public void onClick(View v) {
                 Baccarat baccarat = mBaccaratList.get(position);
                 Intent intent = new Intent(mContext, HolyDayActivity.class);
-//                Intent intent = new Intent(mContext, MacauActivity.class);
+//                Intent intent = new Intent(mContext, BaccaratLiveActivity.class);
                 intent.putExtra("baccarat", baccarat);
                 intent.putExtra("roomId", mBaccaratList.get(position).roomId);
                 intent.putExtra("roomName", mBaccaratList.get(position).roomName);
@@ -194,13 +196,22 @@ public class HolyDayRVAdapter extends RecyclerView.Adapter<HolyDayRVAdapter.View
         holder.tv_bank_count.setText(String.valueOf(banker));
         holder.tv_player_count.setText(String.valueOf(player));
         holder.tv_tie_count.setText(String.valueOf(tie));
+//        Algorithm.getInstance().initBigRoad(boardMessageList, new ArrayList<Integer>(), new ArrayList<Integer>(),
+//                bigRoadListAll, bigRoadList, bigRoadListShort,
+//                bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
+//                smallRoadListAll, smallRoadList, smallRoadListShort,
+//                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, mContext, 2);//1房间 2大厅
         Algorithm.getInstance().initBigRoad(boardMessageList, new ArrayList<Integer>(), new ArrayList<Integer>(),
                 bigRoadListAll, bigRoadList, bigRoadListShort,
                 bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
                 smallRoadListAll, smallRoadList, smallRoadListShort,
-                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, mContext, 2);//1房间 2大厅
+                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort,
+                new ArrayList<Integer>(), new ArrayList<Integer>(), mContext, 2, false,
+                null, null, null, null, null, null,
+                Color.RED, Color.BLUE, Color.GREEN);
         Algorithm.getInstance().drawRoad(boardMessageList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
-                holder.gv_left, holder.gv_right_top, holder.gv_right_middle, holder.gv_right_bottom_1, holder.gv_right_bottom_2, mContext, 0, Color.RED, Color.BLUE, Color.GREEN);
+                holder.gv_left, holder.gv_right_top, holder.gv_right_middle, holder.gv_right_bottom_1, holder.gv_right_bottom_2, mContext, 0, Color.RED, Color.BLUE, Color.GREEN,
+                0,false,2);
     }
 
     private void update(ViewHolder holder, int position) {

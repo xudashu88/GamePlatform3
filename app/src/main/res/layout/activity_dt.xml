@@ -310,10 +310,11 @@
 
 
             <RelativeLayout
+                android:id="@+id/rl_ask_bank"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.5"
-                android:background="@color/white"
+                android:background="@drawable/select_ask"
                 android:gravity="center">
 
                 <TextView
@@ -354,10 +355,11 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_ask_play"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.5"
-                android:background="@color/white"
+                android:background="@drawable/select_ask"
                 android:gravity="center">
 
                 <TextView

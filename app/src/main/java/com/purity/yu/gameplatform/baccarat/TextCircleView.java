@@ -71,7 +71,6 @@ public class TextCircleView extends View {
         paint.setTextSize(textWidth);
         paint.setStyle(Paint.Style.FILL);
         paint.setFakeBoldText(false);//非粗体
-//        paint.setStrokeWidth(0.6f);
         paint.setColor(mCircleTextColor);
         float centerX = (radius - textWidth) / 2;//最小宽高
         float centerY = (radius) / 2;//最小宽高
@@ -83,18 +82,6 @@ public class TextCircleView extends View {
                 centerX,
                 baseLineY,
                 paint);
-//        paint.setColor(Color.GREEN);
-//        paint.setStrokeWidth(1.0f);
-//        canvas.drawLine(getWidth() / 2.0f,
-//                0.0f,
-//                getWidth() / 2.0f,
-//                getHeight(),
-//                paint);
-//        canvas.drawLine(0.0f,
-//                getHeight() / 2.0f,
-//                getWidth(),
-//                getHeight() / 2.0f,
-//                paint);
     }
 
     public void setCirCleColor(int mCirCleColor) {

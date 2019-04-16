@@ -47,7 +47,8 @@ public class BankAdapter extends RecyclerView.Adapter<BankAdapter.ViewHolder> im
         holder.tv_name.setText(dataList.get(position).bank_username);
         holder.tv_bank_account.setText(dataList.get(position).bank_account);
         holder.tv_bank_name.setText(dataList.get(position).bank_name);
-        holder.tv_branch_name.setText(dataList.get(position).mobile);
+        holder.tv_branch_name.setText(dataList.get(position).bank_branch);
+        holder.tv_mobile.setText(dataList.get(position).mobile);
         //将position保存在itemView的Tag中，以便点击时进行获取
         holder.itemView.setTag(position);
         holder.tv_delete.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +119,7 @@ public class BankAdapter extends RecyclerView.Adapter<BankAdapter.ViewHolder> im
         TextView tv_bank_account;
         TextView tv_bank_name;
         TextView tv_branch_name;
+        TextView tv_mobile;
         TextView tv_delete;
 
         public ViewHolder(View itemView) {
@@ -125,6 +127,7 @@ public class BankAdapter extends RecyclerView.Adapter<BankAdapter.ViewHolder> im
             tv_name = (TextView) itemView.findViewById(R.id.tv_name);
             ll_title = (LinearLayout) itemView.findViewById(R.id.ll_title);
             tv_bank_account = (TextView) itemView.findViewById(R.id.tv_bank_account);
+            tv_mobile = (TextView) itemView.findViewById(R.id.tv_mobile);
             tv_bank_name = (TextView) itemView.findViewById(R.id.tv_bank_name);
             tv_branch_name = (TextView) itemView.findViewById(R.id.tv_branch_name);
             tv_delete = (TextView) itemView.findViewById(R.id.tv_delete);

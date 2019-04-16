@@ -173,19 +173,19 @@ public class DtLiveActivity extends BaseActivity {
     @BindView(R.id.rl_banker_to_player)
     public RelativeLayout rl_banker_to_player;
     @BindView(R.id.iv_banker_to_player_1)
-    public ImageView iv_banker_to_player_1;
+    public ImageView iv_ask_bank_1;
     @BindView(R.id.iv_banker_to_player_2)
-    public ImageView iv_banker_to_player_2;
+    public ImageView iv_ask_bank_2;
     @BindView(R.id.iv_banker_to_player_3)
-    public ImageView iv_banker_to_player_3;
+    public ImageView iv_ask_bank_3;
     @BindView(R.id.rl_player_to_banker)
     public RelativeLayout rl_player_to_banker;
     @BindView(R.id.iv_player_to_banker_1)
-    public ImageView iv_player_to_banker_1;
+    public ImageView iv_ask_play_1;
     @BindView(R.id.iv_player_to_banker_2)
-    public ImageView iv_player_to_banker_2;
+    public ImageView iv_ask_play_2;
     @BindView(R.id.iv_player_to_banker_3)
-    public ImageView iv_player_to_banker_3;
+    public ImageView iv_ask_play_3;
 
     @BindView(R.id.tv_full_road)
     public TextView tv_full_road;
@@ -342,6 +342,9 @@ public class DtLiveActivity extends BaseActivity {
     private int betsRemind = -1;
     private int betSecond;
     private boolean isFirstPlay = true, isFirstBank = true, isFirstTie = true;
+    private String dragonColorStr;
+    private String tigerColorStr;
+    private String tieColorStr;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -371,7 +374,7 @@ public class DtLiveActivity extends BaseActivity {
         baccarat = (Baccarat) getIntent().getSerializableExtra("baccarat");
         DtLiveAnimController.getInstance().init(this);
         DtLiveAnimController.getInstance().copyWidget(tv_table_limits, rl_in_time_layout, iv_ex, rl_video_select, iv_video_select, sv, root_video, ll_back, iv_bac_set,
-                baccarat,rl_video_select1,iv_video_select1);
+                baccarat, rl_video_select1, iv_video_select1);
 
         gestureDetector = new GestureDetector(mContext, new MyGestureListener(this));
         initLiveInTime();
@@ -421,12 +424,24 @@ public class DtLiveActivity extends BaseActivity {
 //            initMessages();
             Algorithm.getInstance().drawRoad(beadRoadListShort, bigRoadListShort, bigEyeRoadListShort, smallRoadListShort, cockroachRoadListShort,
                     gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 1,
-                    bankColor, playColor, tieColor);//4列 手动进房间
+                    bankColor, playColor, tieColor, 0, false, 2);//4列 手动进房间
         }
         initEvent();
     }
 
     private void initEvent() {
+        rl_banker_to_player.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ask(0, false, true, 4, true);
+            }
+        });
+        rl_player_to_banker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ask(1, false, true, 4, true);
+            }
+        });
         rl_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -435,9 +450,9 @@ public class DtLiveActivity extends BaseActivity {
                 isFirstPlay = true;
                 isFirstBank = true;
                 isFirstTie = true;
-                bankerScore=0;
-                playerScore=0;
-                tieScore=0;
+                bankerScore = 0;
+                playerScore = 0;
+                tieScore = 0;
                 isChipClick(false, false, R.drawable.button_bet_disable_bg, R.drawable.button_bet_disable_bg, R.string.confirm);
                 if (isSame) {
                     cleanChip();
@@ -627,7 +642,7 @@ public class DtLiveActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 int selectChipNumber = initChipLayout();
-                if (isFirstPlay && minBetList.size() > 0 && selectChipNumber < minBetList.get(0)&&perPlayer==0) {//0 庄闲 1 和 2 对子 3大小
+                if (isFirstPlay && minBetList.size() > 0 && selectChipNumber < minBetList.get(0) && perPlayer == 0) {//0 庄闲 1 和 2 对子 3大小
                     selectChipNumber = minBetList.get(0);
                     isFirstPlay = false;
                 }
@@ -739,7 +754,7 @@ public class DtLiveActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 int selectChipNumber = initChipLayout();
-                if (isFirstTie && minBetList.size() > 0 && selectChipNumber < minBetList.get(1)&&perTie==0) {//0 庄闲 1 和 2 对子 3大小
+                if (isFirstTie && minBetList.size() > 0 && selectChipNumber < minBetList.get(1) && perTie == 0) {//0 庄闲 1 和 2 对子 3大小
                     selectChipNumber = minBetList.get(1);
                     isFirstTie = false;
                 }
@@ -848,7 +863,7 @@ public class DtLiveActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 int selectChipNumber = initChipLayout();
-                if (isFirstBank && minBetList.size() > 0 && selectChipNumber < minBetList.get(0)&&perBanker==0) {//0 庄闲 1 和 2 对子 3大小
+                if (isFirstBank && minBetList.size() > 0 && selectChipNumber < minBetList.get(0) && perBanker == 0) {//0 庄闲 1 和 2 对子 3大小
                     selectChipNumber = minBetList.get(0);
                     isFirstBank = false;
                 }
@@ -1096,19 +1111,30 @@ public class DtLiveActivity extends BaseActivity {
     /**
      * 庄问路
      *
-     * @param i 0庄 1闲 相反
      */
-    private void ask(int i, int drawable) {
+    private void ask(int value, boolean isShowAsk, boolean isDraw, int count, boolean isShow) {
         boardMessageList1.clear();
         boardMessageList1.addAll(boardMessageList);
-        boardMessageList1.add(i);
+        boardMessageList1.add(value);
         Algorithm.getInstance().initBigRoad(boardMessageList1, beadRoadList, beadRoadListShort,
                 bigRoadListAll, bigRoadList, bigRoadListShort,
                 bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
                 smallRoadListAll, smallRoadList, smallRoadListShort,
-                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, mContext, 1);
-        Algorithm.getInstance().drawRoad(beadRoadListShort, bigRoadListShort, bigEyeRoadListShort, smallRoadListShort, cockroachRoadListShort,
-                gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, drawable, bankColor, playColor, tieColor);
+                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort,
+                new ArrayList<Integer>(), new ArrayList<Integer>(), mContext, 1, isShowAsk,
+                iv_ask_bank_1, iv_ask_bank_2, iv_ask_bank_3, iv_ask_play_1, iv_ask_play_2, iv_ask_play_3,
+                bankColor, playColor, tieColor);//1房间 2大厅
+        if (isDraw) {
+            if (isExpand == 0) {
+                Algorithm.getInstance().drawRoad(beadRoadListShort, bigRoadListShort, bigEyeRoadListShort, smallRoadListShort, cockroachRoadListShort,
+                        gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 1,
+                        bankColor, playColor, tieColor, count, isShow, 2);//4列 加一局
+            } else if (isExpand == 2) {
+                Algorithm.getInstance().drawRoad(beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
+                        gv_left, gv_right_top, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 1,
+                        bankColor, playColor, tieColor, count, isShow, 2);//11列 加一局
+            }
+        }
     }
 
     private int initChipLayout() {
@@ -1194,7 +1220,7 @@ public class DtLiveActivity extends BaseActivity {
         tv_full_road.setText(mContext.getResources().getString(R.string.half_road));
         Algorithm.getInstance().drawRoad(beadRoadListShort, bigRoadListShort, bigEyeRoadListShort, smallRoadListShort, cockroachRoadListShort,
                 gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 1,
-                bankColor, playColor, tieColor);//4列 trans1to0
+                bankColor, playColor, tieColor, 0, false, 2);//4列 trans1to0
     }
 
     private void trans0to1() {
@@ -1239,7 +1265,7 @@ public class DtLiveActivity extends BaseActivity {
         v_4.setVisibility(View.VISIBLE);
         v_5.setVisibility(View.VISIBLE);
         Algorithm.getInstance().drawRoad(beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
-                gv_left, gv_right_top, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 1, bankColor, playColor, tieColor);//11列 trans0to2
+                gv_left, gv_right_top, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 1, bankColor, playColor, tieColor, 0, false, 2);//11列 trans0to2
 //        drawAsk(1);
     }
 
@@ -1281,7 +1307,7 @@ public class DtLiveActivity extends BaseActivity {
 
         Algorithm.getInstance().drawRoad(beadRoadListShort, bigRoadListShort, bigEyeRoadListShort, smallRoadListShort, cockroachRoadListShort,
                 gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 1,
-                bankColor, playColor, tieColor);//4列 trans2to0
+                bankColor, playColor, tieColor, 0, false, 2);//4列 trans2to0
 //        drawAsk(1);
     }
 
@@ -1383,11 +1409,19 @@ public class DtLiveActivity extends BaseActivity {
         tv_in_game_player_value.setText(String.valueOf(player));
         tv_in_game_tie_value.setText(String.valueOf(tie));
 
+//        Algorithm.getInstance().initBigRoad(boardMessageList, beadRoadList, beadRoadListShort,
+//                bigRoadListAll, bigRoadList, bigRoadListShort,
+//                bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
+//                smallRoadListAll, smallRoadList, smallRoadListShort,
+//                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, mContext, 1);//1房间 2大厅
         Algorithm.getInstance().initBigRoad(boardMessageList, beadRoadList, beadRoadListShort,
                 bigRoadListAll, bigRoadList, bigRoadListShort,
                 bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
                 smallRoadListAll, smallRoadList, smallRoadListShort,
-                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, mContext, 1);//1房间 2大厅
+                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort,
+                new ArrayList<Integer>(), new ArrayList<Integer>(), mContext, 1, false,
+                iv_ask_bank_1, iv_ask_bank_2, iv_ask_bank_3, iv_ask_play_1, iv_ask_play_2, iv_ask_play_3,
+                bankColor, playColor, tieColor);//1房间 2大厅
     }
 
     /**
@@ -1427,6 +1461,7 @@ public class DtLiveActivity extends BaseActivity {
         rl_banker.setClickable(clickable);
         rl_sure.setClickable(clickable);
     }
+
     /*
      * 同步数据
      * */
@@ -1439,9 +1474,10 @@ public class DtLiveActivity extends BaseActivity {
             initMessages();
             Algorithm.getInstance().drawRoad(beadRoadListShort, bigRoadListShort, bigEyeRoadListShort, smallRoadListShort, cockroachRoadListShort,
                     gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 1,
-                    bankColor, playColor, tieColor);//4列 网络进入房间
+                    bankColor, playColor, tieColor, 0, false, 2);//4列 网络进入房间
         }
     }
+
     /*
      * 进入房间
      * */
@@ -1483,7 +1519,8 @@ public class DtLiveActivity extends BaseActivity {
             initMessages();
             Algorithm.getInstance().drawRoad(beadRoadListShort, bigRoadListShort, bigEyeRoadListShort, smallRoadListShort, cockroachRoadListShort,
                     gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 1,
-                    bankColor, playColor, tieColor);//4列 网络进入房间
+                    bankColor, playColor, tieColor, 0, false, 2);//4列 网络进入房间
+            ask(0, true, false, 0, false);
         }
         String _1 = "0";
         String _2 = "0";
@@ -1615,7 +1652,7 @@ public class DtLiveActivity extends BaseActivity {
 //            iv_jet_banker_03.setBackgroundResource(0);
             _calPlayer.clear();
             _calBanker.clear();
-            if(betsRemind==1){
+            if (betsRemind == 1) {
                 outGame();
             }
             SharedPreUtil.getInstance(mContext).saveParam(Constant.CHIP_PLAY, 0);
@@ -1652,11 +1689,11 @@ public class DtLiveActivity extends BaseActivity {
             if (isExpand == 0) {
                 Algorithm.getInstance().drawRoad(beadRoadListShort, bigRoadListShort, bigEyeRoadListShort, smallRoadListShort, cockroachRoadListShort,
                         gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 1,
-                        bankColor, playColor, tieColor);//4列 加一局
+                        bankColor, playColor, tieColor, 0, false, 2);//4列 加一局
             } else if (isExpand == 2) {
                 Algorithm.getInstance().drawRoad(beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
                         gv_left, gv_right_top, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 1,
-                        bankColor, playColor, tieColor);//11列 加一局
+                        bankColor, playColor, tieColor, 0, false, 2);//11列 加一局
             }
         } else if (event.state.equals(Constant.BACCARAT_FAULT)) {
             ToastUtil.show(mContext, "机械臂异常");
@@ -1731,12 +1768,13 @@ public class DtLiveActivity extends BaseActivity {
             if (isExpand == 0) {
                 Algorithm.getInstance().drawRoad(beadRoadListShort, bigRoadListShort, bigEyeRoadListShort, smallRoadListShort, cockroachRoadListShort,
                         gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 1,
-                        bankColor, playColor, tieColor);//4列 加一局
+                        bankColor, playColor, tieColor, 0, false, 2);//4列 加一局
             } else if (isExpand == 2) {
                 Algorithm.getInstance().drawRoad(beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
                         gv_left, gv_right_top, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 1,
-                        bankColor, playColor, tieColor);//11列 加一局
+                        bankColor, playColor, tieColor, 0, false, 2);//11列 加一局
             }
+            ask(0, true, false, 0, false);
             //1.庄几点 闲几点 一遍 先报庄几点再报闲几点
             //2.庄赢/闲赢 2遍 和局 1遍
             BaccaratUtil.sayDtDot(0, bankScore);
@@ -1831,7 +1869,7 @@ public class DtLiveActivity extends BaseActivity {
             perPlayer = hisScore[1];
             perBanker = hisScore[0];
             perTie = hisScore[2];
-        }else {
+        } else {
             perPlayer = perPlayer - playerScore + event.playScore;
             perBanker = perBanker - bankerScore + event.bankScore;
             perTie = perTie - tieScore + event.tieScore;
@@ -1851,7 +1889,7 @@ public class DtLiveActivity extends BaseActivity {
         SoundPoolUtil.getInstance().play("51");//下注成功
         isChipClick(false, false, R.drawable.button_bet_disable_bg, R.drawable.button_bet_disable_bg, R.string.confirm);
         isChipSuccess = 1;//当前局下注成功 就不能中途退出房间
-        noBetCount=0;
+        noBetCount = 0;
         SharedPreUtil.getInstance(mContext).saveParam(Constant.IS_CHIP_SUCCESS, isChipSuccess);
     }
 
@@ -1873,10 +1911,9 @@ public class DtLiveActivity extends BaseActivity {
     }
 
     private void initColor(ObjectEvent.BoardMessageEvent event) {
-        bankColor = Color.parseColor(event.color[1]);
-        playColor = Color.parseColor(event.color[0]);
+        bankColor = Color.parseColor(event.color[0]);
+        playColor = Color.parseColor(event.color[1]);
         tieColor = Color.parseColor(event.color[2]);
-        LogUtil.i("bankColor="+event.color[0]);
         GradientDrawable drawableBank = (GradientDrawable) iv_result_banker.getBackground();
         drawableBank.setStroke(mContext.getResources().getDimensionPixelOffset(R.dimen.unit1), bankColor);
         GradientDrawable drawableBank2 = (GradientDrawable) iv_result_banker2.getBackground();

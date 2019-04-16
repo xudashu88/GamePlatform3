@@ -5,16 +5,19 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+import com.gangbeng.basemodule.utils.LogUtil;
 import com.purity.yu.gameplatform.widget.DpUtil;
+
+import java.util.List;
 
 /**
  * 小路
  * Created by yanghaozhang on 2018/7/4.
  */
 public class FourCircleNode implements NodeImp {
-    private int mX = 0;
+    private int mX ;
 
-    private int mY = 0;
+    private int mY ;
 
     private int mColor = Color.RED;
 
@@ -57,5 +60,22 @@ public class FourCircleNode implements NodeImp {
     @Override
     public int getColor() {
         return mColor;
+    }
+
+    @Override
+    public boolean isSpecialNode(List<NodeImp> nodeList) {
+        for (NodeImp nodeImp : nodeList) {
+            if (nodeImp.getX() > mX) {
+                return false;
+            } else if (nodeImp.getX() == mX && nodeImp.getY() > mY) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void drawSpecial(Canvas canvas, Paint paint, float left, float top, float right, float bottom) {
+
     }
 }

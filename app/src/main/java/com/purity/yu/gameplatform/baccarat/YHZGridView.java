@@ -1,5 +1,7 @@
 package com.purity.yu.gameplatform.baccarat;
 
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -9,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 
 import com.purity.yu.gameplatform.R;
 
@@ -16,10 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 网格线 单挑
+ * 网格线
  * Created by yanghaozhang on 2018/7/3.
  */
-public class YHZGridView extends View {
+public class YHZGridView extends View implements ValueAnimator.AnimatorUpdateListener, Animator.AnimatorListener {
+    private static final String TAG = "YHZGridView";
     private Paint mPaint;
 
     private float mWidth;
@@ -39,12 +43,15 @@ public class YHZGridView extends View {
     private int mDefaultLineColor = 0xff2e7cea;
 
     private List<NodeImp> mNodeList;
+    private List<NodeImp> mNodeTwinklingList;//保存闪烁的数据
 
     private boolean mNoRight = false;
 
     private boolean mNoBottom = false;
     private Context mContext;
     private DisplayMetrics displayMetrics;
+
+    private int twinklingTime = 1;
 
     public YHZGridView(Context context) {
         super(context);
@@ -77,6 +84,7 @@ public class YHZGridView extends View {
 
     private void init(Context context) {
         mNodeList = new ArrayList<>();
+        mNodeTwinklingList = new ArrayList<>();
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mContext = context;
         displayMetrics = mContext.getResources().getDisplayMetrics();
@@ -94,17 +102,10 @@ public class YHZGridView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        float _w = (float) w;//损失精度 强转一下
-        float _h = (float) h;
+        float _h = (float) h;//损失精度 强转一下
         //神来之笔 去掉右边和下边的线
-        float minWidth = (_w - (mNoRight ? 0 : mLineH)) / mColumnCount;
         float minHeight = (_h - (mNoBottom ? 0 : mLineH)) / mRowCount;
-//        float minWidth = _w / mColumnCount;
-//        float minHeight = _h / mRowCount;
-        if (displayMetrics.densityDpi == 320) {
-            mNodeW = minHeight;
-        } else
-            mNodeW = minHeight;//给高度解决适配问题  哈哈
+        mNodeW = minHeight;//给高度解决适配问题  哈哈
         mWidth = w;
         mHeight = h;
         mPaint.setStrokeJoin(Paint.Join.ROUND);
@@ -113,11 +114,9 @@ public class YHZGridView extends View {
         mPaint.setTextAlign(Paint.Align.CENTER);
     }
 
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-//        LogUtil.i("ces_bac_NodeImp_1");
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setStrokeWidth(mLineH);
         mPaint.setColor(mLineColor);
@@ -144,8 +143,8 @@ public class YHZGridView extends View {
                     mPaint);
         }
 
-        for (NodeImp node : mNodeList) {
-//            LogUtil.i("ces_bac_NodeImp_2");
+        boolean needTwinkling = twinklingTime % 2 == 0;
+        for (NodeImp node : needTwinkling ? mNodeTwinklingList : mNodeList) {
             node.draw(canvas,
                     mPaint,
                     node.getX() * mNodeW + mLineH,
@@ -155,6 +154,25 @@ public class YHZGridView extends View {
         }
     }
 
+    public void setNodeList(List<NodeImp> nodeList, int count, boolean isShow) {
+        if (count > 0 && isShow) {
+            this.mNodeTwinklingList = nodeList;
+            ValueAnimator animator = ValueAnimator.ofInt(count + 2, 0);
+            animator.setDuration(5000);
+            animator.setInterpolator(new LinearInterpolator());
+            animator.addUpdateListener(this);
+            animator.addListener(this);
+            animator.start();
+            invalidate();
+        } else {
+            this.mNodeTwinklingList = this.mNodeList;
+            this.mNodeList = nodeList;
+        }
+    }
+
+    //ValueAnimator.ofObject用法
+//https://wiki.jikexueyuan.com/project/android-animation/6.html
+    //https://blog.csdn.net/guolin_blog/article/details/43816093
     public void setRowCount(int rowCount) {
         this.mRowCount = rowCount;
     }
@@ -163,17 +181,6 @@ public class YHZGridView extends View {
         this.mColumnCount = columnCount;
     }
 
-    public void setLineColor(int lineColor) {
-        this.mLineColor = lineColor;
-    }
-
-    public void setNodeList(List<NodeImp> nodeList) {
-        this.mNodeList = nodeList;
-    }
-
-    public void setLineH(float lineH) {
-        this.mLineH = lineH;
-    }
 
     public void setNoRight(boolean noRight) {
         this.mNoRight = noRight;
@@ -181,5 +188,32 @@ public class YHZGridView extends View {
 
     public void setNoBottom(boolean noBottom) {
         this.mNoBottom = noBottom;
+    }
+
+    @Override
+    public void onAnimationStart(Animator animation) {
+        twinklingTime = 0;
+    }
+
+    @Override
+    public void onAnimationEnd(Animator animation) {
+        twinklingTime = 1;
+    }
+
+    @Override
+    public void onAnimationCancel(Animator animation) {
+    }
+
+    @Override
+    public void onAnimationRepeat(Animator animation) {
+    }
+
+    @Override
+    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+        int animateValue = (int) valueAnimator.getAnimatedValue();
+        if (twinklingTime != animateValue) {
+            twinklingTime = animateValue;
+            invalidate();
+        }
     }
 }

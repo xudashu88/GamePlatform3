@@ -4,7 +4,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import com.gangbeng.basemodule.utils.LogUtil;
 import com.purity.yu.gameplatform.widget.DpUtil;
+
+import java.util.List;
 
 /**
  * 小强路-蟑螂路
@@ -12,9 +15,9 @@ import com.purity.yu.gameplatform.widget.DpUtil;
  */
 public class FourLineNode implements NodeImp {
 
-    private int mX = 0;
+    private int mX ;
 
-    private int mY = 0;
+    private int mY ;
 
     private int mColor = Color.RED;
 
@@ -34,15 +37,8 @@ public class FourLineNode implements NodeImp {
     @Override
     public void draw(Canvas canvas, Paint paint, float left, float top, float right, float bottom) {
         paint.setStyle(Paint.Style.STROKE);
-
-//        if (mLineHeight < 0) {
-//            mLineHeight = DpUtil.dp2px(2);
-//        }
         paint.setStrokeWidth(mLineHeight);
         float lineSub = (float) (mLineHeight / Math.sqrt(2));
-
-        float centerX = (right + left) / 2;
-        float centerY = (bottom + top) / 2;
         paint.setColor(mColor);
         canvas.drawLine(left + lineSub,
                 bottom - lineSub,
@@ -66,6 +62,23 @@ public class FourLineNode implements NodeImp {
         return mColor;
     }
 
+    @Override
+    public boolean isSpecialNode(List<NodeImp> nodeList) {
+        for (NodeImp nodeImp : nodeList) {
+            if (nodeImp.getX() > mX) {
+                return false;
+            } else if (nodeImp.getX() == mX && nodeImp.getY() > mY) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void drawSpecial(Canvas canvas, Paint paint, float left, float top, float right, float bottom) {
+
+    }
+
     public void setX(int x) {
         this.mX = x;
     }
@@ -74,7 +87,4 @@ public class FourLineNode implements NodeImp {
         this.mY = y;
     }
 
-    public void setLineHeight(float lineHeight) {
-        this.mLineHeight = lineHeight;
-    }
 }

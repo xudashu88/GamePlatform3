@@ -63,7 +63,7 @@ public class AlgorithmMacau {
     /**
      * 绘制珠盘路
      */
-    private void drawBeadRoad(List<Integer> beadRoadList, YHZGridView gv_left, Context mContext, int gameType, int bankColor, int playColor, int tieColor) {
+    private void drawBeadRoad(List<Integer> beadRoadList, YHZGridView gv_left, Context mContext, int gameType, int bankColor, int playColor, int tieColor, int count, boolean isShow) {
         String _banker = "", _player = "";
         if (gameType == 0) {
             _banker = mContext.getResources().getString(R.string.banker);
@@ -116,7 +116,7 @@ public class AlgorithmMacau {
                 i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 12, gameType, bankColor, playColor, tieColor, mContext);
             }
         }
-        gv_left.setNodeList(list1);
+        gv_left.setNodeList(list1, count, isShow);
         gv_left.postInvalidate();
     }
 
@@ -151,11 +151,11 @@ public class AlgorithmMacau {
                     }
                 } else if (gameType == 1) {
                     if (boardMessageList.get(i) == 0 || boardMessageList.get(i) == 3 || boardMessageList.get(i) == 4 || boardMessageList.get(i) == 5) {
-                        list.add(new BeadPlateNode(i2, j, _banker, Color.RED, false, false));
+                        list.add(new BeadPlateNode(i2, j, _banker, bankColor, false, false, mContext));
                     } else if (boardMessageList.get(i) == 1 || boardMessageList.get(i) == 6 || boardMessageList.get(i) == 7 || boardMessageList.get(i) == 8) {
-                        list.add(new BeadPlateNode(i2, j, _player, Color.BLUE, false, false));
+                        list.add(new BeadPlateNode(i2, j, _player, playColor, false, false, mContext));
                     } else if (boardMessageList.get(i) == 2 || boardMessageList.get(i) == 9 || boardMessageList.get(i) == 10 || boardMessageList.get(i) == 11) {
-                        list.add(new BeadPlateNode(i2, j, _tie, Color.GREEN, false, false));
+                        list.add(new BeadPlateNode(i2, j, _tie, tieColor, false, false, mContext));
                     }
                 }
             }
@@ -3088,7 +3088,7 @@ public class AlgorithmMacau {
         bigEyeRoadList.addAll(bigEyeRoadListAll);
     }
 
-    private void drawBigRoad(List<Integer> maxScoreList, List<List<Integer>> bigRoadList, YHZGridView gv_right_top, int bankColor, int playColor, int tieColor) {
+    private void drawBigRoad(List<Integer> maxScoreList, List<List<Integer>> bigRoadList, YHZGridView gv_right_top, int bankColor, int playColor, int tieColor, int count, boolean isShow) {
         List<NodeImp> list2 = new ArrayList<>();
         list2.clear();
         //多个和的问题
@@ -3122,11 +3122,11 @@ public class AlgorithmMacau {
                     if (!turnSb.toString().contains(+m + "" + k)) {
                         if (n == 5) {
                             if (bigRoadList.get(i).get(j) == 0) {
-                                list2.add(new SingleRingNode(m, n, Color.RED, false, ""));
+                                list2.add(new SingleRingNode(m, n, bankColor, false, ""));
                                 n++;
                                 turnSb.append(m + "" + (k - 1) + ",");
                             } else if (bigRoadList.get(i).get(j) == 1) {
-                                list2.add(new SingleRingNode(m, n, Color.BLUE, false, ""));
+                                list2.add(new SingleRingNode(m, n, playColor, false, ""));
                                 n++;
                                 turnSb.append(m + "" + (k - 1) + ",");
                             } else if (bigRoadList.get(i).get(j) == 3 || bigRoadList.get(i).get(j) == 5) {
@@ -3145,12 +3145,12 @@ public class AlgorithmMacau {
                         } else if (n > 5) {
                             if (bigRoadList.get(i).get(j) == 0) {
                                 ++_m;
-                                list2.add(new SingleRingNode(_m, (k - 1), Color.RED, false, ""));
+                                list2.add(new SingleRingNode(_m, (k - 1), bankColor, false, ""));
                                 n++;
                                 turnSb.append(_m + "" + (k - 1) + ",");
                             } else if (bigRoadList.get(i).get(j) == 1) {
                                 ++_m;
-                                list2.add(new SingleRingNode(_m, (k - 1), Color.BLUE, false, ""));
+                                list2.add(new SingleRingNode(_m, (k - 1), playColor, false, ""));
                                 n++;
                                 turnSb.append(_m + "" + (k - 1) + ",");
                             } else if (bigRoadList.get(i).get(j) == 3 || bigRoadList.get(i).get(j) == 5) {
@@ -3168,11 +3168,11 @@ public class AlgorithmMacau {
                             }
                         } else {//n=0...4 k=1...5
                             if (bigRoadList.get(i).get(j) == 0) {
-                                list2.add(new SingleRingNode(m, n, Color.RED, false, ""));
+                                list2.add(new SingleRingNode(m, n, bankColor, false, ""));
                                 n++;
                                 k++;
                             } else if (bigRoadList.get(i).get(j) == 1) {
-                                list2.add(new SingleRingNode(m, n, Color.BLUE, false, ""));
+                                list2.add(new SingleRingNode(m, n, playColor, false, ""));
                                 n++;
                                 k++;
                             } else if (bigRoadList.get(i).get(j) == 3 || bigRoadList.get(i).get(j) == 5) {
@@ -3191,12 +3191,12 @@ public class AlgorithmMacau {
                         }
                     } else {
                         if (bigRoadList.get(i).get(j) == 0) {
-                            list2.add(new SingleRingNode(_m, (k - 1), Color.RED, false, ""));
+                            list2.add(new SingleRingNode(_m, (k - 1), bankColor, false, ""));
                             n++;
                             turnSb.append(_m + "" + (k - 1) + ",");
                             _m++;
                         } else if (bigRoadList.get(i).get(j) == 1) {
-                            list2.add(new SingleRingNode(_m, (k - 1), Color.BLUE, false, ""));
+                            list2.add(new SingleRingNode(_m, (k - 1), playColor, false, ""));
                             n++;
                             turnSb.append(_m + "" + (k - 1) + ",");
                             _m++;
@@ -3218,7 +3218,7 @@ public class AlgorithmMacau {
             }
         }
         //0庄 1闲 2和 3庄和 4庄和2  5闲和 6闲和2 7庄和3 8闲和3 9和2 10和3
-        gv_right_top.setNodeList(list2);
+        gv_right_top.setNodeList(list2, count, isShow);
         gv_right_top.postInvalidate();
     }
 
@@ -3226,7 +3226,7 @@ public class AlgorithmMacau {
         list.remove(list.size() - 1);
     }
 
-    private void drawBigEye(List<List<Integer>> bigEyeRoadList, YHZGridView gv_right_middle, Context mContext, int bankColor, int playColor, int tieColor) {
+    private void drawBigEye(List<List<Integer>> bigEyeRoadList, YHZGridView gv_right_middle, Context mContext, int bankColor, int playColor, int tieColor, int count, boolean isShow) {
         StringBuffer turnSb = new StringBuffer(); //保存 所有拐弯数据
         List<NodeImp> list3 = new ArrayList<>();
         list3.clear();
@@ -3242,45 +3242,45 @@ public class AlgorithmMacau {
                     if (!turnSb.toString().contains(+m + "" + k)) {
                         if (n == 5) {
                             if (bigEyeRoadList.get(i).get(j) == 0) {
-                                list3.add(new FourRingsNode(m, n, Color.RED));
+                                list3.add(new FourRingsNode(m, n, bankColor));
                                 n++;
                                 turnSb.append(m + "" + (k - 1) + ",");
                             } else if (bigEyeRoadList.get(i).get(j) == 1) {
-                                list3.add(new FourRingsNode(m, n, Color.BLUE));
+                                list3.add(new FourRingsNode(m, n, playColor));
                                 n++;
                                 turnSb.append(m + "" + (k - 1) + ",");
                             }
                         } else if (n > 5) {
                             if (bigEyeRoadList.get(i).get(j) == 0) {
                                 ++_m;
-                                list3.add(new FourRingsNode(_m, (k - 1), Color.RED));
+                                list3.add(new FourRingsNode(_m, (k - 1), bankColor));
                                 n++;
                                 turnSb.append(_m + "" + (k - 1) + ",");
                             } else if (bigEyeRoadList.get(i).get(j) == 1) {
                                 ++_m;
-                                list3.add(new FourRingsNode(_m, (k - 1), Color.BLUE));
+                                list3.add(new FourRingsNode(_m, (k - 1), playColor));
                                 n++;
                                 turnSb.append(_m + "" + (k - 1) + ",");
                             }
                         } else {
                             if (bigEyeRoadList.get(i).get(j) == 0) {
-                                list3.add(new FourRingsNode(m, n, Color.RED));
+                                list3.add(new FourRingsNode(m, n, bankColor));
                                 n++;
                                 k++;
                             } else if (bigEyeRoadList.get(i).get(j) == 1) {
-                                list3.add(new FourRingsNode(m, n, Color.BLUE));
+                                list3.add(new FourRingsNode(m, n, playColor));
                                 n++;
                                 k++;
                             }
                         }
                     } else {
                         if (bigEyeRoadList.get(i).get(j) == 0) {
-                            list3.add(new FourRingsNode(_m, (k - 1), Color.RED));
+                            list3.add(new FourRingsNode(_m, (k - 1), bankColor));
                             n++;
                             turnSb.append(_m + "" + (k - 1) + ",");
                             _m++;
                         } else if (bigEyeRoadList.get(i).get(j) == 1) {
-                            list3.add(new FourRingsNode(_m, (k - 1), Color.BLUE));
+                            list3.add(new FourRingsNode(_m, (k - 1), playColor));
                             n++;
                             turnSb.append(_m + "" + (k - 1) + ",");
                             _m++;
@@ -3289,11 +3289,11 @@ public class AlgorithmMacau {
                 }
             }
         }
-        gv_right_middle.setNodeList(list3);
+        gv_right_middle.setNodeList(list3, count, isShow);
         gv_right_middle.postInvalidate();
     }
 
-    private void drawSmallRoad(List<List<Integer>> smallRoadList, YHZGridView gv_right_bottom_1, Context mContext, int bankColor, int playColor, int tieColor) {
+    private void drawSmallRoad(List<List<Integer>> smallRoadList, YHZGridView gv_right_bottom_1, Context mContext, int bankColor, int playColor, int tieColor, int count, boolean isShow) {
         StringBuffer turnSb = new StringBuffer(); //保存 所有拐弯数据
         List<NodeImp> list4 = new ArrayList<>();
         list4.clear();
@@ -3308,45 +3308,45 @@ public class AlgorithmMacau {
                     if (!turnSb.toString().contains(+m + "" + k)) {
                         if (n == 5) {
                             if (smallRoadList.get(i).get(j) == 0) {
-                                list4.add(new FourCircleNode(m, n, Color.RED));
+                                list4.add(new FourCircleNode(m, n, bankColor));
                                 n++;
                                 turnSb.append(m + "" + (k - 1) + ",");
                             } else if (smallRoadList.get(i).get(j) == 1) {
-                                list4.add(new FourCircleNode(m, n, Color.BLUE));
+                                list4.add(new FourCircleNode(m, n, playColor));
                                 n++;
                                 turnSb.append(m + "" + (k - 1) + ",");
                             }
                         } else if (n > 5) {
                             if (smallRoadList.get(i).get(j) == 0) {
                                 ++_m;
-                                list4.add(new FourCircleNode(_m, (k - 1), Color.RED));
+                                list4.add(new FourCircleNode(_m, (k - 1), bankColor));
                                 n++;
                                 turnSb.append(_m + "" + (k - 1) + ",");
                             } else if (smallRoadList.get(i).get(j) == 1) {
                                 ++_m;
-                                list4.add(new FourCircleNode(_m, (k - 1), Color.BLUE));
+                                list4.add(new FourCircleNode(_m, (k - 1), playColor));
                                 n++;
                                 turnSb.append(_m + "" + (k - 1) + ",");
                             }
                         } else {
                             if (smallRoadList.get(i).get(j) == 0) {
-                                list4.add(new FourCircleNode(m, n, Color.RED));
+                                list4.add(new FourCircleNode(m, n, bankColor));
                                 n++;
                                 k++;
                             } else if (smallRoadList.get(i).get(j) == 1) {
-                                list4.add(new FourCircleNode(m, n, Color.BLUE));
+                                list4.add(new FourCircleNode(m, n, playColor));
                                 n++;
                                 k++;
                             }
                         }
                     } else {
                         if (smallRoadList.get(i).get(j) == 0) {
-                            list4.add(new FourCircleNode(_m, (k - 1), Color.RED));
+                            list4.add(new FourCircleNode(_m, (k - 1), bankColor));
                             n++;
                             turnSb.append(_m + "" + (k - 1) + ",");
                             _m++;
                         } else if (smallRoadList.get(i).get(j) == 1) {
-                            list4.add(new FourCircleNode(_m, (k - 1), Color.BLUE));
+                            list4.add(new FourCircleNode(_m, (k - 1), playColor));
                             n++;
                             turnSb.append(_m + "" + (k - 1) + ",");
                             _m++;
@@ -3355,11 +3355,11 @@ public class AlgorithmMacau {
                 }
             }
         }
-        gv_right_bottom_1.setNodeList(list4);
+        gv_right_bottom_1.setNodeList(list4, count, isShow);
         gv_right_bottom_1.postInvalidate();
     }
 
-    private void drawCockroachRoad(List<List<Integer>> cockroachRoadList, YHZGridView gv_right_bottom_2, Context mContext, int bankColor, int playColor, int tieColor) {
+    private void drawCockroachRoad(List<List<Integer>> cockroachRoadList, YHZGridView gv_right_bottom_2, Context mContext, int bankColor, int playColor, int tieColor, int count, boolean isShow) {
         StringBuffer turnSb = new StringBuffer(); //保存 所有拐弯数据
         List<NodeImp> list5 = new ArrayList<>();
         list5.clear();
@@ -3374,45 +3374,45 @@ public class AlgorithmMacau {
                     if (!turnSb.toString().contains(+m + "" + k)) {
                         if (n == 5) {
                             if (cockroachRoadList.get(i).get(j) == 0) {
-                                list5.add(new FourLineNode(m, n, Color.RED));
+                                list5.add(new FourLineNode(m, n, bankColor));
                                 n++;
                                 turnSb.append(m + "" + (k - 1) + ",");
                             } else if (cockroachRoadList.get(i).get(j) == 1) {
-                                list5.add(new FourLineNode(m, n, Color.BLUE));
+                                list5.add(new FourLineNode(m, n, playColor));
                                 n++;
                                 turnSb.append(m + "" + (k - 1) + ",");
                             }
                         } else if (n > 5) {
                             if (cockroachRoadList.get(i).get(j) == 0) {
                                 ++_m;
-                                list5.add(new FourLineNode(_m, (k - 1), Color.RED));
+                                list5.add(new FourLineNode(_m, (k - 1), bankColor));
                                 n++;
                                 turnSb.append(_m + "" + (k - 1) + ",");
                             } else if (cockroachRoadList.get(i).get(j) == 1) {
                                 ++_m;
-                                list5.add(new FourLineNode(_m, (k - 1), Color.BLUE));
+                                list5.add(new FourLineNode(_m, (k - 1), playColor));
                                 n++;
                                 turnSb.append(_m + "" + (k - 1) + ",");
                             }
                         } else {
                             if (cockroachRoadList.get(i).get(j) == 0) {
-                                list5.add(new FourLineNode(m, n, Color.RED));
+                                list5.add(new FourLineNode(m, n, bankColor));
                                 n++;
                                 k++;
                             } else if (cockroachRoadList.get(i).get(j) == 1) {
-                                list5.add(new FourLineNode(m, n, Color.BLUE));
+                                list5.add(new FourLineNode(m, n, playColor));
                                 n++;
                                 k++;
                             }
                         }
                     } else {
                         if (cockroachRoadList.get(i).get(j) == 0) {
-                            list5.add(new FourLineNode(_m, (k - 1), Color.RED));
+                            list5.add(new FourLineNode(_m, (k - 1), bankColor));
                             n++;
                             turnSb.append(_m + "" + (k - 1) + ",");
                             _m++;
                         } else if (cockroachRoadList.get(i).get(j) == 1) {
-                            list5.add(new FourLineNode(_m, (k - 1), Color.BLUE));
+                            list5.add(new FourLineNode(_m, (k - 1), playColor));
                             n++;
                             turnSb.append(_m + "" + (k - 1) + ",");
                             _m++;
@@ -3421,7 +3421,7 @@ public class AlgorithmMacau {
                 }
             }
         }
-        gv_right_bottom_2.setNodeList(list5);
+        gv_right_bottom_2.setNodeList(list5, count, isShow);
         gv_right_bottom_2.postInvalidate();
     }
 
@@ -3441,12 +3441,20 @@ public class AlgorithmMacau {
      */
     public void drawRoad(List<Integer> maxScoreList, List<Integer> beadRoadList, List<List<Integer>> bigRoadList, List<List<Integer>> bigEyeRoadList, List<List<Integer>> smallRoadList, List<List<Integer>> cockroachRoadList,
                          YHZGridView gv_left, YHZGridView gv_right_top, YHZGridView gv_right_middle, YHZGridView gv_right_bottom_1, YHZGridView gv_right_bottom_2, Context context, int gameType,
-                         int bankColor, int playColor, int tieColor) {
-        drawBeadRoad(beadRoadList, gv_left, context, gameType, bankColor, playColor, tieColor);
-        drawBigRoad(maxScoreList, bigRoadList, gv_right_top, bankColor, playColor, tieColor);
-        //drawBigRoad(List<Integer> maxScoreList, List<List<Integer>> bigRoadList, YHZGridView gv_right_top,  int bankColor, int playColor, int tieColor)
-        drawBigEye(bigEyeRoadList, gv_right_middle, context, bankColor, playColor, tieColor);
-        drawSmallRoad(smallRoadList, gv_right_bottom_1, context, bankColor, playColor, tieColor);
-        drawCockroachRoad(cockroachRoadList, gv_right_bottom_2, context, bankColor, playColor, tieColor);
+                         int bankColor, int playColor, int tieColor,
+                         int count, boolean isShow, int version) {//新加count 闪的次数 isShow闪不闪 version 1为湖北 2为国际
+        if (version == 1) {//湖北
+            drawBeadRoad(beadRoadList, gv_left, context, gameType, bankColor, playColor, tieColor, count, isShow);
+            drawBigRoad(maxScoreList, bigRoadList, gv_right_top, Color.RED, Color.BLUE, Color.GREEN, count, isShow);
+            drawBigEye(bigEyeRoadList, gv_right_middle, context, Color.RED, Color.BLUE, Color.GREEN, count, isShow);
+            drawSmallRoad(smallRoadList, gv_right_bottom_1, context, Color.RED, Color.BLUE, Color.GREEN, count, isShow);
+            drawCockroachRoad(cockroachRoadList, gv_right_bottom_2, context, Color.RED, Color.BLUE, Color.GREEN, count, isShow);
+        } else if (version == 2) {//国际
+            drawBeadRoad(beadRoadList, gv_left, context, gameType, bankColor, playColor, tieColor, count, isShow);
+            drawBigRoad(maxScoreList, bigRoadList, gv_right_top, bankColor, playColor, tieColor, count, isShow);
+            drawBigEye(bigEyeRoadList, gv_right_middle, context, bankColor, playColor, tieColor, count, isShow);
+            drawSmallRoad(smallRoadList, gv_right_bottom_1, context, bankColor, playColor, tieColor, count, isShow);
+            drawCockroachRoad(cockroachRoadList, gv_right_bottom_2, context, bankColor, playColor, tieColor, count, isShow);
+        }
     }
 }

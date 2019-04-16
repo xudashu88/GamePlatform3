@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 网格线
+ * 单挑
  * Created by PURITY on 2018/9/25.
  */
 public class YCHGridView extends View {
@@ -88,7 +88,6 @@ public class YCHGridView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-//        LogUtil.i("YCHGridView=left0=" + w + "top=" + h + "right=" + oldw + "bottom=" + oldh);//w是layout_width，h是layout_height
         float _h = (float) h;//损失精度 强转一下
         //神来之笔 去掉右边和下边的线
         float minHeight = (_h - (mNoBottom ? 0 : mLineH)) / mRowCount;//高度固定，用它作为长和宽
@@ -100,7 +99,6 @@ public class YCHGridView extends View {
         mPaint.setTypeface(Typeface.DEFAULT_BOLD);
         mPaint.setTextAlign(Paint.Align.CENTER);
     }
-
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -131,36 +129,17 @@ public class YCHGridView extends View {
         }
 
         for (NodeImp node : mNodeList) {
-//            ToastUtil.show(getContext(),"NodeImp");
-//            LogUtil.i("ces_bac_NodeImp");
             node.draw(canvas,
                     mPaint,
                     node.getX() * mNodeW * 3 + lineHeight,//这里宽网格的起始位置是竖线的间距
-//                    node.getX() * mNodeW + mLineH,
                     node.getY() * mNodeW + mLineH,
                     node.getX() * mNodeW + mNodeW,
                     node.getY() * mNodeW + mNodeW);
         }
     }
 
-    public void setRowCount(int rowCount) {
-        this.mRowCount = rowCount;
-    }
-
-    public void setColumnCount(int columnCount) {
-        this.mColumnCount = columnCount;
-    }
-
-    public void setLineColor(int lineColor) {
-        this.mLineColor = lineColor;
-    }
-
     public void setNodeList(List<NodeImp> nodeList) {
         this.mNodeList = nodeList;
-    }
-
-    public void setLineH(float lineH) {
-        this.mLineH = lineH;
     }
 
     public void setNoRight(boolean noRight) {

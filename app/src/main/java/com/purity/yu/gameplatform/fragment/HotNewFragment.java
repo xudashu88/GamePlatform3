@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.gangbeng.basemodule.utils.LogUtil;
 import com.gangbeng.basemodule.utils.SharedPreUtil;
 import com.gangbeng.basemodule.utils.ToastUtil;
@@ -102,7 +103,7 @@ public class HotNewFragment extends BaseFragment {
                     .executeGetParams(new HttpRequest.HttpCallBack() {
                         @Override
                         public void onResultOk(String result) {
-                            JSONObject json  ;
+                            JSONObject json;
                             try {
                                 json = new JSONObject(result);
                                 String _data = json.optString("data");
@@ -165,8 +166,11 @@ public class HotNewFragment extends BaseFragment {
         public void onBindViewHolder(ViewHolder holder, final int position) {
             // 绑定数据
             holder.tv_games_name.setText(mData.get(position).gameName);
-//            holder.iv_game_avatar.setBackground(mData.get(position).gameAvatar);
-            Glide.with(mContext).load(mData.get(position).gameIconUrl).into(holder.iv_game_avatar);
+            RequestOptions options = new RequestOptions()
+                    .placeholder(R.drawable.lobbyicon_bac)//图片加载出来前，显示的图片
+                    .fallback(R.drawable.lobbyicon_bac) //url为空的时候,显示的图片
+                    .error(R.drawable.lobbyicon_bac);//图片加载失败后，显示的图片
+            Glide.with(mContext).load(mData.get(position).gameIconUrl).apply(options).into(holder.iv_game_avatar);
             if (mData.get(position).gameDot == 0) {
                 holder.tv_dot.setVisibility(View.GONE);
             } else {

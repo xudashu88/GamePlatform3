@@ -47,6 +47,7 @@ import com.purity.yu.gameplatform.controler.MacauSocketController;
 import com.purity.yu.gameplatform.entity.Baccarat;
 import com.purity.yu.gameplatform.entity.Liquidation;
 import com.purity.yu.gameplatform.event.ObjectEvent;
+import com.purity.yu.gameplatform.utils.Algorithm;
 import com.purity.yu.gameplatform.utils.AlgorithmMacau;
 import com.purity.yu.gameplatform.utils.BaccaratUtil;
 import com.purity.yu.gameplatform.utils.MyYAnimation;
@@ -346,6 +347,10 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
     ImageView iv_video_select2;
     @BindView(R.id.tv_robot)
     TextView tv_robot;
+    @BindView(R.id.rl_ask_play)
+    RelativeLayout rl_ask_play;
+    @BindView(R.id.rl_ask_bank)
+    RelativeLayout rl_ask_bank;
 
     private DisplayMetrics displayMetrics;
     private Context mContext;
@@ -464,7 +469,6 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
         currentBetScore.add(0);//庄对
         currentBetScore.add(0);//小
         currentBetScore.add(0);//大
-        initAsk();
         initChip();
         initDisplay();
         initTypeFace();
@@ -614,15 +618,6 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
         tv_player_pair.setTypeface(tf);
     }
 
-    /**
-     * 默认庄问路为-1 闲问路则相反
-     */
-    private void initAsk() {
-        SharedPreUtil.getInstance(mContext).saveParam(Constant.ASK_BIG_EYE, -1);
-        SharedPreUtil.getInstance(mContext).saveParam(Constant.ASK_SMALL, -1);
-        SharedPreUtil.getInstance(mContext).saveParam(Constant.ASK_COCKROACH, -1);
-    }
-
     private void initSound() {
         if (SharedPreUtil.getInstance(this).getInt(Constant.SOUND_SWITCH) == 0) {
             try {
@@ -685,8 +680,8 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
             initMessages();
             AlgorithmMacau.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
                     gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,
-                    Color.RED, Color.BLUE, Color.GREEN);//11列 加一局
-            ask();
+                    Color.RED, Color.BLUE, Color.GREEN, 0, false, 2);//11列 加一局
+//            ask(0, true, false, 0, false);
         }
     }
 
@@ -769,8 +764,8 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
             initMessages();
             AlgorithmMacau.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
                     gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,
-                    Color.RED, Color.BLUE, Color.GREEN);//11列 加一局
-            ask();
+                    Color.RED, Color.BLUE, Color.GREEN, 0, false, 2);//11列 加一局
+            ask(0, true, false, 0, false);
         }
         String _1 = "0";
         String _2 = "0";
@@ -807,19 +802,23 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
         onClick(true);
     }
 
-    private void ask() {
+    private void ask(int value, boolean isShowAsk, boolean isDraw, int count, boolean isShow) {
         boardMessageList1.clear();
         boardMessageList1.addAll(boardMessageList);
-        boardMessageList1.add(0);
-        LogUtil.i("initBigRoad bigEyeRoadListAll_1=" + boardMessageList.size() + " boardMessageList1=" + boardMessageList1.size());
+        boardMessageList1.add(value);
         AlgorithmMacau.getInstance().initBigRoad(boardMessageList1, beadRoadList, beadRoadListShort,
                 bigRoadListAll, bigRoadList, bigRoadListShort,
                 bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
                 smallRoadListAll, smallRoadList, smallRoadListShort,
                 cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort,
-                maxScoreListAll, maxScoreList, mContext, 2, true,
+                maxScoreListAll, maxScoreList, mContext, 2, isShowAsk,
                 iv_ask_bank_1, iv_ask_bank_2, iv_ask_bank_3, iv_ask_play_1, iv_ask_play_2, iv_ask_play_3,
                 Color.RED, Color.BLUE, Color.GREEN);//1房间 2大厅
+        if (isDraw) {
+            AlgorithmMacau.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
+                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,
+                    Color.RED, Color.BLUE, Color.GREEN, count, isShow, 2);
+        }
     }
 
     private void isShowChip(int show) {
@@ -1027,7 +1026,7 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
             initMessages();
             AlgorithmMacau.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
                     gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,
-                    Color.RED, Color.BLUE, Color.GREEN);//11列 加一局
+                    Color.RED, Color.BLUE, Color.GREEN, 0, false, 2);//11列 加一局
             SharedPreUtil.getInstance(mContext).saveParam(Constant.BACCARAT_STATE, event.state);
             iv_ask_bank_1.setBackgroundDrawable(null);
             iv_ask_bank_2.setBackgroundDrawable(null);
@@ -1153,8 +1152,8 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
             initMessages();
             AlgorithmMacau.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
                     gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,
-                    Color.RED, Color.BLUE, Color.GREEN);//11列 加一局
-            ask();//庄反闲
+                    Color.RED, Color.BLUE, Color.GREEN, 0, false, 2);//11列 加一局
+            ask(0, true, false, 0, false);
             //发光
 
             //1.庄几点 闲几点 一遍 先报庄几点再报闲几点
@@ -1915,6 +1914,18 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
     }
 
     private void initEvent() {
+        rl_ask_bank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ask(0, false, true, 4, true);
+            }
+        });
+        rl_ask_play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ask(1, false, true, 4, true);
+            }
+        });
         tv_robot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

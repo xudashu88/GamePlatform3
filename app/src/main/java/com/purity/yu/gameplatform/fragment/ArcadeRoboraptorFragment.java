@@ -2,8 +2,11 @@ package com.purity.yu.gameplatform.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.gangbeng.basemodule.utils.SharedPreUtil;
 import com.gangbeng.basemodule.utils.Util;
@@ -13,6 +16,7 @@ import com.purity.yu.gameplatform.base.BaseFragment;
 import com.purity.yu.gameplatform.base.Constant;
 import com.xmplayer.RobotFishActivity;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,9 +48,12 @@ public class ArcadeRoboraptorFragment extends BaseFragment {
     ImageView puyu_seat_9;
     @BindView(R.id.puyu_seat_10)
     ImageView puyu_seat_10;
+
     private List<ImageView> imageViewList = new ArrayList<>();
     private List<String> _strList = new ArrayList<>();
     private Context mContext;
+    private float scaleX = 0.0f;
+    private float scaleY = 0.0f;
 
     @Override
     protected void initView(View view) {
@@ -63,7 +70,6 @@ public class ArcadeRoboraptorFragment extends BaseFragment {
         addImageView(puyu_seat_10);
         initTableView();
     }
-
     private void initTableView() {
         String _table = SharedPreUtil.getInstance(getActivity()).getString(Constant.ROBORAPTOR);
         List<String> _strList = Util.stringToList(_table);

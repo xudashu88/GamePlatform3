@@ -2,9 +2,13 @@ package com.purity.yu.gameplatform.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.support.design.internal.FlowLayout;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.gangbeng.basemodule.utils.LogUtil;
 import com.gangbeng.basemodule.utils.SharedPreUtil;
@@ -23,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,11 +61,14 @@ public class ArcadeCrocodileFragment extends BaseFragment {
     ImageView puyu_seat_9;
     @BindView(R.id.puyu_seat_10)
     ImageView puyu_seat_10;
+
     private List<ImageView> imageViewList = new ArrayList<>();
     private List<String> _strList = new ArrayList<>();
     private Context mContext;
     List<Hall> hallList = new ArrayList<>();
     List<String> positionList = new ArrayList<>();
+    private float scaleX = 0.0f;
+    private float scaleY = 0.0f;
 
     @Override
     protected void initView(View view) {
@@ -86,7 +94,7 @@ public class ArcadeCrocodileFragment extends BaseFragment {
                 if (hallList.get(i).playerList.size() > 0 && hallList.get(i).gameRoom.equals("10000000000000004")) {
                     List<Player> playerList = hallList.get(0).playerList;//鳄鱼在第0个
                     for (int j = 0; j < playerList.size(); j++) {
-                        positionList.add(""+playerList.get(i).position);
+                        positionList.add("" + playerList.get(i).position);
                     }
                 }
             }
@@ -143,7 +151,7 @@ public class ArcadeCrocodileFragment extends BaseFragment {
 ////                            return;
 //                        }
 //                    }
-                    for (int i=0;i<positionList.size();i++) {
+                    for (int i = 0; i < positionList.size(); i++) {
                         if (positionList.get(i).equals(tag)) {
                             ToastUtil.showToast(mContext, mContext.getResources().getString(R.string.playing));
                             return;

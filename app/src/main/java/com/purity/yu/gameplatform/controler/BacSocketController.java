@@ -126,7 +126,7 @@ public class BacSocketController {
             mSocket.on("command", OnCommand);
             mSocket.connect();
             if (!mSocket.connected()) {
-//                perOnePerformance();
+//                perOnePerformance();// 有多个socket连接
             } else {
                 if (timer != null) {
                     timer.cancel();
@@ -442,7 +442,7 @@ public class BacSocketController {
 
 //                                boardMessageList = BaccaratUtil.str2ListReInt(_borderMessage);
                                     //测试用例
-//                                boardMessageList = BaccaratUtil.getInstance().initBoardMessage(56, boardMessageList);
+//                                boardMessageList = BaccaratUtil.getInstance().initBoardMessage(72, boardMessageList);
 //                                maxScoreList = BaccaratUtil.getInstance().initMaxScore(56, maxScoreList);
                                     postEventJoinRoom(boardMessageList, maxScoreList, _goldcoins, roomid, roomName, _betLimitStr, _maxBetStr, _minBetStr, stateHis, downtownTime, skyCard, isPeopleNum, betSecond, betsRemind, peoplenumber);
 

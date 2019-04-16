@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (typeface1 == null) {
-//            typeface1 = Typeface.createFromAsset(getAssets(), "fonts/fontzipMin1.ttf");//全局设置字体
+            typeface1 = Typeface.createFromAsset(getAssets(), "fonts/fontzipMin1.ttf");//全局设置字体
         }
         LayoutInflaterCompat.setFactory(LayoutInflater.from(this), new LayoutInflaterFactory() {
             @Override

@@ -247,7 +247,7 @@ public class ProtocolUtil {
     private BankAdapter bankAdapter;
 
     public void getBankList(final Context mContext, final RelativeLayout rl_data, final TextView tv_no_data, final RecyclerView recyclerView, final AlertDialog alertDialog,
-                            final EditText et_your_name, final EditText et_bank_number, final EditText et_bank_name, final EditText et_phone) {
+                            final EditText et_your_name, final EditText et_bank_number, final EditText et_bank_name, final EditText et_phone, final EditText et_bank_branch) {
         String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
         HttpRequest.request(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE) + Constant.BANK_LIST + "?token=" + token)
                 .executeGetParams(new HttpRequest.HttpCallBack() {
@@ -266,7 +266,7 @@ public class ProtocolUtil {
                             String _data = json.optString("data");
                             bankList.clear();//清除,每一页都是新的
                             bankList = parseArrayObject(_data, "items", Bank.class);
-                            initAdapter(mContext, recyclerView, alertDialog, et_your_name, et_bank_number, et_bank_name, et_phone, bankList);
+                            initAdapter(mContext, recyclerView, alertDialog, et_your_name, et_bank_number, et_bank_name, et_phone, et_bank_branch, bankList);
                             if (bankList.size() > 0) {
                                 tv_no_data.setVisibility(View.GONE);
                                 rl_data.setVisibility(View.VISIBLE);
@@ -281,7 +281,7 @@ public class ProtocolUtil {
                 });
     }
 
-    private void initAdapter(final Context mContext, RecyclerView recyclerView, final AlertDialog alertDialog, final EditText et_your_name, final EditText et_bank_number, final EditText et_bank_name, final EditText et_phone, final List<Bank> bankList) {
+    private void initAdapter(final Context mContext, RecyclerView recyclerView, final AlertDialog alertDialog, final EditText et_your_name, final EditText et_bank_number, final EditText et_bank_name, final EditText et_phone, final EditText et_bank_branch, final List<Bank> bankList) {
         bankAdapter = new BankAdapter(mContext, bankList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -292,8 +292,14 @@ public class ProtocolUtil {
                 id = bankList.get(position).id;
                 et_your_name.setText(bankList.get(position).bank_username);
                 et_bank_number.setText(bankList.get(position).bank_account);
+                et_bank_branch.setText(bankList.get(position).bank_branch);
                 et_bank_name.setText(bankList.get(position).bank_name);
                 et_phone.setText(bankList.get(position).mobile);
+                et_your_name.setEnabled(false);
+                et_bank_number.setEnabled(false);
+                et_bank_branch.setEnabled(false);
+                et_bank_name.setEnabled(false);
+                et_phone.setEnabled(false);
                 alertDialog.dismiss();
             }
         });

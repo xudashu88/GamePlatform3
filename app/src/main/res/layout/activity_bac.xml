@@ -1360,10 +1360,11 @@
                 </LinearLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_ask_bank"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:background="@color/white">
+                    android:background="@drawable/select_ask">
 
                     <TextView
                         android:id="@+id/tv_ask_bank"
@@ -1400,10 +1401,11 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_ask_play"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:background="@color/white">
+                    android:background="@drawable/select_ask">
 
                     <TextView
                         android:id="@+id/tv_ask_play"

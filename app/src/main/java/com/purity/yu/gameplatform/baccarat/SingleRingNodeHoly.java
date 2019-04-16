@@ -6,7 +6,10 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.text.TextUtils;
 
+import com.gangbeng.basemodule.utils.LogUtil;
 import com.purity.yu.gameplatform.widget.DpUtil;
+
+import java.util.List;
 
 /**
  * Created by yanghaozhang on 2018/7/3.
@@ -18,7 +21,6 @@ public class SingleRingNodeHoly implements NodeImp {
     private int mY = 0;
 
     private float mRingHeight = DpUtil.dp2px(1);
-//    private float mRingHeight = 1;
 
     private float mLineHeight = -100;
 
@@ -32,9 +34,6 @@ public class SingleRingNodeHoly implements NodeImp {
 
     private String mText = "";
 
-    public SingleRingNodeHoly() {
-    }
-
     /**
      * 大路
      *
@@ -44,10 +43,9 @@ public class SingleRingNodeHoly implements NodeImp {
      * @param mNeedSlash 是否有斜线
      * @param mText      文本
      */
-    public SingleRingNodeHoly(int mX, int mY,/*float mRingHeight,*/int mRingColor, int mNeedSlash, String mText) {
+    public SingleRingNodeHoly(int mX, int mY, int mRingColor, int mNeedSlash, String mText) {
         this.mX = mX;
         this.mY = mY;
-//        this.mRingHeight = mRingHeight;
         this.mColor = mRingColor;
         this.mNeedSlash = mNeedSlash;
         this.mText = mText;
@@ -109,13 +107,12 @@ public class SingleRingNodeHoly implements NodeImp {
         float nameTop = fontMetrics.top;//为基线到字体上边框的距离,即上图中的top
         float nameBottom = fontMetrics.bottom;//为基线到字体下边框的距离,即上图中的bottom
         int baseLineY = (int) (centerY - nameTop / 2 - nameBottom / 2);//基线中间点的y轴计算公式
-        if (!TextUtils.isEmpty(mText)) {//和的分数  不显示
+        if (!TextUtils.isEmpty(mText) && !"0".equals(mText)) {//和的分数  不显示
             canvas.drawText(mText,
                     centerX,
                     baseLineY,
                     paint);
         }
-
     }
 
     @Override
@@ -133,31 +130,29 @@ public class SingleRingNodeHoly implements NodeImp {
         return mColor;
     }
 
+    @Override
+    public boolean isSpecialNode(List<NodeImp> nodeList) {
+        //nodeList 新加的所有节点 mX原来的所有节点
+        for (NodeImp nodeImp : nodeList) {
+            if (nodeImp.getX() > mX) {
+                return false;
+            } else if (nodeImp.getX() == mX && nodeImp.getY() > mY) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void drawSpecial(Canvas canvas, Paint paint, float left, float top, float right, float bottom) {
+
+    }
+
     public void setX(int x) {
         this.mX = x;
     }
 
     public void setY(int y) {
         this.mY = y;
-    }
-
-    public void setRingHeight(float ringHeight) {
-        this.mRingHeight = ringHeight;
-    }
-
-    public void setLineHeight(float lineHeight) {
-        this.mLineHeight = lineHeight;
-    }
-
-    public void setSlashColor(int slashColor) {
-        this.mSlashColor = slashColor;
-    }
-
-    public String getmText() {
-        return mText;
-    }
-
-    public void setmText(String mText) {
-        this.mText = mText;
     }
 }

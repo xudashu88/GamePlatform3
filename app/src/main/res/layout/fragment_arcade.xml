@@ -15,16 +15,9 @@
         android:textColor="@color/mainGolden"
         android:textSize="@dimen/font16" />
 
-    <FrameLayout
-        android:id="@+id/frame_layout"
-        android:layout_width="@dimen/unit300"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="@dimen/unit10" />
-
     <RelativeLayout
         android:id="@+id/rl_select_fish_rome"
-        android:layout_width="@dimen/unit120"
+        android:layout_width="@dimen/unit100"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true">
 
@@ -58,5 +51,10 @@
             app:unselectedScale="0.8" />
     </RelativeLayout>
 
-
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/unit10"
+        android:layout_toLeftOf="@+id/rl_select_fish_rome" />
 </RelativeLayout>

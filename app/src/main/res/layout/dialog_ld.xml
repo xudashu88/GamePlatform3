@@ -239,78 +239,94 @@
                 app:noRight="true"
                 app:row="12" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="@dimen/unit36"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:background="@color/white">
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_ask_bank"
+                <RelativeLayout
+                    android:id="@+id/rl_ask_bank"
                     android:layout_width="@dimen/unit18"
-                    android:layout_height="@dimen/unit18"
-                    android:gravity="center"
-                    android:text="@string/banker"
-                    android:textColor="@color/red"
-                    android:textSize="@dimen/font14" />
+                    android:layout_height="match_parent"
+                    android:background="@drawable/select_ask">
 
-                <TextView
-                    android:id="@+id/tv_ask_play"
+                    <TextView
+                        android:id="@+id/tv_ask_bank"
+                        android:layout_width="@dimen/unit18"
+                        android:layout_height="@dimen/unit18"
+                        android:gravity="center"
+                        android:text="@string/banker"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/font14" />
+
+                    <ImageView
+                        android:id="@+id/iv_ask_bank_1"
+                        android:layout_width="@dimen/unit17"
+                        android:layout_height="@dimen/unit18"
+                        android:layout_below="@+id/tv_ask_bank"
+                        android:padding="@dimen/unit3" />
+
+                    <ImageView
+                        android:id="@+id/iv_ask_bank_2"
+                        android:layout_width="@dimen/unit17"
+                        android:layout_height="@dimen/unit18"
+                        android:layout_below="@+id/iv_ask_bank_1"
+                        android:padding="@dimen/unit3" />
+
+                    <ImageView
+                        android:id="@+id/iv_ask_bank_3"
+                        android:layout_width="@dimen/unit17"
+                        android:layout_height="@dimen/unit18"
+                        android:layout_below="@+id/iv_ask_bank_2"
+                        android:padding="@dimen/unit2"
+                        android:rotation="-30" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_ask_play"
                     android:layout_width="@dimen/unit18"
-                    android:layout_height="@dimen/unit18"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center"
-                    android:text="@string/player"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/font14" />
+                    android:layout_height="match_parent"
+                    android:background="@drawable/select_ask">
 
-                <ImageView
-                    android:id="@+id/iv_ask_bank_1"
-                    android:layout_width="@dimen/unit17"
-                    android:layout_height="@dimen/unit18"
-                    android:layout_below="@+id/tv_ask_bank"
-                    android:padding="@dimen/unit3" />
+                    <TextView
+                        android:id="@+id/tv_ask_play"
+                        android:layout_width="@dimen/unit18"
+                        android:layout_height="@dimen/unit18"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:text="@string/player"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/font14" />
 
-                <ImageView
-                    android:id="@+id/iv_ask_bank_2"
-                    android:layout_width="@dimen/unit17"
-                    android:layout_height="@dimen/unit18"
-                    android:layout_below="@+id/iv_ask_bank_1"
-                    android:padding="@dimen/unit3" />
+                    <ImageView
+                        android:id="@+id/iv_ask_play_1"
+                        android:layout_width="@dimen/unit17"
+                        android:layout_height="@dimen/unit18"
+                        android:layout_below="@+id/tv_ask_play"
+                        android:layout_alignParentRight="true"
+                        android:padding="@dimen/unit3" />
 
-                <ImageView
-                    android:id="@+id/iv_ask_bank_3"
-                    android:layout_width="@dimen/unit17"
-                    android:layout_height="@dimen/unit18"
-                    android:layout_below="@+id/iv_ask_bank_2"
-                    android:padding="@dimen/unit2"
-                    android:rotation="30" />
+                    <ImageView
+                        android:id="@+id/iv_ask_play_2"
+                        android:layout_width="@dimen/unit17"
+                        android:layout_height="@dimen/unit18"
+                        android:layout_below="@+id/iv_ask_play_1"
+                        android:layout_alignParentRight="true"
+                        android:padding="@dimen/unit3" />
 
-                <ImageView
-                    android:id="@+id/iv_ask_play_1"
-                    android:layout_width="@dimen/unit17"
-                    android:layout_height="@dimen/unit18"
-                    android:layout_below="@+id/tv_ask_bank"
-                    android:layout_alignParentRight="true"
-                    android:padding="@dimen/unit3" />
+                    <ImageView
+                        android:id="@+id/iv_ask_play_3"
+                        android:layout_width="@dimen/unit17"
+                        android:layout_height="@dimen/unit18"
+                        android:layout_below="@+id/iv_ask_play_2"
+                        android:layout_alignParentRight="true"
+                        android:padding="@dimen/unit2"
+                        android:rotation="-30" />
+                </RelativeLayout>
 
-                <ImageView
-                    android:id="@+id/iv_ask_play_2"
-                    android:layout_width="@dimen/unit17"
-                    android:layout_height="@dimen/unit18"
-                    android:layout_below="@+id/iv_ask_play_1"
-                    android:layout_alignParentRight="true"
-                    android:padding="@dimen/unit3" />
 
-                <ImageView
-                    android:id="@+id/iv_ask_play_3"
-                    android:layout_width="@dimen/unit17"
-                    android:layout_height="@dimen/unit18"
-                    android:layout_below="@+id/iv_ask_bank_2"
-                    android:layout_alignParentRight="true"
-                    android:padding="@dimen/unit2"
-                    android:rotation="30" />
-            </RelativeLayout>
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/iv_all_record"

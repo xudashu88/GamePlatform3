@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.gangbeng.basemodule.utils.SharedPreUtil;
 import com.purity.yu.gameplatform.R;
 import com.purity.yu.gameplatform.activity.BacActivity;
+import com.purity.yu.gameplatform.activity.MacauActivity;
 import com.purity.yu.gameplatform.baccarat.YHZGridView;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.entity.Baccarat;
@@ -65,7 +66,7 @@ public class MacaoRVAdapter extends RecyclerView.Adapter<MacaoRVAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(final MacaoRVAdapter.ViewHolder holder, final int position) {
-                holder.tv_bank.setTypeface(typeface1);
+        holder.tv_bank.setTypeface(typeface1);
         holder.tv_play.setTypeface(typeface1);
         holder.tv_tie.setTypeface(typeface1);
         scale(holder);
@@ -76,8 +77,8 @@ public class MacaoRVAdapter extends RecyclerView.Adapter<MacaoRVAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 Baccarat baccarat = mBaccaratList.get(position);
-//                Intent intent = new Intent(mContext, MacauActivity.class);
-                Intent intent = new Intent(mContext, BacActivity.class);
+                Intent intent = new Intent(mContext, MacauActivity.class);
+//                Intent intent = new Intent(mContext, BacActivity.class);
                 intent.putExtra("baccarat", baccarat);
                 intent.putExtra("roomId", mBaccaratList.get(position).roomId);
                 intent.putExtra("roomName", mBaccaratList.get(position).roomName);
@@ -204,13 +205,23 @@ public class MacaoRVAdapter extends RecyclerView.Adapter<MacaoRVAdapter.ViewHold
         holder.tv_bank_count.setText(String.valueOf(banker));
         holder.tv_player_count.setText(String.valueOf(player));
         holder.tv_tie_count.setText(String.valueOf(tie));
-        Algorithm.getInstance().initBigRoad(boardMessageList, new ArrayList<Integer>(), new ArrayList<Integer>(),
+//        Algorithm.getInstance().initBigRoad(boardMessageList, new ArrayList<Integer>(), new ArrayList<Integer>(),
+//                bigRoadListAll, bigRoadList, bigRoadListShort,
+//                bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
+//                smallRoadListAll, smallRoadList, smallRoadListShort,
+//                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, mContext, 2);//1房间 2大厅
+        Algorithm.getInstance().initBigRoad(boardMessageList,new ArrayList<Integer>(), new ArrayList<Integer>(),
                 bigRoadListAll, bigRoadList, bigRoadListShort,
                 bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
                 smallRoadListAll, smallRoadList, smallRoadListShort,
-                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, mContext, 2);//1房间 2大厅
+                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort,
+                new ArrayList<Integer>(), new ArrayList<Integer>(), mContext, 2, false,
+                null, null, null, null, null, null,
+                Color.RED, Color.BLUE, Color.GREEN);//1房间 2大厅
         Algorithm.getInstance().drawRoad(boardMessageList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
-                holder.gv_left, holder.gv_right_top, holder.gv_right_middle, holder.gv_right_bottom_1, holder.gv_right_bottom_2, mContext, 0, Color.RED, Color.BLUE, Color.GREEN);
+                holder.gv_left, holder.gv_right_top, holder.gv_right_middle, holder.gv_right_bottom_1, holder.gv_right_bottom_2, mContext, 0,
+                Color.RED, Color.BLUE, Color.GREEN,0,false,2);
+        //Color.RED, Color.BLUE, Color.GREEN
     }
 
     private void update(ViewHolder holder, int position) {

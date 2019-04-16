@@ -762,7 +762,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
             maxScoreList.addAll(event.maxScoreList);
             initMessages();
             AlgorithmHoly.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
-                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0);//11列 加一局
+                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,0,false);//11列 加一局
         }
     }
 
@@ -842,7 +842,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
             maxScoreList.addAll(event.maxScoreList);
             initMessages();
             AlgorithmHoly.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
-                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0);//11列 加一局
+                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,0,false);//11列 加一局
         }
 //        ask(0);//庄反闲
         String _1 = "0";
@@ -1091,7 +1091,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
             boardMessageList.clear();
             initMessages();
             AlgorithmHoly.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
-                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0);//11列 加一局
+                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,0,false);//11列 加一局
             SharedPreUtil.getInstance(mContext).saveParam(Constant.BACCARAT_STATE, event.state);
         } else if (event.state.equals(Constant.BACCARAT_FAULT)) {
             ToastUtil.show(mContext, "机械臂异常");
@@ -1207,7 +1207,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
             maxScoreList.add(event.resultMaxScore);
             initMessages();
             AlgorithmHoly.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
-                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0);//11列 加一局
+                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,0,false);//11列 加一局
 //            ask(0);//庄反闲
             //发光
 

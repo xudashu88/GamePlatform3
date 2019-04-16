@@ -327,6 +327,10 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
     ImageView iv_video_select2;
     @BindView(R.id.tv_robot)
     TextView tv_robot;
+    @BindView(R.id.rl_ask_play)
+    RelativeLayout rl_ask_play;
+    @BindView(R.id.rl_ask_bank)
+    RelativeLayout rl_ask_bank;
 
     private DisplayMetrics displayMetrics;
     private Context mContext;
@@ -403,6 +407,8 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
     private String dragonColorStr;
     private String tigerColorStr;
     private String tieColorStr;
+    private int twinkleBank = 0;
+    private int twinklePlay = 0;
     //测试用例
 //    static {
 //        System.loadLibrary("SmartPlayer");//大牛直播
@@ -712,8 +718,8 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
             initMessages();
             Algorithm.getInstance().drawRoad(beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
                     gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 1,
-                    bankColor, playColor, tieColor);//4列 网络进入房间
-            ask();
+                    bankColor, playColor, tieColor, 0, false, 2);//4列 网络进入房间
+//            ask(0, true, false);
         }
     }
 
@@ -887,8 +893,11 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
             initMessages();
             Algorithm.getInstance().drawRoad(beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
                     gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 1,
-                    bankColor, playColor, tieColor);//4列 网络进入房间
-            ask();
+                    bankColor, playColor, tieColor, 0, false, 2);
+//            AlgorithmMacau.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
+//                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 1,
+//                    bankColor, playColor, tieColor, 0, false, 2);//11列 加一局
+            ask(0, true, false, 0, false);
         }
         String _1 = "0";
         String _2 = "0";
@@ -916,19 +925,23 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
         mSocketProdict = DtSocketController.getInstance().getSocketProdict();
     }
 
-    private void ask() {
+    private void ask(int value, boolean isShowAsk, boolean isDraw, int count, boolean isShow) {
         boardMessageList1.clear();
         boardMessageList1.addAll(boardMessageList);
-        boardMessageList1.add(0);
-        LogUtil.i("initBigRoad bigEyeRoadListAll_1=" + boardMessageList.size() + " boardMessageList1=" + boardMessageList1.size());
+        boardMessageList1.add(value);
         AlgorithmMacau.getInstance().initBigRoad(boardMessageList1, beadRoadList, beadRoadListShort,
                 bigRoadListAll, bigRoadList, bigRoadListShort,
                 bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
                 smallRoadListAll, smallRoadList, smallRoadListShort,
                 cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort,
-                maxScoreListAll, maxScoreList, mContext, 2, true,
+                maxScoreListAll, maxScoreList, mContext, 2, isShowAsk,
                 iv_ask_bank_1, iv_ask_bank_2, iv_ask_bank_3, iv_ask_play_1, iv_ask_play_2, iv_ask_play_3,
                 bankColor, playColor, tieColor);//1房间 2大厅
+        if (isDraw) {
+            Algorithm.getInstance().drawRoad(beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
+                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 1,
+                    bankColor, playColor, tieColor, count, isShow, 2);
+        }
     }
 
     private void isShowChip(int show) {
@@ -1107,7 +1120,7 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
             maxScoreListAll.clear();
             initMessages();
             AlgorithmMacau.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
-                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0, bankColor, playColor, tieColor);//11列 加一局
+                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0, bankColor, playColor, tieColor, 0, false, 2);//11列 加一局
             SharedPreUtil.getInstance(mContext).saveParam(Constant.BACCARAT_STATE, event.state);
             iv_ask_bank_1.setBackgroundDrawable(null);
             iv_ask_bank_2.setBackgroundDrawable(null);
@@ -1188,8 +1201,10 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
             initMessages();
             Algorithm.getInstance().drawRoad(beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
                     gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 1,
-                    bankColor, playColor, tieColor);//4列 网络进入房间
-            ask();
+                    bankColor, playColor, tieColor, 0, false, 2);//4列 网络进入房间
+            ask(0, true, false, 0, false);
+            twinkleBank = 0;
+            twinklePlay = 0;
             //发光
 
             //1.庄几点 闲几点 一遍 先报庄几点再报闲几点
@@ -1659,12 +1674,20 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
         tv_in_game_player_value.setText(String.valueOf(player));
         tv_in_game_tie_value.setText(String.valueOf(tie));
 
+//        AlgorithmMacau.getInstance().initBigRoad(boardMessageList, beadRoadList, beadRoadListShort,
+//                bigRoadListAll, bigRoadList, bigRoadListShort,
+//                bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
+//                smallRoadListAll, smallRoadList, smallRoadListShort,
+//                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, maxScoreListAll, maxScoreList, mContext, 2, false,
+//                null, null, null, null, null, null,
+//                0, 0, 0);//1路单 2视频
         AlgorithmMacau.getInstance().initBigRoad(boardMessageList, beadRoadList, beadRoadListShort,
                 bigRoadListAll, bigRoadList, bigRoadListShort,
                 bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
                 smallRoadListAll, smallRoadList, smallRoadListShort,
-                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, maxScoreListAll, maxScoreList, mContext, 2, false,
-                null, null, null, null, null, null,
+                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort,
+                maxScoreListAll, maxScoreList, mContext, 2, false,
+                iv_ask_bank_1, iv_ask_bank_2, iv_ask_bank_3, iv_ask_play_1, iv_ask_play_2, iv_ask_play_3,
                 0, 0, 0);//1路单 2视频
     }
 
@@ -1730,6 +1753,18 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
     }
 
     private void initEvent() {
+        rl_ask_bank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ask(0, false, true, 4, true);
+            }
+        });
+        rl_ask_play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ask(1, false, true, 4, true);
+            }
+        });
         tv_robot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

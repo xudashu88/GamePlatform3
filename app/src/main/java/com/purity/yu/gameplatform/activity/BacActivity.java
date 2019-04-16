@@ -96,7 +96,6 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
     @BindView(R.id.tv_win_value)
     public TextView tv_win_value;
 
-
     @BindView(R.id.tv_banker)
     public TextView tv_banker;
     @BindView(R.id.tv_player)
@@ -287,6 +286,10 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
     TextView tv_show;
     @BindView(R.id.rl_show)
     RelativeLayout rl_show;
+    @BindView(R.id.rl_ask_play)
+    RelativeLayout rl_ask_play;
+    @BindView(R.id.rl_ask_bank)
+    RelativeLayout rl_ask_bank;
 
     private Context mContext;
     private DisplayMetrics displayMetrics;
@@ -475,11 +478,20 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
 //            maxScoreListAll.clear();
 //            maxScoreListAll.addAll(event.maxScoreList);
 
+//            boardMessageList.clear();
+//            boardMessageList.add(1);
+//            boardMessageList.add(1);
+//            boardMessageList.add(1);
+//            boardMessageList.add(1);
+//            boardMessageList.add(1);
+//            boardMessageList.add(1);
+//            boardMessageList.add(1);
+//            boardMessageList.add(0);
             initMessages();
             AlgorithmMacau.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
                     gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,
-                    Color.parseColor("#a40001"), Color.parseColor("#004A86"), Color.parseColor("#0D7D25"));//11列 加一局
-            ask();
+                    Color.parseColor("#a40001"), Color.parseColor("#004A86"), Color.parseColor("#0D7D25"), 0, false, 1);//11列 加一局
+            ask(0, true, false, 0, false);
         }
         String _1 = "0";
         String _2 = "0";
@@ -511,8 +523,6 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
                 initSound();//在低端机上 加载assets资源，超级耗时
             }
         }, 200);
-//        MacauSocketController.getInstance().connectSocketProdict();
-//        mSocketProdict = MacauSocketController.getInstance().getSocketProdict();
     }
 
     /*
@@ -617,7 +627,7 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
 //            isShowChip(View.VISIBLE);
             SharedPreUtil.getInstance(mContext).saveParam(Constant.BACCARAT_STATE, event.state);
 
-            second = betSecond;
+            second = event.second;
             perOnePerformance();
             zoomReturnVideo();
 
@@ -717,7 +727,7 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
             initMessages();
             AlgorithmMacau.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
                     gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,
-                    Color.parseColor("#a40001"), Color.parseColor("#004A86"), Color.parseColor("#0D7D25"));//11列 加一局
+                    Color.parseColor("#a40001"), Color.parseColor("#004A86"), Color.parseColor("#0D7D25"), 0, false, 1);//11列 加一局
             SharedPreUtil.getInstance(mContext).saveParam(Constant.BACCARAT_STATE, event.state);
             iv_ask_bank_1.setBackgroundDrawable(null);
             iv_ask_bank_2.setBackgroundDrawable(null);
@@ -842,11 +852,10 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
             }
 
             initMessages();
-            LogUtil.i("maxScoreList=" + maxScoreList.toString());
             AlgorithmMacau.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
                     gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,
-                    Color.parseColor("#a40001"), Color.parseColor("#004A86"), Color.parseColor("#0D7D25"));//11列 加一局
-            ask();//庄反闲
+                    Color.parseColor("#a40001"), Color.parseColor("#004A86"), Color.parseColor("#0D7D25"), 0, false, 1);//11列 加一局
+            ask(0, true, false, 0, false);//庄反闲
             //发光
 
             //1.庄几点 闲几点 一遍 先报庄几点再报闲几点
@@ -1654,18 +1663,23 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
                 0, 0, 0);//1路单 2视频
     }
 
-    private void ask() {
+    private void ask(int nextValue, boolean isShowAsk, boolean isDraw, int count, boolean isShow) {
         boardMessageList1.clear();
         boardMessageList1.addAll(boardMessageList);
-        boardMessageList1.add(0);
+        boardMessageList1.add(nextValue);
         AlgorithmMacau.getInstance().initBigRoad(boardMessageList1, beadRoadList, beadRoadListShort,
                 bigRoadListAll, bigRoadList, bigRoadListShort,
                 bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
                 smallRoadListAll, smallRoadList, smallRoadListShort,
                 cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort,
-                maxScoreListAll, maxScoreList, mContext, 2, true,
+                maxScoreListAll, maxScoreList, mContext, 2, isShowAsk,
                 iv_ask_bank_1, iv_ask_bank_2, iv_ask_bank_3, iv_ask_play_1, iv_ask_play_2, iv_ask_play_3,
                 Color.RED, Color.BLUE, Color.GREEN);//1房间 2大厅
+        if (isDraw) {
+            AlgorithmMacau.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
+                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,
+                    Color.parseColor("#a40001"), Color.parseColor("#004A86"), Color.parseColor("#0D7D25"), count, isShow, 1);
+        }
     }
 
     //************************************加载基本页面***********************************************
@@ -2049,9 +2063,19 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
         return false;
     }
 
-    private long lastOnClickTime = 0;
-
     private void initEvent() {
+        rl_ask_bank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ask(0, false, true, 4, true);
+            }
+        });
+        rl_ask_play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ask(1, false, true, 4, true);
+            }
+        });
         tv_switch_on.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -3349,7 +3373,7 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
         } else {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSv1.getLayoutParams();
             layoutParams.width = mContext.getResources().getDimensionPixelOffset(R.dimen.unit210);
-            layoutParams.height = mContext.getResources().getDimensionPixelOffset(R.dimen.unit180);
+            layoutParams.height = (int) (mContext.getResources().getDimensionPixelOffset(R.dimen.unit180) * scaleY);
             mSv1.setLayoutParams(layoutParams);
         }
 
@@ -3384,7 +3408,7 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
         } else {
             RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSv1.getLayoutParams();
             layoutParams.width = mContext.getResources().getDimensionPixelOffset(R.dimen.unit210);
-            layoutParams.height = mContext.getResources().getDimensionPixelOffset(R.dimen.unit180)-mContext.getResources().getDimensionPixelOffset(R.dimen.unit48);
+            layoutParams.height = scaleY_sv;
             mSv1.setLayoutParams(layoutParams);
         }
         tv_big_sv_l.setVisibility(View.GONE);
@@ -3411,7 +3435,7 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
                 layoutParams2.leftMargin = displayMetrics.widthPixels - tv_room_name.getWidth();
                 tv_room_name.setLayoutParams(layoutParams2);
             }
-        }, 600);
+        }, 300);
 
         time = 2;
         if (getSDK_INT() > 23) {

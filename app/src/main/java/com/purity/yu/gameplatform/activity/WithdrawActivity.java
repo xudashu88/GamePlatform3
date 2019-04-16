@@ -40,8 +40,10 @@ public class WithdrawActivity extends BaseActivity {
     public TextView tv_free;
     @BindView(R.id.tv_select_bank)
     public TextView tv_select_bank;
-    @BindView(R.id.btn_withdraw)
-    public TextView btn_withdraw;
+    @BindView(R.id.tv_withdraw)
+    public TextView tv_withdraw;
+    @BindView(R.id.tv_clean)
+    public TextView tv_clean;
     @BindView(R.id.et_your_name)
     public EditText et_your_name;
     @BindView(R.id.et_bank_number)
@@ -68,7 +70,7 @@ public class WithdrawActivity extends BaseActivity {
         initEvent();
         int id = SharedPreUtil.getInstance(mContext).getInt("withdraw_state_id");
         if (id != 0) {
-            ProtocolUtil.getInstance().getWithdrawFind(id, btn_withdraw);
+            ProtocolUtil.getInstance().getWithdrawFind(id, tv_withdraw);
         }
     }
 
@@ -76,12 +78,28 @@ public class WithdrawActivity extends BaseActivity {
     public void acceptEventMarqueeText(final ObjectEvent.MarqueeTextEvent event) {
         LogUtil.i("审核成功=取款吗" + event.message);
         if (event.money != null) {
-            ProtocolUtil.getInstance().depositState(btn_withdraw, 0, "取款");
+            ProtocolUtil.getInstance().depositState(tv_withdraw, 0, "取款");
             SharedPreUtil.getInstance(mContext).saveParam("withdraw_state", 0);
         }
     }
 
     private void initEvent() {
+        tv_clean.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et_your_name.setText("");
+                et_bank_number.setText("");
+                et_withdraw.setText("");
+                et_bank_name.setText("");
+                et_phone.setText("");
+                et_bank_branch.setText("");
+                et_your_name.setEnabled(true);
+                et_bank_number.setEnabled(true);
+                et_bank_branch.setEnabled(true);
+                et_bank_name.setEnabled(true);
+                et_phone.setEnabled(true);
+            }
+        });
         ll_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,17 +119,17 @@ public class WithdrawActivity extends BaseActivity {
                 final AlertDialog mAlertDialog = builder.create();
                 mAlertDialog.show();
                 mAlertDialog.getWindow().setContentView(view);
-                ProtocolUtil.getInstance().getBankList(mContext,rl_data, tv_no_data, recyclerView, mAlertDialog, et_your_name, et_bank_number, et_bank_name, et_phone);
+                ProtocolUtil.getInstance().getBankList(mContext, rl_data, tv_no_data, recyclerView, mAlertDialog, et_your_name, et_bank_number, et_bank_name, et_phone,et_bank_branch);
             }
         });
-        btn_withdraw.setOnClickListener(new View.OnClickListener() {
+        tv_withdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Util.isFastClick(3000)) {
                     if (verifyWithdraw()) {
                         ProtocolUtil.getInstance().withdraw(mContext, et_your_name,
                                 et_bank_number, et_bank_name, et_bank_branch, et_pay_pwd, et_phone, et_withdraw,
-                                btn_withdraw);
+                                tv_withdraw);
                     }
                 } else {
                     ToastUtil.show(mContext, "操作频繁，请稍后再试！");

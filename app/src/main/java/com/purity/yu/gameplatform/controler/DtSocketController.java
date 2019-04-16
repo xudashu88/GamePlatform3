@@ -384,6 +384,14 @@ public class DtSocketController {
                                     //测试用例
 //                                boardMessageList = BaccaratUtil.getInstance().initBoardMessage(56, boardMessageList);
 //                                maxScoreList = BaccaratUtil.getInstance().initMaxScore(56, maxScoreList);
+//                                    boardMessageList.add(0);
+//                                    boardMessageList.add(0);
+//                                    boardMessageList.add(0);
+//                                    boardMessageList.add(1);
+//                                    maxScoreList.add(0);
+//                                    maxScoreList.add(0);
+//                                    maxScoreList.add(0);
+//                                    maxScoreList.add(0);
                                     postEventJoinRoom(boardMessageList, maxScoreList, _goldcoins, roomid, roomName, _betLimitStr, _maxBetStr, _minBetStr, stateHis, downtownTime, skyCard, isPeopleNum, betSecond, _colorStr, betsRemind);
                                     if (stateHis.equals(Constant.BACCARAT_RESULT)) {
                                         onClick(false);

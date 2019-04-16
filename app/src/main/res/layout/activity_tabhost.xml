@@ -154,7 +154,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
-            android:padding="@dimen/unit5">
+            android:padding="@dimen/unit6">
 
             <ImageView
                 android:id="@+id/iv_bac_set"

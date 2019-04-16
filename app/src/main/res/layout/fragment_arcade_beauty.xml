@@ -50,13 +50,19 @@
             android:background="@drawable/puyu_seat"
             android:tag="3" />
 
+        <View
+            android:id="@+id/v_right"
+            android:layout_width="@dimen/unit18"
+            android:layout_height="@dimen/unit20"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/iv_puyu_table" />
+
         <ImageView
             android:id="@+id/puyu_seat_4"
             android:layout_width="@dimen/unit40"
             android:layout_height="@dimen/unit40"
-            android:layout_below="@id/puyu_seat_5"
+            android:layout_below="@id/v_right"
             android:layout_marginLeft="@dimen/unit10"
-            android:layout_marginTop="@dimen/unit10"
             android:layout_toRightOf="@id/iv_puyu_table"
             android:background="@drawable/puyu_seat"
             android:tag="4" />
@@ -65,8 +71,8 @@
             android:id="@+id/puyu_seat_5"
             android:layout_width="@dimen/unit40"
             android:layout_height="@dimen/unit40"
+            android:layout_above="@+id/v_right"
             android:layout_marginLeft="@dimen/unit10"
-            android:layout_marginTop="@dimen/unit100"
             android:layout_toRightOf="@id/iv_puyu_table"
             android:background="@drawable/puyu_seat"
             android:tag="5" />
@@ -103,11 +109,18 @@
             android:background="@drawable/puyu_seat"
             android:tag="8" />
 
+        <View
+            android:id="@+id/v_left"
+            android:layout_width="@dimen/unit18"
+            android:layout_height="@dimen/unit20"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/iv_puyu_table" />
+
         <ImageView
             android:id="@+id/puyu_seat_9"
             android:layout_width="@dimen/unit40"
             android:layout_height="@dimen/unit40"
-            android:layout_marginTop="@dimen/unit100"
+            android:layout_above="@+id/v_left"
             android:layout_marginRight="@dimen/unit10"
             android:layout_toLeftOf="@id/iv_puyu_table"
             android:background="@drawable/puyu_seat"
@@ -117,8 +130,7 @@
             android:id="@+id/puyu_seat_10"
             android:layout_width="@dimen/unit40"
             android:layout_height="@dimen/unit40"
-            android:layout_below="@id/puyu_seat_9"
-            android:layout_marginTop="@dimen/unit10"
+            android:layout_below="@id/v_left"
             android:layout_marginRight="@dimen/unit10"
             android:layout_toLeftOf="@id/iv_puyu_table"
             android:background="@drawable/puyu_seat"

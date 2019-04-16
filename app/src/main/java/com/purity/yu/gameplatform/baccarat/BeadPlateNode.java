@@ -5,6 +5,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.util.AttributeSet;
+import android.view.View;
+
+import com.gangbeng.basemodule.utils.LogUtil;
+
+import java.util.List;
 
 /**
  * 珠盘路
@@ -12,32 +18,27 @@ import android.graphics.Typeface;
  */
 public class BeadPlateNode implements NodeImp {
 
-    private int mX = 0;
+    private int mX;
 
-    private int mY = 0;
+    private int mY;
 
-    private String mText = "";
+    private String mText;
 
     private int mColor = Color.WHITE;
 
-    private int mFontBgColor = Color.BLUE;
+    private int mFontBgColor;
 
-    private boolean mRedLeftTop = false;
-    private boolean mBlueRightBottom = false;
+    private boolean mRedLeftTop;
+    private boolean mBlueRightBottom;
 
     private float mFontSize = -100;
-
-    private float mCircleSub = 0;
 
     private int mLeftTopColor = Color.RED;
     private int mRightBottomColor = Color.BLUE;
 
     private int mWhiteColor = Color.WHITE;
     private Context mContext;
-    public static Typeface typeface1;
-
-    public BeadPlateNode() {
-    }
+    public Typeface typeface1;
 
     /**
      * 珠盘路
@@ -49,15 +50,14 @@ public class BeadPlateNode implements NodeImp {
      * @param mRedLeftTop      左上角红点
      * @param mBlueRightBottom 右下角蓝点
      */
-    public BeadPlateNode(int x, int y, String text, int fontBgColor, boolean mRedLeftTop, boolean mBlueRightBottom) {
-        this.mX = x;
-        this.mY = y;
-        this.mText = text;
-        this.mFontBgColor = fontBgColor;
-        this.mRedLeftTop = mRedLeftTop;
-        this.mBlueRightBottom = mBlueRightBottom;
-    }
-
+//    public BeadPlateNode(int x, int y, String text, int fontBgColor, boolean mRedLeftTop, boolean mBlueRightBottom) {
+//        this.mX = x;
+//        this.mY = y;
+//        this.mText = text;
+//        this.mFontBgColor = fontBgColor;
+//        this.mRedLeftTop = mRedLeftTop;
+//        this.mBlueRightBottom = mBlueRightBottom;
+//    }
     public BeadPlateNode(int x, int y, String text, int fontBgColor, boolean mRedLeftTop, boolean mBlueRightBottom, Context mContext) {
         this.mX = x;
         this.mY = y;
@@ -141,31 +141,20 @@ public class BeadPlateNode implements NodeImp {
         return mColor;
     }
 
-    public void setmX(int x) {
-        this.mX = x;
+    @Override
+    public boolean isSpecialNode(List<NodeImp> nodeList) {
+        for (NodeImp nodeImp : nodeList) {
+            if (nodeImp.getX() > mX) {
+                return false;
+            } else if (nodeImp.getX() == mX && nodeImp.getY() > mY) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    public void setmY(int y) {
-        this.mY = y;
-    }
-
-    public void setmText(String text) {
-        this.mText = text;
-    }
-
-    public void setmColor(int color) {
-        this.mColor = color;
-    }
-
-    public void setmFontBgColor(int fontBgColor) {
-        this.mFontBgColor = fontBgColor;
-    }
-
-    public void setmFontSize(float mFontSize) {
-        this.mFontSize = mFontSize;
-    }
-
-    public void setCircleSub(float circleSub) {
-        this.mCircleSub = circleSub;
+    @Override
+    public void drawSpecial(Canvas canvas, Paint paint, float left, float top, float right, float bottom) {
+        LogUtil.i("isSpecialNode drawSpecial");
     }
 }

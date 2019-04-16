@@ -5,7 +5,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+import com.gangbeng.basemodule.utils.LogUtil;
 import com.purity.yu.gameplatform.widget.DpUtil;
+
+import java.util.List;
 
 /**
  * 大路
@@ -13,12 +16,11 @@ import com.purity.yu.gameplatform.widget.DpUtil;
  */
 public class SingleRingNode implements NodeImp {
 
-    private int mX = 0;
+    private int mX;
 
-    private int mY = 0;
+    private int mY;
 
     private float mRingHeight = DpUtil.dp2px(1);
-//    private float mRingHeight = 1;
 
     private float mLineHeight = -100;
 
@@ -44,10 +46,9 @@ public class SingleRingNode implements NodeImp {
      * @param mNeedSlash 是否有斜线
      * @param mText      文本
      */
-    public SingleRingNode(int mX, int mY,/*float mRingHeight,*/int mRingColor, boolean mNeedSlash, String mText) {
+    public SingleRingNode(int mX, int mY, int mRingColor, boolean mNeedSlash, String mText) {
         this.mX = mX;
         this.mY = mY;
-//        this.mRingHeight = mRingHeight;
         this.mColor = mRingColor;
         this.mNeedSlash = mNeedSlash;
         this.mText = mText;
@@ -78,7 +79,7 @@ public class SingleRingNode implements NodeImp {
         //居中文字
         String line = String.valueOf(lineWidth);
         int _line = Integer.parseInt(line.split("\\.")[0]);
-        paint.setTextSize(_line*8);
+        paint.setTextSize(_line * 8);
         paint.setStyle(Paint.Style.FILL);
         paint.setFakeBoldText(false);//非粗体
         paint.setStrokeWidth(0.6f);
@@ -110,6 +111,23 @@ public class SingleRingNode implements NodeImp {
         return mColor;
     }
 
+    @Override
+    public boolean isSpecialNode(List<NodeImp> nodeList) {
+        for (NodeImp nodeImp : nodeList) {
+            if (nodeImp.getX() > mX) {
+                return false;
+            } else if (nodeImp.getX() == mX && nodeImp.getY() > mY) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void drawSpecial(Canvas canvas, Paint paint, float left, float top, float right, float bottom) {
+
+    }
+
     public void setX(int x) {
         this.mX = x;
     }
@@ -118,27 +136,4 @@ public class SingleRingNode implements NodeImp {
         this.mY = y;
     }
 
-    public void setRingHeight(float ringHeight) {
-        this.mRingHeight = ringHeight;
-    }
-
-    public void setLineHeight(float lineHeight) {
-        this.mLineHeight = lineHeight;
-    }
-
-    public void setNeedSlash(boolean needSlash) {
-        this.mNeedSlash = needSlash;
-    }
-
-    public void setSlashColor(int slashColor) {
-        this.mSlashColor = slashColor;
-    }
-
-    public String getmText() {
-        return mText;
-    }
-
-    public void setmText(String mText) {
-        this.mText = mText;
-    }
 }

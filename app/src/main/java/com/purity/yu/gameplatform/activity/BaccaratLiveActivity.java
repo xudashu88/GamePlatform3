@@ -39,6 +39,7 @@ import com.purity.yu.gameplatform.entity.Baccarat;
 import com.purity.yu.gameplatform.entity.Liquidation;
 import com.purity.yu.gameplatform.event.ObjectEvent;
 import com.purity.yu.gameplatform.utils.Algorithm;
+import com.purity.yu.gameplatform.utils.AlgorithmMacau;
 import com.purity.yu.gameplatform.utils.BaccaratUtil;
 import com.purity.yu.gameplatform.utils.SoundPoolUtil;
 import com.purity.yu.gameplatform.widget.ChipView;
@@ -111,6 +112,8 @@ public class BaccaratLiveActivity extends BaseActivity {
     List<Integer> cockroachRoad = new ArrayList<>();// 小强路原始数据(转成二维就可以直接画出来了)
     List<List<Integer>> cockroachRoadList = new ArrayList<>();// 小强路(展开)
     List<List<Integer>> cockroachRoadListShort = new ArrayList<>();// 小强路(缩小)
+    private List<Integer> maxScoreListAll = new ArrayList<>();//赢家分数
+    private List<Integer> maxScoreList = new ArrayList<>();//赢家分数
     private double currentMoney;
     private int deskId = 0;
     private int noBetCount = 0;
@@ -177,13 +180,13 @@ public class BaccaratLiveActivity extends BaseActivity {
     private TextView tv_in_game_banker_pair_value;
     private TextView tv_in_game_player_pair_value;
     private RelativeLayout rl_banker_to_player;
-    private ImageView iv_banker_to_player_1;
-    private ImageView iv_banker_to_player_2;
-    private ImageView iv_banker_to_player_3;
+    private ImageView iv_ask_bank_1;
+    private ImageView iv_ask_bank_2;
+    private ImageView iv_ask_bank_3;
     private RelativeLayout rl_player_to_banker;
-    private ImageView iv_player_to_banker_1;
-    private ImageView iv_player_to_banker_2;
-    private ImageView iv_player_to_banker_3;
+    private ImageView iv_ask_play_1;
+    private ImageView iv_ask_play_2;
+    private ImageView iv_ask_play_3;
     private TextView tv_change_banker;
     private TextView tv_player;
     private TextView tv_small;
@@ -337,13 +340,13 @@ public class BaccaratLiveActivity extends BaseActivity {
         tv_in_game_player_pair_value = findViewById(R.id.tv_in_game_player_pair_value);
 
         rl_banker_to_player = findViewById(R.id.rl_banker_to_player);
-        iv_banker_to_player_1 = findViewById(R.id.iv_banker_to_player_1);
-        iv_banker_to_player_2 = findViewById(R.id.iv_banker_to_player_2);
-        iv_banker_to_player_3 = findViewById(R.id.iv_banker_to_player_3);
+        iv_ask_bank_1 = findViewById(R.id.iv_banker_to_player_1);
+        iv_ask_bank_2 = findViewById(R.id.iv_banker_to_player_2);
+        iv_ask_bank_3 = findViewById(R.id.iv_banker_to_player_3);
         rl_player_to_banker = findViewById(R.id.rl_player_to_banker);
-        iv_player_to_banker_1 = findViewById(R.id.iv_player_to_banker_1);
-        iv_player_to_banker_2 = findViewById(R.id.iv_player_to_banker_2);
-        iv_player_to_banker_3 = findViewById(R.id.iv_player_to_banker_3);
+        iv_ask_play_1 = findViewById(R.id.iv_player_to_banker_1);
+        iv_ask_play_2 = findViewById(R.id.iv_player_to_banker_2);
+        iv_ask_play_3 = findViewById(R.id.iv_player_to_banker_3);
 
         tv_change_banker = findViewById(R.id.tv_change_banker);
         tv_player = findViewById(R.id.tv_player);
@@ -532,12 +535,25 @@ public class BaccaratLiveActivity extends BaseActivity {
 //            boardMessageList = BaccaratUtil.getInstance().initBoardMessage(53, boardMessageList);
 //            initMessages();
             Algorithm.getInstance().drawRoad(beadRoadListShort, bigRoadListShort, bigEyeRoadListShort, smallRoadListShort, cockroachRoadListShort,
-                    gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 0, Color.RED, Color.BLUE, Color.GREEN);//4列 手动进房间
+                    gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 0, Color.RED, Color.BLUE, Color.GREEN, 0, false, 2);//4列 手动进房间
         }
         initEvent();
     }
 
     private void initEvent() {
+        rl_banker_to_player.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ask(0, false, true, 4, true);
+            }
+        });
+        rl_player_to_banker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ask(1, false, true, 4, true);
+            }
+        });
+
         rl_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1973,18 +1989,6 @@ public class BaccaratLiveActivity extends BaseActivity {
                 free = 0;
             }
         });
-        rl_banker_to_player.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                ask(0, 2);
-            }
-        });
-        rl_player_to_banker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                ask(1, 2);
-            }
-        });
         tv_full_road.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -2250,20 +2254,28 @@ public class BaccaratLiveActivity extends BaseActivity {
 
     /**
      * 庄问路
-     *
-     * @param i 0庄 1闲 相反
      */
-    private void ask(int i, int drawable) {
+    private void ask(int value, boolean isShowAsk, boolean isDraw, int count, boolean isShow) {
         boardMessageList1.clear();
         boardMessageList1.addAll(boardMessageList);
-        boardMessageList1.add(i);
+        boardMessageList1.add(value);
         Algorithm.getInstance().initBigRoad(boardMessageList1, beadRoadList, beadRoadListShort,
                 bigRoadListAll, bigRoadList, bigRoadListShort,
                 bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
                 smallRoadListAll, smallRoadList, smallRoadListShort,
-                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, mContext, 1);
-        Algorithm.getInstance().drawRoad(beadRoadListShort, bigRoadListShort, bigEyeRoadListShort, smallRoadListShort, cockroachRoadListShort,
-                gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, drawable, Color.RED, Color.BLUE, Color.GREEN);
+                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort,
+                maxScoreListAll, maxScoreList, mContext, 1, isShowAsk,
+                iv_ask_bank_1, iv_ask_bank_2, iv_ask_bank_3, iv_ask_play_1, iv_ask_play_2, iv_ask_play_3,
+                Color.RED, Color.BLUE, Color.GREEN);//1房间 2大厅
+        if (isDraw) {
+            if (isExpand == 0) {
+                Algorithm.getInstance().drawRoad(beadRoadListShort, bigRoadListShort, bigEyeRoadListShort, smallRoadListShort, cockroachRoadListShort,
+                        gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 0, Color.RED, Color.BLUE, Color.GREEN, count, isShow, 2);//4列 加一局
+            } else if (isExpand == 2) {
+                Algorithm.getInstance().drawRoad(beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
+                        gv_left, gv_right_top, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0, Color.RED, Color.BLUE, Color.GREEN, count, isShow, 2);//11列 加一局
+            }
+        }
     }
 
     private int initChipLayout() {
@@ -2375,7 +2387,7 @@ public class BaccaratLiveActivity extends BaseActivity {
         SharedPreUtil.getInstance(mContext).saveParam(Constant.IS_EXPAND, 0);
         tv_full_road.setText(mContext.getResources().getString(R.string.half_road));
         Algorithm.getInstance().drawRoad(beadRoadListShort, bigRoadListShort, bigEyeRoadListShort, smallRoadListShort, cockroachRoadListShort,
-                gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 0, Color.RED, Color.BLUE, Color.GREEN);//4列 trans1to0
+                gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 0, Color.RED, Color.BLUE, Color.GREEN, 0, false, 2);//4列 trans1to0
     }
 
     private void trans0to1() {
@@ -2420,7 +2432,7 @@ public class BaccaratLiveActivity extends BaseActivity {
         v_4.setVisibility(View.VISIBLE);
         v_5.setVisibility(View.VISIBLE);
         Algorithm.getInstance().drawRoad(beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
-                gv_left, gv_right_top, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0, Color.RED, Color.BLUE, Color.GREEN);//11列 trans0to2
+                gv_left, gv_right_top, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0, Color.RED, Color.BLUE, Color.GREEN, 0, false, 2);//11列 trans0to2
 //        drawAsk(1);
     }
 
@@ -2461,7 +2473,7 @@ public class BaccaratLiveActivity extends BaseActivity {
         v_5.setVisibility(View.GONE);
 
         Algorithm.getInstance().drawRoad(beadRoadListShort, bigRoadListShort, bigEyeRoadListShort, smallRoadListShort, cockroachRoadListShort,
-                gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 0, Color.RED, Color.BLUE, Color.GREEN);//4列 trans2to0
+                gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 0, Color.RED, Color.BLUE, Color.GREEN, 0, false, 2);//4列 trans2to0
 //        drawAsk(1);
     }
 
@@ -2570,7 +2582,10 @@ public class BaccaratLiveActivity extends BaseActivity {
                 bigRoadListAll, bigRoadList, bigRoadListShort,
                 bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
                 smallRoadListAll, smallRoadList, smallRoadListShort,
-                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, mContext, 1);//1房间 2大厅
+                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort,
+                maxScoreListAll, maxScoreList, mContext, 1, false,
+                iv_ask_bank_1, iv_ask_bank_2, iv_ask_bank_3, iv_ask_play_1, iv_ask_play_2, iv_ask_play_3,
+                Color.RED, Color.BLUE, Color.GREEN);//1房间 2大厅
     }
 
     /**
@@ -2658,7 +2673,9 @@ public class BaccaratLiveActivity extends BaseActivity {
             tv_code.setText(getResources().getString(R.string.game_code) + ":" + String.valueOf(event.deskId) + boardMessageList.size());
             initMessages();
             Algorithm.getInstance().drawRoad(beadRoadListShort, bigRoadListShort, bigEyeRoadListShort, smallRoadListShort, cockroachRoadListShort,
-                    gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 0, Color.RED, Color.BLUE, Color.GREEN);//4列 网络进入房间
+                    gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 0, Color.RED,
+                    Color.BLUE, Color.GREEN, 0, false, 2);//4列 网络进入房间
+            ask(0, true, false, 0, false);
         }
         String _1 = "0";
         String _2 = "0";
@@ -3479,10 +3496,10 @@ public class BaccaratLiveActivity extends BaseActivity {
             initMessages();
             if (isExpand == 0) {
                 Algorithm.getInstance().drawRoad(beadRoadListShort, bigRoadListShort, bigEyeRoadListShort, smallRoadListShort, cockroachRoadListShort,
-                        gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 0, Color.RED, Color.BLUE, Color.GREEN);//4列 加一局
+                        gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 0, Color.RED, Color.BLUE, Color.GREEN, 0, false, 2);//4列 加一局
             } else if (isExpand == 2) {
                 Algorithm.getInstance().drawRoad(beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
-                        gv_left, gv_right_top, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0, Color.RED, Color.BLUE, Color.GREEN);//11列 加一局
+                        gv_left, gv_right_top, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0, Color.RED, Color.BLUE, Color.GREEN, 0, false, 2);//11列 加一局
             }
         } else if (event.state.equals(Constant.BACCARAT_FAULT)) {
             ToastUtil.show(mContext, "机械臂异常");
@@ -3575,10 +3592,10 @@ public class BaccaratLiveActivity extends BaseActivity {
             initMessages();
             if (isExpand == 0) {
                 Algorithm.getInstance().drawRoad(beadRoadListShort, bigRoadListShort, bigEyeRoadListShort, smallRoadListShort, cockroachRoadListShort,
-                        gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 0, Color.RED, Color.BLUE, Color.GREEN);//4列 加一局
+                        gv_left_short, gv_right_top_short, gv_right_middle_short, gv_right_bottom_1_short, gv_right_bottom_2_short, mContext, 0, Color.RED, Color.BLUE, Color.GREEN, 0, false, 2);//4列 加一局
             } else if (isExpand == 2) {
                 Algorithm.getInstance().drawRoad(beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
-                        gv_left, gv_right_top, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0, Color.RED, Color.BLUE, Color.GREEN);//11列 加一局
+                        gv_left, gv_right_top, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0, Color.RED, Color.BLUE, Color.GREEN, 0, false, 2);//11列 加一局
             }
             //1.庄几点 闲几点 一遍 先报庄几点再报闲几点
             //2.庄赢/闲赢 2遍 和局 1遍
@@ -3618,7 +3635,7 @@ public class BaccaratLiveActivity extends BaseActivity {
                 }, 3500);
             }
         }
-//        drawAsk(1);
+        ask(0, true, false, 0, false);
     }
 
     /*

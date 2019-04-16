@@ -130,7 +130,7 @@ public class BaccaratRVAdapter2 extends RecyclerView.Adapter<BaccaratRVAdapter2.
                 holder.tv_player.setVisibility(View.GONE);
             }
             if (hall.boardMessageList.size() > 0 && mBaccaratList.get(position).roomId.equals(hall.roomId)) {
-                LogUtil.i("boardMessageList 链接="+hall.boardMessageList.toString());
+                LogUtil.i("boardMessageList 链接=" + hall.boardMessageList.toString());
                 draw(holder, hall);
                 if (hall.state.equals(Constant.BACCARAT_BET)) {
                     holder.pcac.setCurrentPercent(hall.second);
@@ -198,14 +198,22 @@ public class BaccaratRVAdapter2 extends RecyclerView.Adapter<BaccaratRVAdapter2.
         holder.tv_bank_count.setText(String.valueOf(banker));
         holder.tv_player_count.setText(String.valueOf(player));
         holder.tv_tie_count.setText(String.valueOf(tie));
+//        Algorithm.getInstance().initBigRoad(boardMessageList, new ArrayList<Integer>(), new ArrayList<Integer>(),
+//                bigRoadListAll, bigRoadList, bigRoadListShort,
+//                bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
+//                smallRoadListAll, smallRoadList, smallRoadListShort,
+//                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, mContext, 2);//1房间 2大厅
         Algorithm.getInstance().initBigRoad(boardMessageList, new ArrayList<Integer>(), new ArrayList<Integer>(),
                 bigRoadListAll, bigRoadList, bigRoadListShort,
                 bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
                 smallRoadListAll, smallRoadList, smallRoadListShort,
-                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, mContext, 2);//1房间 2大厅
+                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort,
+                new ArrayList<Integer>(), new ArrayList<Integer>(), mContext, 2, false,
+                null, null, null, null, null, null,
+                Color.RED, Color.BLUE, Color.GREEN);
         Algorithm.getInstance().drawRoad(boardMessageList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
                 holder.gv_left, holder.gv_right_top, holder.gv_right_middle, holder.gv_right_bottom_1, holder.gv_right_bottom_2, mContext, 0,
-                Color.RED, Color.BLUE, Color.GREEN);
+                Color.parseColor("#a40001"), Color.parseColor("#004A86"), Color.parseColor("#0D7D25"), 0, false, 1);//新加count 闪的次数 isShow闪不闪 version 1为湖北 2为国际
     }
 
     private void update(ViewHolder holder, int position) {

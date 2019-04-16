@@ -2,6 +2,7 @@ package com.purity.yu.gameplatform.utils;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.widget.ImageView;
 
 import com.gangbeng.basemodule.utils.SharedPreUtil;
@@ -435,7 +436,7 @@ public class AlgorithmHoly {
     /**
      * 绘制珠盘路
      */
-    private void drawBeadRoad(List<Integer> beadRoadList, YHZGridView gv_left, Context mContext, int gameType) {
+    private void drawBeadRoad(List<Integer> beadRoadList, YHZGridView gv_left, Context mContext, int gameType, int count, boolean isShow) {
         String _banker = "", _player = "";
 
         if (gameType == 0) {
@@ -451,85 +452,85 @@ public class AlgorithmHoly {
         list1.clear();
         for (int i = 0; i < beadRoadList.size(); i++) {
             if (i < 6) {
-                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 0, gameType);
+                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 0, gameType, mContext);
             }
             if (i < 12 && i > 5) {
-                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 1, gameType);
+                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 1, gameType, mContext);
             }
             if (i < 18 && i > 11) {
-                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 2, gameType);
+                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 2, gameType, mContext);
             }
             if (i < 24 && i > 17) {
-                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 3, gameType);
+                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 3, gameType, mContext);
             }
             if (i < 30 && i > 23) {
-                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 4, gameType);
+                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 4, gameType, mContext);
             }
             if (i < 36 && i > 29) {
-                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 5, gameType);
+                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 5, gameType, mContext);
             }
             if (i < 42 && i > 35) {
-                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 6, gameType);
+                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 6, gameType, mContext);
             }
             if (i < 48 && i > 41) {
-                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 7, gameType);
+                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 7, gameType, mContext);
             }
             if (i < 54 && i > 47) {
-                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 8, gameType);
+                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 8, gameType, mContext);
             }
             if (i < 60 && i > 53) {
-                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 9, gameType);
+                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 9, gameType, mContext);
             }
             if (i < 66 && i > 59) {
-                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 10, gameType);
+                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 10, gameType, mContext);
             }
             if (i < 72 && i > 63) {
-                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 11, gameType);
+                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 11, gameType, mContext);
             }
             if (i < 78 && i > 69) {
-                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 12, gameType);
+                i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 12, gameType, mContext);
             }
         }
-        gv_left.setNodeList(list1);
+        gv_left.setNodeList(list1, count, isShow);
         gv_left.postInvalidate();
     }
 
-    private int initFontNode(List<Integer> boardMessageList, List<NodeImp> list, String _banker, String _player, String _tie, int i, int i2, int gameType) {
+    private int initFontNode(List<Integer> boardMessageList, List<NodeImp> list, String _banker, String _player, String _tie, int i, int i2, int gameType, Context mContext) {
         for (int j = 0; j < 6; j++, i++) {
             if (i < boardMessageList.size()) {
                 if (gameType == 0) {
                     if (boardMessageList.get(i) == 0) {
-                        list.add(new BeadPlateNode(i2, j, _banker, Color.RED, false, false));
+                        list.add(new BeadPlateNode(i2, j, _banker, Color.RED, false, false, mContext));
                     } else if (boardMessageList.get(i) == 1) {
-                        list.add(new BeadPlateNode(i2, j, _player, Color.BLUE, false, false));
+                        list.add(new BeadPlateNode(i2, j, _player, Color.BLUE, false, false, mContext));
                     } else if (boardMessageList.get(i) == 2) {
-                        list.add(new BeadPlateNode(i2, j, _tie, Color.GREEN, false, false));
+                        list.add(new BeadPlateNode(i2, j, _tie, Color.GREEN, false, false, mContext));
                     } else if (boardMessageList.get(i) == 3) {
-                        list.add(new BeadPlateNode(i2, j, _banker, Color.RED, true, false));
+                        list.add(new BeadPlateNode(i2, j, _banker, Color.RED, true, false, mContext));
                     } else if (boardMessageList.get(i) == 4) {
-                        list.add(new BeadPlateNode(i2, j, _banker, Color.RED, false, true));
+                        list.add(new BeadPlateNode(i2, j, _banker, Color.RED, false, true, mContext));
                     } else if (boardMessageList.get(i) == 5) {
-                        list.add(new BeadPlateNode(i2, j, _banker, Color.RED, true, true));
+                        list.add(new BeadPlateNode(i2, j, _banker, Color.RED, true, true, mContext));
                     } else if (boardMessageList.get(i) == 6) {
-                        list.add(new BeadPlateNode(i2, j, _player, Color.BLUE, true, false));
+                        list.add(new BeadPlateNode(i2, j, _player, Color.BLUE, true, false, mContext));
                     } else if (boardMessageList.get(i) == 7) {
-                        list.add(new BeadPlateNode(i2, j, _player, Color.BLUE, false, true));
+                        list.add(new BeadPlateNode(i2, j, _player, Color.BLUE, false, true, mContext));
                     } else if (boardMessageList.get(i) == 8) {
-                        list.add(new BeadPlateNode(i2, j, _player, Color.BLUE, true, true));
+                        list.add(new BeadPlateNode(i2, j, _player, Color.BLUE, true, true, mContext));
                     } else if (boardMessageList.get(i) == 9) {
-                        list.add(new BeadPlateNode(i2, j, _tie, Color.GREEN, true, false));
+                        list.add(new BeadPlateNode(i2, j, _tie, Color.GREEN, true, false, mContext));
                     } else if (boardMessageList.get(i) == 10) {
-                        list.add(new BeadPlateNode(i2, j, _tie, Color.GREEN, false, true));
+                        list.add(new BeadPlateNode(i2, j, _tie, Color.GREEN, false, true, mContext));
                     } else if (boardMessageList.get(i) == 11) {
-                        list.add(new BeadPlateNode(i2, j, _tie, Color.GREEN, true, true));
+                        list.add(new BeadPlateNode(i2, j, _tie, Color.GREEN, true, true, mContext));
                     }
                 } else if (gameType == 1) {
                     if (boardMessageList.get(i) == 0 || boardMessageList.get(i) == 3 || boardMessageList.get(i) == 4 || boardMessageList.get(i) == 5) {
-                        list.add(new BeadPlateNode(i2, j, _banker, Color.RED, false, false));
+                        list.add(new BeadPlateNode(i2, j, _banker, Color.RED, false, false, mContext));
                     } else if (boardMessageList.get(i) == 1 || boardMessageList.get(i) == 6 || boardMessageList.get(i) == 7 || boardMessageList.get(i) == 8) {
-                        list.add(new BeadPlateNode(i2, j, _player, Color.BLUE, false, false));
+                        list.add(new BeadPlateNode(i2, j, _player, Color.BLUE, false, false, mContext));
                     } else if (boardMessageList.get(i) == 2 || boardMessageList.get(i) == 9 || boardMessageList.get(i) == 10 || boardMessageList.get(i) == 11) {
-                        list.add(new BeadPlateNode(i2, j, _tie, Color.GREEN, false, false));
+                        list.add(new BeadPlateNode(i2, j, _tie, Color.GREEN, false, false, mContext));
                     }
                 }
             }
@@ -1071,55 +1072,72 @@ public class AlgorithmHoly {
             calCockroachRoad(cockroachRoadListAll, cockroachRoadList);//22
             //视频 大眼路25 小路25 小强路22
         }
-        if(isShowAsk){
-            int lastBigEyeRoad=-1,lastSmallRoad=-1,lastCockroachRoad=-1;
-            if(bigEyeRoadListAll.size()>0){
-                lastBigEyeRoad=bigEyeRoadListAll.get(bigEyeRoadListAll.size()-1).get(bigEyeRoadListAll.get(bigEyeRoadListAll.size()-1).size()-1);
+        if (isShowAsk) {
+            int lastBigEyeRoad = -1, lastSmallRoad = -1, lastCockroachRoad = -1;
+            if (bigEyeRoadListAll.size() > 0) {
+                lastBigEyeRoad = bigEyeRoadListAll.get(bigEyeRoadListAll.size() - 1).get(bigEyeRoadListAll.get(bigEyeRoadListAll.size() - 1).size() - 1);
             }
-            if(smallRoadListAll.size()>0){
-                lastSmallRoad=smallRoadListAll.get(smallRoadListAll.size()-1).get(smallRoadListAll.get(smallRoadListAll.size()-1).size()-1);
+            if (smallRoadListAll.size() > 0) {
+                lastSmallRoad = smallRoadListAll.get(smallRoadListAll.size() - 1).get(smallRoadListAll.get(smallRoadListAll.size() - 1).size() - 1);
             }
-            if(cockroachRoadListAll.size()>0){
-                lastCockroachRoad=cockroachRoadListAll.get(cockroachRoadListAll.size()-1).get(cockroachRoadListAll.get(cockroachRoadListAll.size()-1).size()-1);
+            if (cockroachRoadListAll.size() > 0) {
+                lastCockroachRoad = cockroachRoadListAll.get(cockroachRoadListAll.size() - 1).get(cockroachRoadListAll.get(cockroachRoadListAll.size() - 1).size() - 1);
             }
 
             if (lastBigEyeRoad != -1) {
+                GradientDrawable drawableDragon1 = setGradientDrawable(GradientDrawable.OVAL, Color.RED, mContext);
+                GradientDrawable drawableDragon2 = setGradientDrawable(GradientDrawable.OVAL, Color.BLUE, mContext);
                 if (lastBigEyeRoad == 0) {
-                    iv_ask_bank_1.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                    iv_ask_bank_1.setImageDrawable(mContext.getResources().getDrawable(R.drawable.img_hollow_red));
-                    iv_ask_play_1.setImageDrawable(mContext.getResources().getDrawable(R.drawable.img_hollow_blue));
+                    iv_ask_bank_1.setBackgroundDrawable(drawableDragon1);
+                    iv_ask_play_1.setBackgroundDrawable(drawableDragon2);
                 } else {
-                    iv_ask_bank_1.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                    iv_ask_bank_1.setImageDrawable(mContext.getResources().getDrawable(R.drawable.img_hollow_blue));
-                    iv_ask_play_1.setImageDrawable(mContext.getResources().getDrawable(R.drawable.img_hollow_red));
+                    iv_ask_bank_1.setBackgroundDrawable(drawableDragon2);
+                    iv_ask_play_1.setBackgroundDrawable(drawableDragon1);
                 }
             }
             if (lastSmallRoad != -1) {
+                GradientDrawable drawableDragon1 = setGradientDrawable2(GradientDrawable.OVAL, Color.RED, mContext);
+                GradientDrawable drawableDragon2 = setGradientDrawable2(GradientDrawable.OVAL, Color.BLUE, mContext);
                 if (lastSmallRoad == 0) {
-                    iv_ask_bank_2.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                    iv_ask_bank_2.setImageDrawable(mContext.getResources().getDrawable(R.drawable.solid_circle_red));
-                    iv_ask_play_2.setImageDrawable(mContext.getResources().getDrawable(R.drawable.solid_circle_blue));
+                    iv_ask_bank_2.setBackgroundDrawable(drawableDragon1);
+                    iv_ask_play_2.setBackgroundDrawable(drawableDragon2);
                 } else {
-                    iv_ask_bank_2.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                    iv_ask_bank_2.setImageDrawable(mContext.getResources().getDrawable(R.drawable.solid_circle_blue));
-                    iv_ask_play_2.setImageDrawable(mContext.getResources().getDrawable(R.drawable.solid_circle_red));
+                    iv_ask_bank_2.setBackgroundDrawable(drawableDragon2);
+                    iv_ask_play_2.setBackgroundDrawable(drawableDragon1);
                 }
             }
             if (lastCockroachRoad != -1) {
+                GradientDrawable drawableDragon1 = setGradientDrawable(GradientDrawable.LINE, Color.RED, mContext);
+                GradientDrawable drawableDragon2 = setGradientDrawable(GradientDrawable.LINE, Color.BLUE, mContext);
                 if (lastCockroachRoad == 0) {
-                    iv_ask_bank_3.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                    iv_ask_bank_3.setImageDrawable(mContext.getResources().getDrawable(R.drawable.img_line_red));
-                    iv_ask_play_3.setImageDrawable(mContext.getResources().getDrawable(R.drawable.img_line_blue));
+                    iv_ask_bank_3.setBackgroundDrawable(drawableDragon1);
+                    iv_ask_play_3.setBackgroundDrawable(drawableDragon2);
                 } else {
-                    iv_ask_bank_3.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                    iv_ask_bank_3.setImageDrawable(mContext.getResources().getDrawable(R.drawable.img_line_blue));
-                    iv_ask_play_3.setImageDrawable(mContext.getResources().getDrawable(R.drawable.img_line_red));
+                    iv_ask_bank_3.setBackgroundDrawable(drawableDragon2);
+                    iv_ask_play_3.setBackgroundDrawable(drawableDragon1);
                 }
             }
         }
         return bigRoadListAll;
     }
 
+    private GradientDrawable setGradientDrawable(int shape, int color, Context mContext) {
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setShape(shape);
+        gradientDrawable.setUseLevel(false);
+        gradientDrawable.setStroke(mContext.getResources().getDimensionPixelOffset(R.dimen.unit2), color);
+        gradientDrawable.setSize(mContext.getResources().getDimensionPixelOffset(R.dimen.unit30), mContext.getResources().getDimensionPixelOffset(R.dimen.unit30));
+        return gradientDrawable;
+    }
+
+    private GradientDrawable setGradientDrawable2(int shape, int color, Context mContext) {
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setShape(shape);
+        gradientDrawable.setUseLevel(false);
+        gradientDrawable.setColor(color);
+        gradientDrawable.setSize(mContext.getResources().getDimensionPixelOffset(R.dimen.unit30), mContext.getResources().getDimensionPixelOffset(R.dimen.unit30));
+        return gradientDrawable;
+    }
 
     private void analyzeSmallCockroach(List<List<Integer>> bigEyeRoadListAll, List<Integer> smallRoad, int y, int currentLine, int p1, int p2, int p3) {
         if (bigEyeRoadListAll.get(currentLine).size() - bigEyeRoadListAll.get(currentLine - p2).size() == 1) {//蓝圈 当前列比前前一列大一个
@@ -2237,7 +2255,7 @@ public class AlgorithmHoly {
         }
     }
 
-    private void drawBigRoad(List<Integer> maxScoreList, List<List<Integer>> bigRoadList, YHZGridView gv_right_top) {
+    private void drawBigRoad(List<Integer> maxScoreList, List<List<Integer>> bigRoadList, YHZGridView gv_right_top, int count, boolean isShow) {
         List<NodeImp> list2 = new ArrayList<>();
         list2.clear();
         //多个和的问题
@@ -2381,23 +2399,23 @@ public class AlgorithmHoly {
                             turnSb.append(_m + "" + (k - 1) + ",");
                             _m++;
                         } else if (bigRoadList.get(i).get(j) == 3 || bigRoadList.get(i).get(j) == 5) {
-                            list2.add(new SingleRingNodeHoly(_m-1, (k - 1), Color.TRANSPARENT, 1, ""));
+                            list2.add(new SingleRingNodeHoly(_m - 1, (k - 1), Color.TRANSPARENT, 1, ""));
                         } else if (bigRoadList.get(i).get(j) == 9) {
                             removeLateEle(list2);
-                            list2.add(new SingleRingNodeHoly(_m-1, (k - 1), Color.TRANSPARENT, 2, ""));
+                            list2.add(new SingleRingNodeHoly(_m - 1, (k - 1), Color.TRANSPARENT, 2, ""));
                         } else if (bigRoadList.get(i).get(j) == 10) {
-                            list2.add(new SingleRingNodeHoly(_m-1, (k - 1), Color.TRANSPARENT, 3, ""));
+                            list2.add(new SingleRingNodeHoly(_m - 1, (k - 1), Color.TRANSPARENT, 3, ""));
                         } else if (bigRoadList.get(i).get(j) == 11) {
                             removeLateEle(list2);
                             ++tie_4;
-                            list2.add(new SingleRingNodeHoly(_m-1, (k - 1), Color.TRANSPARENT, tie_4, ""));
+                            list2.add(new SingleRingNodeHoly(_m - 1, (k - 1), Color.TRANSPARENT, tie_4, ""));
                         }
                     }
                 }
             }
         }
         //0庄 1闲 2和 3庄和 4庄和2  5闲和 6闲和2 7庄和3 8闲和3 9和2 10和3
-        gv_right_top.setNodeList(list2);
+        gv_right_top.setNodeList(list2, count, isShow);
         gv_right_top.postInvalidate();
     }
 
@@ -2405,7 +2423,7 @@ public class AlgorithmHoly {
         list.remove(list.size() - 1);
     }
 
-    private void drawBigEye(List<List<Integer>> bigEyeRoadList, YHZGridView gv_right_middle, Context mContext) {
+    private void drawBigEye(List<List<Integer>> bigEyeRoadList, YHZGridView gv_right_middle, Context mContext, int count, boolean isShow) {
         StringBuffer turnSb = new StringBuffer(); //保存 所有拐弯数据
         List<NodeImp> list3 = new ArrayList<>();
         list3.clear();
@@ -2468,11 +2486,11 @@ public class AlgorithmHoly {
                 }
             }
         }
-        gv_right_middle.setNodeList(list3);
+        gv_right_middle.setNodeList(list3, count, isShow);
         gv_right_middle.postInvalidate();
     }
 
-    private void drawSmallRoad(List<List<Integer>> smallRoadList, YHZGridView gv_right_bottom_1, Context mContext) {
+    private void drawSmallRoad(List<List<Integer>> smallRoadList, YHZGridView gv_right_bottom_1, Context mContext, int count, boolean isShow) {
         StringBuffer turnSb = new StringBuffer(); //保存 所有拐弯数据
         List<NodeImp> list4 = new ArrayList<>();
         list4.clear();
@@ -2534,11 +2552,11 @@ public class AlgorithmHoly {
                 }
             }
         }
-        gv_right_bottom_1.setNodeList(list4);
+        gv_right_bottom_1.setNodeList(list4, count, isShow);
         gv_right_bottom_1.postInvalidate();
     }
 
-    private void drawCockroachRoad(List<List<Integer>> cockroachRoadList, YHZGridView gv_right_bottom_2, Context mContext) {
+    private void drawCockroachRoad(List<List<Integer>> cockroachRoadList, YHZGridView gv_right_bottom_2, Context mContext, int count, boolean isShow) {
         StringBuffer turnSb = new StringBuffer(); //保存 所有拐弯数据
         List<NodeImp> list5 = new ArrayList<>();
         list5.clear();
@@ -2600,7 +2618,7 @@ public class AlgorithmHoly {
                 }
             }
         }
-        gv_right_bottom_2.setNodeList(list5);
+        gv_right_bottom_2.setNodeList(list5, count, isShow);
         gv_right_bottom_2.postInvalidate();
     }
 
@@ -2619,12 +2637,12 @@ public class AlgorithmHoly {
      * @param gameType          0百家乐 1龙虎
      */
     public void drawRoad(List<Integer> maxScoreList, List<Integer> beadRoadList, List<List<Integer>> bigRoadList, List<List<Integer>> bigEyeRoadList, List<List<Integer>> smallRoadList, List<List<Integer>> cockroachRoadList,
-                         YHZGridView gv_left, YHZGridView gv_right_top, YHZGridView gv_right_middle, YHZGridView gv_right_bottom_1, YHZGridView gv_right_bottom_2, Context context, int gameType) {
-        drawBeadRoad(beadRoadList, gv_left, context, gameType);
-        drawBigRoad(maxScoreList, bigRoadList, gv_right_top);
-        drawBigEye(bigEyeRoadList, gv_right_middle, context);
-        drawSmallRoad(smallRoadList, gv_right_bottom_1, context);
-        drawCockroachRoad(cockroachRoadList, gv_right_bottom_2, context);
+                         YHZGridView gv_left, YHZGridView gv_right_top, YHZGridView gv_right_middle, YHZGridView gv_right_bottom_1, YHZGridView gv_right_bottom_2, Context context, int gameType, int count, boolean isShow) {
+        drawBeadRoad(beadRoadList, gv_left, context, gameType, count, isShow);
+        drawBigRoad(maxScoreList, bigRoadList, gv_right_top, count, isShow);
+        drawBigEye(bigEyeRoadList, gv_right_middle, context, count, isShow);
+        drawSmallRoad(smallRoadList, gv_right_bottom_1, context, count, isShow);
+        drawCockroachRoad(cockroachRoadList, gv_right_bottom_2, context, count, isShow);
     }
 
 }

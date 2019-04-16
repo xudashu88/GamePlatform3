@@ -498,14 +498,14 @@
                 android:layout_height="@dimen/unit16"
                 android:layout_marginLeft="@dimen/unit5"
                 android:background="@drawable/askroad_pressed"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/tv_banker_to_player"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="@string/ask_road_bank"
+                    android:text="@string/ask_road_dragon"
                     android:textColor="@color/inGameRed"
                     android:textSize="@dimen/font8"
                     android:textStyle="bold" />
@@ -532,7 +532,8 @@
                     android:layout_height="@dimen/unit10"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/unit3"
-                    android:layout_toRightOf="@id/iv_banker_to_player_2" />
+                    android:layout_toRightOf="@id/iv_banker_to_player_2"
+                    android:rotation="-30" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -542,14 +543,14 @@
                 android:layout_marginLeft="@dimen/unit5"
                 android:layout_toRightOf="@id/rl_banker_to_player"
                 android:background="@drawable/askroad_pressed"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/tv_player_to_banker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="@string/ask_road_player"
+                    android:text="@string/ask_road_tiger"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/font8"
                     android:textStyle="bold" />
@@ -576,7 +577,8 @@
                     android:layout_height="@dimen/unit10"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/unit3"
-                    android:layout_toRightOf="@id/iv_player_to_banker_2" />
+                    android:layout_toRightOf="@id/iv_player_to_banker_2"
+                    android:rotation="-30" />
             </RelativeLayout>
 
             <TextView
@@ -1161,6 +1163,6 @@
         android:text="23424"
         android:textColor="@color/yellow"
         android:textSize="@dimen/font12"
-        android:visibility="invisible"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="invisible" />
 </RelativeLayout>

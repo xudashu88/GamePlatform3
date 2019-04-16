@@ -2,6 +2,8 @@ package com.purity.yu.gameplatform.utils;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gangbeng.basemodule.utils.LogUtil;
@@ -187,7 +189,7 @@ public class Algorithm {
     /**
      * 绘制珠盘路
      */
-    private void drawBeadRoad(List<Integer> beadRoadList, YHZGridView gv_left, Context mContext, int gameType, int bankColor, int playColor, int tieColor) {
+    private void drawBeadRoad(List<Integer> beadRoadList, YHZGridView gv_left, Context mContext, int gameType, int bankColor, int playColor, int tieColor, int count, boolean isShow) {
         String _banker = "", _player = "";
 
         if (gameType == 0) {
@@ -242,7 +244,7 @@ public class Algorithm {
                 i = initFontNode(beadRoadList, list1, _banker, _player, _tie, i, 12, gameType, bankColor, playColor, tieColor, mContext);
             }
         }
-        gv_left.setNodeList(list1);
+        gv_left.setNodeList(list1, count, isShow);
         gv_left.postInvalidate();
     }
 
@@ -277,11 +279,11 @@ public class Algorithm {
                     }
                 } else if (gameType == 1) {
                     if (boardMessageList.get(i) == 0 || boardMessageList.get(i) == 3 || boardMessageList.get(i) == 4 || boardMessageList.get(i) == 5) {
-                        list.add(new BeadPlateNode(i2, j, _banker, bankColor, false, false));
+                        list.add(new BeadPlateNode(i2, j, _banker, bankColor, false, false, mContext));
                     } else if (boardMessageList.get(i) == 1 || boardMessageList.get(i) == 6 || boardMessageList.get(i) == 7 || boardMessageList.get(i) == 8) {
-                        list.add(new BeadPlateNode(i2, j, _player, playColor, false, false));
+                        list.add(new BeadPlateNode(i2, j, _player, playColor, false, false, mContext));
                     } else if (boardMessageList.get(i) == 2 || boardMessageList.get(i) == 9 || boardMessageList.get(i) == 10 || boardMessageList.get(i) == 11) {
-                        list.add(new BeadPlateNode(i2, j, _tie, tieColor, false, false));
+                        list.add(new BeadPlateNode(i2, j, _tie, tieColor, false, false, mContext));
                     }
                 }
             }
@@ -300,7 +302,10 @@ public class Algorithm {
                                            List<List<Integer>> bigRoadListAll, List<List<Integer>> bigRoadList, List<List<Integer>> bigRoadListShort,
                                            List<List<Integer>> bigEyeRoadListAll, List<List<Integer>> bigEyeRoadList, List<List<Integer>> bigEyeRoadListShort,
                                            List<List<Integer>> smallRoadListAll, List<List<Integer>> smallRoadList, List<List<Integer>> smallRoadListShort,
-                                           List<List<Integer>> cockroachRoadListAll, List<List<Integer>> cockroachRoadList, List<List<Integer>> cockroachRoadListShort, Context mContext, int type) {
+                                           List<List<Integer>> cockroachRoadListAll, List<List<Integer>> cockroachRoadList, List<List<Integer>> cockroachRoadListShort,
+                                           List<Integer> maxScoreListAll, List<Integer> maxScoreList, Context mContext, int type, boolean isShowAsk,
+                                           ImageView iv_ask_bank_1, ImageView iv_ask_bank_2, ImageView iv_ask_bank_3, ImageView iv_ask_play_1, ImageView iv_ask_play_2, ImageView iv_ask_play_3,
+                                           int bankColor, int playColor, int tieColor) {
         //0庄 1闲 2和 3庄和 4庄和2  5闲和 6闲和2 7庄和3 8闲和3 9和2 10和3 11和4
         int y = 0;//大路坐标
         int currentLine = 0;//++x 当前列
@@ -820,10 +825,71 @@ public class Algorithm {
             calBigSmallCockroachRoad(smallRoadListAll, smallRoadList);
             calBigSmallCockroachRoad(cockroachRoadListAll, cockroachRoadList);
         }
-        LogUtil.i("bigEyeRoadListAll=" + bigEyeRoadListAll.toString());
+        if (isShowAsk) {
+            int lastBigEyeRoad = -1, lastSmallRoad = -1, lastCockroachRoad = -1;
+            if (bigEyeRoadListAll.size() > 0) {
+                lastBigEyeRoad = bigEyeRoadListAll.get(bigEyeRoadListAll.size() - 1).get(bigEyeRoadListAll.get(bigEyeRoadListAll.size() - 1).size() - 1);
+            }
+            if (smallRoadListAll.size() > 0) {
+                lastSmallRoad = smallRoadListAll.get(smallRoadListAll.size() - 1).get(smallRoadListAll.get(smallRoadListAll.size() - 1).size() - 1);
+            }
+            if (cockroachRoadListAll.size() > 0) {
+                lastCockroachRoad = cockroachRoadListAll.get(cockroachRoadListAll.size() - 1).get(cockroachRoadListAll.get(cockroachRoadListAll.size() - 1).size() - 1);
+            }
+
+            if (lastBigEyeRoad != -1) {
+                GradientDrawable drawableDragon1 = setGradientDrawable(GradientDrawable.OVAL, bankColor, mContext);
+                GradientDrawable drawableDragon2 = setGradientDrawable(GradientDrawable.OVAL, playColor, mContext);
+                if (lastBigEyeRoad == 0) {
+                    iv_ask_bank_1.setBackgroundDrawable(drawableDragon1);
+                    iv_ask_play_1.setBackgroundDrawable(drawableDragon2);
+                } else {
+                    iv_ask_bank_1.setBackgroundDrawable(drawableDragon2);
+                    iv_ask_play_1.setBackgroundDrawable(drawableDragon1);
+                }
+            }
+            if (lastSmallRoad != -1) {
+                GradientDrawable drawableDragon1 = setGradientDrawable2(GradientDrawable.OVAL, bankColor, mContext);
+                GradientDrawable drawableDragon2 = setGradientDrawable2(GradientDrawable.OVAL, playColor, mContext);
+                if (lastSmallRoad == 0) {
+                    iv_ask_bank_2.setBackgroundDrawable(drawableDragon1);
+                    iv_ask_play_2.setBackgroundDrawable(drawableDragon2);
+                } else {
+                    iv_ask_bank_2.setBackgroundDrawable(drawableDragon2);
+                    iv_ask_play_2.setBackgroundDrawable(drawableDragon1);
+                }
+            }
+            if (lastCockroachRoad != -1) {
+                GradientDrawable drawableDragon1 = setGradientDrawable(GradientDrawable.LINE, bankColor, mContext);
+                GradientDrawable drawableDragon2 = setGradientDrawable(GradientDrawable.LINE, playColor, mContext);
+                if (lastCockroachRoad == 0) {
+                    iv_ask_bank_3.setBackgroundDrawable(drawableDragon1);
+                    iv_ask_play_3.setBackgroundDrawable(drawableDragon2);
+                } else {
+                    iv_ask_bank_3.setBackgroundDrawable(drawableDragon2);
+                    iv_ask_play_3.setBackgroundDrawable(drawableDragon1);
+                }
+            }
+        }
         return bigRoadListAll;
     }
+    private GradientDrawable setGradientDrawable(int shape, int color, Context mContext) {
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setShape(shape);
+        gradientDrawable.setUseLevel(false);
+        gradientDrawable.setStroke(mContext.getResources().getDimensionPixelOffset(R.dimen.unit2), color);
+        gradientDrawable.setSize(mContext.getResources().getDimensionPixelOffset(R.dimen.unit30), mContext.getResources().getDimensionPixelOffset(R.dimen.unit30));
+        return gradientDrawable;
+    }
 
+    private GradientDrawable setGradientDrawable2(int shape, int color, Context mContext) {
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setShape(shape);
+        gradientDrawable.setUseLevel(false);
+        gradientDrawable.setColor(color);
+        gradientDrawable.setSize(mContext.getResources().getDimensionPixelOffset(R.dimen.unit30), mContext.getResources().getDimensionPixelOffset(R.dimen.unit30));
+        return gradientDrawable;
+    }
 
     private void analyzeSmallCockroach(List<List<Integer>> bigEyeRoadListAll, List<Integer> smallRoad, int y, int currentLine, int p1, int p2, int p3) {
         if (bigEyeRoadListAll.get(currentLine).size() - bigEyeRoadListAll.get(currentLine - p2).size() == 1) {//蓝圈 当前列比前前一列大一个
@@ -3004,7 +3070,7 @@ public class Algorithm {
         list.remove(list.size() - 1);
     }
 
-    private void drawBigRoad(List<List<Integer>> bigRoadList, YHZGridView gv_right_top, int gameType, int bankColor, int playColor, int tieColor) {
+    private void drawBigRoad(List<List<Integer>> bigRoadList, YHZGridView gv_right_top, int gameType, int bankColor, int playColor, int tieColor, int count, boolean isShow) {
         List<NodeImp> list2 = new ArrayList<>();
         list2.clear();
         //多个和的问题
@@ -3027,8 +3093,9 @@ public class Algorithm {
                     if (j > 1 && bigRoadList.get(0).get(0) == 2 && bigRoadList.get(0).get(1) == 9 && bigRoadList.get(0).get(j) == 11) {
                         removeLateEle(list2);
                         list2.add(new SingleRingNode(0, 0, Color.TRANSPARENT, true, "" + tie_0));
+                        LogUtil.i("第一个为和 超过2个和=" + tie_0);
                     } else if (j == 1 && bigRoadList.get(0).get(0) == 2 && bigRoadList.get(0).get(1) == 9) {
-                        list2.add(new SingleRingNode(0, 0, Color.TRANSPARENT, true, "2"));
+                        list2.add(new SingleRingNode(0, 0, Color.TRANSPARENT, true, "" + tie_0));
                     } else if (j == 0 && bigRoadList.get(0).get(0) == 2) {
                         list2.add(new SingleRingNode(0, 0, Color.TRANSPARENT, true, ""));
                     }
@@ -3133,11 +3200,11 @@ public class Algorithm {
             }
         }
         //0庄 1闲 2和 3庄和 4庄和2  5闲和 6闲和2 7庄和3 8闲和3 9和2 10和3
-        gv_right_top.setNodeList(list2);
+        gv_right_top.setNodeList(list2, count, isShow);
         gv_right_top.postInvalidate();
     }
 
-    private void drawBigEye(List<List<Integer>> bigEyeRoadList, YHZGridView gv_right_middle, Context mContext, int bankColor, int playColor, int tieColor) {
+    private void drawBigEye(List<List<Integer>> bigEyeRoadList, YHZGridView gv_right_middle, Context mContext, int bankColor, int playColor, int tieColor, int count, boolean isShow) {
         StringBuffer turnSb = new StringBuffer(); //保存 所有拐弯数据
         List<NodeImp> list3 = new ArrayList<>();
         list3.clear();
@@ -3200,22 +3267,11 @@ public class Algorithm {
                 }
             }
         }
-
-//        if (list3.size() > 0) {
-////            LogUtil.i("最后一个-drawBigEye=" + list3.get(list3.size() - 1).getColor());//mColor=-16776961 -65536
-//            if (list3.get(list3.size() - 1).getColor() == -65536) {
-//                SharedPreUtil.getInstance(mContext).saveParam(Constant.ASK_BIG_EYE, 1);
-//            } else if (list3.get(list3.size() - 1).getColor() == -16776961) {
-//                SharedPreUtil.getInstance(mContext).saveParam(Constant.ASK_BIG_EYE, 2);
-//            }
-//        }
-
-        gv_right_middle.setNodeList(list3);
+        gv_right_middle.setNodeList(list3, count, isShow);
         gv_right_middle.postInvalidate();
-
     }
 
-    private void drawSmallRoad(List<List<Integer>> smallRoadList, YHZGridView gv_right_bottom_1, Context mContext, int bankColor, int playColor, int tieColor) {
+    private void drawSmallRoad(List<List<Integer>> smallRoadList, YHZGridView gv_right_bottom_1, Context mContext, int bankColor, int playColor, int tieColor, int count, boolean isShow) {
         StringBuffer turnSb = new StringBuffer(); //保存 所有拐弯数据
         List<NodeImp> list4 = new ArrayList<>();
         list4.clear();
@@ -3277,11 +3333,11 @@ public class Algorithm {
                 }
             }
         }
-        gv_right_bottom_1.setNodeList(list4);
+        gv_right_bottom_1.setNodeList(list4, count, isShow);
         gv_right_bottom_1.postInvalidate();
     }
 
-    private void drawCockroachRoad(List<List<Integer>> cockroachRoadList, YHZGridView gv_right_bottom_2, Context mContext, int bankColor, int playColor, int tieColor) {
+    private void drawCockroachRoad(List<List<Integer>> cockroachRoadList, YHZGridView gv_right_bottom_2, Context mContext, int bankColor, int playColor, int tieColor, int count, boolean isShow) {
         StringBuffer turnSb = new StringBuffer(); //保存 所有拐弯数据
         List<NodeImp> list5 = new ArrayList<>();
         list5.clear();
@@ -3343,15 +3399,7 @@ public class Algorithm {
                 }
             }
         }
-//        if (list5.size() > 0) {
-////            LogUtil.i("最后一个-drawCockroachRoad=" + list5.get(list5.size() - 1).getColor());//mColor=-16776961=蓝 -65536=红
-//            if (list5.get(list5.size() - 1).getColor() == -65536) {
-//                SharedPreUtil.getInstance(mContext).saveParam(Constant.ASK_COCKROACH, 1);
-//            } else if (list5.get(list5.size() - 1).getColor() == -16776961) {
-//                SharedPreUtil.getInstance(mContext).saveParam(Constant.ASK_COCKROACH, 2);
-//            }
-//        }
-        gv_right_bottom_2.setNodeList(list5);
+        gv_right_bottom_2.setNodeList(list5, count, isShow);
         gv_right_bottom_2.postInvalidate();
     }
 
@@ -3371,12 +3419,21 @@ public class Algorithm {
      */
     public void drawRoad(List<Integer> beadRoadList, List<List<Integer>> bigRoadList, List<List<Integer>> bigEyeRoadList, List<List<Integer>> smallRoadList, List<List<Integer>> cockroachRoadList,
                          YHZGridView gv_left, YHZGridView gv_right_top, YHZGridView gv_right_middle, YHZGridView gv_right_bottom_1, YHZGridView gv_right_bottom_2, Context context, int gameType,
-                         int bankColor, int playColor, int tieColor) {
-        drawBeadRoad(beadRoadList, gv_left, context, gameType, bankColor, playColor, tieColor);
-        drawBigRoad(bigRoadList, gv_right_top, gameType, bankColor, playColor, tieColor);
-        drawBigEye(bigEyeRoadList, gv_right_middle, context, bankColor, playColor, tieColor);
-        drawSmallRoad(smallRoadList, gv_right_bottom_1, context, bankColor, playColor, tieColor);
-        drawCockroachRoad(cockroachRoadList, gv_right_bottom_2, context, bankColor, playColor, tieColor);
+                         int bankColor, int playColor, int tieColor,
+                         int count, boolean isShow, int version) {//新加count 闪的次数 isShow闪不闪 version 1为湖北 2为国际
+        if (version == 1) {//湖北
+            drawBeadRoad(beadRoadList, gv_left, context, gameType, bankColor, playColor, tieColor, count, isShow);
+            drawBigRoad(bigRoadList, gv_right_top, gameType, Color.RED, Color.BLUE, Color.GREEN, count, isShow);
+            drawBigEye(bigEyeRoadList, gv_right_middle, context, Color.RED, Color.BLUE, Color.GREEN, count, isShow);
+            drawSmallRoad(smallRoadList, gv_right_bottom_1, context, Color.RED, Color.BLUE, Color.GREEN, count, isShow);
+            drawCockroachRoad(cockroachRoadList, gv_right_bottom_2, context, Color.RED, Color.BLUE, Color.GREEN, count, isShow);
+        } else if (version == 2) {//国际
+            drawBeadRoad(beadRoadList, gv_left, context, gameType, bankColor, playColor, tieColor, count, isShow);
+            drawBigRoad(bigRoadList, gv_right_top, gameType, bankColor, playColor, tieColor, count, isShow);
+            drawBigEye(bigEyeRoadList, gv_right_middle, context, bankColor, playColor, tieColor, count, isShow);
+            drawSmallRoad(smallRoadList, gv_right_bottom_1, context, bankColor, playColor, tieColor, count, isShow);
+            drawCockroachRoad(cockroachRoadList, gv_right_bottom_2, context, bankColor, playColor, tieColor, count, isShow);
+        }
     }
 
     public void drawSinglePick(List<String> cardList, YCHGridView gv, Context context, TextView tv_game_name) {

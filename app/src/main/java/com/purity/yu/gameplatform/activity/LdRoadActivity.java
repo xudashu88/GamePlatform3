@@ -1,10 +1,12 @@
 package com.purity.yu.gameplatform.activity;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -20,6 +22,7 @@ import com.purity.yu.gameplatform.baccarat.YHZGridView;
 import com.purity.yu.gameplatform.base.BaseActivity;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.event.ObjectEvent;
+import com.purity.yu.gameplatform.utils.Algorithm;
 import com.purity.yu.gameplatform.utils.AlgorithmHoly;
 import com.purity.yu.gameplatform.utils.BaccaratUtil;
 
@@ -90,6 +93,10 @@ public class LdRoadActivity extends BaseActivity {
     ImageView iv_ask_play_2;
     @BindView(R.id.iv_ask_play_3)
     ImageView iv_ask_play_3;
+    @BindView(R.id.rl_ask_play)
+    RelativeLayout rl_ask_play;
+    @BindView(R.id.rl_ask_bank)
+    RelativeLayout rl_ask_bank;
 
     //等比拉伸
     @BindView(R.id.rl_contain)
@@ -104,6 +111,7 @@ public class LdRoadActivity extends BaseActivity {
     public List<Integer> minBetList = new ArrayList<>();
     //计算天牌 只有8和9
     private List<Integer> maxScoreList = new ArrayList<>();//赢家分数
+    private List<Integer> maxScoreList1 = new ArrayList<>();//赢家分数
 
     //0庄 1闲 2和 3庄赢 庄对 4 庄赢 闲对 5 庄赢 庄对闲对 6闲赢 庄对 7闲赢 闲对 8闲赢 庄对闲对 9和赢 庄对 10和赢 闲对 11和赢 庄对闲对
     private List<Integer> boardMessageList = new ArrayList<>();//原始数据
@@ -130,7 +138,6 @@ public class LdRoadActivity extends BaseActivity {
     List<List<Integer>> cockroachRoadListAll = new ArrayList<>();// 小强路原始数据
     List<List<Integer>> cockroachRoadList = new ArrayList<>();// 小强路(展开)
     List<List<Integer>> cockroachRoadListShort = new ArrayList<>();// 小强路(缩小)
-    private DisplayMetrics displayMetrics;
     private Context mContext;
     private String roomName;
     private int skyCard;
@@ -138,7 +145,6 @@ public class LdRoadActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         this.mContext = LdRoadActivity.this;
-        displayMetrics = mContext.getResources().getDisplayMetrics();
         boardMessageList = getIntent().getIntegerArrayListExtra("boardMessageList");
         maxScoreList = getIntent().getIntegerArrayListExtra("maxScoreList");
         roomName = getIntent().getStringExtra("roomName");
@@ -156,16 +162,16 @@ public class LdRoadActivity extends BaseActivity {
             tv_pair_total_limit.setText(String.valueOf(betLimitInt[2]));//对子总限/对子的赔率
         }
         //默认全为-1
-        SharedPreUtil.getInstance(mContext).saveParam(Constant.ASK_BIG_EYE,-1);
-        SharedPreUtil.getInstance(mContext).saveParam(Constant.ASK_SMALL,-1);
-        SharedPreUtil.getInstance(mContext).saveParam(Constant.ASK_COCKROACH,-1);
+        SharedPreUtil.getInstance(mContext).saveParam(Constant.ASK_BIG_EYE, -1);
+        SharedPreUtil.getInstance(mContext).saveParam(Constant.ASK_SMALL, -1);
+        SharedPreUtil.getInstance(mContext).saveParam(Constant.ASK_COCKROACH, -1);
         initMessages();
-        LogUtil.i("报错2"+maxScoreList.size()+"boardMessageList="+boardMessageList.size());
+        LogUtil.i("-"+maxScoreList.size()+"--- 1--"+maxScoreList.toString());
         AlgorithmHoly.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
-                gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0);//11列 加一局
+                gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0, 0, false);//11列 加一局
         EventBus.getDefault().register(this);
         initEvent();
-        ask();
+        ask(0, true, false, 0, false);
         if (!TextUtils.isEmpty(SharedPreUtil.getInstance(mContext).getString(Constant.BACCARAT_STATE))) {
             String state = SharedPreUtil.getInstance(mContext).getString(Constant.BACCARAT_STATE);
             if (state.equals(Constant.BACCARAT_BET)) {
@@ -217,12 +223,6 @@ public class LdRoadActivity extends BaseActivity {
             }
 
         }
-        int _w560 = mContext.getResources().getDimensionPixelOffset(R.dimen.unit560);
-        int w = displayMetrics.widthPixels;
-        int h = displayMetrics.heightPixels;
-        tv_device.setText("sY=" + scaleY + " sX=" + scaleX + " 560d=" + _w560 + " W=" + w + " H=" + h +
-                " cW=" + containW + " cH=" + containH + " DPI=" + displayMetrics.densityDpi);
-//        tv_baccarat_state.setText("R=" + right + "B=" + bottom + "SX=" + scaleX + "SY=" + scaleY + "C=" + rl_contain.getWidth());
     }
 
     private String getScaleX(int a, int b) {
@@ -230,12 +230,19 @@ public class LdRoadActivity extends BaseActivity {
         return df.format((float) a / b);
     }
 
-    private String subFloat(int a, float b) {
-        DecimalFormat df = new DecimalFormat("0.000");
-        return df.format((float) (a - b));
-    }
-
     private void initEvent() {
+        rl_ask_bank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ask(0, false, true, 4, true);
+            }
+        });
+        rl_ask_play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ask(1, false, true, 4, true);
+            }
+        });
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -244,17 +251,27 @@ public class LdRoadActivity extends BaseActivity {
         });
     }
 
-    private void ask() {
+    private void ask(int value, boolean isShowAsk, boolean isDraw, int count, boolean isShow) {
         boardMessageList1.clear();
         boardMessageList1.addAll(boardMessageList);
-        boardMessageList1.add(0);
-        LogUtil.i("initBigRoad bigEyeRoadListAll_1="+boardMessageList.size()+" boardMessageList1="+boardMessageList1.size());
+        boardMessageList1.add(value);
         AlgorithmHoly.getInstance().initBigRoad(boardMessageList1, beadRoadList, beadRoadListShort,
                 bigRoadListAll, bigRoadList, bigRoadListShort,
                 bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
                 smallRoadListAll, smallRoadList, smallRoadListShort,
-                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, mContext, 1,true,
-                iv_ask_bank_1,iv_ask_bank_2,iv_ask_bank_3,iv_ask_play_1,iv_ask_play_2,iv_ask_play_3 );//1房间 2大厅
+                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, mContext, 1, isShowAsk,
+                iv_ask_bank_1, iv_ask_bank_2, iv_ask_bank_3, iv_ask_play_1, iv_ask_play_2, iv_ask_play_3);
+        if (isDraw) {
+//            Algorithm.getInstance().drawRoad(beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
+//                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 1,
+//                    Color.RED, Color.BLUE, Color.GREEN, count, isShow, 2);
+//            maxScoreList.set(maxScoreList.get(maxScoreList.size() - 2), 0);
+            maxScoreList1.clear();
+            maxScoreList1.addAll(maxScoreList);
+            maxScoreList1.add(0);
+            AlgorithmHoly.getInstance().drawRoad(maxScoreList1, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
+                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0, count, isShow);
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -297,8 +314,8 @@ public class LdRoadActivity extends BaseActivity {
             maxScoreList.add(event.resultMaxScore);
             initMessages();
             AlgorithmHoly.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
-                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0);//11列 加一局
-            ask();
+                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0, 0, false);//11列 加一局
+            ask(0, true, false, 0, false);
         }
     }
 
@@ -370,8 +387,8 @@ public class LdRoadActivity extends BaseActivity {
                 bigRoadListAll, bigRoadList, bigRoadListShort,
                 bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
                 smallRoadListAll, smallRoadList, smallRoadListShort,
-                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, mContext, 1,false,
-                iv_ask_bank_1,iv_ask_bank_2,iv_ask_bank_3,iv_ask_play_1,iv_ask_play_2,iv_ask_play_3);//1房间 2大厅
+                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, mContext, 1, false,
+                iv_ask_bank_1, iv_ask_bank_2, iv_ask_bank_3, iv_ask_play_1, iv_ask_play_2, iv_ask_play_3);//1房间 2大厅
     }
 
     @Override
