@@ -171,6 +171,7 @@ public class BacSocketController {
     public void disconnectSocket() {
         if (mSocket != null) {
             mSocket.disconnect();
+            LogUtil.i("断开连接socket_command=" + mSocket.connected());
             mSocket.off(Socket.EVENT_CONNECT, onConnect);
             mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
             mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
@@ -185,7 +186,7 @@ public class BacSocketController {
             ((BacActivity) mContext).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    LogUtil.i("socket_command=" + args[0].toString());
+                    LogUtil.i("socket_command 房间=" + args[0].toString());
                     JSONObject json = null;
                     try {
                         //测试用例
@@ -223,18 +224,26 @@ public class BacSocketController {
                                 }
                                 break;
                             case "betscore"://当前局每个位置下注成功的分数
-                                LogUtil.i("当前局下注分数 socket_command=" + json);
+//                                LogUtil.i("当前局下注分数 socket_command=" + json);
                                 try {
                                     //防止字段错误或者结构变化
                                     String data = json.optString("data");//{"score":[0,0,0],"betPeople":[[],[],[]],"bets":[0,0,0]}
                                     JSONObject _data = new JSONObject(data);
                                     String betScore = _data.optString("bets");
-                                    int[] betscoreInt = new Gson().fromJson(betScore, int[].class);
-                                    List<Integer> betscoreList = new ArrayList<>();
+                                    String betScoreAll = _data.optString("score");
+                                    String betPeopleAll = _data.optString("betPeople");
+                                    int[] betscoreInt = new Gson().fromJson(betScore, int[].class);//玩家成功押注分数
+                                    int[] betScoreAllInt = new Gson().fromJson(betScoreAll, int[].class);//所有玩家成功押注分数
+                                    int[] betPeopleAllInt = new Gson().fromJson(betPeopleAll, int[].class);//所有玩家成功押注分数
+                                    List<Integer> betScoreList = new ArrayList<>();
+                                    List<Integer> betScoreAllList = new ArrayList<>();
+                                    List<Integer> betPeopleAllList = new ArrayList<>();
                                     for (int i = 0; i < betscoreInt.length; i++) {
-                                        betscoreList.add(betscoreInt[i]);
+                                        betScoreList.add(betscoreInt[i]);
+                                        betScoreAllList.add(betScoreAllInt[i]);
+                                        betPeopleAllList.add(betPeopleAllInt[i]);
                                     }
-                                    postEventBetScore(betscoreList);
+                                    postEventBetScore(betScoreList, betScoreAllList, betPeopleAllList);
                                     break;
                                 } catch (JsonSyntaxException e) {
                                     e.printStackTrace();
@@ -250,7 +259,7 @@ public class BacSocketController {
                                     e.printStackTrace();
                                 }
                             case "dobet"://下注成功
-                                LogUtil.i("下注成功 socket_command=" + json);
+//                                LogUtil.i("下注成功 socket_command=" + json);
                                 try {
                                     int playScore = 0, bankScore = 0, tieScore = 0, playPairScore = 0, bankPairScore = 0, bigScore = 0, smallScore = 0;
                                     String availableAmount = json.optString("availableAmount");
@@ -308,10 +317,11 @@ public class BacSocketController {
                                     e.printStackTrace();
                                 }
                             case "nobet"://下注失败
+//                                LogUtil.i("nobet socket_command=" + json);
                                 ToastUtil.getInstance().showLong(mContext, mContext.getResources().getString(R.string.bet_fail));
                                 break;
                             case "betlimit":
-                                LogUtil.i("betlimit socket_command=" + json);
+//                                LogUtil.i("betlimit socket_command=" + json);
                                 try {
                                     int addBet = json.optInt("addBet");
                                     postEventLimit(addBet);
@@ -321,7 +331,7 @@ public class BacSocketController {
                                     e.printStackTrace();
                                 }
                             case "switch_result"://发牌
-                                LogUtil.i("switch_result socket_command=" + json);
+//                                LogUtil.i("switch_result socket_command=" + json);
                                 try {
                                     String card = json.getString("card");
                                     String pos = json.getString("pos");//1闲的第一张 2庄的第一张 3闲的第二张 4庄的第二张 5闲的第三张 6庄的第三张
@@ -583,9 +593,11 @@ public class BacSocketController {
         EventBus.getDefault().post(event);
     }
 
-    private void postEventBetScore(List<Integer> scoreList) {
+    private void postEventBetScore(List<Integer> scoreList, List<Integer> scoreAllList, List<Integer> peopleAllList) {
         ObjectEvent.betScoreEvent event = new ObjectEvent.betScoreEvent();
         event.scoreList = scoreList;
+        event.scoreAllList = scoreAllList;
+        event.peopleAllList = peopleAllList;
         EventBus.getDefault().post(event);
     }
 

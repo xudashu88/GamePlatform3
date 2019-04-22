@@ -51,7 +51,7 @@ public class SinglePickLiveController {
     public void copyWidget(/*TextView tv_change_banker,*/RecyclerView rv_new_chip/*,
                       RelativeLayout rl_player, RelativeLayout rl_tie, RelativeLayout rl_banker*/
     ) {
-        this.tv_change_banker=tv_change_banker;
+        this.tv_change_banker = tv_change_banker;
         this.rv_new_chip = rv_new_chip;
         this.rl_player = rl_player;
         this.rl_tie = rl_tie;

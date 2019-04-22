@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -99,6 +100,7 @@
             android:background="@drawable/on" />
 
         <RelativeLayout
+            android:id="@+id/custom"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.3">
@@ -181,6 +183,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_tab_host"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/ll_top"
@@ -247,7 +250,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:background="@drawable/tab_home_page_selector"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_arcade"
@@ -324,8 +327,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:visibility="gone"
-                    android:background="@drawable/tab_home_page_selector">
+                    android:background="@drawable/tab_home_page_selector"
+                    android:visibility="visible">
 
                     <TextView
                         android:id="@+id/tv_WeChat_link"

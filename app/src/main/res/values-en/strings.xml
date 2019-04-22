@@ -38,6 +38,7 @@ MeetingBox"</string>
     <string name="volume">Volume</string>
     <string name="video_toggle">Video Switch</string>
     <string name="push_toggle">Push Switch</string>
+    <string name="robot_toggle">Robot Switch</string>
 
     <!--dialog-->
     <string name="yoplay_enter">Confirm</string>

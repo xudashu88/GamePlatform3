@@ -40,7 +40,9 @@ public class ObjectEvent {
     }
 
     public static class betScoreEvent {
-        public List<Integer> scoreList;//当前成功下注分数 0闲 1庄 2和 3闲对 4庄对
+        public List<Integer> scoreList;//当前玩家成功下注分数 0闲 1庄 2和 3闲对 4庄对
+        public List<Integer> scoreAllList;//所有玩家当前成功下注分数 0闲 1庄 2和 3闲对 4庄对
+        public List<Integer> peopleAllList;//所有玩家当前成功下注分数 0闲 1庄 2和 3闲对 4庄对
     }
 
     public static class ResultEvent {

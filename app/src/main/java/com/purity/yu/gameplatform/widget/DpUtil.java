@@ -10,16 +10,18 @@ import android.util.DisplayMetrics;
 
 public class DpUtil {
     public static Context mContext;
+
     public static void init(Context context) {
         mContext = context;
     }
+
     /**
      * dp转换成px
      *
-     * @param dp      dp
+     * @param dp dp
      * @return px值
      */
-    public static float dp2px( float dp) {
+    public static float dp2px(float dp) {
         final float scale = mContext.getResources().getDisplayMetrics().density;
         return dp * scale + 0.5f;
     }

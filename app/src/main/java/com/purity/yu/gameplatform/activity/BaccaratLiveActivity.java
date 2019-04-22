@@ -479,8 +479,6 @@ public class BaccaratLiveActivity extends BaseActivity {
         currentBetScore.add(0);//小
         currentBetScore.add(0);//大
         initEn();
-
-
     }
 
     private void initEn() {
@@ -2769,6 +2767,46 @@ public class BaccaratLiveActivity extends BaseActivity {
         currentBetScore.clear();
         currentBetScore.addAll(event.scoreList);
         currentChip();
+        if (event.scoreAllList.size() > 0) {
+            playerIng = event.scoreAllList.get(0);
+            bankerIng = event.scoreAllList.get(1);
+            tieIng = event.scoreAllList.get(2);
+            playerPairIng = event.scoreAllList.get(3);
+            bankerPairIng = event.scoreAllList.get(4);
+            smallIng = event.scoreAllList.get(5);
+            bigIng = event.scoreAllList.get(6);
+            String _1 = "0";
+            String _2 = "0";
+            String _3 = "0";
+            String _4 = "0";
+            String _5 = "0";
+            String _6 = "0";
+            String _7 = "0";
+            if (isPeopleNum == 0) {
+                _1 = String.valueOf(playerIng);
+                _2 = String.valueOf(bankerIng);
+                _3 = String.valueOf(tieIng);
+                _4 = String.valueOf(playerPairIng);
+                _5 = String.valueOf(bankerPairIng);
+                _6 = String.valueOf(smallIng);
+                _7 = String.valueOf(bigIng);
+            } else if (isPeopleNum == 1) {
+                _1 = String.valueOf(playerIng) + "/" + event.peopleAllList.get(0);
+                _2 = String.valueOf(bankerIng) + "/" + event.peopleAllList.get(1);
+                _3 = String.valueOf(tieIng) + "/" + String.valueOf(event.peopleAllList.get(2));
+                _4 = String.valueOf(playerPairIng) + "/" + String.valueOf(event.peopleAllList.get(3));
+                _5 = String.valueOf(bankerPairIng) + "/" + String.valueOf(event.peopleAllList.get(4));
+                _6 = String.valueOf(smallIng) + "/" + String.valueOf(event.peopleAllList.get(5));
+                _7 = String.valueOf(bigIng) + "/" + String.valueOf(event.peopleAllList.get(6));
+            }
+            tv_play_date.setText(_1);
+            tv_banker_date.setText(_2);
+            tv_tie_date.setText(_3);
+            tv_player_pair_date.setText(_4);
+            tv_banker_pair_date.setText(_5);
+            tv_small_date.setText(_6);
+            tv_big_date.setText(_7);
+        }
     }
 
     private void currentChip2() {
@@ -3816,9 +3854,5 @@ public class BaccaratLiveActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        BaccaratLiveSocketController.getInstance().disconnectSocket();
-//        SharedPreUtil.getInstance(mContext).saveParam(Constant.ASK_BIG_EYE, 0);
-//        SharedPreUtil.getInstance(mContext).saveParam(Constant.ASK_SMALL, 0);
-//        SharedPreUtil.getInstance(mContext).saveParam(Constant.ASK_COCKROACH, 0);
     }
 }

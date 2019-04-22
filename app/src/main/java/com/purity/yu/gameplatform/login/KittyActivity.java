@@ -21,7 +21,6 @@ import com.purity.yu.gameplatform.annotation.ContentView;
 import com.purity.yu.gameplatform.base.BaseActivity;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.base.ServiceIpConstant;
-import com.purity.yu.gameplatform.entity.GameRoom;
 import com.purity.yu.gameplatform.http.HttpRequest;
 import com.purity.yu.gameplatform.utils.BaccaratUtil;
 import com.purity.yu.gameplatform.utils.PermissionsUtil;
@@ -30,9 +29,7 @@ import com.squareup.okhttp.Request;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import avi.AVLoadingIndicatorView;
 import butterknife.BindView;
@@ -128,12 +125,11 @@ public class KittyActivity extends BaseActivity {
     private String etIpWeChat;
     private String promoCode;
 
-    List<GameRoom> gameRoomList = new ArrayList<>();
-
     @Override
     protected void initView(Bundle savedInstanceState) {
         mContext = this;
         PermissionsUtil.checkAndRequestPermissions(this);
+        SharedPreUtil.getInstance(mContext).saveParam(Constant.VERSION, 1);
         initShare();
     }
 
@@ -215,9 +211,11 @@ public class KittyActivity extends BaseActivity {
                 break;
             case R.id.tv_login:
                 if (verify1()) {
-                    if (Util.isFastClick(3000)) {
+                    if (Util.isFastClick(mContext, 3000)) {
                         SharedPreUtil.getInstance(mContext).saveParam(Constant.LOGIN_TYPE, 0);
                         postLoginIn(etUser, etPassword, etIp, avi, "");
+                    } else {
+                        ToastUtil.show(mContext, "操作频繁！请稍后再试。");
                     }
                 }
                 //直接账号登录
@@ -229,11 +227,11 @@ public class KittyActivity extends BaseActivity {
             case R.id.tv_register_login:
                 //直接注册
                 if (verify4()) {
-                    if (Util.isFastClick(5000)) {
+                    if (Util.isFastClick(mContext, 5000)) {
                         SharedPreUtil.getInstance(mContext).saveParam(Constant.LOGIN_TYPE, 0);//第三方登录和注册
                         promoCode = et_register_code.getText().toString().trim();
                         LogUtil.i("注册 商户号=" + SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE_URL));
-                        postRegister(etRegisterUser, etRegisterPassword, SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE_URL), "");
+                        getAppInfo(et_register_ip);
                     }
                 }
                 break;
@@ -244,7 +242,7 @@ public class KittyActivity extends BaseActivity {
             case R.id.tv_login_we_chat:
                 //直接微信登录
                 if (verify3()) {
-                    if (Util.isFastClick(5000)) {
+                    if (Util.isFastClick(mContext, 5000)) {
                         loginThird();
                     }
                 }
@@ -311,6 +309,7 @@ public class KittyActivity extends BaseActivity {
         return true;
     }
 
+
     public void postLoginIn(final String username, final String pwd, final String et_ip, final AVLoadingIndicatorView avi, final String nickname) {
         String baseUrl = ServiceIpConstant.BASE_BEFORE + BaccaratUtil.getInstance().changeIp(et_ip) + ServiceIpConstant.BASE_AFTER;
         HashMap<String, String> map = new HashMap<>();
@@ -318,7 +317,7 @@ public class KittyActivity extends BaseActivity {
         map.put("password", pwd);
         map.put("deviceid", ProtocolUtil.getInstance().getDeviceId());
         avi.show();
-        LogUtil.i("登录=" +baseUrl+ map.toString());
+        LogUtil.i("登录=" + baseUrl + map.toString());
         HttpRequest.request(baseUrl + Constant.LOGIN)
                 .addParam("username", username)
                 .addParam("password", pwd)
@@ -356,6 +355,7 @@ public class KittyActivity extends BaseActivity {
                     @Override
                     public void onResultFault(int code, String hint) {
                         super.onResultFault(code, hint);
+                        ToastUtil.show(mContext, hint);
                         avi.hide();
                     }
 
@@ -403,6 +403,36 @@ public class KittyActivity extends BaseActivity {
                     public void onFailure(Request request, Exception e) {
                         super.onFailure(request, e);
                         avi.hide();
+                    }
+                });
+    }
+
+    public void getAppInfo(final EditText et_ip) {
+        avi.show();
+        String baseUrl = ServiceIpConstant.BASE_BEFORE + BaccaratUtil.getInstance().changeIp(et_ip) + ServiceIpConstant.BASE_AFTER;
+        HttpRequest.request(baseUrl + Constant.APP_INFO)
+                .executeGetParams(new HttpRequest.HttpCallBack() {
+                    @Override
+                    public void onResultOk(String result) {
+                        JSONObject json;
+                        JSONObject __data;
+                        try {
+                            json = new JSONObject(result);
+                            LogUtil.i("是否注册=" + json);
+                            String _data = json.optString("data");
+                            __data = new JSONObject(_data);
+                            int open_register = __data.optInt("open_register");
+                            if (open_register == 1) {//1开放注册 其他关闭注册
+                                SharedPreUtil.getInstance(mContext).saveParam(ServiceIpConstant.BASE_URL, et_ip.getText().toString());
+                                postRegister(etRegisterUser, etRegisterPassword, SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.BASE_URL), "");
+                            } else {
+                                avi.hide();
+                                alpha("需要注册，请联系管理员!");
+                                return;
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
     }
@@ -514,7 +544,11 @@ public class KittyActivity extends BaseActivity {
                     public void onResultFault(int code, String hint) {
                         super.onResultFault(code, hint);
                         LogUtil.i("微信注册失败 onResultFault=" + code + " hint=" + hint);
-                        postLoginIn(username, pwd, et_ip, avi, nickname);
+                        if (SharedPreUtil.getInstance(mContext).getInt(Constant.LOGIN_TYPE) == 1) {
+                            postLoginIn(username, pwd, et_ip, avi, nickname);
+                        } else {
+                            ToastUtil.show(mContext, hint);
+                        }
                         return;
                     }
                 });

@@ -285,9 +285,17 @@ public class TabHostController {
         RelativeLayout rl_menu_game_rule = (RelativeLayout) layout.findViewById(R.id.rl_menu_game_rule);
         RelativeLayout rl_menu_message = (RelativeLayout) layout.findViewById(R.id.rl_menu_message);
         RelativeLayout rl_menu_exit = (RelativeLayout) layout.findViewById(R.id.rl_menu_exit);
+        View menu_v4 = layout.findViewById(R.id.menu_v4);
         tv_dot = (TextView) layout.findViewById(R.id.tv_dot);
         if (SharedPreUtil.getInstance(mContext).getInt(Constant.WHERE_SET) != 1) {
             rl_menu_exit.setVisibility(View.GONE);
+        }
+        if (SharedPreUtil.getInstance(mContext).getInt(Constant.VERSION) == 1) {
+            rl_menu_suggestion.setVisibility(View.GONE);
+            menu_v4.setVisibility(View.GONE);
+        } else {
+            rl_menu_suggestion.setVisibility(View.VISIBLE);
+            menu_v4.setVisibility(View.VISIBLE);
         }
         int unRead = SharedPreUtil.getInstance(mContext).getInt("unRead");
         if (unRead > 0) {

@@ -40,6 +40,7 @@ MeetingBox"</string>
     <string name="volume">音量</string>
     <string name="video_toggle">视频开关</string>
     <string name="push_toggle">推送开关</string>
+    <string name="robot_toggle">托管开关</string>
 
     <!--dialog-->
     <string name="yoplay_enter">确认</string>
@@ -73,7 +74,7 @@ MeetingBox"</string>
     <string name="change_channel_resolution">已切换到%1$s</string>
     <string name="error_connect">连接失败</string>
     <string name="disconnect">未连接，请检查您的网络！</string>
-    <string name="bet_over_limit">超过限注</string>
+    <string name="bet_over_limit">超过限红</string>
     <string name="you_lose">您输:</string>
     <string name="you_win">恭喜！您赢:</string>
     <string name="balance_not_enough">余额不足</string>

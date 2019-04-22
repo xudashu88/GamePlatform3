@@ -21,7 +21,8 @@
             android:textColor="@color/mainFontGolden"
             android:textSize="@dimen/font10" />
 
-        <include layout="@layout/include_vertical_line_golden" />
+        <include
+            layout="@layout/include_vertical_line_golden" />
 
         <TextView
             android:id="@+id/tv_mobile"
@@ -69,7 +70,9 @@
             android:textColor="@color/mainFontGolden"
             android:textSize="@dimen/font10" />
 
-        <include layout="@layout/include_vertical_line_golden" />
+        <include
+            android:id="@+id/include"
+            layout="@layout/include_vertical_line_golden" />
 
         <TextView
             android:id="@+id/tv_delete"

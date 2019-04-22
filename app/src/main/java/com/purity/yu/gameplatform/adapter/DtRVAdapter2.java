@@ -29,11 +29,11 @@ import java.util.List;
 
 public class DtRVAdapter2 extends RecyclerView.Adapter<DtRVAdapter2.ViewHolder> {
 
-    private List<Baccarat> mBaccaratList;
-    private List<Hall> mHallList;
+    private List<Baccarat> mBaccaratList = new ArrayList<>();
+    private List<Hall> mHallList = new ArrayList<>();
     //BET:0下注阶段 RESULT:1开牌阶段 OVER:2清算阶段 WAITTING:3同步识别端
     private Context mContext;
-    private int isHall = 0;//false 只加载一次大厅数据 true 根据状态=2在刷新界面
+    private boolean isHall = false;//false 只加载一次大厅数据 true 根据状态=2在刷新界面
     private int bankColor = 0;
     private int playColor = 0;
     private int tieColor = 0;
@@ -41,7 +41,6 @@ public class DtRVAdapter2 extends RecyclerView.Adapter<DtRVAdapter2.ViewHolder> 
     public DtRVAdapter2(Context context, List<Baccarat> baccaratList) {
         this.mBaccaratList = baccaratList;
         this.mContext = context;
-        mHallList = new ArrayList<>();
         SharedPreUtil.getInstance(mContext).saveParam("times", 0);
     }
 
@@ -81,15 +80,16 @@ public class DtRVAdapter2 extends RecyclerView.Adapter<DtRVAdapter2.ViewHolder> 
                 intent.putExtra("roomName", mBaccaratList.get(position).roomName);
                 intent.putExtra("betSecond", mBaccaratList.get(position).betSecond);
                 mContext.startActivity(intent);
+//                ((DtListActivity) mContext).finish();
             }
         });
         if (mHallList == null || mHallList.size() == 0) {//可见条目的个数就是要初始化的次数
             return;
         } else {
             int times = SharedPreUtil.getInstance(mContext).getInt("times");
-            if (isHall == 0 && mHallList.size() > 0) {//初始化 第一次进入大厅 初始化所有数据
+            if (isHall == false && mHallList.size() > 0 /*&& mHallList.size() < position*/) {//初始化 第一次进入大厅 初始化所有数据
                 init(holder, position, times);
-            } else if (isHall == 1 && mHallList.size() > 0) {//新添加一局
+            } else if (isHall && mHallList.size() > 0 /*&& mHallList.size() < position*/) {//新添加一局
                 update(holder, position);
             }
         }
@@ -142,23 +142,23 @@ public class DtRVAdapter2 extends RecyclerView.Adapter<DtRVAdapter2.ViewHolder> 
                 holder.tv_play.setCirCleColor(playColor);
                 holder.tv_tie.setCirCleColor(tieColor);
                 draw(holder, hall);
-
                 if (hall.state.equals(Constant.BACCARAT_BET)) {
                     holder.pcac.setCurrentPercent(hall.second);
                     Constant.SEND_CARD = mBaccaratList.get(position).betSecond;
                     holder.pcac.setAllTime(Constant.SEND_CARD);
                 } else if (hall.state.equals(Constant.BACCARAT_INNINGS_END)) {
                     holder.pcac.setCurrentPercent(-1);
+//                    hall.boardMessageList.clear();
+//                    draw(holder, hall);
                 } else {
-                    holder.pcac.setCurrentPercent(0);//结算中
+                    holder.pcac.setCurrentPercent(0);
                 }
             } else if (mBaccaratList.get(position).roomId.equals(hall.roomId)) {
                 holder.pcac.setCurrentPercent(-2);
             }
         }
-
         if (times == mHallList.size()) {//次数=一次同时加载几个房间
-            isHall = 1;
+            isHall = true;
             SharedPreUtil.getInstance(mContext).saveParam("times", mHallList.size());
         }
     }
@@ -208,6 +208,11 @@ public class DtRVAdapter2 extends RecyclerView.Adapter<DtRVAdapter2.ViewHolder> 
         holder.tv_bank_count.setText(String.valueOf(banker));
         holder.tv_player_count.setText(String.valueOf(player));
         holder.tv_tie_count.setText(String.valueOf(tie));
+//        Algorithm.getInstance().initBigRoad(boardMessageList, new ArrayList<Integer>(), new ArrayList<Integer>(),
+//                bigRoadListAll, bigRoadList, bigRoadListShort,
+//                bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
+//                smallRoadListAll, smallRoadList, smallRoadListShort,
+//                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, mContext, 2);//1房间 2大厅
         Algorithm.getInstance().initBigRoad(boardMessageList, new ArrayList<Integer>(), new ArrayList<Integer>(),
                 bigRoadListAll, bigRoadList, bigRoadListShort,
                 bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
@@ -230,8 +235,7 @@ public class DtRVAdapter2 extends RecyclerView.Adapter<DtRVAdapter2.ViewHolder> 
                 holder.pcac.setCurrentPercent(-2);
             }
             if (hall.state.equals(Constant.BACCARAT_BET) && mBaccaratList.get(position).roomId.equals(hall.roomId)) {//倒计时
-                Constant.SEND_CARD = mBaccaratList.get(position).betSecond;
-                holder.pcac.setAllTime(Constant.SEND_CARD);
+                holder.pcac.setAllTime(hall.second);
                 holder.pcac.setTargetPercent(0);
                 holder.pcac.reInitView();
             } else if (hall.state.equals(Constant.BACCARAT_WAIT) || hall.state.equals(Constant.BACCARAT_OVER) && mBaccaratList.get(position).roomId.equals(hall.roomId)) {//结算

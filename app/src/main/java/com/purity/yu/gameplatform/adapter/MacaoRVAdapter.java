@@ -209,7 +209,7 @@ public class MacaoRVAdapter extends RecyclerView.Adapter<MacaoRVAdapter.ViewHold
 //                bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
 //                smallRoadListAll, smallRoadList, smallRoadListShort,
 //                cockroachRoadListAll, cockroachRoadList, cockroachRoadListShort, mContext, 2);//1房间 2大厅
-        Algorithm.getInstance().initBigRoad(boardMessageList,new ArrayList<Integer>(), new ArrayList<Integer>(),
+        Algorithm.getInstance().initBigRoad(boardMessageList, new ArrayList<Integer>(), new ArrayList<Integer>(),
                 bigRoadListAll, bigRoadList, bigRoadListShort,
                 bigEyeRoadListAll, bigEyeRoadList, bigEyeRoadListShort,
                 smallRoadListAll, smallRoadList, smallRoadListShort,
@@ -219,7 +219,7 @@ public class MacaoRVAdapter extends RecyclerView.Adapter<MacaoRVAdapter.ViewHold
                 Color.RED, Color.BLUE, Color.GREEN);//1房间 2大厅
         Algorithm.getInstance().drawRoad(boardMessageList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
                 holder.gv_left, holder.gv_right_top, holder.gv_right_middle, holder.gv_right_bottom_1, holder.gv_right_bottom_2, mContext, 0,
-                Color.RED, Color.BLUE, Color.GREEN,0,false,2);
+                Color.RED, Color.BLUE, Color.GREEN, 0, false, 2);
         //Color.RED, Color.BLUE, Color.GREEN
     }
 
@@ -233,8 +233,7 @@ public class MacaoRVAdapter extends RecyclerView.Adapter<MacaoRVAdapter.ViewHold
                 holder.pcac.setCurrentPercent(-2);
             }
             if (hall.state.equals(Constant.BACCARAT_BET) && mBaccaratList.get(position).roomId.equals(hall.roomId)) {//倒计时
-                Constant.SEND_CARD = mBaccaratList.get(position).betSecond;
-                holder.pcac.setAllTime(Constant.SEND_CARD);
+                holder.pcac.setAllTime(hall.second);
                 holder.pcac.setTargetPercent(0);
                 holder.pcac.reInitView();
             } else if (hall.state.equals(Constant.BACCARAT_WAIT) || hall.state.equals(Constant.BACCARAT_OVER) && mBaccaratList.get(position).roomId.equals(hall.roomId)) {//结算

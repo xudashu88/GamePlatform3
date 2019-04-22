@@ -30,7 +30,7 @@ import com.purity.yu.gameplatform.annotation.ContentView;
 import com.purity.yu.gameplatform.base.BaseFragment;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.base.ServiceIpConstant;
-import com.purity.yu.gameplatform.entity.Game2;
+import com.purity.yu.gameplatform.entity.Game;
 import com.purity.yu.gameplatform.http.HttpRequest;
 import com.purity.yu.gameplatform.utils.BaccaratUtil;
 
@@ -53,7 +53,7 @@ public class HotNewFragment extends BaseFragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private Context mContext;
-    List<Game2> gameList = new ArrayList<>();
+    List<Game> gameList = new ArrayList<>();
 
 
     @Override
@@ -71,7 +71,7 @@ public class HotNewFragment extends BaseFragment {
 
     private void getGameList() {
         String _gameList = SharedPreUtil.getInstance(mContext).getString(Constant.PRE_GAME_LIST);
-        List<Game2> list = new Gson().fromJson(_gameList, new TypeToken<List<Game2>>() {
+        List<Game> list = new Gson().fromJson(_gameList, new TypeToken<List<Game>>() {
         }.getType());
         if (list != null && list.size() > 0) {
             gameList.clear();
@@ -107,7 +107,7 @@ public class HotNewFragment extends BaseFragment {
                             try {
                                 json = new JSONObject(result);
                                 String _data = json.optString("data");
-                                gameList = parseArrayObject(_data, "items", Game2.class);
+                                gameList = parseArrayObject(_data, "items", Game.class);
                                 for (int i = 0; i < gameList.size(); i++) {
                                     String verify = gameList.get(i).platformCode + gameList.get(i).gameNameEn;
                                     if (verify.equals("JXB" + "baccarat")) {
@@ -137,13 +137,13 @@ public class HotNewFragment extends BaseFragment {
 
     class HotNewAdapter extends RecyclerView.Adapter<HotNewAdapter.ViewHolder> {
 
-        private List<Game2> mData;
+        private List<Game> mData;
 
-        public HotNewAdapter(List<Game2> data) {
+        public HotNewAdapter(List<Game> data) {
             this.mData = data;
         }
 
-        public void updateData(List<Game2> data) {
+        public void updateData(List<Game> data) {
             this.mData = data;
             notifyDataSetChanged();
         }
@@ -186,7 +186,6 @@ public class HotNewFragment extends BaseFragment {
                     String _macao = getActivity().getResources().getString(R.string.macao);
                     String _single = getActivity().getResources().getString(R.string.single_pick_game);
                     String verify = mData.get(position).platformCode + mData.get(position).gameNameEn;
-                    LogUtil.i("房间="+verify);
                     if (verify.equals("JXB" + "baccarat")) {
 //                        getActivity().finish();//防止安卓4.4不执行自定义控件实现内部接口，必须要关闭上一个页面，由房间进入大厅启发而来
                         getActivity().startActivity(new Intent(getActivity(), BaccaratListActivity.class).putExtra("roomName", mData.get(position).gameName));

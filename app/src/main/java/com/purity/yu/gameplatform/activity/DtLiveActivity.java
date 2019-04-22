@@ -342,9 +342,6 @@ public class DtLiveActivity extends BaseActivity {
     private int betsRemind = -1;
     private int betSecond;
     private boolean isFirstPlay = true, isFirstBank = true, isFirstTie = true;
-    private String dragonColorStr;
-    private String tigerColorStr;
-    private String tieColorStr;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -1110,7 +1107,6 @@ public class DtLiveActivity extends BaseActivity {
 
     /**
      * 庄问路
-     *
      */
     private void ask(int value, boolean isShowAsk, boolean isDraw, int count, boolean isShow) {
         boardMessageList1.clear();
@@ -1573,6 +1569,26 @@ public class DtLiveActivity extends BaseActivity {
         currentBetScore.clear();
         currentBetScore.addAll(event.scoreList);
         currentChip();
+        if (event.scoreAllList.size() > 0) {
+            bankerIng = event.scoreAllList.get(0);
+            playerIng = event.scoreAllList.get(1);
+            tieIng = event.scoreAllList.get(2);
+            String _1 = "0";
+            String _2 = "0";
+            String _3 = "0";
+            if (isPeopleNum == 0) {
+                _1 = String.valueOf(bankerIng);
+                _2 = String.valueOf(playerIng);
+                _3 = String.valueOf(tieIng);
+            } else if (isPeopleNum == 1) {
+                _1 = String.valueOf(bankerIng) + "/" + event.peopleAllList.get(0);
+                _2 = String.valueOf(playerIng) + "/" + event.peopleAllList.get(1);
+                _3 = String.valueOf(tieIng) + "/" + String.valueOf(event.peopleAllList.get(2));
+            }
+            tv_bank_date.setText(_1);
+            tv_play_date.setText(_2);
+            tv_tie_date.setText(_3);
+        }
     }
 
 
@@ -2243,6 +2259,5 @@ public class DtLiveActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        DtLiveSocketController.getInstance().disconnectSocket();
     }
 }

@@ -31,7 +31,7 @@ public class UserController {
         return instance;
     }
 
-    public void copyWidget(ImageView iv_close,ImageView iv_msg) {
+    public void copyWidget(ImageView iv_close, ImageView iv_msg) {
         this.iv_close = iv_close;
         this.iv_msg = iv_msg;
         initEvent();
@@ -47,9 +47,9 @@ public class UserController {
         iv_msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent();
+                Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
-                String data="http://103.231.167.85:8888/mobile/index.html";
+                String data = "http://103.231.167.85:8888/mobile/index.html";
                 intent.setData(Uri.parse(data));
                 mContext.startActivity(intent);
             }

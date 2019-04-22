@@ -41,8 +41,8 @@ public class LocalHtmlWebViewActivity extends BaseActivity implements CommonPopu
     @Override
     protected void initView(Bundle savedInstanceState) {
         mContext = this;
-        selectBac = getIntent().getIntExtra("selectBac",0);
-        LogUtil.i("selectBac="+selectBac);
+        selectBac = getIntent().getIntExtra("selectBac", 0);
+        LogUtil.i("selectBac=" + selectBac);
         if (selectBac == 0) {
             switchFragment(new BacRuleFragment()).commit();
         } else {

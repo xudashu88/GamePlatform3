@@ -214,6 +214,9 @@ public class OkHttpManger {
 
     public void enqueueGet(String url, OkHttpManger.ResultCallback callback) {
         Builder builder = new Builder();
+        if(!url.contains("http")){
+            return;
+        }
         builder.url(url);
         this.enqueuePost(builder.build(), callback);
     }

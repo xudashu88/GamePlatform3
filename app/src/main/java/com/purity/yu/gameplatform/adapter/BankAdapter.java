@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gangbeng.basemodule.utils.SharedPreUtil;
 import com.gangbeng.basemodule.utils.Util;
 import com.purity.yu.gameplatform.R;
+import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.entity.Bank;
 import com.purity.yu.gameplatform.utils.ProtocolUtil;
 
@@ -47,6 +49,13 @@ public class BankAdapter extends RecyclerView.Adapter<BankAdapter.ViewHolder> im
         holder.tv_name.setText(dataList.get(position).bank_username);
         holder.tv_bank_account.setText(dataList.get(position).bank_account);
         holder.tv_bank_name.setText(dataList.get(position).bank_name);
+        if (SharedPreUtil.getInstance(mContext).getInt(Constant.VERSION) == 1) {
+            holder.tv_branch_name.setVisibility(View.GONE);
+            holder.include.setVisibility(View.GONE);
+        } else {
+            holder.tv_branch_name.setVisibility(View.VISIBLE);
+            holder.include.setVisibility(View.VISIBLE);
+        }
         holder.tv_branch_name.setText(dataList.get(position).bank_branch);
         holder.tv_mobile.setText(dataList.get(position).mobile);
         //将position保存在itemView的Tag中，以便点击时进行获取
@@ -121,6 +130,7 @@ public class BankAdapter extends RecyclerView.Adapter<BankAdapter.ViewHolder> im
         TextView tv_branch_name;
         TextView tv_mobile;
         TextView tv_delete;
+        View include;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -130,6 +140,7 @@ public class BankAdapter extends RecyclerView.Adapter<BankAdapter.ViewHolder> im
             tv_mobile = (TextView) itemView.findViewById(R.id.tv_mobile);
             tv_bank_name = (TextView) itemView.findViewById(R.id.tv_bank_name);
             tv_branch_name = (TextView) itemView.findViewById(R.id.tv_branch_name);
+            include = itemView.findViewById(R.id.include);
             tv_delete = (TextView) itemView.findViewById(R.id.tv_delete);
         }
     }

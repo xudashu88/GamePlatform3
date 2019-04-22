@@ -106,42 +106,34 @@ public class MathRandomUtil {
         return stringBuffer.toString();
     }
 
+    public static boolean isFive(int n, int m) {
+        int num = m + (int) (Math.random() * (n + 1 - m));
+
+        if (num % 5 != 0) {
+            System.out.println("随机数=" + num + " 不满足");
+            return false;
+        }
+        System.out.println("随机数=" + num + " 满足");
+        return true;
+    }
+
     /**
      * 测试主程序
      */
     public static void main(String[] args) {
-        int i = 0;
-        MathRandomUtil a = new MathRandomUtil();
-        int[] arr = new int[100];
-        int count0 = 0, count1 = 0, count2 = 0, count3 = 0, count4 = 0, count5 = 0, count6 = 0, count7 = 0, count8 = 0, count9 = 0, count10 = 0, count11 = 0;
-        for (i = 0; i < arr.length; i++) {
-            arr[i] = a.PercentageRandom();
-            if (arr[i] == 0) {
-                count0++;
-            } else if (arr[i] == 1) {
-                count1++;
-            } else if (arr[i] == 2) {
-                count2++;
-            } else if (arr[i] == 3) {
-                count3++;
-            } else if (arr[i] == 4) {
-                count4++;
-            } else if (arr[i] == 5) {
-                count5++;
-            } else if (arr[i] == 6) {
-                count6++;
-            } else if (arr[i] == 7) {
-                count7++;
-            } else if (arr[i] == 8) {
-                count8++;
-            } else if (arr[i] == 9) {
-                count9++;
-            } else if (arr[i] == 10) {
-                count10++;
-            } else if (arr[i] == 11) {
-                count11++;
-            }
-        }
-//        System.out.println("count0=" + count0 + " count1=" + count1 + " count2=" + count2 + " count3=" + count3 + " count4=" + count4 + " count5=" + count5 + " count5=" + count6 + " count6=" + count6 + " count7=" + count7 + " count8=" + count8 + " count9=" + count9 + " count10=" + count10 + " count11=" + count11);
+        int randomPostDelayed1 = new Random().nextInt(5);//0-4
+        int randomPostDelayed2 = new Random().nextInt(5) + 5;//5-9
+        int randomPostDelayed3 = new Random().nextInt(5) + 10;//10-14
+        int randomPostDelayed4 = new Random().nextInt(5) + 15;//15-19
+        int randomPostDelayed5 = new Random().nextInt(5) + 20;//20-24
+        int randomPostDelayed6 = new Random().nextInt(5) + 20;//1-5
+        int randomPostDelayed7 = new Random().nextInt(5) + 20;//1-5
+        int randomPostDelayed8 = new Random().nextInt(5) + 20;//1-5
+        int randomPostDelayed9 = new Random().nextInt(5) + 20;//1-5
+        System.out.println("randomPostDelayed1=" + randomPostDelayed1 + " randomPostDelayed2=" + randomPostDelayed2 +
+                " randomPostDelayed3=" + randomPostDelayed3 + " randomPostDelayed4=" + randomPostDelayed4 +
+                " randomPostDelayed5=" + randomPostDelayed5 + " randomPostDelayed6=" + randomPostDelayed6 +
+                " randomPostDelayed7=" + randomPostDelayed7 + " randomPostDelayed8=" + randomPostDelayed8 +
+                " randomPostDelayed9=" + randomPostDelayed9);
     }
 }

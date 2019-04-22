@@ -140,12 +140,14 @@ public class DtSocketController {
         }
         return null;
     }
+
     public Socket getSocketProdict() {
         if (mSocketProdict != null && mSocketProdict.connected()) {
             return mSocketProdict;
         }
         return null;
     }
+
     public void disconnectSocket() {
         if (mSocket != null) {
             mSocket.disconnect();
@@ -196,15 +198,21 @@ public class DtSocketController {
                                     String data = json.optString("data");//{"score":[0,0,0],"betPeople":[[],[],[]],"bets":[0,0,0]}
                                     JSONObject _data = new JSONObject(data);
                                     String betScore = _data.optString("bets");
-                                    int[] betscoreInt = new Gson().fromJson(betScore, int[].class);
-                                    List<Integer> betscoreList = new ArrayList<>();
+                                    String betScoreAll = _data.optString("score");
+                                    String betPeopleAll = _data.optString("betPeople");
+                                    int[] betscoreInt = new Gson().fromJson(betScore, int[].class);//玩家成功押注分数
+                                    int[] betScoreAllInt = new Gson().fromJson(betScoreAll, int[].class);//所有玩家成功押注分数
+                                    int[] betPeopleAllInt = new Gson().fromJson(betPeopleAll, int[].class);//所有玩家成功押注分数
+                                    List<Integer> betScoreList = new ArrayList<>();
+                                    List<Integer> betScoreAllList = new ArrayList<>();
+                                    List<Integer> betPeopleAllList = new ArrayList<>();
                                     for (int i = 0; i < betscoreInt.length; i++) {
-                                        betscoreList.add(betscoreInt[i]);
+                                        betScoreList.add(betscoreInt[i]);
+                                        betScoreAllList.add(betScoreAllInt[i]);
+                                        betPeopleAllList.add(betPeopleAllInt[i]);
                                     }
-                                    postEventBetScore(betscoreList);
+                                    postEventBetScore(betScoreList, betScoreAllList, betPeopleAllList);
                                     break;
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
                                 } catch (JsonSyntaxException e) {
                                     e.printStackTrace();
                                 }
@@ -511,9 +519,11 @@ public class DtSocketController {
         EventBus.getDefault().post(event);
     }
 
-    private void postEventBetScore(List<Integer> scoreList) {
+    private void postEventBetScore(List<Integer> scoreList, List<Integer> scoreAllList, List<Integer> peopleAllList) {
         ObjectEvent.betScoreEvent event = new ObjectEvent.betScoreEvent();
         event.scoreList = scoreList;
+        event.scoreAllList = scoreAllList;
+        event.peopleAllList = peopleAllList;
         EventBus.getDefault().post(event);
     }
 

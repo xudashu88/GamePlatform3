@@ -6,12 +6,13 @@
     tools:context=".activity.StartActivity">
 
     <ImageView
+        android:id="@+id/iv_start"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/start_bg" />
+        android:background="@drawable/pic_bg" />
 
 
-    <TextView
+    <com.purity.yu.gameplatform.widget.GradientTextView
         android:id="@+id/iv_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

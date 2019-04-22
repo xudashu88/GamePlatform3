@@ -42,7 +42,7 @@ public class PermissionsUtil {
             /*Manifest.permission.INTERNET,
             Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.ACCESS_WIFI_STATE,
             Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS,*/
-            Manifest.permission.CALL_PHONE, Manifest.permission.READ_PHONE_STATE,Manifest.permission.PROCESS_OUTGOING_CALLS
+            Manifest.permission.CALL_PHONE, Manifest.permission.READ_PHONE_STATE, Manifest.permission.PROCESS_OUTGOING_CALLS
     };
 
     public static void checkAndRequestPermissions(final Activity activity) {

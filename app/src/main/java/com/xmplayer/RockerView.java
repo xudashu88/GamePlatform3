@@ -316,7 +316,7 @@ public class RockerView extends View {
         // 回调 返回参数
         callBack(angle);
 
-       // Log.i(TAG, "getRockerPositionPoint: 角度 :" + angle);
+        // Log.i(TAG, "getRockerPositionPoint: 角度 :" + angle);
         if (lenXY + rockerRadius <= regionRadius) { // 触摸位置在可活动范围内
             return touchPoint;
         } else { // 触摸位置在可活动范围以外

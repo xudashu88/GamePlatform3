@@ -127,7 +127,10 @@ public class LoginActivity extends AppCompatActivity {
         Util.getInstance().init(this);
         Util.getInstance().hideSystemNavigationBar();
         PermissionsUtil.checkAndRequestPermissions(this);
-
+        SharedPreUtil.getInstance(mContext).saveParam(Constant.VERSION, 0);
+        if(SharedPreUtil.getInstance(mContext).getInt(Constant.VERSION)==0){
+            iv_wechat.setVisibility(View.GONE);
+        }
         initLanguage();//8196 9620 9288
         initBgm();
         LoginController.getInstance().init(this);

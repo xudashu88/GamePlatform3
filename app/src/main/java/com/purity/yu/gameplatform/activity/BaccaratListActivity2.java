@@ -180,6 +180,13 @@ public class BaccaratListActivity2 extends BaseActivity {
         }
     }
 
+    public Socket getSocket() {
+        if (mSocket != null && mSocket.connected()) {
+            return mSocket;
+        }
+        return null;
+    }
+
     private void perOnePerformance() {
         TimerTask task = new TimerTask() {
             public void run() {
@@ -207,7 +214,7 @@ public class BaccaratListActivity2 extends BaseActivity {
                 @Override
                 public void run() {
                     LogUtil.i("进入百家乐大厅6 ok啦" + (++i));
-//                    LogUtil.i("socket_command=" + args[0].toString());
+                    LogUtil.i("socket_command=" + args[0].toString());
                     JSONObject json;
                     String roomId = "";
                     String state = "";
@@ -247,6 +254,7 @@ public class BaccaratListActivity2 extends BaseActivity {
                         if (i < 2) {//如果接受了多次 就强制只接受一个 中间也不要用EventBus在传一遍
                             avi.hide();
                             adapter.update(hallList);
+                            i = 0;
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -276,12 +284,14 @@ public class BaccaratListActivity2 extends BaseActivity {
     private Emitter.Listener onDisconnect = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
+            conn();
         }
     };
 
     private Emitter.Listener onConnectError = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
+            conn();
         }
     };
 //-----------------------------------------大厅结束---------------------------------------------------------
@@ -295,10 +305,17 @@ public class BaccaratListActivity2 extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        LogUtil.i("返回百家乐列表 onResume");
+
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        disconnectSocket();//后退是重新打开？？
+//        disconnectSocket();//后退是重新打开？？
         SharedPreUtil.getInstance(mContext).saveParam("times", 0);//退出房间清零
         avi.stopAnimation();
     }

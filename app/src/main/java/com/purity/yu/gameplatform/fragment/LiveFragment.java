@@ -26,7 +26,7 @@ import com.purity.yu.gameplatform.annotation.ContentView;
 import com.purity.yu.gameplatform.base.BaseFragment;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.base.ServiceIpConstant;
-import com.purity.yu.gameplatform.entity.Game2;
+import com.purity.yu.gameplatform.entity.Game;
 import com.purity.yu.gameplatform.http.HttpRequest;
 import com.purity.yu.gameplatform.utils.BaccaratUtil;
 
@@ -47,7 +47,7 @@ public class LiveFragment extends BaseFragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private Context mContext;
-    List<Game2> gameList = new ArrayList<>();
+    List<Game> gameList = new ArrayList<>();
 
     @Override
     protected void initView(View view) {
@@ -64,7 +64,7 @@ public class LiveFragment extends BaseFragment {
 
     private void getGameList() {
         String _gameList = SharedPreUtil.getInstance(mContext).getString(Constant.PRE_GAME_LIST);
-        List<Game2> list = new Gson().fromJson(_gameList, new TypeToken<List<Game2>>() {
+        List<Game> list = new Gson().fromJson(_gameList, new TypeToken<List<Game>>() {
         }.getType());
         if (list != null && list.size() > 0) {
             gameList.clear();
@@ -81,7 +81,7 @@ public class LiveFragment extends BaseFragment {
                             try {
                                 json = new JSONObject(result);
                                 String _data = json.optString("data");
-                                gameList = parseArrayObject(_data, "items", Game2.class);
+                                gameList = parseArrayObject(_data, "items", Game.class);
                                 for (int i = 0; i < gameList.size(); i++) {
                                     String verify = gameList.get(i).platformCode + gameList.get(i).gameNameEn;
                                     if (verify.equals("JXB" + "baccarat")) {
@@ -111,13 +111,13 @@ public class LiveFragment extends BaseFragment {
 
     class LiveAdapter extends RecyclerView.Adapter<LiveAdapter.ViewHolder> {
 
-        private List<Game2> mData;
+        private List<Game> mData;
 
-        public LiveAdapter(List<Game2> data) {
+        public LiveAdapter(List<Game> data) {
             this.mData = data;
         }
 
-        public void updateData(List<Game2> data) {
+        public void updateData(List<Game> data) {
             this.mData = data;
             notifyDataSetChanged();
         }

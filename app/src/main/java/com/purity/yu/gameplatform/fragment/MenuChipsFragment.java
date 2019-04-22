@@ -315,7 +315,7 @@ public class MenuChipsFragment extends BaseFragment {
                         } else if (_tvTag.contains("rl_sic")) {
                             remove(macauSelectList, _tvTag);
                             macauNoSelectList.add(_tvTag);
-                        } else if (_tvTag.contains("rl_dt")){
+                        } else if (_tvTag.contains("rl_dt")) {
                             remove(dtSelectList, _tvTag);
                             dtNoSelectList.add(_tvTag);
                         }
@@ -328,7 +328,7 @@ public class MenuChipsFragment extends BaseFragment {
                         } else if (_tvTag.contains("rl_sic")) {
                             macauSelectList.add(_tvTag);
                             remove(macauNoSelectList, _tvTag);
-                        } else if (_tvTag.contains("rl_dt")){
+                        } else if (_tvTag.contains("rl_dt")) {
                             dtSelectList.add(_tvTag);
                             remove(dtNoSelectList, _tvTag);
                         }

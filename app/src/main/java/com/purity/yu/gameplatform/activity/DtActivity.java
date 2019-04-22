@@ -987,6 +987,26 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
         int allScore = currentBetScore.get(0) + currentBetScore.get(1) + currentBetScore.get(2);
         tv_bet_all_score.setText(String.valueOf(allScore));
         currentChip();
+        if (event.scoreAllList.size() > 0) {
+            bankerIng = event.scoreAllList.get(0);
+            playerIng = event.scoreAllList.get(1);
+            tieIng = event.scoreAllList.get(2);
+            String _1 = "0";
+            String _2 = "0";
+            String _3 = "0";
+            if (isPeopleNum == 0) {
+                _1 = String.valueOf(bankerIng);
+                _2 = String.valueOf(playerIng);
+                _3 = String.valueOf(tieIng);
+            } else if (isPeopleNum == 1) {
+                _1 = String.valueOf(bankerIng) + "/" + event.peopleAllList.get(0);
+                _2 = String.valueOf(playerIng) + "/" + event.peopleAllList.get(1);
+                _3 = String.valueOf(tieIng) + "/" + String.valueOf(event.peopleAllList.get(2));
+            }
+            tv_banker_date.setText(_1);
+            tv_play_date.setText(_2);
+            tv_tie_date.setText(_3);
+        }
     }
 
     /*
@@ -2690,6 +2710,7 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
                     ToastUtil.showToast(mContext, mContext.getResources().getString(R.string.normal_lock_alert));
                     return;
                 }
+                DtSocketController.getInstance().disconnectSocket();
                 SharedPreUtil.getInstance(mContext).saveParam(Constant.BAC_VIDEO_PLAYING, 0);
                 libPlayer.SmartPlayerClose(playerHandle);//退出要及时关闭 下次就不会出现重音
                 mContext.startActivity(new Intent(mContext, DtListActivity2.class));
@@ -3098,6 +3119,5 @@ public class DtActivity extends BaseActivity implements CommonPopupWindow.ViewIn
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        DtSocketController.getInstance().disconnectSocket();
     }
 }

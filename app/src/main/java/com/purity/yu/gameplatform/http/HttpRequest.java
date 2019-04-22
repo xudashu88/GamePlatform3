@@ -71,7 +71,7 @@ public class HttpRequest {
         public abstract void onResultOk(String result);
 
         public void onResultFault(int code, String hint) {
-            ToastUtil.show(mContext, hint);
+//            ToastUtil.show(mContext, hint);
             LogUtil.i("请求失败= code" + code + " hint=" + hint);
         }
 

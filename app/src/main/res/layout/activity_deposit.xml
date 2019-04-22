@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/start_bg"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -36,8 +35,10 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/ll_deposit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/bg_gameroom"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/unit10"
         android:weightSum="2">
@@ -176,12 +177,13 @@
 
             <!-- hidden -->
             <LinearLayout
+                android:id="@+id/ll_pay_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:weightSum="5">
 
                 <TextView
@@ -209,12 +211,13 @@
             </LinearLayout>
             <!-- hidden -->
             <LinearLayout
+                android:id="@+id/ll_pay_number"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:weightSum="5">
 
                 <TextView

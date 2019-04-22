@@ -762,7 +762,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
             maxScoreList.addAll(event.maxScoreList);
             initMessages();
             AlgorithmHoly.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
-                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,0,false);//11列 加一局
+                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0, 0, false);//11列 加一局
         }
     }
 
@@ -842,7 +842,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
             maxScoreList.addAll(event.maxScoreList);
             initMessages();
             AlgorithmHoly.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
-                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,0,false);//11列 加一局
+                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0, 0, false);//11列 加一局
         }
 //        ask(0);//庄反闲
         String _1 = "0";
@@ -942,6 +942,44 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
         int allScore = currentBetScore.get(0) + currentBetScore.get(1) + currentBetScore.get(2) + currentBetScore.get(3) + currentBetScore.get(4) + currentBetScore.get(5) + currentBetScore.get(6);
         tv_bet_all_score.setText(String.valueOf(allScore));
         currentChip();
+        if (event.scoreAllList.size() > 0) {
+            playerIng = event.scoreAllList.get(0);
+            bankerIng = event.scoreAllList.get(1);
+            tieIng = event.scoreAllList.get(2);
+            playerPairIng = event.scoreAllList.get(3);
+            bankerPairIng = event.scoreAllList.get(4);
+            smallIng = event.scoreAllList.get(5);
+            bigIng = event.scoreAllList.get(6);
+            String _1 = "0";
+            String _2 = "0";
+            String _3 = "0";
+            String _4 = "0";
+            String _5 = "0";
+            String _6 = "0";
+            String _7 = "0";
+            if (isPeopleNum == 0) {
+                _1 = String.valueOf(playerIng);
+                _2 = String.valueOf(bankerIng);
+                _3 = String.valueOf(tieIng);
+                _4 = String.valueOf(playerPairIng);
+                _5 = String.valueOf(bankerPairIng);
+                _6 = String.valueOf(smallIng);
+                _7 = String.valueOf(bigIng);
+            } else if (isPeopleNum == 1) {
+                _1 = String.valueOf(playerIng) + "/" + event.peopleAllList.get(0);
+                _2 = String.valueOf(bankerIng) + "/" + event.peopleAllList.get(1);
+                _3 = String.valueOf(tieIng) + "/" + String.valueOf(event.peopleAllList.get(2));
+                _4 = String.valueOf(playerPairIng) + "/" + String.valueOf(event.peopleAllList.get(3));
+                _5 = String.valueOf(bankerPairIng) + "/" + String.valueOf(event.peopleAllList.get(4));
+                _6 = String.valueOf(smallIng) + "/" + String.valueOf(event.peopleAllList.get(5));
+                _7 = String.valueOf(bigIng) + "/" + String.valueOf(event.peopleAllList.get(6));
+            }
+            tv_play_date.setText(_1);
+            tv_banker_date.setText(_2);
+            tv_tie_date.setText(_3);
+            tv_player_pair_date.setText(_4);
+            tv_banker_pair_date.setText(_5);
+        }
     }
 
     /*
@@ -1091,7 +1129,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
             boardMessageList.clear();
             initMessages();
             AlgorithmHoly.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
-                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,0,false);//11列 加一局
+                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0, 0, false);//11列 加一局
             SharedPreUtil.getInstance(mContext).saveParam(Constant.BACCARAT_STATE, event.state);
         } else if (event.state.equals(Constant.BACCARAT_FAULT)) {
             ToastUtil.show(mContext, "机械臂异常");
@@ -1207,7 +1245,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
             maxScoreList.add(event.resultMaxScore);
             initMessages();
             AlgorithmHoly.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
-                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,0,false);//11列 加一局
+                    gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0, 0, false);//11列 加一局
 //            ask(0);//庄反闲
             //发光
 
@@ -3624,6 +3662,7 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
                     ToastUtil.showToast(mContext, mContext.getResources().getString(R.string.normal_lock_alert));
                     return;
                 }
+                HolyDaySocketController.getInstance().disconnectSocket();
                 SharedPreUtil.getInstance(mContext).saveParam(Constant.BAC_VIDEO_PLAYING, 0);
                 libPlayer.SmartPlayerClose(playerHandle);
                 mContext.startActivity(new Intent(mContext, HolyDayListActivity.class));
@@ -4030,6 +4069,5 @@ public class HolyDayActivity extends BaseActivity implements CommonPopupWindow.V
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        HolyDaySocketController.getInstance().disconnectSocket();
     }
 }

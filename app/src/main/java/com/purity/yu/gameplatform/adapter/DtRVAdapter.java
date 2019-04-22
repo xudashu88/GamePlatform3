@@ -220,7 +220,7 @@ public class DtRVAdapter extends RecyclerView.Adapter<DtRVAdapter.ViewHolder> {
                 null, null, null, null, null, null,
                 bankColor, playColor, tieColor);
         Algorithm.getInstance().drawRoad(boardMessageList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
-                holder.gv_left, holder.gv_right_top, holder.gv_right_middle, holder.gv_right_bottom_1, holder.gv_right_bottom_2, mContext, 1, bankColor, playColor, tieColor,0,false,2);
+                holder.gv_left, holder.gv_right_top, holder.gv_right_middle, holder.gv_right_bottom_1, holder.gv_right_bottom_2, mContext, 1, bankColor, playColor, tieColor, 0, false, 2);
     }
 
     private void update(ViewHolder holder, int position) {
@@ -233,8 +233,7 @@ public class DtRVAdapter extends RecyclerView.Adapter<DtRVAdapter.ViewHolder> {
                 holder.pcac.setCurrentPercent(-2);
             }
             if (hall.state.equals(Constant.BACCARAT_BET) && mBaccaratList.get(position).roomId.equals(hall.roomId)) {//倒计时
-                Constant.SEND_CARD = mBaccaratList.get(position).betSecond;
-                holder.pcac.setAllTime(Constant.SEND_CARD);
+                holder.pcac.setAllTime(hall.second);
                 holder.pcac.setTargetPercent(0);
                 holder.pcac.reInitView();
             } else if (hall.state.equals(Constant.BACCARAT_WAIT) || hall.state.equals(Constant.BACCARAT_OVER) && mBaccaratList.get(position).roomId.equals(hall.roomId)) {//结算

@@ -88,7 +88,7 @@ public class CanvasView extends View {
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         paint.setColor(mColor);
         LogUtil.i("left=" + getLeft() + " top=" + getTop() + " right=" + getRight() + " bottom=" + getBottom());
-        canvas.drawCircle(getWidth()/2,getHeight()/2,getWidth()/2,paint);
+        canvas.drawCircle(getWidth() / 2, getHeight() / 2, getWidth() / 2, paint);
 
         //居中文字
         float nodeW = Math.abs(getWidth()) / 2;

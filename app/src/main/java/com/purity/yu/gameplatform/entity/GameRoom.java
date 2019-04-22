@@ -53,12 +53,12 @@ public class GameRoom implements Serializable {
     /**
      * 最大限红
      */
-    public List<Integer> maxBet=new ArrayList<>();
+    public List<Integer> maxBet = new ArrayList<>();
 
     /**
      * 最小限红
      */
-    public List<Integer> minBet=new ArrayList<>();
+    public List<Integer> minBet = new ArrayList<>();
 
     /**
      * 投注限红

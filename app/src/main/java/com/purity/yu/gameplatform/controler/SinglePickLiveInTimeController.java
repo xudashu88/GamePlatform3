@@ -9,10 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.gangbeng.basemodule.utils.LogUtil;
 import com.gangbeng.basemodule.utils.SharedPreUtil;
 import com.purity.yu.gameplatform.R;
-import com.purity.yu.gameplatform.activity.SinglePickLiveActivity;
 import com.purity.yu.gameplatform.baccarat.YCHGridView;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.widget.GestureListener;
@@ -56,7 +54,7 @@ public class SinglePickLiveInTimeController {
     public void copyWidget(RelativeLayout rl_in_time_layout, RelativeLayout rl_content, RelativeLayout rl_just_in_time, RelativeLayout rl_road,
                            YCHGridView gv_left, RelativeLayout rl_statistic,
                            RelativeLayout rl_ex_in, ImageView iv_ex,
-                           LinearLayout ll_back, TextView tv_game_name, RelativeLayout rl_table) {
+                           LinearLayout ll_back,TextView tv_game_name, RelativeLayout rl_table) {
         this.rl_in_time_layout = rl_in_time_layout;
         this.rl_just_in_time = rl_just_in_time;
         this.rl_content = rl_content;
@@ -73,13 +71,6 @@ public class SinglePickLiveInTimeController {
     }
 
     private void initEvent() {
-        ll_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogUtil.i("单挑退出 1");
-                ((SinglePickLiveActivity) mContext).finish();
-            }
-        });
         isExpand = SharedPreUtil.getInstance(mContext).getInt(Constant.IS_EXPAND);
         rl_ex_in.setOnClickListener(new View.OnClickListener() {
             @Override

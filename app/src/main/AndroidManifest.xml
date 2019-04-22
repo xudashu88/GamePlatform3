@@ -16,10 +16,6 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.REORDER_TASKS" />
 
-    <!--
-      android:hardwareAccelerated="true"
-      android:largeHeap="true"
-    -->
     <application
         android:name=".base.GlobeApplication"
         android:allowBackup="true"

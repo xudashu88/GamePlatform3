@@ -44,7 +44,7 @@ public class ChipAdapter2 extends RecyclerView.Adapter<ChipAdapter2.ViewHolder> 
         holder.iv_new_chip.setBackground(mContext.getResources().getDrawable(chip.chipImg));
         ChoiceItemLayout2 layout = (ChoiceItemLayout2) holder.itemView;
         layout.setChecked(chip.isCheck);
-        layout.anim(chip.isCheck,holder.iv_new_chip);
+        layout.anim(chip.isCheck, holder.iv_new_chip);
 
         if (onItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {

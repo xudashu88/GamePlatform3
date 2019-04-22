@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.chuangku.languagemodule.MultiLanguageUtil;
+import com.mob.MobSDK;
 import com.purity.yu.gameplatform.http.HttpRequest;
 import com.purity.yu.gameplatform.utils.BaccaratUtil;
 import com.purity.yu.gameplatform.utils.ProtocolUtil;
@@ -22,7 +23,7 @@ public class GlobeApplication extends Application {
         MultiLanguageUtil.init(this);
         BaccaratUtil.getInstance().init(this);
         ProtocolUtil.getInstance().init(this);
-//        MobSDK.init(this);
+        MobSDK.init(this);
 
         new Thread(new Runnable() {
             @Override
@@ -31,11 +32,12 @@ public class GlobeApplication extends Application {
                     @Override
                     public void onCoreInitFinished() {
                     }
+
                     @Override
                     public void onViewInitFinished(boolean b) {
                     }
                 };
-                QbSdk.initX5Environment(getApplicationContext(),cb);
+                QbSdk.initX5Environment(getApplicationContext(), cb);
 
             }
         }).start();

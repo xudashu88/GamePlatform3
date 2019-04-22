@@ -14,9 +14,9 @@ import java.util.List;
  * Created by yanghaozhang on 2018/7/4.
  */
 public class FourCircleNode implements NodeImp {
-    private int mX ;
+    private int mX;
 
-    private int mY ;
+    private int mY;
 
     private int mColor = Color.RED;
 

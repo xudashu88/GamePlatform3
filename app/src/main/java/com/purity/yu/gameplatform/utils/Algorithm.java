@@ -873,6 +873,7 @@ public class Algorithm {
         }
         return bigRoadListAll;
     }
+
     private GradientDrawable setGradientDrawable(int shape, int color, Context mContext) {
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setShape(shape);

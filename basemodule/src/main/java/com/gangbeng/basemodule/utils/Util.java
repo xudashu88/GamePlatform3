@@ -242,7 +242,7 @@ public class Util {
     private static final int MIN_CLICK_DELAY_TIME = 300;
     private static long lastClickTime;
 
-    public static boolean isFastClick(int minDelayTime) {
+    public static boolean isFastClick(Context mContext, int minDelayTime) {
         boolean flag = false;
         long curClickTime = System.currentTimeMillis();
         if ((curClickTime - lastClickTime) >= minDelayTime) {

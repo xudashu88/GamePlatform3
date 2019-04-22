@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/hollow_rec_rgb_0"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/hollow_rec_gbr_0"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/hollow_rec_brg_0"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/hollow_rec_brg_270"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/hollow_rec_rgb_270"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/hollow_rec_gbr_270"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/hollow_rec_brg_180"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/hollow_rec_rgb_180"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/hollow_rec_gbr_180"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/hollow_rec_brg_90"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/hollow_rec_rgb_90"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/hollow_rec_gbr_90"
+        android:duration="150" />
+
+</animation-list>

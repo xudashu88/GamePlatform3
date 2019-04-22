@@ -13,6 +13,7 @@ public class Constant {
     public static final String USER_NAME = "user_name";
     public static final String WECHAT_ICON = "wechat_icon";
     public static final String LOGIN_TYPE = "login_type";
+    public static final String VERSION = "version";//0國際版 1湖北版
 
     public static final String TOGGLE_ON = "toggle_on";//好路排序-開
     public static final String TOGGLE_OFF = "toggle_off";//好路排序-關
@@ -22,8 +23,9 @@ public class Constant {
     public static final String ROOM9 = "rtmp://119.188.246.219/live/bl01b";//视频2 rtmp://153.36.201.57/live/room5b rtmp://live.hkstv.hk.lxdns.com/live/hks rtmp://119.188.246.219/live/bl01b rtmp://119.188.246.219/live/room101b
     public static final String SOUND_SWITCH = "sound_switch";//设置-音效开关 0-开 1-关
     public static final String MUSIC_SWITCH = "music_switch";//设置-音乐开关 2-开 1-关
-    public static final String VIDEO_SWITCH = "video_switch";//设置-视频开关 0-开 1-关
-    public static final String PUSH_SWITCH = "push_switch";//设置-推送开关 0-开 1-关
+    public static final String VIDEO_SWITCH = "video_switch";//设置-视频开关 0-开(默认) 1-关
+    public static final String PUSH_SWITCH = "push_switch";//设置-推送开关 0-开(默认) 1-关
+    public static final String ROBOT_SWITCH = "robot_switch";//设置-託管开关 0-开(默认) 1-关
     public static final String MUSIC_VOLUME = "music_volume";//设置-背景音量
     public static final String WHERE_SET = "where_set";//1(TabHostActivity) 2(BaccaratListActivity) 3(DtListActivity) 设置从哪里进就从哪里出
     public static final String WHERE_SETED = "where_seted";//1(TabHostActivity) 2(BaccaratListActivity) 3(DtListActivity) 设置从哪里进就从哪里出 只有重新选择了语言才会跳转指定Activity
@@ -51,7 +53,7 @@ public class Constant {
     public static final String FISH_5 = "rtmp://120.236.191.50/live/fish5";//打鱼
 
     public static int SEND_CARD = 25;//百家乐倒计时
-    public static final int DANIU_BUFFER = 400;//大牛视频缓冲500
+    public static final int DANIU_BUFFER = 600;//大牛视频缓冲500
     public static final boolean DANIU_HARDWARE = true;//true 硬解码 false软解码
     //BET:下注阶段 RESULT:开牌阶段 OVER:清算阶段 WAITTING:同步识别端
     public static final String BACCARAT_STATE = "baccarat_state";//状态
@@ -93,6 +95,7 @@ public class Constant {
     public static final String DT_ROOM_COUNT = "dt_room_count";//龙虎房间数
     public static final String SINGLE_ROOM_COUNT = "single_room_count";//单挑房间数
     public static final String FISH_ROOM_COUNT = "fish_room_count";//扑鱼房间数
+    public static final String LIST = "list";//大厅到列表0 房间到列表和导航返回都是1
 
 
     public static final String BET0 = "bet0";//沒有任何点击时才初始化position=0为显示状态

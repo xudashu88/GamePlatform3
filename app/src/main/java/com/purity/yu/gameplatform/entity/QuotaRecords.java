@@ -18,7 +18,7 @@ public class QuotaRecords implements Serializable {
     @SerializedName("trade_type_id")//1存款 2取款 3上分 4下分 5人工增加 6 人工减少
     public String tradeTypeId;//类别
     public String amount;//根据switch判断是收入还是支出
-//    @SerializedName("amount")
+    //    @SerializedName("amount")
     public String outcome;//支出
     @SerializedName("after_amount")
     public String afterTransaction;//交易后额度

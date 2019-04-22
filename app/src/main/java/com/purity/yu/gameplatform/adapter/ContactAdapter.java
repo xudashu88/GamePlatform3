@@ -57,7 +57,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
     private void saveImage(ImageView imageView) {
         if (imageView.getBackground() == null) {
-            ToastUtil.show(mContext,"未上传图片");
+            ToastUtil.show(mContext, "未上传图片");
             return;
         }
         Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();

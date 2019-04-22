@@ -181,7 +181,7 @@ public class DtLiveInTimeController {
                     trans0to1();//中隐 左滑
                 } else if (isExpand == 1) {
                     trans1to0();//隐中 右滑
-                }else if(isExpand == 2){
+                } else if (isExpand == 2) {
                     trans2to0();//展中 左滑
                 }
             }

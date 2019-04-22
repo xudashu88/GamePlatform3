@@ -1187,7 +1187,6 @@ public class SinglePickLiveActivity extends BaseActivity {
                 hintDialog(mContext.getResources().getString(R.string.no_bet_warning));
             } else if (noBetCount == 5) {
                 this.finish();
-//                mContext.startActivity(new Intent(mContext, SinglePickListActivity.class));
             }
         }
     }
@@ -1209,6 +1208,5 @@ public class SinglePickLiveActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        SinglePickLiveSocketController.getInstance().disconnectSocket();
     }
 }

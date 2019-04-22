@@ -209,7 +209,7 @@ public class HolyDayRVAdapter extends RecyclerView.Adapter<HolyDayRVAdapter.View
                 Color.RED, Color.BLUE, Color.GREEN);
         Algorithm.getInstance().drawRoad(boardMessageList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
                 holder.gv_left, holder.gv_right_top, holder.gv_right_middle, holder.gv_right_bottom_1, holder.gv_right_bottom_2, mContext, 0, Color.RED, Color.BLUE, Color.GREEN,
-                0,false,2);
+                0, false, 2);
     }
 
     private void update(ViewHolder holder, int position) {
@@ -222,8 +222,7 @@ public class HolyDayRVAdapter extends RecyclerView.Adapter<HolyDayRVAdapter.View
                 holder.pcac.setCurrentPercent(-2);
             }
             if (hall.state.equals(Constant.BACCARAT_BET) && mBaccaratList.get(position).roomId.equals(hall.roomId)) {//倒计时
-                Constant.SEND_CARD = mBaccaratList.get(position).betSecond;
-                holder.pcac.setAllTime(Constant.SEND_CARD);
+                holder.pcac.setAllTime(hall.second);
                 holder.pcac.setTargetPercent(0);
                 holder.pcac.reInitView();
             } else if (hall.state.equals(Constant.BACCARAT_WAIT) || hall.state.equals(Constant.BACCARAT_OVER) && mBaccaratList.get(position).roomId.equals(hall.roomId)) {//结算

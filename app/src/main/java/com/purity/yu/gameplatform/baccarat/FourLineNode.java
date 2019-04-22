@@ -14,9 +14,9 @@ import java.util.List;
  */
 public class FourLineNode implements NodeImp {
 
-    private int mX ;
+    private int mX;
 
-    private int mY ;
+    private int mY;
 
     private int mColor = Color.RED;
 

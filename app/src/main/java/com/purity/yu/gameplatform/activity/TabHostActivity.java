@@ -2,6 +2,7 @@ package com.purity.yu.gameplatform.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -89,14 +90,15 @@ public class TabHostActivity extends BaseActivity {
     MarqueeTextView marquee;
     @BindView(R.id.yellowSpeaker)
     ImageView yellowSpeaker;
+    @BindView(R.id.ll_tab_host)
+    LinearLayout ll_tab_host;
     private Context mContext;
     private long lastOnClickTime = 0;
+    private Timer timer;
 
     static {
         System.loadLibrary("SmartPlayer");//大牛直播
     }
-
-    private Timer timer;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -106,6 +108,7 @@ public class TabHostActivity extends BaseActivity {
             Glide.with(mContext).load(SharedPreUtil.getInstance(mContext).getString(Constant.WECHAT_ICON)).into(iv_WeChat);
         } else {
             iv_WeChat.setBackground(null);
+
         }
         timer = new Timer(true);
         EventBus.getDefault().register(this);
@@ -119,6 +122,15 @@ public class TabHostActivity extends BaseActivity {
             iv_sound_switch.setBackgroundResource(R.drawable.on);
         } else {
             iv_sound_switch.setBackgroundResource(R.drawable.off);
+        }
+        if (SharedPreUtil.getInstance(mContext).getInt(Constant.VERSION) == 1) {
+            ll_tab_host.setBackgroundResource(R.drawable.bg_gameroom);
+            ll_arcade.setVisibility(View.GONE);
+            ll_WeChat_link.setVisibility(View.VISIBLE);
+        } else {
+            ll_tab_host.setBackgroundResource(R.drawable.start_bg);
+            ll_arcade.setVisibility(View.VISIBLE);
+            ll_WeChat_link.setVisibility(View.GONE);
         }
         ProtocolUtil.getInstance().getSysNoticeList(mContext, marquee);
         tv_nickname.setTypeface(null);
@@ -135,7 +147,7 @@ public class TabHostActivity extends BaseActivity {
                 ProtocolUtil.getInstance().getAccount2(tv_online_count, tv_profit, tv_bet_count);
             }
         };
-        timer.schedule(task, 1000, 5000);
+        timer.schedule(task, 1000, 10000);
     }
 
     //当前显示的fragment

@@ -20,17 +20,16 @@ import com.tencent.smtt.sdk.WebStorage;
 import com.tencent.smtt.sdk.WebView;
 
 /**
- *ProgressWebView
- *@author gubin
- *@author date: 2017/9/27
- *@author csdn:http://blog.csdn.net/eueheuen
+ * ProgressWebView
  *
+ * @author gubin
+ * @author date: 2017/9/27
+ * @author csdn:http://blog.csdn.net/eueheuen
  */
 public class ProgressWebView extends WebView {
 
     ProgressView mProgressview;
     int progressColor = 0x00000000;
-
 
     public ProgressWebView(Context context) {
         this(context, null);
@@ -63,7 +62,7 @@ public class ProgressWebView extends WebView {
 
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
-      //  LayoutParams lp = (LayoutParams) mProgressview.getLayoutParams();
+        //  LayoutParams lp = (LayoutParams) mProgressview.getLayoutParams();
         super.onScrollChanged(l, t, oldl, oldt);
     }
 
@@ -84,8 +83,9 @@ public class ProgressWebView extends WebView {
 
     public class ProgressWebChromeClient extends WebChromeClient {
         WebChromeClient readClient;
+
         public ProgressWebChromeClient(WebChromeClient readClient) {
-            this.readClient = readClient==null?new WebChromeClient():readClient;
+            this.readClient = readClient == null ? new WebChromeClient() : readClient;
         }
 
         @Override
@@ -131,7 +131,7 @@ public class ProgressWebView extends WebView {
         @Override
         public void onGeolocationPermissionsShowPrompt(String s, GeolocationPermissionsCallback geolocationPermissionsCallback) {
             super.onGeolocationPermissionsShowPrompt(s, geolocationPermissionsCallback);
-            readClient.onGeolocationPermissionsShowPrompt(s,geolocationPermissionsCallback);
+            readClient.onGeolocationPermissionsShowPrompt(s, geolocationPermissionsCallback);
         }
 
         //        @Override

@@ -882,6 +882,44 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
         int allScore = currentBetScore.get(0) + currentBetScore.get(1) + currentBetScore.get(2) + currentBetScore.get(3) + currentBetScore.get(4) + currentBetScore.get(5) + currentBetScore.get(6);
         tv_bet_all_score.setText(String.valueOf(allScore));
         currentChip();
+        if (event.scoreAllList.size() > 0) {
+            playerIng = event.scoreAllList.get(0);
+            bankerIng = event.scoreAllList.get(1);
+            tieIng = event.scoreAllList.get(2);
+            playerPairIng = event.scoreAllList.get(3);
+            bankerPairIng = event.scoreAllList.get(4);
+            smallIng = event.scoreAllList.get(5);
+            bigIng = event.scoreAllList.get(6);
+            String _1 = "0";
+            String _2 = "0";
+            String _3 = "0";
+            String _4 = "0";
+            String _5 = "0";
+            String _6 = "0";
+            String _7 = "0";
+            if (isPeopleNum == 0) {
+                _1 = String.valueOf(playerIng);
+                _2 = String.valueOf(bankerIng);
+                _3 = String.valueOf(tieIng);
+                _4 = String.valueOf(playerPairIng);
+                _5 = String.valueOf(bankerPairIng);
+                _6 = String.valueOf(smallIng);
+                _7 = String.valueOf(bigIng);
+            } else if (isPeopleNum == 1) {
+                _1 = String.valueOf(playerIng) + "/" + event.peopleAllList.get(0);
+                _2 = String.valueOf(bankerIng) + "/" + event.peopleAllList.get(1);
+                _3 = String.valueOf(tieIng) + "/" + String.valueOf(event.peopleAllList.get(2));
+                _4 = String.valueOf(playerPairIng) + "/" + String.valueOf(event.peopleAllList.get(3));
+                _5 = String.valueOf(bankerPairIng) + "/" + String.valueOf(event.peopleAllList.get(4));
+                _6 = String.valueOf(smallIng) + "/" + String.valueOf(event.peopleAllList.get(5));
+                _7 = String.valueOf(bigIng) + "/" + String.valueOf(event.peopleAllList.get(6));
+            }
+            tv_play_date.setText(_1);
+            tv_banker_date.setText(_2);
+            tv_tie_date.setText(_3);
+            tv_player_pair_date.setText(_4);
+            tv_banker_pair_date.setText(_5);
+        }
     }
 
     /*
@@ -3457,6 +3495,7 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
                     ToastUtil.showToast(mContext, mContext.getResources().getString(R.string.normal_lock_alert));
                     return;
                 }
+                MacauSocketController.getInstance().disconnectSocket();
                 SharedPreUtil.getInstance(mContext).saveParam(Constant.BAC_VIDEO_PLAYING, 0);
                 libPlayer.SmartPlayerClose(playerHandle);//退出要及时关闭 下次就不会出现重音
                 mContext.startActivity(new Intent(mContext, MacauListActivity.class));
@@ -3859,6 +3898,5 @@ public class MacauActivity extends BaseActivity implements CommonPopupWindow.Vie
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        MacauSocketController.getInstance().disconnectSocket();
     }
 }

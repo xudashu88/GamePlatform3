@@ -123,7 +123,7 @@ public class SinglePickLiveSocketController {
                 @Override
                 public void run() {
                     Log.i("socket_command=", args[0].toString());
-                    JSONObject json  ;
+                    JSONObject json;
                     try {
                         json = new JSONObject(args[0].toString());
                         String command = json.optString("command");
@@ -315,7 +315,7 @@ public class SinglePickLiveSocketController {
                                     }
                                     //黑 红 梅 方 王
                                     //测试用例 黑 红 梅 方 王
-                                    postEventJoinRoom(boardMessageList, _goldcoins, roomid, roomName, _betLimitStr, _maxBetStr, _minBetStr, stateHis, cardList, betSecond, isPeopleNum,betsRemind);
+                                    postEventJoinRoom(boardMessageList, _goldcoins, roomid, roomName, _betLimitStr, _maxBetStr, _minBetStr, stateHis, cardList, betSecond, isPeopleNum, betsRemind);
                                     if (stateHis.equals(Constant.BACCARAT_BET)) {
                                         int _second = json.optInt("second");
                                         pcac.setCurrentPercent(_second);
@@ -325,7 +325,7 @@ public class SinglePickLiveSocketController {
                                         pcac.setCurrentPercent(-1);
                                     } else if (stateHis.equals(Constant.BACCARAT_CREATED)) {
                                         boardMessageList.clear();
-                                        postEventJoinRoom(boardMessageList, _goldcoins, roomid, roomName, _betLimitStr, _maxBetStr, _minBetStr, stateHis, cardList, betSecond, isPeopleNum,betsRemind);
+                                        postEventJoinRoom(boardMessageList, _goldcoins, roomid, roomName, _betLimitStr, _maxBetStr, _minBetStr, stateHis, cardList, betSecond, isPeopleNum, betsRemind);
                                     } else if (stateHis.equals(Constant.BACCARAT_RESULT)) {
                                         pcac.setCurrentPercent(0);
                                     }
@@ -351,7 +351,7 @@ public class SinglePickLiveSocketController {
     }
 
     private void postEventJoinRoom(List<Integer> boardMessageList, String _goldCoins, String roomId, String roomName, String[] betLimitList, String[] maxBetList, String[] minBetList,
-                                   String state, List<String> cardList, int betSecond, int isPeopleNum,int betsRemind) {
+                                   String state, List<String> cardList, int betSecond, int isPeopleNum, int betsRemind) {
         ObjectEvent.BoardMessageEvent event = new ObjectEvent.BoardMessageEvent();
         event.boardMessageList = boardMessageList;
         event.betLimitList = betLimitList;

@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class SingleNode implements NodeImp {
 
-    private int mX ;
+    private int mX;
 
-    private int mY ;
+    private int mY;
 
     private float mRingHeight = DpUtil.dp2px(1);
 

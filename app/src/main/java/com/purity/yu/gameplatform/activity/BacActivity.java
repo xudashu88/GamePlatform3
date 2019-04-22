@@ -290,7 +290,10 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
     RelativeLayout rl_ask_play;
     @BindView(R.id.rl_ask_bank)
     RelativeLayout rl_ask_bank;
-
+    @BindView(R.id.root)
+    RelativeLayout root;
+    //    @BindView(R.id.iv_bg)
+//    CustomView iv_bg;
     private Context mContext;
     private DisplayMetrics displayMetrics;
     private float scaleX;
@@ -358,9 +361,7 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
     private List<Integer> maxScoreList = new ArrayList<>();//赢家分数
     private int noBetCount = 0;
     private int skyCard;
-    private float topScaleY = 1.1F;
     private boolean isFirstPlay = true, isFirstBank = true, isFirstTie = true, isFirstPlayPair = true, isFirstBankPair = true;
-    private int betSecond;
     private CommonPopupWindow popupWindow;
     private boolean isRobot = false;
     private boolean isSwitchRobot = false;
@@ -373,23 +374,37 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
 //        System.loadLibrary("SmartPlayer");//大牛直播
 //    }
 
+//    private int pahse = 0;
+
+//    Handler handler = new Handler() {
+//        public void handleMessage(android.os.Message msg) {
+//            if (msg.what == 0) {
+//                pahse += 1;
+//                iv_bg.setPhase(pahse);
+//                handler.sendEmptyMessage(0);
+//            }
+//        }
+//    };
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         //todo https://zhuanlan.zhihu.com/p/33128370 立体筹码
         //进入房间再次获取视频流
         mContext = this;
         timer = new Timer();
+//        handler.sendEmptyMessage(0); //第二种方法
+        //        ((AnimationDrawable) root.getBackground()).start(); //第一种方法
         displayMetrics = mContext.getResources().getDisplayMetrics();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);//屏幕常亮
         roomName = getIntent().getStringExtra("roomName");
         roomId = getIntent().getStringExtra("roomId");
         token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN_SOCKET);
-        betSecond = getIntent().getIntExtra("betSecond", 25);
         tv_room_name.bringToFront();
         tv_room_name.setText(roomName);
         tv_nickname.setText(SharedPreUtil.getInstance(mContext).getString(Constant.USER_NAME));
         SharedPreUtil.getInstance(mContext).saveParam(Constant.BAC_VIDEO_PLAYING, 0);
         SharedPreUtil.getInstance(mContext).saveParam(Constant.IS_CHIP_SUCCESS, 0);//进入房间未下注状态
+
         Util.getInstance().hideSystemNavigationBar();
         BacSocketController.getInstance().init(this);
         BacSocketController.getInstance().copyWidget(boardMessageList, tv_time, rl_poker, iv_banker_01, iv_banker_02, iv_banker_03,
@@ -412,6 +427,23 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
         currentBetScore.add(0);//和
         currentBetScore.add(0);//闲对
         currentBetScore.add(0);//庄对
+
+        //测试
+//        boardMessageList.clear();
+//        boardMessageList.add(0);
+//        boardMessageList.add(0);
+//        boardMessageList.add(0);
+//        boardMessageList.add(0);
+//        maxScoreList.clear();
+//        maxScoreList.add(2);
+//        maxScoreList.add(2);
+//        maxScoreList.add(2);
+//        maxScoreList.add(2);
+//        initMessages();
+//        AlgorithmMacau.getInstance().drawRoad(maxScoreListAll, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
+//                gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,
+//                Color.parseColor("#a40001"), Color.parseColor("#004A86"), Color.parseColor("#0D7D25"), 0, false, 1);//11列 加一局
+//        ask(0, true, false, 0, false);
     }
 
     /*
@@ -475,20 +507,10 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
         if (event.boardMessageList.size() > 0) {
             boardMessageList.clear();
             boardMessageList.addAll(event.boardMessageList);
-//            maxScoreListAll.clear();
-//            maxScoreListAll.addAll(event.maxScoreList);
-
-//            boardMessageList.clear();
-//            boardMessageList.add(1);
-//            boardMessageList.add(1);
-//            boardMessageList.add(1);
-//            boardMessageList.add(1);
-//            boardMessageList.add(1);
-//            boardMessageList.add(1);
-//            boardMessageList.add(1);
-//            boardMessageList.add(0);
+            maxScoreList.clear();
+            maxScoreList.addAll(event.maxScoreList);
             initMessages();
-            AlgorithmMacau.getInstance().drawRoad(maxScoreList, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
+            AlgorithmMacau.getInstance().drawRoad(maxScoreListAll, beadRoadList, bigRoadList, bigEyeRoadList, smallRoadList, cockroachRoadList,
                     gv_bead_road, gv_big_road, gv_right_middle, gv_right_bottom_1, gv_right_bottom_2, mContext, 0,
                     Color.parseColor("#a40001"), Color.parseColor("#004A86"), Color.parseColor("#0D7D25"), 0, false, 1);//11列 加一局
             ask(0, true, false, 0, false);
@@ -580,6 +602,45 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
         currentBetScore.addAll(event.scoreList);
         int allScore = currentBetScore.get(0) + currentBetScore.get(1) + currentBetScore.get(2) + currentBetScore.get(3) + currentBetScore.get(4);
         tv_bet_all_score.setText(String.valueOf(allScore));
+        if (event.scoreAllList.size() > 0) {
+            playerIng = event.scoreAllList.get(0);
+            bankerIng = event.scoreAllList.get(1);
+            tieIng = event.scoreAllList.get(2);
+            playerPairIng = event.scoreAllList.get(3);
+            bankerPairIng = event.scoreAllList.get(4);
+            bigIng = event.scoreAllList.get(5);
+            smallIng = event.scoreAllList.get(6);
+            String _1 = "0";
+            String _2 = "0";
+            String _3 = "0";
+            String _4 = "0";
+            String _5 = "0";
+            String _6 = "0";
+            String _7 = "0";
+            isPeopleNum = 0;//强制置为0
+            if (isPeopleNum == 0) {
+                _1 = String.valueOf(playerIng);
+                _2 = String.valueOf(bankerIng);
+                _3 = String.valueOf(tieIng);
+                _4 = String.valueOf(playerPairIng);
+                _5 = String.valueOf(bankerPairIng);
+                _6 = String.valueOf(bigIng);
+                _7 = String.valueOf(smallIng);
+            } else if (isPeopleNum == 1) {
+                _1 = String.valueOf(playerIng) + "/" + event.peopleAllList.get(0);
+                _2 = String.valueOf(bankerIng) + "/" + event.peopleAllList.get(1);
+                _3 = String.valueOf(tieIng) + "/" + String.valueOf(event.peopleAllList.get(2));
+                _4 = String.valueOf(playerPairIng) + "/" + String.valueOf(event.peopleAllList.get(3));
+                _5 = String.valueOf(bankerPairIng) + "/" + String.valueOf(event.peopleAllList.get(4));
+                _6 = String.valueOf(bigIng) + "/" + String.valueOf(event.peopleAllList.get(5));
+                _7 = String.valueOf(smallIng) + "/" + String.valueOf(event.peopleAllList.get(6));
+            }
+            tv_play_date.setText(_1);
+            tv_banker_date.setText(_2);
+            tv_tie_date.setText(_3);
+            tv_player_pair_date.setText(_4);
+            tv_banker_pair_date.setText(_5);
+        }
         currentChip();
     }
 
@@ -645,16 +706,45 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
                 mSocketProdict = MacauSocketController.getInstance().getSocketProdict();
             }
             isRobot = false;
-            int[] postDelayed = {3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 15000, 16000, 17000, 18000, 19000, 20000, 21000, 22000, 23000, 24000, 25000};
-            int randomPostDelayed = new Random().nextInt(20);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    betRobot();
-                }
-            }, postDelayed[randomPostDelayed]);
-
             startLightById(0, 0, 0, 0, 0);//有问题 导致后面的没运行
+            if (SharedPreUtil.getInstance(mContext).getInt(Constant.ROBOT_SWITCH) == 1) {//托管
+                int[] postDelayed = {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 15000, 16000, 17000, 18000, 19000, 20000, 21000, 22000, 23000, 24000, 25000};
+                int randomPostDelayed1 = new Random().nextInt(5);//0-4
+                int randomPostDelayed2 = new Random().nextInt(5) + 5;//5-9
+                int randomPostDelayed3 = new Random().nextInt(5) + 10;//10-14
+                int randomPostDelayed4 = new Random().nextInt(5) + 15;//15-19
+                int randomPostDelayed5 = new Random().nextInt(5) + 20;//20-24
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        betRobot();
+                    }
+                }, postDelayed[randomPostDelayed1]);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        betRobot();
+                    }
+                }, postDelayed[randomPostDelayed2]);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        betRobot();
+                    }
+                }, postDelayed[randomPostDelayed3]);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        betRobot();
+                    }
+                }, postDelayed[randomPostDelayed4]);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        betRobot();
+                    }
+                }, postDelayed[randomPostDelayed5]);
+            }
         } else if (event.state.equals("RESULT")) {
             onClick(false);
             isChipClick(false, false, R.drawable.button_bet_disable_bg, R.drawable.button_bet_disable_bg, R.string.confirm);
@@ -2550,7 +2640,7 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
                                 chipScore.put(i, 0);
                             }
                         }
-                        if (Util.isFastClick(300)) {
+                        if (Util.isFastClick(mContext,300)) {
                             //(0闲 1庄 2和 3闲对 4庄对 5大 6小) chipScore=庄 闲 和 庄对 闲对 大 小
                             mSocket.emit("dobet", "{'bets':[" + chipScore.get(1) + "," + chipScore.get(0) + "," + chipScore.get(2) +
                                     "," + chipScore.get(4) + "," + chipScore.get(3) + "," + chipScore.get(5) + "," + chipScore.get(6) + "],'freeCommission':'" + free + "'}");
@@ -2595,7 +2685,10 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
             @Override
             public void onClick(View v) {
                 int selectChipNumber = initChipLayout();//不点重复，直接下注，清空以前所有位置记录，从新开始;
-                //每局第一次下注 当选择的筹码小于最小下注筹码时，第一次下注实际是最小下注筹码 第二次就实际选择的筹码
+                if ((selectChipNumber + perPlayerPair) > betLimitList.get(2)) {
+                    BaccaratUtil.getInstance().toast(rl_show, tv_show, mContext.getResources().getString(R.string.bet_over_limit));
+                    return;
+                }
                 if (isFirstPlayPair && minBetList.size() > 0 && selectChipNumber < minBetList.get(2) && perPlayerPair == 0) {//0 庄闲 1 和 2 对子 3大小
                     selectChipNumber = minBetList.get(2);
                     isFirstPlayPair = false;
@@ -2670,6 +2763,10 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
             @Override
             public void onClick(View v) {
                 int selectChipNumber = initChipLayout();
+                if ((selectChipNumber + perBankerPair) > betLimitList.get(2)) {
+                    BaccaratUtil.getInstance().toast(rl_show, tv_show, mContext.getResources().getString(R.string.bet_over_limit));
+                    return;
+                }
                 if (isFirstBankPair && minBetList.size() > 0 && selectChipNumber < minBetList.get(2) && perBankerPair == 0) {//0 庄闲 1 和 2 对子 3大小
                     selectChipNumber = minBetList.get(2);
                     isFirstBankPair = false;
@@ -2743,7 +2840,10 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
             @Override
             public void onClick(View v) {
                 int selectChipNumber = initChipLayout();
-
+                if ((selectChipNumber + perPlayer + Integer.parseInt(tv_play_date.getText().toString()) - Integer.parseInt(tv_banker_date.getText().toString())) > maxBetList.get(0)) {
+                    BaccaratUtil.getInstance().toast(rl_show, tv_show, mContext.getResources().getString(R.string.bet_over_limit));
+                    return;
+                }
                 if (isFirstPlay && minBetList.size() > 0 && selectChipNumber < minBetList.get(0) && perPlayer == 0) {//0 庄闲 1 和 2 对子 3大小
                     selectChipNumber = minBetList.get(0);
                     isFirstPlay = false;
@@ -2817,6 +2917,10 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
             @Override
             public void onClick(View v) {
                 int selectChipNumber = initChipLayout();
+                if ((selectChipNumber + perTie) > betLimitList.get(1)) {
+                    BaccaratUtil.getInstance().toast(rl_show, tv_show, mContext.getResources().getString(R.string.bet_over_limit));
+                    return;
+                }
                 if (isFirstTie && minBetList.size() > 0 && selectChipNumber < minBetList.get(1) && perTie == 0) {//0 庄闲 1 和 2 对子 3大小
                     selectChipNumber = minBetList.get(1);
                     isFirstTie = false;
@@ -2890,6 +2994,10 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
             @Override
             public void onClick(View v) {
                 int selectChipNumber = initChipLayout();
+                if ((selectChipNumber + perPlayer + Integer.parseInt(tv_banker_date.getText().toString()) - Integer.parseInt(tv_play_date.getText().toString())) > maxBetList.get(0)) {
+                    BaccaratUtil.getInstance().toast(rl_show, tv_show, mContext.getResources().getString(R.string.bet_over_limit));
+                    return;
+                }
                 if (isFirstBank && minBetList.size() > 0 && selectChipNumber < minBetList.get(0) && perBanker == 0) {//0 庄闲 1 和 2 对子 3大小
                     selectChipNumber = minBetList.get(0);
                     isFirstBank = false;
@@ -2987,6 +3095,7 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
                     BaccaratUtil.getInstance().toast(rl_show, tv_show, mContext.getResources().getString(R.string.normal_lock_alert));
                     return;
                 }
+                BacSocketController.getInstance().disconnectSocket();//关闭页面立即关闭连接
                 SharedPreUtil.getInstance(mContext).saveParam(Constant.BAC_VIDEO_PLAYING, 0);
                 libPlayer.SmartPlayerClose(playerHandle);//退出要及时关闭 下次就不会出现重音
                 mContext.startActivity(new Intent(mContext, BaccaratListActivity2.class));
@@ -3280,8 +3389,10 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
         this.mBaccarat = baccarat;
         initBacDataVideo(mBaccarat);
         this.mSv1 = CreateView(sv1);
-        if (SharedPreUtil.getInstance(mContext).getInt(Constant.CLOSE_ALL_VIDEO) == 0) {
+        if (SharedPreUtil.getInstance(mContext).getInt(Constant.VIDEO_SWITCH) == 0) {
             autoPlayer(hVideo);//在控件上播放
+        } else {
+            initDefaultBackground();
         }
         initVideoEvent();
     }
@@ -3293,13 +3404,13 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
     }
 
     public void initBacDataVideo(Baccarat baccarat) {
-        if (baccarat != null && baccarat.rtmp != null && baccarat.rtmp.length != 0) {
+        if (baccarat != null && baccarat.rtmp != null && baccarat.rtmp.length == 2) {
             String[] _url = baccarat.rtmp;
             hVideo = "rtmp://" + _url[1];
 //            hVideo = "rtmp://live.hkstv.hk.lxdns.com/live/hks1";
             lVideo = "rtmp://" + _url[0];
-//            hVideo = "rtmp://39.98.177.215/live/bl01a";
-//            lVideo = "rtmp://39.98.177.215/live/bl01b";
+//            hVideo = "rtmp://120.79.211.151/live/bl001a";
+//            lVideo = "rtmp://120.79.211.151/live/bl001b";
             LogUtil.i("视频地址 初始化" + hVideo + " lVideo=" + lVideo);
             //视频地址=rtmp://39.98.177.215/live/bl01a lVideo=rtmp://39.98.177.215/live/bl01b
         }
@@ -3594,14 +3705,14 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
         double currentMoney = Double.parseDouble(tv_money.getText().toString());
         if (currentMoney < 50) {
 //            ToastUtil.show(mContext, "托管时，余额不能低于50");
-
             return;
         }
         if (state.equals(Constant.BACCARAT_BET) && isSwitchRobot) {
-            int[] moneyArr1 = {200, 150, 100, 200, 1000, 260, 380, 720, 640, 850};
-            int[] moneyArr2 = {200, 150, 100, 50, 250};
-            int randomMoney1 = new Random().nextInt(10);
-            int randomMoney2 = new Random().nextInt(5);
+            int[] moneyArr1 = {50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 660, 420, 220, 420, 870, 880, 980, 690,
+                    700, 710, 800, 820, 900};
+            int[] moneyArr2 = { 60, 50, 40, 30, 20, 70, 90, 80, 10};
+            int randomMoney1 = new Random().nextInt(25);
+            int randomMoney2 = new Random().nextInt(9);
             int randomSite = new Random().nextInt(5);
             chipScore.clear();
             if (randomSite > 1) {
@@ -3649,10 +3760,14 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
                 LinearLayout ll_jilu = view.findViewById(R.id.ll_jilu);
                 LinearLayout ll_shuoming = view.findViewById(R.id.ll_shuoming);
                 LinearLayout ll_robot = view.findViewById(R.id.ll_robot);
-                if (isRobot && state.equals(Constant.BACCARAT_RESULT)) {
-                    ll_robot.setVisibility(View.VISIBLE);//后台设置
-                } else if (!state.equals(Constant.BACCARAT_RESULT)) {
-                    ll_robot.setVisibility(View.INVISIBLE);//后台设置
+                if (SharedPreUtil.getInstance(mContext).getInt(Constant.ROBOT_SWITCH) == 1) {
+                    if (isRobot && state.equals(Constant.BACCARAT_RESULT)) {
+                        ll_robot.setVisibility(View.VISIBLE);//其他设置
+                    } else if (!state.equals(Constant.BACCARAT_RESULT)) {
+                        ll_robot.setVisibility(View.INVISIBLE);//其他设置
+                    }
+                } else {
+                    ll_robot.setVisibility(View.INVISIBLE);
                 }
                 final TextView tv_robot = view.findViewById(R.id.tv_robot);
                 ll_ludan.setOnClickListener(new View.OnClickListener() {
@@ -3661,8 +3776,8 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
                         SharedPreUtil.getInstance(mContext).saveParam(Constant.BAC_VIDEO_PLAYING, 1);
                         Intent intent = new Intent(mContext, LdRoadActivity.class);
                         intent.putIntegerArrayListExtra("boardMessageList", (ArrayList<Integer>) boardMessageList);
-                        intent.putIntegerArrayListExtra("maxScoreList", (ArrayList<Integer>) maxScoreListAll);
-                        LogUtil.i("报错1" + maxScoreList.size() + "boardMessageList=" + boardMessageList.size());
+                        intent.putIntegerArrayListExtra("maxScoreList", (ArrayList<Integer>) maxScoreList);
+                        LogUtil.i("报错=" + maxScoreList.size());
                         intent.putExtra("roomName", roomName);
                         intent.putExtra("skyCard", skyCard);
                         startActivity(intent);
@@ -3732,7 +3847,7 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
 //                        baccarat.dxRtmp=new String[2];
 //                        baccarat.dxRtmp[0]="39.98.177.215/live/lh01b";
 //                        baccarat.dxRtmp[1]="39.98.177.215/live/lh01a";
-                        if (baccarat.dxRtmp.length != 0 && !TextUtils.isEmpty(baccarat.dxRtmp[0])) {
+                        if (baccarat.dxRtmp.length == 2 && !TextUtils.isEmpty(baccarat.dxRtmp[0])) {
                             String[] _url = baccarat.dxRtmp;
                             hVideo = "rtmp://" + _url[1];
                             lVideo = "rtmp://" + _url[0];
@@ -3753,7 +3868,7 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
                 rl_mobile.setOnClickListener(new View.OnClickListener() {//移动
                     @Override
                     public void onClick(View v) {
-                        if (baccarat.ydRtmp.length != 0 && !TextUtils.isEmpty(baccarat.ydRtmp[0])) {
+                        if (baccarat.ydRtmp.length == 2 && !TextUtils.isEmpty(baccarat.ydRtmp[0])) {
                             String[] _url = baccarat.ydRtmp;
                             hVideo = "rtmp://" + _url[1];
                             lVideo = "rtmp://" + _url[0];
@@ -3773,7 +3888,7 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
                 rl_lan.setOnClickListener(new View.OnClickListener() {//局域网
                     @Override
                     public void onClick(View v) {
-                        if (baccarat.rtmp.length != 0 && !TextUtils.isEmpty(baccarat.rtmp[0])) {
+                        if (baccarat.rtmp.length == 2 && !TextUtils.isEmpty(baccarat.rtmp[0])) {
                             String[] _url = baccarat.rtmp;
                             hVideo = "rtmp://" + _url[1];
                             lVideo = "rtmp://" + _url[0];
@@ -3814,7 +3929,6 @@ public class BacActivity extends BaseActivity implements CommonPopupWindow.ViewI
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
-        BacSocketController.getInstance().disconnectSocket();
+        EventBus.getDefault().unregister(this);//这里的方法不是立即执行
     }
 }

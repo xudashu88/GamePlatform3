@@ -76,7 +76,7 @@ public class SettingController {
     }
 
     private void initView() {
-        if(SharedPreUtil.getInstance(mContext).getInt(Constant.WHERE_SET)==4){
+        if (SharedPreUtil.getInstance(mContext).getInt(Constant.WHERE_SET) == 4) {
             rl_menu_language.setVisibility(View.GONE);
         }
     }
@@ -87,12 +87,12 @@ public class SettingController {
             public void onClick(View v) {
                 int _whereSeted = SharedPreUtil.getInstance(mContext).getInt(Constant.WHERE_SETED);
 
-                if(_whereSeted==1){
-                    mContext.startActivity(new Intent(mContext,TabHostActivity.class));
-                }else if(_whereSeted==2){
-                    mContext.startActivity(new Intent(mContext,BaccaratListActivity.class));
-                }else if(_whereSeted==3){
-                    mContext.startActivity(new Intent(mContext,DtListActivity.class));
+                if (_whereSeted == 1) {
+                    mContext.startActivity(new Intent(mContext, TabHostActivity.class));
+                } else if (_whereSeted == 2) {
+                    mContext.startActivity(new Intent(mContext, BaccaratListActivity.class));
+                } else if (_whereSeted == 3) {
+                    mContext.startActivity(new Intent(mContext, DtListActivity.class));
                 }
                 ((SettingActivity) mContext).finish();
             }

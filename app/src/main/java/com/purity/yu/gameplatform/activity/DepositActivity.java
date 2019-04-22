@@ -55,6 +55,12 @@ public class DepositActivity extends BaseActivity implements CommonPopupWindow.V
     public TextView tv_method;
     @BindView(R.id.iv_pay_code)
     public ImageView iv_pay_code;
+    @BindView(R.id.ll_deposit)
+    public LinearLayout ll_deposit;
+    @BindView(R.id.ll_pay_nickname)
+    public LinearLayout ll_pay_nickname;
+    @BindView(R.id.ll_pay_number)
+    public LinearLayout ll_pay_number;
 
     private Context mContext;
     private CommonPopupWindow popupWindow;
@@ -72,16 +78,24 @@ public class DepositActivity extends BaseActivity implements CommonPopupWindow.V
             ProtocolUtil.getInstance().getDepositFind(mContext, id, tv_pay);
         }
         tv_pay_code.setTypeface(null);
+        if (SharedPreUtil.getInstance(mContext).getInt(Constant.VERSION) == 1) {
+            ll_deposit.setBackgroundResource(R.drawable.bg_gameroom);
+            ll_pay_nickname.setVisibility(View.GONE);
+            ll_pay_number.setVisibility(View.GONE);
+        } else {
+            ll_deposit.setBackgroundResource(R.drawable.start_bg);
+            ll_pay_nickname.setVisibility(View.VISIBLE);
+            ll_pay_number.setVisibility(View.VISIBLE);
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void acceptEventMarqueeText(final ObjectEvent.MarqueeTextEvent event) {
         LogUtil.i("审核成功=存款吗" + event.message);
         if (event.money != null) {
-            ProtocolUtil.getInstance().depositState(tv_pay, 0,"存款");
+            ProtocolUtil.getInstance().depositState(tv_pay, 0, "存款");
         }
     }
-
 
     private void initEvent() {
         ll_back.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +115,7 @@ public class DepositActivity extends BaseActivity implements CommonPopupWindow.V
         tv_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Util.isFastClick(3000)) {
+                if (Util.isFastClick(mContext,3000)) {
                     if (verifyPay()) {
                         ProtocolUtil.getInstance().pay(payChannel, et_pay_number, et_pay_account, et_pay_nickname, et_deposit, tv_pay);
                     }
@@ -122,7 +136,6 @@ public class DepositActivity extends BaseActivity implements CommonPopupWindow.V
     private boolean verifyPay() {
         String gameAccount = tv_game_account.getText().toString();
         String payAccount = et_pay_account.getText().toString();
-        String payNickname = et_pay_nickname.getText().toString();
         String payNumber = et_pay_number.getText().toString();
         String deposit = et_deposit.getText().toString();
         if (payChannel == 0) {
@@ -137,17 +150,21 @@ public class DepositActivity extends BaseActivity implements CommonPopupWindow.V
             ToastUtil.showToast(mContext, "账号不能为空");
             return false;
         }
-        if (TextUtils.isEmpty(payNumber)) {
-            ToastUtil.showToast(mContext, "订单号不能为空");
-            return false;
-        }
-        if (!BaccaratUtil.getInstance().isNumber(payNumber)) {
-            ToastUtil.showToast(mContext, "订单号只能为纯数字");
-            return false;
-        }
-        if (et_pay_number.getText().toString().length() != 5) {
-            ToastUtil.showToast(mContext, "请输入订单号后5位");
-            return false;
+        if (SharedPreUtil.getInstance(mContext).getInt(Constant.VERSION) == 1) {
+
+        } else {
+            if (TextUtils.isEmpty(payNumber)) {
+                ToastUtil.showToast(mContext, "订单号不能为空");
+                return false;
+            }
+            if (!BaccaratUtil.getInstance().isNumber(payNumber)) {
+                ToastUtil.showToast(mContext, "订单号只能为纯数字");
+                return false;
+            }
+            if (et_pay_number.getText().toString().length() != 5) {
+                ToastUtil.showToast(mContext, "请输入订单号后5位");
+                return false;
+            }
         }
         if (TextUtils.isEmpty(deposit)) {
             ToastUtil.showToast(mContext, "存款金额不能为空");
@@ -157,10 +174,6 @@ public class DepositActivity extends BaseActivity implements CommonPopupWindow.V
             ToastUtil.showToast(mContext, "存款金额只能为纯数字");
             return false;
         }
-//        if (TextUtils.isEmpty(payNickname)) {
-//            ToastUtil.showToast(mContext, "昵称不能为空");
-//            return false;
-//        }
         return true;
     }
 
@@ -182,8 +195,16 @@ public class DepositActivity extends BaseActivity implements CommonPopupWindow.V
         switch (layoutResId) {
             case R.layout.pop_pay_method:
                 LinearLayout ll_alipay = (LinearLayout) view.findViewById(R.id.ll_alipay);
+                LinearLayout ll_root = (LinearLayout) view.findViewById(R.id.ll_root);
                 LinearLayout ll_wechat_pay = (LinearLayout) view.findViewById(R.id.ll_wechat_pay);
                 LinearLayout ll_bank_pay = (LinearLayout) view.findViewById(R.id.ll_bank_pay);
+                if (SharedPreUtil.getInstance(mContext).getInt(Constant.VERSION) == 1) {
+                    ll_wechat_pay.setVisibility(View.GONE);
+                    ll_root.setWeightSum(2);
+                } else {
+                    ll_wechat_pay.setVisibility(View.VISIBLE);
+                    ll_root.setWeightSum(3);
+                }
                 ll_alipay.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

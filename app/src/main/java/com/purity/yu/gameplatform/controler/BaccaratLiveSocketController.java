@@ -71,6 +71,15 @@ public class BaccaratLiveSocketController {
     List<String> _calPlayer = new ArrayList<>();
     List<String> _calBanker = new ArrayList<>();
 
+//    {
+//        try {
+//            mSocket = IO.socket(SharedPreUtil.getInstance(mContext).getString(ServiceIpConstant.SOCKET_ROOM));
+////            mSocket = IO.socket("http://192.168.0.115:9082/");
+//        } catch (URISyntaxException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
     public void init(Context context) {
         mContext = context;
         timer = new Timer(true);
@@ -199,12 +208,20 @@ public class BaccaratLiveSocketController {
                                     String data = json.optString("data");//{"score":[0,0,0],"betPeople":[[],[],[]],"bets":[0,0,0]}
                                     JSONObject _data = new JSONObject(data);
                                     String betScore = _data.optString("bets");
-                                    int[] betscoreInt = new Gson().fromJson(betScore, int[].class);
-                                    List<Integer> betscoreList = new ArrayList<>();
+                                    String betScoreAll = _data.optString("score");
+                                    String betPeopleAll = _data.optString("betPeople");
+                                    int[] betscoreInt = new Gson().fromJson(betScore, int[].class);//玩家成功押注分数
+                                    int[] betScoreAllInt = new Gson().fromJson(betScoreAll, int[].class);//所有玩家成功押注分数
+                                    int[] betPeopleAllInt = new Gson().fromJson(betPeopleAll, int[].class);//所有玩家成功押注分数
+                                    List<Integer> betScoreList = new ArrayList<>();
+                                    List<Integer> betScoreAllList = new ArrayList<>();
+                                    List<Integer> betPeopleAllList = new ArrayList<>();
                                     for (int i = 0; i < betscoreInt.length; i++) {
-                                        betscoreList.add(betscoreInt[i]);
+                                        betScoreList.add(betscoreInt[i]);
+                                        betScoreAllList.add(betScoreAllInt[i]);
+                                        betPeopleAllList.add(betPeopleAllInt[i]);
                                     }
-                                    postEventBetScore(betscoreList);
+                                    postEventBetScore(betScoreList, betScoreAllList, betPeopleAllList);
                                     break;
                                 } catch (JsonSyntaxException e) {
                                     e.printStackTrace();
@@ -558,9 +575,11 @@ public class BaccaratLiveSocketController {
         EventBus.getDefault().post(event);
     }
 
-    private void postEventBetScore(List<Integer> scoreList) {
+    private void postEventBetScore(List<Integer> scoreList, List<Integer> scoreAllList, List<Integer> peopleAllList) {
         ObjectEvent.betScoreEvent event = new ObjectEvent.betScoreEvent();
         event.scoreList = scoreList;
+        event.scoreAllList = scoreAllList;
+        event.peopleAllList = peopleAllList;
         EventBus.getDefault().post(event);
     }
 
@@ -627,8 +646,6 @@ public class BaccaratLiveSocketController {
             conn();
         }
     };
-
-    private boolean isConnect = false;
 
     //todo http://127.0.0.1:8888/admin/backend/points?score=1000000&&type=0&&userid=530051197705388032 上分
     private void conn() {

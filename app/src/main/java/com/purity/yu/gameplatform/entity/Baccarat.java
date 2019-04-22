@@ -29,6 +29,6 @@ public class Baccarat implements Serializable {
     public String[] url;//视频地址 高清视频和普通视频
     public int betSecond;//倒计时
     public List<Integer> betLimitList;
-    public List<Integer> maxBetList=new ArrayList<>();
-    public List<Integer> minBetList=new ArrayList<>();
+    public List<Integer> maxBetList = new ArrayList<>();
+    public List<Integer> minBetList = new ArrayList<>();
 }

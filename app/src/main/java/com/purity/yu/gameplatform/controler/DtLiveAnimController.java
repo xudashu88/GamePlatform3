@@ -65,7 +65,7 @@ public class DtLiveAnimController implements CommonPopupWindow.ViewInterface {
     RelativeLayout root_video;
     LinearLayout ll_back;
     ImageView iv_set;
-    RelativeLayout  rl_video_select1;
+    RelativeLayout rl_video_select1;
     ImageView iv_video_select1;
     private int isExpand;
 
@@ -236,7 +236,7 @@ public class DtLiveAnimController implements CommonPopupWindow.ViewInterface {
 
     public void copyWidget(TextView tv_table_limits, RelativeLayout rl_in_time_layout, ImageView iv_in,
                            RelativeLayout rl_video_select, ImageView iv_video_select, /*TXCloudVideoView tvv_1,*/ SurfaceView sv, RelativeLayout root_video, LinearLayout ll_back, ImageView iv_set, Baccarat baccarat,
-                           RelativeLayout  rl_video_select1,ImageView iv_video_select1) {
+                           RelativeLayout rl_video_select1, ImageView iv_video_select1) {
         this.tv_table_limits = tv_table_limits;
         this.rl_in_time_layout = rl_in_time_layout;
         this.iv_in = iv_in;
@@ -247,8 +247,8 @@ public class DtLiveAnimController implements CommonPopupWindow.ViewInterface {
         this.ll_back = ll_back;
         this.iv_set = iv_set;
         this.mBaccarat = baccarat;
-        this.rl_video_select1=rl_video_select1;
-        this.iv_video_select1=iv_video_select1;
+        this.rl_video_select1 = rl_video_select1;
+        this.iv_video_select1 = iv_video_select1;
         libPlayer = new SmartPlayerJniV2();
         initBacDataVideo(mBaccarat);
         initEvent();
@@ -257,15 +257,15 @@ public class DtLiveAnimController implements CommonPopupWindow.ViewInterface {
     public void initBacDataVideo(Baccarat baccarat) {
         if (baccarat != null && baccarat.rtmp != null && baccarat.rtmp.length != 0) {
             String[] _url = baccarat.rtmp;
-            hVideo = "rtmp://"+_url[1];
+            hVideo = "rtmp://" + _url[1];
 //            hVideo = "rtmp://live.hkstv.hk.lxdns.com/live/hks1";
-            lVideo ="rtmp://"+ _url[0];
-            LogUtil.i("视频地址" + hVideo+" lVideo="+lVideo);
+            lVideo = "rtmp://" + _url[0];
+            LogUtil.i("视频地址" + hVideo + " lVideo=" + lVideo);
         }
         CreateView();
         if (SharedPreUtil.getInstance(mContext).getInt(Constant.CLOSE_ALL_VIDEO) == 0) {
             autoPlayer(hVideo);//在控件上播放
-        }else {
+        } else {
             initDefaultBackground();
         }
     }
@@ -289,7 +289,7 @@ public class DtLiveAnimController implements CommonPopupWindow.ViewInterface {
             @Override
             public void onClick(View v) {
                 iv_video_select1.setRotation(0f);//图片向下旋转
-                upPopupWindow(v,iv_video_select1);
+                upPopupWindow(v, iv_video_select1);
             }
         });
         ll_back.setOnClickListener(new View.OnClickListener() {
@@ -301,6 +301,7 @@ public class DtLiveAnimController implements CommonPopupWindow.ViewInterface {
                 }
                 libPlayer.SmartPlayerClose(playerHandle);//close关闭视频  stop只是暂停视频
                 isPlaying = false;
+                DtSocketController.getInstance().disconnectSocket();
                 SharedPreUtil.getInstance(mContext).saveParam(Constant.BAC_VIDEO_PLAYING, 0);//点击退出停止播放
                 SharedPreUtil.getInstance(mContext).saveParam(Constant.VIDEO_PLAYING, 0);
                 ((DtLiveActivity) mContext).finish();
@@ -328,7 +329,7 @@ public class DtLiveAnimController implements CommonPopupWindow.ViewInterface {
         RelativeLayout rl_menu_game_rule = (RelativeLayout) layout.findViewById(R.id.rl_menu_game_rule);
         RelativeLayout rl_menu_message = (RelativeLayout) layout.findViewById(R.id.rl_menu_message);
         RelativeLayout rl_menu_exit = (RelativeLayout) layout.findViewById(R.id.rl_menu_exit);
-        if(SharedPreUtil.getInstance(mContext).getInt(Constant.WHERE_SET)!=1){
+        if (SharedPreUtil.getInstance(mContext).getInt(Constant.WHERE_SET) != 1) {
             rl_menu_exit.setVisibility(View.GONE);
         }
         rl_menu_records.setOnClickListener(new View.OnClickListener() {
@@ -387,7 +388,7 @@ public class DtLiveAnimController implements CommonPopupWindow.ViewInterface {
             @Override
             public void onClick(View v) {
                 libPlayer.SmartPlayerStopPlay(playerHandle);
-                mContext.startActivity(new Intent(mContext, LocalHtmlWebViewActivity.class).putExtra("selectBac",1));
+                mContext.startActivity(new Intent(mContext, LocalHtmlWebViewActivity.class).putExtra("selectBac", 1));
             }
         });
         rl_menu_message.setOnClickListener(new View.OnClickListener() {
@@ -579,7 +580,7 @@ public class DtLiveAnimController implements CommonPopupWindow.ViewInterface {
                         ToastUtil.showToast(mContext, mContext.getResources().getString(R.string.video_close));
                         popupWindow.dismiss();
                         iv_video_select.setRotation(0f);
-                        SharedPreUtil.getInstance(mContext).saveParam(Constant.CLOSE_ALL_VIDEO,1);
+                        SharedPreUtil.getInstance(mContext).saveParam(Constant.CLOSE_ALL_VIDEO, 1);
                     }
                 });
                 break;

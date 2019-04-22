@@ -16,7 +16,7 @@ import java.util.List;
 public class FourRingsNode implements NodeImp {
     private int mX;
 
-    private int mY ;
+    private int mY;
 
     private int mColor = Color.RED;
 

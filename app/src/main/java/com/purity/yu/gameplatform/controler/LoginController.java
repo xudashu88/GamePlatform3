@@ -90,7 +90,7 @@ public class LoginController {
         this.tv_service_online = tv_service_online;
         this.tv_login_out = tv_login_out;
         this.iv_wechat = iv_wechat;
-        tv_version.setText("20190412");
+        tv_version.setText("20190408");
         initEvent();
         if (!TextUtils.isEmpty(SharedPreUtil.getInstance(mContext).getString(Constant.USER_NAME))) {
             et_user.setText(SharedPreUtil.getInstance(mContext).getString(Constant.USER_NAME));

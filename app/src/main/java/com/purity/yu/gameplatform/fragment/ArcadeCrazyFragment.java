@@ -78,7 +78,6 @@ public class ArcadeCrazyFragment extends BaseFragment {
         addImageView(puyu_seat_9);
         addImageView(puyu_seat_10);
         init(getActivity());
-        initTableView();
         connectSocket();
     }
 
@@ -88,7 +87,7 @@ public class ArcadeCrazyFragment extends BaseFragment {
                 if (hallList.get(i).playerList.size() > 0 && hallList.get(i).gameRoom.equals("10000000000000004")) {
                     List<Player> playerList = hallList.get(0).playerList;//鳄鱼在第0个
                     for (int j = 0; j < playerList.size(); j++) {
-                        positionList.add(""+playerList.get(i).position);
+                        positionList.add("" + playerList.get(i).position);
                     }
                 }
             }
@@ -145,7 +144,7 @@ public class ArcadeCrazyFragment extends BaseFragment {
 //                            return;
                         }
                     }
-                    for (int i=0;i<positionList.size();i++) {
+                    for (int i = 0; i < positionList.size(); i++) {
                         if (positionList.get(i).equals(tag)) {
                             ToastUtil.showToast(mContext, mContext.getResources().getString(R.string.playing));
                             return;

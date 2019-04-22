@@ -205,7 +205,6 @@ public class BaccaratLiveAnimController implements CommonPopupWindow.ViewInterfa
     }
 
 
-
     private void initNullBackground() {
         ((BaccaratLiveActivity) mContext).runOnUiThread(new Runnable() {
             @Override
@@ -299,6 +298,7 @@ public class BaccaratLiveAnimController implements CommonPopupWindow.ViewInterfa
                 }
                 libPlayer.SmartPlayerClose(playerHandle);//close关闭视频  stop只是暂停视频
                 isPlaying = false;
+                BaccaratLiveSocketController.getInstance().disconnectSocket();
                 SharedPreUtil.getInstance(mContext).saveParam(Constant.BAC_VIDEO_PLAYING, 0);//点击退出停止播放
                 SharedPreUtil.getInstance(mContext).saveParam(Constant.VIDEO_PLAYING, 0);
                 ((BaccaratLiveActivity) mContext).finish();
@@ -326,7 +326,7 @@ public class BaccaratLiveAnimController implements CommonPopupWindow.ViewInterfa
         RelativeLayout rl_menu_game_rule = (RelativeLayout) layout.findViewById(R.id.rl_menu_game_rule);
         RelativeLayout rl_menu_message = (RelativeLayout) layout.findViewById(R.id.rl_menu_message);
         RelativeLayout rl_menu_exit = (RelativeLayout) layout.findViewById(R.id.rl_menu_exit);
-        if(SharedPreUtil.getInstance(mContext).getInt(Constant.WHERE_SET)!=1){
+        if (SharedPreUtil.getInstance(mContext).getInt(Constant.WHERE_SET) != 1) {
             rl_menu_exit.setVisibility(View.GONE);
         }
         rl_menu_records.setOnClickListener(new View.OnClickListener() {
@@ -385,7 +385,7 @@ public class BaccaratLiveAnimController implements CommonPopupWindow.ViewInterfa
             @Override
             public void onClick(View v) {
                 libPlayer.SmartPlayerStopPlay(playerHandle);
-                mContext.startActivity(new Intent(mContext, LocalHtmlWebViewActivity.class).putExtra("selectBac",0));
+                mContext.startActivity(new Intent(mContext, LocalHtmlWebViewActivity.class).putExtra("selectBac", 0));
             }
         });
         rl_menu_message.setOnClickListener(new View.OnClickListener() {
@@ -513,7 +513,7 @@ public class BaccaratLiveAnimController implements CommonPopupWindow.ViewInterfa
                             String[] _url = mBaccarat.dxRtmp;
                             hVideo = "rtmp://" + _url[1];
                             lVideo = "rtmp://" + _url[0];
-                            LogUtil.i("视频地址="+hVideo+" lVideo="+lVideo);
+                            LogUtil.i("视频地址=" + hVideo + " lVideo=" + lVideo);
                             switchPlay(hVideo);
                         } else {
                             ToastUtil.show(mContext, "没有视频！");
@@ -530,7 +530,7 @@ public class BaccaratLiveAnimController implements CommonPopupWindow.ViewInterfa
                             String[] _url = mBaccarat.ydRtmp;
                             hVideo = "rtmp://" + _url[1];
                             lVideo = "rtmp://" + _url[0];
-                            LogUtil.i("视频地址="+hVideo+" lVideo="+lVideo);
+                            LogUtil.i("视频地址=" + hVideo + " lVideo=" + lVideo);
                             switchPlay(hVideo);
                         } else {
                             ToastUtil.show(mContext, "没有视频！");
@@ -546,7 +546,7 @@ public class BaccaratLiveAnimController implements CommonPopupWindow.ViewInterfa
                             String[] _url = mBaccarat.rtmp;
                             hVideo = "rtmp://" + _url[1];
                             lVideo = "rtmp://" + _url[0];
-                            LogUtil.i("视频地址="+hVideo+" lVideo="+lVideo);
+                            LogUtil.i("视频地址=" + hVideo + " lVideo=" + lVideo);
                             switchPlay(hVideo);
                         } else {
                             ToastUtil.show(mContext, "没有视频！");

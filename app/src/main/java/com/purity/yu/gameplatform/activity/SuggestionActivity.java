@@ -24,6 +24,7 @@ public class SuggestionActivity extends BaseActivity {
     @BindView(R.id.webView)
     X5WebView webView;
     private Context mContext;
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         mContext = SuggestionActivity.this;

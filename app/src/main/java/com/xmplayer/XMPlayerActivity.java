@@ -165,7 +165,7 @@ public class XMPlayerActivity extends AppCompatActivity {
         String _ip = this.getIntent().getStringExtra("ip");
         String ip = _ip.split(":")[0];
         int port = Integer.parseInt(_ip.split(":")[1]);
-        tag  = this.getIntent().getStringExtra("tag");
+        tag = this.getIntent().getStringExtra("tag");
         //0右上 1上中 2左上 3左中 4左下 5下中 6右下 7右中
         XMMediaPlayerAPI.startPlay(ip, port, "xiaoming", "ali",
                 "xm.token", "6", "android", "xmpalyerdemo", Integer.parseInt(tag));
@@ -174,24 +174,24 @@ public class XMPlayerActivity extends AppCompatActivity {
         RelativeLayout rl_xmplayer_root = (RelativeLayout) findViewById(R.id.rl_xmplayer_root);
         int _interview = R.dimen.unit40;
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        if (displayMetrics.widthPixels < 2100 && displayMetrics.widthPixels > 2000&& displayMetrics.densityDpi == 480) {
+        if (displayMetrics.widthPixels < 2100 && displayMetrics.widthPixels > 2000 && displayMetrics.densityDpi == 480) {
             rl_xmplayer_root.setPadding(getResources().getDimensionPixelSize(_interview), 0, getResources().getDimensionPixelSize(_interview), 0);
         }
 
         Intent intent = new Intent(getApplicationContext(), MusicService.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
 //        if (SharedPreUtil.getInstance(this).getInt(Constant.MUSIC_SWITCH) == 0) {
-            stopService(new Intent(this, MusicService.class));
-            if (mService != null) {
-                mService.pauseMusic();
-            } else {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mService.pauseMusic();
-                    }
-                }, 600);
-            }
+        stopService(new Intent(this, MusicService.class));
+        if (mService != null) {
+            mService.pauseMusic();
+        } else {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mService.pauseMusic();
+                }
+            }, 600);
+        }
 //        }
     }
 

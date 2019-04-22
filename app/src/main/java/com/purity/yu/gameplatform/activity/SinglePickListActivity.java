@@ -230,6 +230,7 @@ public class SinglePickListActivity extends BaseActivity {
                         if (i < 2) {//如果接受了多次 就强制只接受一个 中间也不要用EventBus在传一遍
                             avi.hide();
                             adapter.update(hallList);
+                            i=0;
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -259,12 +260,14 @@ public class SinglePickListActivity extends BaseActivity {
     private Emitter.Listener onDisconnect = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
+            conn();
         }
     };
 
     private Emitter.Listener onConnectError = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
+            conn();
         }
     };
 //-----------------------------------------大厅结束---------------------------------------------------------

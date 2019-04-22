@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 
 public class Player implements Serializable {
-//    public String id;
+    //    public String id;
     @SerializedName("playuser")
     public String playUser;//玩家编号
     public String bei;

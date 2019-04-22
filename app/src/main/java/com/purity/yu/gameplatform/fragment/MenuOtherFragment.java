@@ -22,6 +22,10 @@ public class MenuOtherFragment extends BaseFragment {
     TextView tv_push_switch_off;
     @BindView(R.id.tv_push_switch_on)
     TextView tv_push_switch_on;
+    @BindView(R.id.tv_robot_switch_off)
+    TextView tv_robot_switch_off;
+    @BindView(R.id.tv_robot_switch_on)
+    TextView tv_robot_switch_on;
 
     @Override
     protected void initView(View view) {
@@ -32,6 +36,7 @@ public class MenuOtherFragment extends BaseFragment {
     private void initData() {
         int _videoSwitch = SharedPreUtil.getInstance(getActivity()).getInt(Constant.VIDEO_SWITCH);
         int _pushSwitch = SharedPreUtil.getInstance(getActivity()).getInt(Constant.PUSH_SWITCH);
+        int _robotSwitch = SharedPreUtil.getInstance(getActivity()).getInt(Constant.ROBOT_SWITCH);
         if (_videoSwitch == 0) {
             videoSwitch(View.VISIBLE, View.GONE);
         } else if (_videoSwitch == 1) {
@@ -41,6 +46,11 @@ public class MenuOtherFragment extends BaseFragment {
             pushSwitch(View.VISIBLE, View.GONE);
         } else if (_pushSwitch == 1) {
             pushSwitch(View.GONE, View.VISIBLE);
+        }
+        if (_robotSwitch == 1) {
+            robotSwitch(View.VISIBLE, View.GONE);
+        } else if (_robotSwitch == 0) {
+            robotSwitch(View.GONE, View.VISIBLE);
         }
     }
 
@@ -73,7 +83,20 @@ public class MenuOtherFragment extends BaseFragment {
                 SharedPreUtil.getInstance(getActivity()).saveParam(Constant.PUSH_SWITCH, 0);
             }
         });
-
+        tv_robot_switch_on.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                robotSwitch(View.GONE, View.VISIBLE);
+                SharedPreUtil.getInstance(getActivity()).saveParam(Constant.ROBOT_SWITCH, 0);//默认关
+            }
+        });
+        tv_robot_switch_off.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                robotSwitch(View.VISIBLE, View.GONE);
+                SharedPreUtil.getInstance(getActivity()).saveParam(Constant.ROBOT_SWITCH, 1);//和其他2个不同 1才为开
+            }
+        });
     }
 
     private void videoSwitch(int gone, int visible) {
@@ -84,5 +107,10 @@ public class MenuOtherFragment extends BaseFragment {
     private void pushSwitch(int gone, int visible) {
         tv_push_switch_on.setVisibility(gone);
         tv_push_switch_off.setVisibility(visible);
+    }
+
+    private void robotSwitch(int gone, int visible) {
+        tv_robot_switch_on.setVisibility(gone);
+        tv_robot_switch_off.setVisibility(visible);
     }
 }

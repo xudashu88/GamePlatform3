@@ -23,7 +23,7 @@ public class NetStateDialog extends Dialog {
 
     public NetStateDialog(Context context) {
         super(context, R.style.hintDialog);
-        this.context=context;
+        this.context = context;
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_net_state, null);  //通过LayoutInflater获取布局
         title = (TextView) view.findViewById(R.id.tv_title);
         tv_exit = (TextView) view.findViewById(R.id.tv_exit);
@@ -33,8 +33,8 @@ public class NetStateDialog extends Dialog {
 
     /**
      * show之后设置属性
-     * */
-    public void setAttributes(){
+     */
+    public void setAttributes() {
         WindowManager.LayoutParams lp = getWindow().getAttributes();//对话框属性
         lp.dimAmount = 0.6f;//所有弹窗的背景透明度都为0.6
         WindowManager m = ((Activity) context).getWindowManager();

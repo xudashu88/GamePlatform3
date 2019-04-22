@@ -42,7 +42,7 @@ public class ArcadeAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.iv = (ImageView) convertView.findViewById(R.id.iv);
             convertView.setTag(holder);
-        }else {
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
 //        ImageView iv = (ImageView) convertView.findViewById(R.id.iv);

@@ -294,13 +294,12 @@ public class SinglePickLiveAnimControler implements CommonPopupWindow.ViewInterf
         ll_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.show(mContext, "退出中。。");
                 libPlayer.SmartPlayerStopPlay(playerHandle);
                 isPlaying = false;
+                SinglePickLiveSocketController.getInstance().disconnectSocket();
                 SharedPreUtil.getInstance(mContext).saveParam(Constant.BAC_VIDEO_PLAYING, 0);//点击退出停止播放
                 SharedPreUtil.getInstance(mContext).saveParam(Constant.VIDEO_PLAYING, 0);
                 ((SinglePickLiveActivity) mContext).finish();
-                LogUtil.i("单挑退出 2");
                 mContext.startActivity(new Intent(mContext, SinglePickListActivity.class));
             }
         });

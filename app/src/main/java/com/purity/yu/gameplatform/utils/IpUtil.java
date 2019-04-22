@@ -19,7 +19,6 @@ public class IpUtil {
     /**
      * 整体进行切换 至少一个最多2个
      *
-     *
      * @param code
      * @return
      */
@@ -49,36 +48,36 @@ public class IpUtil {
         //yhwkgaea
     }
 
-    public static String decode(String ip){
+    public static String decode(String ip) {
         //字典
-        Map<String,String> map=new HashMap<>();
-        map.put("0","i");
-        map.put("1","n");
-        map.put("2","p");
-        map.put("3","z");
-        map.put("4","r");
-        map.put("5","a");
-        map.put("6","g");
-        map.put("7","h");
-        map.put("8","x");
-        map.put("9","e");
-        map.put("a","d");
-        map.put("b","y");
-        map.put("c","k");
-        map.put("d","m");
-        map.put("e","w");
-        map.put("f","b");
+        Map<String, String> map = new HashMap<>();
+        map.put("0", "i");
+        map.put("1", "n");
+        map.put("2", "p");
+        map.put("3", "z");
+        map.put("4", "r");
+        map.put("5", "a");
+        map.put("6", "g");
+        map.put("7", "h");
+        map.put("8", "x");
+        map.put("9", "e");
+        map.put("a", "d");
+        map.put("b", "y");
+        map.put("c", "k");
+        map.put("d", "m");
+        map.put("e", "w");
+        map.put("f", "b");
 
 
-        String result="";
-        for (String s:ip.split("\\.")) {
-            s=Integer.toHexString(Integer.valueOf(s));
-            if(s.length()==1){
-                s="0"+s;
+        String result = "";
+        for (String s : ip.split("\\.")) {
+            s = Integer.toHexString(Integer.valueOf(s));
+            if (s.length() == 1) {
+                s = "0" + s;
             }
 
-            for (String i:s.split("")) {
-                result+=map.get(i);
+            for (String i : s.split("")) {
+                result += map.get(i);
             }
         }
         System.out.println(result);

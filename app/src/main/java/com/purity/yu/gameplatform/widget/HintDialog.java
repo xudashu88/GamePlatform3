@@ -22,7 +22,7 @@ public class HintDialog extends Dialog {
 
     public HintDialog(Context context) {
         super(context, R.style.hintDialog);
-        this.context=context;
+        this.context = context;
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_hint, null);  //通过LayoutInflater获取布局
         title = (TextView) view.findViewById(R.id.tv_title);
         sure = (TextView) view.findViewById(R.id.tv_sure);
@@ -31,8 +31,8 @@ public class HintDialog extends Dialog {
 
     /**
      * show之后设置属性
-     * */
-    public void setAttributes(){
+     */
+    public void setAttributes() {
         WindowManager.LayoutParams lp = getWindow().getAttributes();//对话框属性
         lp.dimAmount = 0.6f;//所有弹窗的背景透明度都为0.6
         WindowManager m = ((Activity) context).getWindowManager();
@@ -45,7 +45,7 @@ public class HintDialog extends Dialog {
         setCanceledOnTouchOutside(true);//false 对话框外部失去焦点
     }
 
-    public void setAttributes(float width,float height){
+    public void setAttributes(float width, float height) {
         WindowManager.LayoutParams lp = getWindow().getAttributes();//对话框属性
         lp.dimAmount = 0.6f;//所有弹窗的背景透明度都为0.6
         WindowManager m = ((Activity) context).getWindowManager();

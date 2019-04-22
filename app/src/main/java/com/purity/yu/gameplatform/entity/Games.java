@@ -21,27 +21,27 @@ public class Games implements Serializable {
     /**
      * 游戏类型
      */
-    public long skuId ;
+    public long skuId;
     /**
      * 创建者
      */
-    public long createBy ;
+    public long createBy;
     /**
      * 最小金币
      */
-    public int minCoin ;
+    public int minCoin;
     /**
      * 最大金币
      */
-    public int max_coin ;
+    public int max_coin;
     /**
      * 最小下注金币
      */
-    public int minBetCoin ;
+    public int minBetCoin;
     /**
      * 最大局数
      */
-    public int maxDesk ;
+    public int maxDesk;
 
-    public List<GamePlay> gamePlays=new ArrayList<>();
+    public List<GamePlay> gamePlays = new ArrayList<>();
 }

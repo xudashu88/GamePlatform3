@@ -27,7 +27,7 @@ public class Records implements Serializable {
     public String bankCard;//莊家
     @SerializedName("player_cards")
     public String playCard;//閑家
-     @SerializedName("game_result")
+    @SerializedName("game_result")
     public String gameResult;//牌局結果信息 全字符匹配
     @SerializedName("bet_record")
     public String betRecord;//下注类型 "small,big",

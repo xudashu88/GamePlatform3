@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.gangbeng.basemodule.utils.LogUtil;
 import com.gangbeng.basemodule.utils.SharedPreUtil;
+import com.gangbeng.basemodule.utils.ToastUtil;
+import com.gangbeng.basemodule.utils.Util;
 import com.purity.yu.gameplatform.R;
 import com.purity.yu.gameplatform.activity.BacActivity;
 import com.purity.yu.gameplatform.baccarat.YHZGridView;
@@ -66,15 +68,19 @@ public class BaccaratRVAdapter2 extends RecyclerView.Adapter<BaccaratRVAdapter2.
         holder.iv_bg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Baccarat baccarat = mBaccaratList.get(position);
-                Intent intent = new Intent(mContext, BacActivity.class);
+                if(Util.isFastClick(mContext,5000)){
+                    Baccarat baccarat = mBaccaratList.get(position);
+                    Intent intent = new Intent(mContext, BacActivity.class);
 //                Intent intent = new Intent(mContext, MacauActivity.class);
-                intent.putExtra("baccarat", baccarat);
-                intent.putExtra("roomId", mBaccaratList.get(position).roomId);
-                intent.putExtra("roomName", mBaccaratList.get(position).roomName);
-                intent.putExtra("betSecond", mBaccaratList.get(position).betSecond);
-                mContext.startActivity(intent);
-//                ((BaccaratListActivity) mContext).finish();
+                    intent.putExtra("baccarat", baccarat);
+                    intent.putExtra("roomId", mBaccaratList.get(position).roomId);
+                    intent.putExtra("roomName", mBaccaratList.get(position).roomName);
+                    intent.putExtra("betSecond", mBaccaratList.get(position).betSecond);
+                    mContext.startActivity(intent);
+                }else {
+                    ToastUtil.show(mContext, "操作频繁！请稍后再试。");
+                }
+
             }
         });
         if (mHallList == null || mHallList.size() == 0) {//可见条目的个数就是要初始化的次数
@@ -226,8 +232,7 @@ public class BaccaratRVAdapter2 extends RecyclerView.Adapter<BaccaratRVAdapter2.
                 holder.pcac.setCurrentPercent(-2);
             }
             if (hall.state.equals(Constant.BACCARAT_BET) && mBaccaratList.get(position).roomId.equals(hall.roomId)) {//倒计时
-                Constant.SEND_CARD = mBaccaratList.get(position).betSecond;
-                holder.pcac.setAllTime(Constant.SEND_CARD);
+                holder.pcac.setAllTime(hall.second);
                 holder.pcac.setTargetPercent(0);
                 holder.pcac.reInitView();
             } else if (hall.state.equals(Constant.BACCARAT_WAIT) || hall.state.equals(Constant.BACCARAT_OVER) && mBaccaratList.get(position).roomId.equals(hall.roomId)) {//结算

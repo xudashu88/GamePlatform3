@@ -1,15 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:id="@+id/root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <!--
+        android:background="@drawable/transition_tabhost"
+        android:padding="@dimen/unit2"
+    -->
+    <com.purity.yu.gameplatform.widget.CustomView
+        android:id="@+id/iv_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_margin="@dimen/unit2">-->
 
     <RelativeLayout
         android:id="@+id/rl_wrap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/new_bg_bet">
+        android:background="@color/new_bg_bet"
+        android:visibility="visible">
 
         <RelativeLayout
             android:id="@+id/rl_sv"
@@ -90,8 +105,8 @@
                 android:id="@+id/rl_player_dot_layout"
                 android:layout_width="@dimen/unit70"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_below="@id/rl_player_layout">
+                android:layout_below="@id/rl_player_layout"
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -200,8 +215,8 @@
                 android:layout_width="@dimen/unit70"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rl_banker_layout"
-                android:visibility="gone"
-                android:layout_alignParentRight="true">
+                android:layout_alignParentRight="true"
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -288,7 +303,7 @@
                         android:gravity="left|center_vertical"
                         android:text="@string/vip"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/font12" />
+                        android:textSize="@dimen/font10" />
 
                     <TextView
                         android:id="@+id/tv_nickname"
@@ -298,7 +313,7 @@
                         android:gravity="left|center_vertical"
                         android:text=""
                         android:textColor="@color/new_red"
-                        android:textSize="@dimen/font12" />
+                        android:textSize="@dimen/font10" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -315,7 +330,7 @@
                         android:gravity="left|center_vertical"
                         android:text="余额:"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/font12" />
+                        android:textSize="@dimen/font10" />
 
                     <TextView
                         android:id="@+id/tv_money"
@@ -325,7 +340,7 @@
                         android:gravity="left|center_vertical"
                         android:text="0"
                         android:textColor="@color/new_red"
-                        android:textSize="@dimen/font12" />
+                        android:textSize="@dimen/font10" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -342,7 +357,7 @@
                         android:gravity="left|center_vertical"
                         android:text="押注:"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/font12" />
+                        android:textSize="@dimen/font10" />
 
                     <TextView
                         android:id="@+id/tv_bet_all_score"
@@ -352,7 +367,7 @@
                         android:gravity="left|center_vertical"
                         android:text="0"
                         android:textColor="@color/new_red"
-                        android:textSize="@dimen/font12" />
+                        android:textSize="@dimen/font10" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -369,7 +384,7 @@
                         android:gravity="left|center_vertical"
                         android:text="得分:"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/font12" />
+                        android:textSize="@dimen/font10" />
 
                     <TextView
                         android:id="@+id/tv_win"
@@ -379,7 +394,7 @@
                         android:gravity="left|center_vertical"
                         android:text="0"
                         android:textColor="@color/new_red"
-                        android:textSize="@dimen/font12" />
+                        android:textSize="@dimen/font10" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -404,7 +419,7 @@
                     android:gravity="left|center_vertical"
                     android:text="桌台限红 ▽"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/unit14" />
+                    android:textSize="@dimen/unit12" />
 
 
                 <LinearLayout
@@ -422,7 +437,7 @@
                         android:gravity="left|center_vertical"
                         android:text="在线人数:"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/font14" />
+                        android:textSize="@dimen/unit10" />
 
                     <TextView
                         android:id="@+id/tv_online_count"
@@ -432,7 +447,7 @@
                         android:gravity="left|center_vertical"
                         android:text="0"
                         android:textColor="@color/new_red"
-                        android:textSize="@dimen/font14" />
+                        android:textSize="@dimen/unit10" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -1550,7 +1565,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/rl_wrap" />
-
+    <!--</RelativeLayout>-->
 </RelativeLayout>
 
 

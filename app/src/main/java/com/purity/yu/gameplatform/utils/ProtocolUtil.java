@@ -34,13 +34,14 @@ import com.purity.yu.gameplatform.activity.TabHostActivity;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.base.ServiceIpConstant;
 import com.purity.yu.gameplatform.entity.Baccarat;
-import com.purity.yu.gameplatform.entity.Game2;
+import com.purity.yu.gameplatform.entity.Game;
 import com.purity.yu.gameplatform.entity.GamePlay;
 import com.purity.yu.gameplatform.entity.GameRoom;
 import com.purity.yu.gameplatform.entity.Games;
 import com.purity.yu.gameplatform.entity.Notice;
 import com.purity.yu.gameplatform.event.ObjectEvent;
 import com.purity.yu.gameplatform.http.HttpRequest;
+import com.purity.yu.gameplatform.login.KittyActivity;
 import com.purity.yu.gameplatform.login.LoginActivity;
 import com.purity.yu.gameplatform.login.RegisterActivity;
 import com.purity.yu.gameplatform.widget.HintDialog;
@@ -71,7 +72,7 @@ public class ProtocolUtil {
     private static ProtocolUtil instance = null;
     private NotificationManager mNotificationManager;
     List<GameRoom> gameRoomList = new ArrayList<>();
-    List<Game2> gameList = new ArrayList<>();
+    List<Game> gameList = new ArrayList<>();
 
     public void init(Context context) {
         mContext = context;
@@ -507,14 +508,8 @@ public class ProtocolUtil {
 
     public void postLoginOut(final Context mContext, final Timer timer) {
         String token = SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN);
-        LogUtil.i("退出 postLoginOut=" + token);
         if (TextUtils.isEmpty(token)) {
-//            System.exit(0);
-            cleanSharedPre(mContext);
-            Intent intent = new Intent(mContext, LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            mContext.startActivity(intent);
-            ((TabHostActivity) mContext).finish();
+            toLogin(mContext);
             return;
         }
         ProtocolUtil.getInstance().postLogOut(mContext, timer);
@@ -527,9 +522,9 @@ public class ProtocolUtil {
                     @Override
                     public void onResultOk(String result) {
                         try {
-                            JSONObject json;
+                            JSONObject json = null;
+                            JSONObject __data = null;
                             json = new JSONObject(result);
-                            LogUtil.i("退出=" + json);
                             int code = json.optInt("code");
                             String data = json.optString("data");
                             if (code != 0) {
@@ -539,18 +534,9 @@ public class ProtocolUtil {
                                 if (timer != null) {
                                     timer.cancel();//离开主页暂停获取消息轮询
                                 }
-                                cleanSharedPre(mContext);
-                                ((TabHostActivity) mContext).runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        String ok = mContext.getResources().getString(R.string.exit_successfully);
-                                        ToastUtil.show(mContext, ok);
-                                        Intent intent = new Intent(mContext, LoginActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        mContext.startActivity(intent);
-                                        ((TabHostActivity) mContext).finish();
-                                    }
-                                });
+                                String ok = mContext.getResources().getString(R.string.exit_successfully);
+                                ToastUtil.show(mContext, ok);
+                                toLogin(mContext);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -558,41 +544,35 @@ public class ProtocolUtil {
                     }
 
                     @Override
-                    public void onResultFault(int code, String hint) {
-                        super.onResultFault(code, hint);
-                        LogUtil.i("退出 onResultFault=" + hint);
-                        cleanSharedPre(mContext);
-                        ((TabHostActivity) mContext).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                String ok = mContext.getResources().getString(R.string.exit_successfully);
-                                ToastUtil.show(mContext, ok);
-                                Intent intent = new Intent(mContext, LoginActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                mContext.startActivity(intent);
-                                ((TabHostActivity) mContext).finish();
-                            }
-                        });
+                    public void onFailure(Request request, Exception e) {
+                        super.onFailure(request, e);
+                        toLogin(mContext);
                     }
 
                     @Override
-                    public void onFailure(Request request, Exception e) {
-                        super.onFailure(request, e);
-                        LogUtil.i("退出 onFailure=" + e.getMessage());
-                        cleanSharedPre(mContext);
-                        ((TabHostActivity) mContext).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                String ok = mContext.getResources().getString(R.string.exit_successfully);
-                                ToastUtil.show(mContext, ok);
-                                Intent intent = new Intent(mContext, LoginActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                mContext.startActivity(intent);
-                                ((TabHostActivity) mContext).finish();
-                            }
-                        });
+                    public void onResultFault(int code, String hint) {
+                        super.onResultFault(code, hint);
+                        toLogin(mContext);
                     }
                 });
+    }
+
+    private void toLogin(final Context mContext) {
+        cleanSharedPre(mContext);
+        ((TabHostActivity) mContext).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent;
+                if (SharedPreUtil.getInstance(mContext).getInt(Constant.VERSION) == 1) {
+                    intent = new Intent(mContext, KittyActivity.class);
+                } else {
+                    intent = new Intent(mContext, LoginActivity.class);
+                }
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
+                ((TabHostActivity) mContext).finish();
+            }
+        });
     }
 
     /**
@@ -1255,7 +1235,7 @@ public class ProtocolUtil {
                         try {
                             json = new JSONObject(result);
                             String _data = json.optString("data");
-                            gameList = parseArrayObject(_data, "items", Game2.class);
+                            gameList = parseArrayObject(_data, "items", Game.class);
                             for (int i = 0; i < gameList.size(); i++) {
                                 String verify = gameList.get(i).platformCode + gameList.get(i).gameNameEn;
                                 if (verify.equals("JXB" + "baccarat")) {

@@ -17,7 +17,7 @@ public class Hall implements Serializable {
 //    public String waitressName;//坐庄人名称
     public String roomId;//机器编号
     public String betLimitRed;//下注限红
-    public List<Player> playerList=new ArrayList<>();//玩家
+    public List<Player> playerList = new ArrayList<>();//玩家
     public String banker;//庄
     public String player;//闲
     public int players;//人数
@@ -36,13 +36,14 @@ public class Hall implements Serializable {
 
     /**
      * 百家乐大厅
+     *
      * @param roomId
      * @param state
      * @param second
      * @param peopleNumber
      * @param boardMessageList
      */
-    public Hall(String roomId, String state, int second, int peopleNumber, List<Integer> boardMessageList,int peopleNum,String[] color) {
+    public Hall(String roomId, String state, int second, int peopleNumber, List<Integer> boardMessageList, int peopleNum, String[] color) {
         this.roomId = roomId;
         this.state = state;
         this.second = second;
@@ -54,6 +55,7 @@ public class Hall implements Serializable {
 
     /**
      * 街机大厅
+     *
      * @param gameRoom
      * @param peopleNumber
      * @param playerList
@@ -64,7 +66,7 @@ public class Hall implements Serializable {
         this.playerList = playerList;
     }
 
-    public Hall(String roomId, String state, int second, int peopleNumber, List<Integer> boardMessageList,List<String> cardList) {
+    public Hall(String roomId, String state, int second, int peopleNumber, List<Integer> boardMessageList, List<String> cardList) {
         this.roomId = roomId;
         this.state = state;
         this.second = second;

@@ -41,6 +41,6 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         SettingController.getInstance().init(this);
-        SettingController.getInstance().copyWidget(rl_menu_title,rl_menu_chips,rl_menu_language,rl_menu_music,rl_menu_other,tv_menu_chips,tv_menu_language,tv_menu_music,tv_menu_other);
+        SettingController.getInstance().copyWidget(rl_menu_title, rl_menu_chips, rl_menu_language, rl_menu_music, rl_menu_other, tv_menu_chips, tv_menu_language, tv_menu_music, tv_menu_other);
     }
 }

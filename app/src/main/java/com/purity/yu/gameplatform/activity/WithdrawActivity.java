@@ -72,6 +72,10 @@ public class WithdrawActivity extends BaseActivity {
     public EditText et_pay_pwd;
     @BindView(R.id.ll_back)
     public LinearLayout ll_back;
+    @BindView(R.id.ll_withdraw)
+    public LinearLayout ll_withdraw;
+    @BindView(R.id.ll_bank_branch)
+    public LinearLayout ll_bank_branch;
     private Context mContext;
 
     @Override
@@ -83,6 +87,13 @@ public class WithdrawActivity extends BaseActivity {
         int id = SharedPreUtil.getInstance(mContext).getInt("withdraw_state_id");
         if (id != 0) {
             getWithdrawFind(id, tv_withdraw);
+        }
+        if (SharedPreUtil.getInstance(mContext).getInt(Constant.VERSION) == 1) {
+            ll_withdraw.setBackgroundResource(R.drawable.bg_gameroom);
+            ll_bank_branch.setVisibility(View.GONE);
+        } else {
+            ll_withdraw.setBackgroundResource(R.drawable.start_bg);
+            ll_bank_branch.setVisibility(View.VISIBLE);
         }
     }
 
@@ -125,9 +136,18 @@ public class WithdrawActivity extends BaseActivity {
             public void onClick(View v) {
                 //在这里使用新的视图
                 View view = LayoutInflater.from(mContext).inflate(R.layout.bank_list, null);
-                RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+                RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
                 RelativeLayout rl_data = view.findViewById(R.id.rl_data);
                 TextView tv_no_data = view.findViewById(R.id.tv_no_data);
+                TextView tv_branch_name = view.findViewById(R.id.tv_branch_name);
+                View include = view.findViewById(R.id.include);
+                if (SharedPreUtil.getInstance(mContext).getInt(Constant.VERSION) == 1) {
+                    tv_branch_name.setVisibility(View.GONE);
+                    include.setVisibility(View.GONE);
+                } else {
+                    tv_branch_name.setVisibility(View.VISIBLE);
+                    include.setVisibility(View.VISIBLE);
+                }
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 final AlertDialog mAlertDialog = builder.create();
                 mAlertDialog.show();
@@ -138,7 +158,7 @@ public class WithdrawActivity extends BaseActivity {
         tv_withdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Util.isFastClick(3000)) {
+                if (Util.isFastClick(mContext, 3000)) {
                     if (verifyWithdraw()) {
                         withdraw(mContext, et_your_name,
                                 et_bank_number, et_bank_name, et_bank_branch, et_pay_pwd, et_phone, et_withdraw,

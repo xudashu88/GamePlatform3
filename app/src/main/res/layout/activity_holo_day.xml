@@ -2100,6 +2100,7 @@
         android:layout_width="@dimen/unit270"
         android:layout_height="@dimen/unit130"
         android:layout_alignParentRight="true"
+        android:visibility="visible"
         android:layout_marginTop="@dimen/unit1"
         android:layout_marginRight="@dimen/unit1" />
 
