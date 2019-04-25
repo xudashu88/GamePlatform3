@@ -165,6 +165,7 @@ public class BaccaratListActivity2 extends BaseActivity {
     public void connectSocket() {
         if (mSocket != null) {
             mSocket.on(Socket.EVENT_CONNECT, onConnect);
+            mSocket.on(Socket.EVENT_CONNECT, onReConnect);
             mSocket.on(Socket.EVENT_DISCONNECT, onDisconnect);
             mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
             mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
@@ -200,6 +201,7 @@ public class BaccaratListActivity2 extends BaseActivity {
         if (mSocket != null) {
             mSocket.disconnect();
             mSocket.off(Socket.EVENT_CONNECT, onConnect);
+            mSocket.off(Socket.EVENT_CONNECT, onReConnect);
             mSocket.off(Socket.EVENT_DISCONNECT, onDisconnect);
             mSocket.off(Socket.EVENT_CONNECT_ERROR, onConnectError);
             mSocket.off(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
@@ -271,6 +273,15 @@ public class BaccaratListActivity2 extends BaseActivity {
         }
     };
 
+    private Emitter.Listener onReConnect = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            LogUtil.i("断线重连~~~");
+//            ToastUtil.show(mContext,"断线重连成功");
+//            conn();
+        }
+    };
+
     private void conn() {
         if (TextUtils.isEmpty(SharedPreUtil.getInstance(mContext).getString(Constant.USER_TOKEN))) {
             ToastUtil.show(mContext, "未登录");
@@ -280,7 +291,7 @@ public class BaccaratListActivity2 extends BaseActivity {
             }
         }
     }
-
+//4693 门禁
     private Emitter.Listener onDisconnect = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
@@ -308,7 +319,6 @@ public class BaccaratListActivity2 extends BaseActivity {
     protected void onResume() {
         super.onResume();
         LogUtil.i("返回百家乐列表 onResume");
-
     }
 
     @Override

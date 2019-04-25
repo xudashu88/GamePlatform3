@@ -14,8 +14,6 @@ import android.widget.ProgressBar;
 
 import com.gangbeng.basemodule.utils.SharedPreUtil;
 import com.purity.yu.gameplatform.R;
-import com.purity.yu.gameplatform.annotation.ContentView;
-import com.purity.yu.gameplatform.base.BaseActivity;
 import com.purity.yu.gameplatform.base.Constant;
 import com.purity.yu.gameplatform.utils.ProtocolUtil;
 import com.purity.yu.gameplatform.widget.CountDownProgressBar;
